@@ -10,6 +10,27 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AnyGift">
         <activity
+            android:name=".giftCardsDetails"
+            android:exported="false" />
+        <activity
+            android:name=".myGiftCards"
+            android:exported="false" />
+        <activity
+            android:name=".profile"
+            android:exported="false" />
+        <activity
+            android:name=".createGiftCard"
+            android:exported="false" />
+        <activity
+            android:name=".feed"
+            android:exported="false" />
+        <activity
+            android:name=".login"
+            android:exported="false" />
+        <activity
+            android:name=".signIn"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
