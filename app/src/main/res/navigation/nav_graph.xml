@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/loginFragment">
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.anygift.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" />
+    <fragment
+        android:id="@+id/signUpFragment"
+        android:name="com.example.anygift.SignUpFragment"
+        android:label="fragment_sign_up"
+        tools:layout="@layout/fragment_sign_up" />
+    <fragment
+        android:id="@+id/userProfileFragment"
+        android:name="com.example.anygift.UserProfileFragment"
+        android:label="fragment_user_profile"
+        tools:layout="@layout/fragment_user_profile" />
+    <fragment
+        android:id="@+id/myCardsFragment"
+        android:name="com.example.anygift.MyCardsFragment"
+        android:label="fragment_my_cards"
+        tools:layout="@layout/fragment_my_cards" />
+    <fragment
+        android:id="@+id/addCardFragment"
+        android:name="com.example.anygift.AddCardFragment"
+        android:label="fragment_add_card"
+        tools:layout="@layout/fragment_add_card" />
+    <fragment
+        android:id="@+id/feedFragment"
+        android:name="com.example.anygift.FeedFragment"
+        android:label="fragment_feed"
+        tools:layout="@layout/fragment_feed" />
+    <fragment
+        android:id="@+id/cardsDetailsFragment"
+        android:name="com.example.anygift.CardsDetailsFragment"
+        android:label="fragment_cards_details"
+        tools:layout="@layout/fragment_cards_details" />
+    <fragment
+        android:id="@+id/editCardDetailsFragment"
+        android:name="com.example.anygift.EditCardDetailsFragment"
+        android:label="fragment_edit_card_details"
+        tools:layout="@layout/fragment_edit_card_details" />
+</navigation>
