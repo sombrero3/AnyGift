@@ -35,10 +35,13 @@ public class MainActivity extends AppCompatActivity {
             switch(item.getItemId()){
                 case R.id.menu_profile:{
                     navCtr.navigate(R.id.action_global_userProfileFragment);
+                    break;
                 }
-                case R.id.menu_feed:{
+                case R.id.menu_cards:{
                     navCtr.navigate(R.id.action_global_cardsDetailsFragment);
+                    break;
                 }
+
             }
         } else {
             return true;
