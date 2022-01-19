@@ -2,4 +2,9 @@
     <string name="app_name">anygift</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="Email">Email</string>
+    <string name="Password">Password</string>
+    <string name="Phone">Phone</string>
+    <string name="LastName">LastName</string>
+    <string name="First_Name">First_Name</string>
 </resources>
