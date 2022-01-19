@@ -45,4 +45,5 @@
         android:name="com.example.anygift.EditCardDetailsFragment"
         android:label="fragment_edit_card_details"
         tools:layout="@layout/fragment_edit_card_details" />
+    <action android:id="@+id/action_global_userProfileFragment" app:destination="@id/userProfileFragment" /><action android:id="@+id/action_global_cardsDetailsFragment" app:destination="@id/cardsDetailsFragment"/>
 </navigation>
