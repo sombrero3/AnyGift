@@ -2,6 +2,7 @@ package com.example.anygift.model;
 
 import java.util.List;
 
+
 public class User {
     String id="";
     String firstName;
@@ -11,8 +12,6 @@ public class User {
     String password;
     String address;
     List<GiftCard> giftCards;
-
-
 
     public String getFirstName() {
         return firstName;

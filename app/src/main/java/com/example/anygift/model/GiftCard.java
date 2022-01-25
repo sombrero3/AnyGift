@@ -1,26 +1,34 @@
 package com.example.anygift.model;
 
-import java.util.Date;
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
+
+@Entity
 public class GiftCard {
-    int id;
+    @PrimaryKey
+    @NonNull
+    String id="";
     String cardName;
     double value;
-    Date expirationDate;
-    enum type{
+    Long expirationDate;
+    double wantedPrice;
+    //User owner;
+    public enum type{
         GENERAL,
         CLOTHING,
         VACATIONS,
         SPORTS
     }
-    double wantedPrice;
-    User owner;
 
-    public int getId() {
+    public GiftCard(){}
+
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -40,11 +48,11 @@ public class GiftCard {
         this.value = value;
     }
 
-    public Date getExpirationDate() {
+    public Long getExpirationDate() {
         return expirationDate;
     }
 
-    public void setExpirationDate(Date expirationDate) {
+    public void setExpirationDate(Long expirationDate) {
         this.expirationDate = expirationDate;
     }
 
@@ -56,11 +64,4 @@ public class GiftCard {
         this.wantedPrice = wantedPrice;
     }
 
-    public User getOwner() {
-        return owner;
-    }
-
-    public void setOwner(User owner) {
-        this.owner = owner;
-    }
 }
