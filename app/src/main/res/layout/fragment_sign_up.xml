@@ -80,7 +80,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.507"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/SignUp_textInput_address"
+            app:layout_constraintTop_toBottomOf="@+id/SignUp_textInput_Password"
             tools:ignore="MissingConstraints" />
 
         <Button
@@ -136,9 +136,10 @@
             android:hint="@string/Password"
             android:textColorHint="#E31212"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.375"
             app:layout_constraintStart_toStartOf="parent"
             tools:ignore="MissingConstraints"
-            tools:layout_editor_absoluteY="312dp">
+            tools:layout_editor_absoluteY="358dp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/SignUp_password_input"
@@ -160,7 +161,7 @@
             app:layout_constraintHorizontal_bias="0.375"
             app:layout_constraintStart_toStartOf="parent"
             tools:ignore="MissingConstraints"
-            tools:layout_editor_absoluteY="376dp">
+            tools:layout_editor_absoluteY="302dp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/SignUp_address_input"
