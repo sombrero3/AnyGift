@@ -73,13 +73,14 @@
             android:id="@+id/SignUp_check_box"
             android:layout_width="268dp"
             android:layout_height="60dp"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="80dp"
             android:fontFamily="sans-serif-medium"
             android:text="I agree to the Terms of Services and Privacy Policy."
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.507"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/SignUp_textInput_Password"
+            app:layout_constraintTop_toBottomOf="@+id/SignUp_textInput_address"
             tools:ignore="MissingConstraints" />
 
         <Button
@@ -87,11 +88,12 @@
             android:layout_width="272dp"
             android:layout_height="49dp"
             android:layout_marginStart="60dp"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="50dp"
             android:background="#E31212"
             android:text="Continue"
             android:textColor="#F3F2F2"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.556"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/SignUp_check_box"
             tools:ignore="MissingConstraints" />
@@ -144,6 +146,28 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-medium"
                 android:inputType="textPassword"
+                android:maxLines="1" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/SignUp_textInput_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:hint="@string/Address"
+            android:textColorHint="#E31212"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.375"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteY="376dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/SignUp_address_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-medium"
+                android:inputType="text"
                 android:maxLines="1" />
         </com.google.android.material.textfield.TextInputLayout>
 
