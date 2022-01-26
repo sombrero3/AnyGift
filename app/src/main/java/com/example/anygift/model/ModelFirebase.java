@@ -35,11 +35,11 @@ public class ModelFirebase {
 
     //GiftCard
 
-    interface GetAllProductsListener{
+    interface GetAllGiftCardListener{
         void onComplete(List<GiftCard> list);
     }
 
-    public void getAllProducts(Long lastUpdated, final Model.GetAllGiftCardListener listener) {
+    public void getAllProducts(Long lastUpdated, final GetAllGiftCardListener listener) {
         Timestamp ts = new Timestamp(lastUpdated, 0);
         db.collection("giftCards").whereGreaterThanOrEqualTo("lastUpdated", ts).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
