@@ -6,10 +6,10 @@ import androidx.room.RoomDatabase;
 
 import com.example.anygift.MyApplication;
 
-@Database(entities = {GiftCard.class}, version = 1)
+@Database(entities = {GiftCard.class}, version = 2)
     abstract class AppLocalDbRepository extends RoomDatabase {
         //public abstract UserDao userDao();
-        public abstract GiftCardDao productDao();
+        public abstract GiftCardDao giftCardDao();
 
     }
     public class AppLocalDb{

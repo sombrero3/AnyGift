@@ -1,6 +1,11 @@
 package com.example.anygift.model;
 
+import com.google.firebase.Timestamp;
+import com.google.firebase.firestore.FieldValue;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class User {
@@ -11,6 +16,7 @@ public class User {
     String email;
     String password;
     String address;
+    Long lastUpdated=new Long(0);
     List<GiftCard> giftCards;
 
     public String getFirstName() {
@@ -76,4 +82,45 @@ public class User {
     public void setGiftCards(List<GiftCard> giftCards) {
         this.giftCards = giftCards;
     }
+
+    public Long getLastUpdated() {
+        return lastUpdated;
+    }
+
+    public void setLastUpdated(Long lastUpdated) {
+        this.lastUpdated = lastUpdated;
+    }
+
+    public Map<String, Object> toMap() {
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("id", id);
+        result.put("firstName", firstName);
+        result.put("LastName", lastName);
+        result.put("phone", phone);
+        result.put("email", email);
+        result.put("password", password);
+        result.put("address", address);
+        result.put("lastUpdated", FieldValue.serverTimestamp());
+        //result.put("imageUrl", imageUrl);
+        //result.put("latitude", this.latitude);
+        //result.put("longitude", this.longitude);
+        return result;
+    }
+
+    public void fromMap(Map<String, Object> map) {
+        this.id = (String) map.get("id");
+        this.firstName = (String) map.get("firstName");
+        this.lastName = (String) map.get("lastName");
+        this.phone= (String) map.get("phone");
+        this.email= (String) map.get("email");
+        this.password= (String) map.get("password");
+        //this.imageUrl = (String) map.get("imageUrl");
+        Timestamp ts = (Timestamp) map.get("lastUpdated");
+        this.lastUpdated = ts.getSeconds();
+        //this.latitude = Double.valueOf(map.get("latitude").toString());
+       // this.longitude = Double.valueOf(map.get("longitude").toString());
+    }
+
+
+
 }
