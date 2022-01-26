@@ -1,26 +1,45 @@
 package com.example.anygift.model;
 
-import java.util.Date;
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
+import com.google.firebase.Timestamp;
+import com.google.firebase.firestore.FieldValue;
+
+import java.util.HashMap;
+import java.util.Map;
+
+
+@Entity
 public class GiftCard {
-    int id;
+    @PrimaryKey
+    @NonNull
+    String id="";
     String cardName;
     double value;
-    Date expirationDate;
-    enum type{
+    String expirationDate;
+    double wantedPrice;
+    private Boolean isDeleted=false;
+    private Long lastUpdated;
+    private String ownerEmail;
+    public enum Type{
         GENERAL,
         CLOTHING,
         VACATIONS,
         SPORTS
     }
-    double wantedPrice;
-    User owner;
+    private Type cardType;
 
-    public int getId() {
+
+
+    public GiftCard(){}
+
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -40,12 +59,20 @@ public class GiftCard {
         this.value = value;
     }
 
-    public Date getExpirationDate() {
+    public String getExpirationDate() {
         return expirationDate;
     }
 
-    public void setExpirationDate(Date expirationDate) {
+    public void setExpirationDate(String expirationDate) {
         this.expirationDate = expirationDate;
+    }
+
+    public String getOwnerEmail() {
+        return ownerEmail;
+    }
+
+    public void setOwnerEmail(String ownerEmail) {
+        this.ownerEmail = ownerEmail;
     }
 
     public double getWantedPrice() {
@@ -56,11 +83,59 @@ public class GiftCard {
         this.wantedPrice = wantedPrice;
     }
 
-    public User getOwner() {
-        return owner;
+    public Boolean getDeleted() {
+        return isDeleted;
     }
 
-    public void setOwner(User owner) {
-        this.owner = owner;
+    public void setDeleted(Boolean deleted) {
+        isDeleted = deleted;
     }
+
+    public Long getLastUpdated() {
+        return lastUpdated;
+    }
+
+    public void setLastUpdated(Long lastUpdated) {
+        this.lastUpdated = lastUpdated;
+    }
+
+    public Type getCardType() {
+        return cardType;
+    }
+
+    public void setCardType(Type cardType) {
+        this.cardType = cardType;
+    }
+
+    public Map<String, Object> toMap() {
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("id", id);
+        result.put("cardName", cardName);
+        result.put("value",value);
+        result.put("wantedPrice", wantedPrice);
+        //result.put("imageUrl", imageUrl);
+        result.put("lastUpdated", FieldValue.serverTimestamp());
+        result.put("expirationDate",expirationDate);
+        result.put("ownerEmail", ownerEmail);
+        result.put("isDeleted", isDeleted);
+        result.put("type", cardType);
+
+        return result;
+    }
+
+    public void fromMap(Map<String, Object> map){
+        id = (String)map.get("id");
+        cardName = (String)map.get("cardName");
+        value = (Double)map.get("value");
+        wantedPrice = (double) map.get("wantedPrice");
+        expirationDate = (String) map.get("expirationDate");
+        cardType= (Type) map.get("type");
+        ownerEmail = (String)map.get("ownerEmail");
+        Timestamp ts = (Timestamp)map.get("lastUpdated");
+        isDeleted = (Boolean) map.get("isDeleted");
+        lastUpdated = ts.getSeconds();
+
+        //long time = ts.toDate().getTime();
+    }
+
 }

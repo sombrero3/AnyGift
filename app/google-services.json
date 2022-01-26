@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "436492386795",
+    "project_id": "anygift-9618f",
+    "storage_bucket": "anygift-9618f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:436492386795:android:7fd356dfa80b5040e199ae",
+        "android_client_info": {
+          "package_name": "com.example.anygift"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "436492386795-a1mtad5rj95rp1s7nu4fhfif9bbu2l5v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBKMRCbuf5K1GIEC4ZH5VUDdyDJg_PSzE4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "436492386795-a1mtad5rj95rp1s7nu4fhfif9bbu2l5v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
