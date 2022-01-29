@@ -121,6 +121,7 @@ public class User {
        // this.longitude = Double.valueOf(map.get("longitude").toString());
     }
 
-
-
+    public String getName() {
+        return this.getFirstName()+ " "+ this.getLastName();
+    }
 }
