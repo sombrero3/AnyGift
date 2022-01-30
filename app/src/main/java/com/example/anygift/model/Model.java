@@ -121,4 +121,8 @@ public class Model {
             }
         });
     }
+
+    public ModelFirebase getModelFirebase(){
+        return this.modelFirebase;
+    }
 }

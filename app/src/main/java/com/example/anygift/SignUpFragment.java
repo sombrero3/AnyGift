@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.Toast;
 
 import com.example.anygift.model.Model;
 import com.example.anygift.model.User;
@@ -81,7 +82,28 @@ public class SignUpFragment extends Fragment {
         String address_usr=address.getText().toString();
         String password_usr=password.getText().toString();
         boolean flag = terms.isChecked();
-        Log.d("TAG","saved name:" + Fname + " id:" + Lname + " flag:" + flag);
+
+
+        if (Fname==null || Lname==null || address_usr==null){
+            firstName.setError("You must enter your first name");
+            lastName.setError("You must ennte your last name");
+            address.setError(" You must enter your address");
+            continue_btn.setEnabled(true);
+            return;
+        }
+
+        if (password_usr.length()<6) {
+            password.setError("Password must be at least 6 characters");
+            continue_btn.setEnabled(true);
+            return;
+        }
+
+        if(flag==false) {
+            terms.setError("You must agree our terms :)");
+            continue_btn.setEnabled(true);
+            return;
+        }
+
         user = new User(Fname,Lname,phone_usr,email_usr,address_usr,password_usr);
         Model.instance.addUser(user,() -> {
              Navigation.findNavController(view).navigate(SignUpFragmentDirections.actionSignUpFragmentToUserProfileFragment());

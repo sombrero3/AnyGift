@@ -99,6 +99,10 @@ public class ModelFirebase {
         });
     }
 
+    public FirebaseFirestore getDb(){
+        return this.db;
+    }
+
     public void delete(String id) {
         FirebaseFirestore.getInstance().collection("giftCards").document(id)
                 .delete()
