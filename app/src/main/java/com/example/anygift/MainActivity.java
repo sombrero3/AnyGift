@@ -19,7 +19,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         NavHost navHost= (NavHost) getSupportFragmentManager().findFragmentById(R.id.main_navhost);
         navCtr=navHost.getNavController();
-
     }
 
     @Override

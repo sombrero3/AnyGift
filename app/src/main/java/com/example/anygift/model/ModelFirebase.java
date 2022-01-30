@@ -171,7 +171,7 @@ public class ModelFirebase {
 
     public void addUser(User user, final Model.AddUserListener listener) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("users").document(user.getId())
+        db.collection(User.COLLECTION_NAME).document(user.getEmail())
                 .set(user.toMap()).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {

@@ -8,4 +8,5 @@
     <string name="LastName">LastName</string>
     <string name="First_Name">First_Name</string>
     <string name="Address">Address</string>
+    <string name="Last_Name">Last_Name</string>
 </resources>

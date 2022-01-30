@@ -9,6 +9,9 @@ import java.util.Map;
 
 
 public class User {
+
+    final public static String COLLECTION_NAME = "users";
+
     String id="";
     String firstName;
     String lastName;
@@ -19,6 +22,15 @@ public class User {
     Long lastUpdated=new Long(0);
     List<GiftCard> giftCards;
 
+    public User(){}
+    public User(String firstName,String lastName,String phone,String email,String address,String password){
+        this.firstName=firstName;
+        this.lastName=lastName;
+        this.phone=phone;
+        this.email=email;
+        this.address=address;
+        this.password=password;
+    }
     public String getFirstName() {
         return firstName;
     }
