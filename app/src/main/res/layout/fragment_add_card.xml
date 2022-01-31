@@ -7,13 +7,14 @@
     tools:context=".AddCardFragment">
 
     <TextView
-        android:id="@+id/add_header_TV"
+        android:id="@+id/add_header_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="45dp"
-        android:background="#9C27B0"
+        android:background="#2196F3"
         android:foregroundTint="#FFFFFF"
         android:text="Upload GiftCard"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -24,13 +25,14 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/add_header_TV">
+        app:layout_constraintTop_toBottomOf="@+id/add_header_tv">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/add_card_name_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#009688"
+            android:background="#DDE3E2"
+            android:fontFamily="monospace"
             android:hint="card name:" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -46,7 +48,8 @@
             android:id="@+id/add_card_value_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#009688"
+            android:background="#DDE3E2"
+            android:fontFamily="monospace"
             android:hint="Card Value:" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -62,7 +65,8 @@
             android:id="@+id/add_exp_date_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#009688"
+            android:background="#DDE3E2"
+            android:fontFamily="monospace"
             android:hint="Expiration Date:" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -79,15 +83,17 @@
             android:id="@+id/add_asking_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#009688" />
+            android:background="#DDE3E2"
+            android:fontFamily="monospace" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
-        android:id="@+id/add_take_picture_et"
+        android:id="@+id/add_take_picture_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="36dp"
         android:layout_marginTop="32dp"
+        android:fontFamily="monospace"
         android:text="TextView"
         app:layout_constraintBottom_toBottomOf="@+id/add_camera_bt"
         app:layout_constraintStart_toStartOf="parent"
@@ -102,18 +108,29 @@
         android:layout_marginStart="44dp"
         android:layout_marginTop="96dp"
         android:src="@android:drawable/ic_menu_camera"
-        app:layout_constraintStart_toEndOf="@+id/add_take_picture_et"
+        app:layout_constraintStart_toEndOf="@+id/add_take_picture_tv"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout2" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/add_plus_bt"
-        android:layout_width="73dp"
-        android:layout_height="115dp"
-        android:layout_marginBottom="32dp"
-        android:clickable="true"
-        android:src="@drawable/plus"
+    <ImageView
+        android:id="@+id/add_card_giftcard_iv"
+        android:layout_width="83dp"
+        android:layout_height="69dp"
+        android:src="@drawable/giftcard"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/add_header_tv"
+        tools:layout_editor_absoluteY="16dp" />
+
+    <Button
+        android:id="@+id/add_upload_bt"
+        android:layout_width="157dp"
+        android:layout_height="66dp"
+        android:background="@color/purple_500"
+        android:fontFamily="monospace"
+        android:text="Upload"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/add_take_picture_tv" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

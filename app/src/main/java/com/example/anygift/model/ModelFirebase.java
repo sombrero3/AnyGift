@@ -25,17 +25,17 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class ModelFirebase {
-    FirebaseFirestore db=FirebaseFirestore.getInstance();
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-    public ModelFirebase(){
-        FirebaseFirestoreSettings set=new FirebaseFirestoreSettings.Builder().setPersistenceEnabled(false).build();
+    public ModelFirebase() {
+        FirebaseFirestoreSettings set = new FirebaseFirestoreSettings.Builder().setPersistenceEnabled(false).build();
         db.setFirestoreSettings(set);
     }
 
 
     //GiftCard
 
-    interface GetAllGiftCardListener{
+    interface GetAllGiftCardListener {
         void onComplete(List<GiftCard> list);
     }
 
@@ -65,19 +65,20 @@ public class ModelFirebase {
                 .set(giftCard.toMap()).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-                Log.d("TAG","giftCard added successfully");
+                Log.d("TAG", "giftCard added successfully");
                 listener.onComplete();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Log.d("TAG","fail adding giftCard");
+                Log.d("TAG", "fail adding giftCard");
                 listener.onComplete();
             }
         });
     }
+
     public void updateGiftCard(GiftCard product, Model.AddGiftCardListener listener) {
-        addGiftCard(product,listener);
+        addGiftCard(product, listener);
     }
 
 
@@ -87,7 +88,7 @@ public class ModelFirebase {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 GiftCard giftCard = null;
-                if (task.isSuccessful()){
+                if (task.isSuccessful()) {
                     DocumentSnapshot doc = task.getResult();
                     if (doc != null) {
                         giftCard = new GiftCard();
@@ -99,7 +100,7 @@ public class ModelFirebase {
         });
     }
 
-    public FirebaseFirestore getDb(){
+    public FirebaseFirestore getDb() {
         return this.db;
     }
 
@@ -156,7 +157,9 @@ public class ModelFirebase {
 
 //User
 
-    public interface GetAllUsersListener{ void onComplete(List<User> list);}
+    public interface GetAllUsersListener {
+        void onComplete(List<User> list);
+    }
 
     public void getAllUsers(final GetAllUsersListener listener) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -179,18 +182,39 @@ public class ModelFirebase {
                 .set(user.toMap()).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-                Log.d("TAG","user added successfully");
+                Log.d("TAG", "user added successfully");
                 listener.onComplete();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Log.d("TAG","fail adding student");
+                Log.d("TAG", "fail adding student");
                 listener.onComplete();
             }
         });
     }
 
+    public void saveImage(Bitmap imageBitmap, String imageName, Model.SaveImageListener listener) {
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference storageRef = storage.getReference();
+        StorageReference imgRef = storageRef.child("giftcards_images/" + imageName);
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] data = baos.toByteArray();
+
+        UploadTask uploadTask = imgRef.putBytes(data);
+        uploadTask.addOnFailureListener(exception -> listener.onComplete(null))
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        imgRef.getDownloadUrl().addOnSuccessListener(uri -> {
+                            Uri downloadUrl = uri;
+                            listener.onComplete(downloadUrl.toString());
+                        });
+                    }
+                });
+    }
 
 
 }

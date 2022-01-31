@@ -30,8 +30,15 @@ public class GiftCard {
         SPORTS
     }
     private Type cardType;
+    String giftCardImageUrl;
 
+    public String getGiftCardImageUrl() {
+        return giftCardImageUrl;
+    }
 
+    public void setGiftCardImageUrl(String giftCardImageUrl) {
+        this.giftCardImageUrl = giftCardImageUrl;
+    }
 
     public GiftCard(){}
 

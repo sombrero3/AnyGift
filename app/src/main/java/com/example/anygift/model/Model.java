@@ -2,6 +2,7 @@ package com.example.anygift.model;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -107,7 +108,15 @@ public class Model {
         modelFirebase.uploadImage(imageBmp, name, listener);
     }
 
+
  */
+    public interface SaveImageListener {
+        void onComplete(String url);
+    }
+
+    public void saveImage(Bitmap imageBitmap, String imageName, SaveImageListener listener) {
+        modelFirebase.saveImage(imageBitmap, imageName, listener);
+    }
 
     //user
     public interface  AddUserListener{
