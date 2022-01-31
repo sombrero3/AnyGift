@@ -35,7 +35,7 @@ import java.util.List;
 
 public class LoginFragment extends Fragment {
 
-    private FirebaseAuth mAuth= FirebaseAuth.getInstance();
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     View view;
 
@@ -48,20 +48,22 @@ public class LoginFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view= inflater.inflate(R.layout.fragment_login, container, false);
-        signIn_btn=view.findViewById(R.id.Login_signIn_btn);
-        signUp_btn=view.findViewById(R.id.Login_btn_signUp);
-        forgotP_btn=view.findViewById(R.id.Login_btn_forgotp);
-        email=view.findViewById(R.id.Login_email_input);
-        password=view.findViewById(R.id.Login_password_input);
+        view = inflater.inflate(R.layout.fragment_login, container, false);
+        signIn_btn = view.findViewById(R.id.Login_signIn_btn);
+        signUp_btn = view.findViewById(R.id.Login_btn_signUp);
+        forgotP_btn = view.findViewById(R.id.Login_btn_forgotp);
+        email = view.findViewById(R.id.Login_email_input);
+        password = view.findViewById(R.id.Login_password_input);
         signIn_btn.setTypeface(Typeface.SANS_SERIF);
         signUp_btn.setTypeface(Typeface.SANS_SERIF);
         forgotP_btn.setTypeface(Typeface.SANS_SERIF);
 
-        String email_usr=email.getText().toString();
-        String password_usr= password.getText().toString();
+        String email_usr = email.getText().toString();
+        String password_usr = password.getText().toString();
 
-        signIn_btn.setOnClickListener(v -> {checkUser(email_usr,password_usr);});
+        signIn_btn.setOnClickListener(v -> {
+            checkUser(email_usr, password_usr);
+        });
 
       /*  signIn_btn.setOnClickListener(v -> {
          FirebaseUser user = mAuth.getCurrentUser();
@@ -79,12 +81,14 @@ public class LoginFragment extends Fragment {
             Navigation.findNavController(v).navigate(LoginFragmentDirections.actionLoginFragmentToSignUpFragment());
         });
 
-        forgotP_btn.setOnClickListener(v -> {forgotPassword();});
+        forgotP_btn.setOnClickListener(v -> {
+            forgotPassword();
+        });
         return view;
     }
 
     public void checkUser(String emailUser, String passwordUser) {
-        String e=emailUser;
+        String e = emailUser;
         signIn_btn.setEnabled(false);
         signUp_btn.setEnabled(false);
         forgotP_btn.setEnabled(false);
@@ -94,12 +98,11 @@ public class LoginFragment extends Fragment {
         Log.d("TAG", "the db work");
 
 
-
     }
 
-    public void forgotPassword(){
-       // FireBaseAuth auth= FireBaseAuth.get
-        Log.d("TAG","forgot password");
+    public void forgotPassword() {
+        // FireBaseAuth auth= FireBaseAuth.get
+        Log.d("TAG", "forgot password");
     }
 }
 

@@ -13,11 +13,12 @@ import java.util.List;
 public class FeedViewModel extends ViewModel {
     private LiveData<List<GiftCard>> gfList;
 
-    public FeedViewModel(){
-        Log.d("TAG","FeedViewModel");
+    public FeedViewModel() {
+        Log.d("TAG", "FeedViewModel");
         gfList = Model.instance.getAllGiftCard();
     }
-    LiveData<List<GiftCard>> getList(){
+
+    LiveData<List<GiftCard>> getList() {
         return gfList;
     }
 }

@@ -13,12 +13,13 @@ import android.view.MenuItem;
 public class MainActivity extends AppCompatActivity {
 
     NavController navCtr;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        NavHost navHost= (NavHost) getSupportFragmentManager().findFragmentById(R.id.main_navhost);
-        navCtr=navHost.getNavController();
+        NavHost navHost = (NavHost) getSupportFragmentManager().findFragmentById(R.id.main_navhost);
+        navCtr = navHost.getNavController();
     }
 
     @Override
@@ -31,12 +32,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (!super.onOptionsItemSelected(item)) {
-            switch(item.getItemId()){
-                case R.id.menu_profile:{
+            switch (item.getItemId()) {
+                case R.id.menu_profile: {
                     navCtr.navigate(R.id.action_global_userProfileFragment);
                     break;
                 }
-                case R.id.menu_cards:{
+                case R.id.menu_cards: {
                     navCtr.navigate(R.id.action_global_cardsDetailsFragment);
                     break;
                 }

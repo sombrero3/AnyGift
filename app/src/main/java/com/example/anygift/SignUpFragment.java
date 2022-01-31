@@ -49,16 +49,16 @@ public class SignUpFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view= inflater.inflate(R.layout.fragment_sign_up, container, false);
-        firstName=view.findViewById(R.id.SignUp_firstName_input);
-        lastName=view.findViewById(R.id.SignUp_lastName_input);
-        phone=view.findViewById(R.id.SignUp_phone_input);
-        email=view.findViewById(R.id.SignUp_email_input);
-        password=view.findViewById(R.id.SignUp_password_input);
-        signIn_btn=view.findViewById(R.id.SignUp_signIn_btn);
-        continue_btn=view.findViewById(R.id.SignUp_continue_btn);
-        address=view.findViewById(R.id.SignUp_address_input);
-        terms=view.findViewById(R.id.SignUp_check_box);
+        view = inflater.inflate(R.layout.fragment_sign_up, container, false);
+        firstName = view.findViewById(R.id.SignUp_firstName_input);
+        lastName = view.findViewById(R.id.SignUp_lastName_input);
+        phone = view.findViewById(R.id.SignUp_phone_input);
+        email = view.findViewById(R.id.SignUp_email_input);
+        password = view.findViewById(R.id.SignUp_password_input);
+        signIn_btn = view.findViewById(R.id.SignUp_signIn_btn);
+        continue_btn = view.findViewById(R.id.SignUp_continue_btn);
+        address = view.findViewById(R.id.SignUp_address_input);
+        terms = view.findViewById(R.id.SignUp_check_box);
         signIn_btn.setTypeface(Typeface.SANS_SERIF);
         continue_btn.setTypeface(Typeface.SANS_SERIF);
 
@@ -66,25 +66,25 @@ public class SignUpFragment extends Fragment {
             save();
         });
 
-        signIn_btn.setOnClickListener(v ->{
+        signIn_btn.setOnClickListener(v -> {
             Navigation.findNavController(v).navigate(SignUpFragmentDirections.actionSignUpFragmentToLoginFragment());
-        } );
+        });
         return view;
     }
 
-    public void save(){
+    public void save() {
         continue_btn.setEnabled(false);
         signIn_btn.setEnabled(false);
-        String Fname=firstName.getText().toString();
-        String Lname=lastName.getText().toString();
-        String phone_usr=phone.getText().toString();
-        String email_usr=email.getText().toString();
-        String address_usr=address.getText().toString();
-        String password_usr=password.getText().toString();
+        String Fname = firstName.getText().toString();
+        String Lname = lastName.getText().toString();
+        String phone_usr = phone.getText().toString();
+        String email_usr = email.getText().toString();
+        String address_usr = address.getText().toString();
+        String password_usr = password.getText().toString();
         boolean flag = terms.isChecked();
 
 
-        if (Fname==null || Lname==null || address_usr==null){
+        if (Fname == null || Lname == null || address_usr == null) {
             firstName.setError("You must enter your first name");
             lastName.setError("You must ennte your last name");
             address.setError(" You must enter your address");
@@ -92,21 +92,21 @@ public class SignUpFragment extends Fragment {
             return;
         }
 
-        if (password_usr.length()<6) {
+        if (password_usr.length() < 6) {
             password.setError("Password must be at least 6 characters");
             continue_btn.setEnabled(true);
             return;
         }
 
-        if(flag==false) {
+        if (flag == false) {
             terms.setError("You must agree our terms :)");
             continue_btn.setEnabled(true);
             return;
         }
 
-        user = new User(Fname,Lname,phone_usr,email_usr,address_usr,password_usr);
-        Model.instance.addUser(user,() -> {
-             Navigation.findNavController(view).navigate(SignUpFragmentDirections.actionSignUpFragmentToUserProfileFragment());
+        user = new User(Fname, Lname, phone_usr, email_usr, address_usr, password_usr);
+        Model.instance.addUser(user, () -> {
+            Navigation.findNavController(view).navigate(SignUpFragmentDirections.actionSignUpFragmentToUserProfileFragment());
         });
         Log.d("TAG", "successful");
     }
