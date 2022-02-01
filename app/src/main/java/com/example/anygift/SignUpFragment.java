@@ -26,6 +26,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 public class SignUpFragment extends Fragment {
 
@@ -51,6 +53,12 @@ public class SignUpFragment extends Fragment {
     Button continue_btn;
     CheckBox terms;
 
+    String Fname;
+    String Lname ;
+    String phone_usr;
+    String email_usr;
+    String address_usr;
+    String password_usr;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -82,12 +90,12 @@ public class SignUpFragment extends Fragment {
     public void save() {
         continue_btn.setEnabled(false);
         signIn_btn.setEnabled(false);
-        String Fname = firstName.getText().toString();
-        String Lname = lastName.getText().toString();
-        String phone_usr = phone.getText().toString();
-        String email_usr = email.getText().toString();
-        String address_usr = address.getText().toString();
-        String password_usr = password.getText().toString();
+        Fname = firstName.getText().toString();
+        Lname = lastName.getText().toString();
+        phone_usr = phone.getText().toString();
+        email_usr = email.getText().toString();
+        address_usr = address.getText().toString();
+        password_usr = password.getText().toString();
         boolean flag = terms.isChecked();
 
 
@@ -115,7 +123,7 @@ public class SignUpFragment extends Fragment {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
-                    Log.d("TAG","CREATED SUCCESSFUL");
+                   updateProfile();
                 }
             }
         });
@@ -123,7 +131,14 @@ public class SignUpFragment extends Fragment {
         Model.instance.addUser(user, () -> {
             Navigation.findNavController(view).navigate(SignUpFragmentDirections.actionSignUpFragmentToUserProfileFragment());
         });
-        Log.d("TAG", "successful");
+    }
+
+
+    public void updateProfile(){
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                .setDisplayName(Fname)
+                .build();
     }
 
     @Override

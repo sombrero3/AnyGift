@@ -1,5 +1,6 @@
 package com.example.anygift;
 
+import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
 
@@ -97,8 +98,7 @@ public class LoginFragment extends Fragment {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()) {
-                    Log.d("TAG", "Email sent");
-                   Toast.makeText(getContext(), "check your email",Toast.LENGTH_LONG);
+                   Toast.makeText(getActivity().getBaseContext(), "check your email",Toast.LENGTH_LONG);
                 }
                 else
                     Log.d("TAG", "failed");
