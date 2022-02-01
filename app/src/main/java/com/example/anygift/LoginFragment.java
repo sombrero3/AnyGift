@@ -21,7 +21,9 @@ import com.example.anygift.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -59,18 +61,6 @@ public class LoginFragment extends Fragment {
 
         signIn_btn.setOnClickListener(v -> {checkUser();});
 
-      /*  signIn_btn.setOnClickListener(v -> {
-         FirebaseUser user = mAuth.getCurrentUser();
-            if (user!=null) {
-                if (user.getEmail().equals(email_usr))
-                    Log.d("TAG",user.getEmail());
-                //Navigation.findNavController(v).navigate(LoginFragmentDirections.actionLoginFragmentToUserProfileFragment());
-            }
-            else
-                Log.d("TAG", "wrong details");
-           // Navigation.findNavController(v).navigate(LoginFragmentDirections.actionLoginFragmentToUserProfileFragment());
-        });*/
-
         signUp_btn.setOnClickListener(v -> {
             Navigation.findNavController(v).navigate(LoginFragmentDirections.actionLoginFragmentToSignUpFragment());
         });
@@ -86,28 +76,29 @@ public class LoginFragment extends Fragment {
 
         email_user=email.getText().toString();
         password_user=password.getText().toString();
-
-        ModelFirebase mfirebase = Model.instance.getModelFirebase();
-        FirebaseFirestore db = mfirebase.getDb();
-        Query mQuery= db.collection(User.COLLECTION_NAME).whereEqualTo("Email",email_user);
-        mQuery.get().addOnCompleteListener(task -> {
-           if(task.isSuccessful()&& task.getResult()!=null){
-                Navigation.findNavController(view).navigate(LoginFragmentDirections.actionLoginFragmentToUserProfileFragment());
-           }
-       });
+        mAuth.signInWithEmailAndPassword(email_user,password_user).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if(task.isSuccessful()) {
+                    //Toast.makeText(getApplicationContext(),"Login successful!!",Toast.LENGTH_LONG).show();
+                    Log.d("TAG","login success");
+                    Navigation.findNavController(view).navigate(LoginFragmentDirections.actionLoginFragmentToUserProfileFragment());
+                }
+                else
+                    Log.d("TAG","failed");
+            }
+        });
     }
+
 
     public void forgotPassword(){
         email_user=email.getText().toString();
-
-        Log.d("TAG","forgot password");
-
         mAuth.sendPasswordResetEmail(email_user).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()) {
                     Log.d("TAG", "Email sent");
-                   // Toast.makeText(MainActi, "check your email");
+                   Toast.makeText(getContext(), "check your email",Toast.LENGTH_LONG);
                 }
                 else
                     Log.d("TAG", "failed");

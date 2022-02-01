@@ -21,13 +21,18 @@ import android.widget.Toast;
 
 import com.example.anygift.model.Model;
 import com.example.anygift.model.User;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class SignUpFragment extends Fragment {
 
     User user;
     View view;
+
+    private FirebaseAuth mAuth= FirebaseAuth.getInstance();
 
     @NonNull
     TextInputEditText firstName;
@@ -106,6 +111,14 @@ public class SignUpFragment extends Fragment {
             return;
         }
 
+        mAuth.createUserWithEmailAndPassword(email_usr,password_usr).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()){
+                    Log.d("TAG","CREATED SUCCESSFUL");
+                }
+            }
+        });
         user = new User(Fname, Lname, phone_usr, email_usr, address_usr, password_usr);
         Model.instance.addUser(user, () -> {
             Navigation.findNavController(view).navigate(SignUpFragmentDirections.actionSignUpFragmentToUserProfileFragment());
