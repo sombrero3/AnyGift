@@ -15,4 +15,7 @@
         android:id="@+id/menu_cards"
         android:icon="@drawable/ic_mycards"
         android:title="My Cards" />
+    <item
+        android:id="@+id/add_card"
+        android:title="Add Card" />
 </menu>

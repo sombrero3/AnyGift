@@ -85,5 +85,5 @@
             android:name="userEmail"
             app:argType="string"
             app:nullable="true" />
-    </fragment><action android:id="@+id/action_global_userProfileFragment" app:destination="@id/userProfileFragment"/>
+    </fragment><action android:id="@+id/action_global_userProfileFragment" app:destination="@id/userProfileFragment"/><action android:id="@+id/action_global_addCardFragment" app:destination="@id/addCardFragment"/>
 </navigation>
