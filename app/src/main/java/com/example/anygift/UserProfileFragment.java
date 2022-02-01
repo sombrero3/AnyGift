@@ -31,6 +31,7 @@ public class UserProfileFragment extends Fragment {
         editbtn.setOnClickListener((v) -> {
             Navigation.findNavController(v).navigate(R.id.action_userProfileFragment_to_editProfileFragment);
         });
+
         return view;
     }
 

@@ -12,6 +12,7 @@ import androidx.room.PrimaryKey;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -49,6 +50,7 @@ public class SignUpFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
         view = inflater.inflate(R.layout.fragment_sign_up, container, false);
         firstName = view.findViewById(R.id.SignUp_firstName_input);
         lastName = view.findViewById(R.id.SignUp_lastName_input);
@@ -109,5 +111,10 @@ public class SignUpFragment extends Fragment {
             Navigation.findNavController(view).navigate(SignUpFragmentDirections.actionSignUpFragmentToUserProfileFragment());
         });
         Log.d("TAG", "successful");
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        menu.clear();
     }
 }

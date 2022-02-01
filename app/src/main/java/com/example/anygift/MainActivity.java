@@ -2,7 +2,6 @@ package com.example.anygift;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.NavHost;
 
@@ -45,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
                     navCtr.navigate(R.id.action_global_addCardFragment);
                     break;
                 }
-
             }
         } else {
             return true;
