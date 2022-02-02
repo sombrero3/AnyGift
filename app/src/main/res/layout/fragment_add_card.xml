@@ -111,13 +111,11 @@
         android:id="@+id/add_upload_bt"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="149dp"
-        android:layout_marginTop="61dp"
-        android:layout_marginEnd="174dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="43dp"
         android:text="Upload"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/add_camera_bt" />
+        app:layout_constraintStart_toEndOf="@+id/add_camera_bt"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout7" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout6"
