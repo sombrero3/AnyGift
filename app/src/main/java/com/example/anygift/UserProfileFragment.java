@@ -11,6 +11,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 
 public class UserProfileFragment extends Fragment {
 
@@ -28,6 +31,9 @@ public class UserProfileFragment extends Fragment {
         phone = view.findViewById(R.id.profileF_phone);
         email = view.findViewById(R.id.profileF_mail);
         cardsNumber = view.findViewById(R.id.profileF_cards);
+        /*FirebaseAuth auth = FirebaseAuth.getInstance();
+        FirebaseUser user= auth.getCurrentUser();*/
+
         editbtn.setOnClickListener((v) -> {
             Navigation.findNavController(v).navigate(R.id.action_userProfileFragment_to_editProfileFragment);
         });

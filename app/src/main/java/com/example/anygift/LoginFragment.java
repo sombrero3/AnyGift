@@ -71,9 +71,7 @@ public class LoginFragment extends Fragment {
     }
 
     public void checkUser() {
-        signIn_btn.setEnabled(false);
-        signUp_btn.setEnabled(false);
-        forgotP_btn.setEnabled(false);
+
 
         email_user=email.getText().toString();
         password_user=password.getText().toString();
@@ -81,12 +79,15 @@ public class LoginFragment extends Fragment {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()) {
+                    signIn_btn.setEnabled(false);
+                    signUp_btn.setEnabled(false);
+                    forgotP_btn.setEnabled(false);
                     //Toast.makeText(getApplicationContext(),"Login successful!!",Toast.LENGTH_LONG).show();
                     Log.d("TAG","login success");
                     Navigation.findNavController(view).navigate(LoginFragmentDirections.actionLoginFragmentToUserProfileFragment());
                 }
                 else
-                    Log.d("TAG","failed");
+                    Log.d("TAG","failed login");
             }
         });
     }

@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -6,131 +7,173 @@
     android:layout_height="match_parent"
     tools:context=".AddCardFragment">
 
+
     <TextView
         android:id="@+id/add_header_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="45dp"
-        android:background="#2196F3"
-        android:foregroundTint="#FFFFFF"
-        android:text="Upload GiftCard"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="69dp"
+        android:text="Adding New Gift Card"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout"
-        android:layout_width="409dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="28dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/add_header_tv">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/add_card_name_et"
+            android:id="@+id/add_card_number"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#DDE3E2"
-            android:fontFamily="monospace"
-            android:hint="card name:" />
+            android:layout_height="match_parent"
+            android:height="50dp"
+            android:hint="Card Number:"
+            android:inputType="number"
+            tools:ignore="TouchTargetSizeCheck" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/add_amount_et"
+        android:id="@+id/textInputLayout4"
         android:layout_width="409dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="36dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/add_card_value_et"
+            android:id="@+id/add_card_value"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#DDE3E2"
-            android:fontFamily="monospace"
-            android:hint="Card Value:" />
+            android:height="50dp"
+            android:hint="Card Value:"
+            android:inputType="numberDecimal" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/add_exp_date_et"
-        android:layout_width="409dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/add_amount_et">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/add_exp_date_et"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#DDE3E2"
-            android:fontFamily="monospace"
-            android:hint="Expiration Date:" />
-    </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout2"
-        android:layout_width="409dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:hint="Asking Value:"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/add_exp_date_et">
+        android:id="@+id/textInputLayout7"
+        android:layout_width="451dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="38dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout6">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/add_asking_et"
+            android:id="@+id/add_card_exp_value"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#DDE3E2"
-            android:fontFamily="monospace" />
+            android:height="50dp"
+            android:hint="Asking Value:"
+            android:inputType="numberDecimal"
+            tools:ignore="TouchTargetSizeCheck" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
-        android:id="@+id/add_take_picture_tv"
+        android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="32dp"
-        android:fontFamily="monospace"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="@+id/add_camera_bt"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="55dp"
+        android:text="Picture of your card:"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout2"
-        app:layout_constraintVertical_bias="0.881"
-        tools:text="Take a picture of your card" />
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout7" />
 
     <ImageButton
         android:id="@+id/add_camera_bt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="44dp"
-        android:layout_marginTop="96dp"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="43dp"
         android:src="@android:drawable/ic_menu_camera"
-        app:layout_constraintStart_toEndOf="@+id/add_take_picture_tv"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout2" />
+        app:layout_constraintStart_toEndOf="@+id/textView4"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout7"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <ImageView
-        android:id="@+id/add_card_giftcard_iv"
-        android:layout_width="83dp"
-        android:layout_height="69dp"
+        android:id="@+id/imageView2"
+        android:layout_width="120dp"
+        android:layout_height="93dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="50dp"
         android:src="@drawable/giftcard"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/add_header_tv"
-        tools:layout_editor_absoluteY="16dp" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/add_upload_bt"
-        android:layout_width="157dp"
-        android:layout_height="66dp"
-        android:background="@color/purple_500"
-        android:fontFamily="monospace"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="149dp"
+        android:layout_marginTop="61dp"
+        android:layout_marginEnd="174dp"
         android:text="Upload"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/add_take_picture_tv" />
+        app:layout_constraintTop_toBottomOf="@+id/add_camera_bt" />
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout6"
+        android:layout_width="116dp"
+        android:layout_height="59dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toStartOf="@+id/textInputLayout5"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout4">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/add_card_exp_day"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:height="50dp"
+            android:hint="Exp. Day(dd):"
+            android:inputType="number"
+            android:maxLength="2"
+            tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout5"
+        android:layout_width="150dp"
+        android:layout_height="57dp"
+        android:layout_marginTop="22dp"
+        app:layout_constraintEnd_toStartOf="@+id/textInputLayout8"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textInputLayout6"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout4">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/add_card_exp_mo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Exp. Month(mm):"
+            android:maxLength="2" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout8"
+        android:layout_width="134dp"
+        android:layout_height="59dp"
+        android:layout_marginTop="22dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textInputLayout5"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout4">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/add_card_exp_year"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Exp. Year(yyyy):"
+            android:maxLength="4"
+            tools:ignore="TouchTargetSizeCheck" />
+    </com.google.android.material.textfield.TextInputLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
