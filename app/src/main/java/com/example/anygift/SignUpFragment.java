@@ -23,6 +23,8 @@ import com.example.anygift.model.Model;
 import com.example.anygift.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -128,6 +130,8 @@ public class SignUpFragment extends Fragment {
             }
         });
         user = new User(Fname, Lname, phone_usr, email_usr, address_usr, password_usr);
+        Snackbar mySnackbar = Snackbar.make(view, "signUp succeed, Nice to meet you :)", BaseTransientBottomBar.LENGTH_LONG);
+        mySnackbar.show();
         Model.instance.addUser(user, () -> {
             Navigation.findNavController(view).navigate(SignUpFragmentDirections.actionSignUpFragmentToUserProfileFragment());
         });

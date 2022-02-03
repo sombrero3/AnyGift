@@ -21,6 +21,8 @@ import com.example.anygift.model.ModelFirebase;
 import com.example.anygift.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -35,6 +37,7 @@ public class LoginFragment extends Fragment {
     private FirebaseAuth mAuth= FirebaseAuth.getInstance();
 
     View view;
+    Snackbar mySnackbar;
 
     Button signIn_btn;
     Button signUp_btn;
@@ -82,12 +85,13 @@ public class LoginFragment extends Fragment {
                     signIn_btn.setEnabled(false);
                     signUp_btn.setEnabled(false);
                     forgotP_btn.setEnabled(false);
-                    //Toast.makeText(getApplicationContext(),"Login successful!!",Toast.LENGTH_LONG).show();
-                    Log.d("TAG","login success");
+                    mySnackbar = Snackbar.make(view, "Login successful :)", BaseTransientBottomBar.LENGTH_LONG);
+                    mySnackbar.show();
+                    Log.d("TAG","login successful");
                     Navigation.findNavController(view).navigate(LoginFragmentDirections.actionLoginFragmentToUserProfileFragment());
                 }
                 else
-                    Log.d("TAG","failed login");
+                    Log.d("TAG","Login failed");
             }
         });
     }
@@ -99,13 +103,16 @@ public class LoginFragment extends Fragment {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()) {
-                   Toast.makeText(getActivity().getBaseContext(), "check your email",Toast.LENGTH_LONG);
+                    mySnackbar = Snackbar.make(view, "Email sent, check your mailbox :)", BaseTransientBottomBar.LENGTH_LONG);
+                    mySnackbar.show();
+
                 }
                 else
                     Log.d("TAG", "failed");
             }
         });
     }
+
 
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
