@@ -1,6 +1,9 @@
 package com.example.anygift;
 
+import static com.example.anygift.model.Utils.isInt;
+
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -31,8 +34,6 @@ import java.util.Date;
 
 public class AddCardFragment extends Fragment {
     private static final int REQUEST_CAMERA = 1;
-    ImageView giftCardInTitle;
-    TextView title;
     TextInputEditText cardValue;
     TextInputEditText cardExpDay,cardExpMonth,cardExpYear;
     TextInputEditText cardAskingValue;
@@ -85,8 +86,25 @@ public class AddCardFragment extends Fragment {
             }
         }
     }
+    boolean validateInputDates(String year, String mo, String day){
+        boolean error=false;
+        if (!isInt(year)){
+            cardExpYear.setError("Year Is not Valid");
+            error=true;
+        }
+        if (!isInt(mo)){
+            cardExpMonth.setError("Month Is not valid");
+            error=true;
+        }
+        if (!isInt(day)){
+            cardExpDay.setError("Day Is not valid");
+            error=true;
+        }
+        return error;
+    }
 
     private void upload(){
+        boolean error=false;
         addCardButton.setEnabled(false);
         uploadPicButton.setEnabled(false);
         String CardValue = cardValue.getText().toString();
@@ -96,27 +114,28 @@ public class AddCardFragment extends Fragment {
         String day = cardExpDay.getText().toString();
         String mo = cardExpMonth.getText().toString();
         String year = cardExpYear.getText().toString();
-
-         int dayI=Integer.parseInt(day);
+        error = validateInputDates(year,mo,day);
+        if (error) return;
+        int dayI=Integer.parseInt(day);
         int moI=Integer.parseInt(mo);
         if(dayI<1||dayI>31||(moI==2&&dayI>29)){
             cardExpDay.setError("Wrong day");
             cardExpMonth.setError("Wrong month");
             return;
         }
+
         String date=day+"/"+mo+"/"+year;
         Log.d("TAG",CardValue);
         Log.d("TAG",CardAskingValue);
         Log.d("TAG",CardNumber);
         Log.d("TAG",date);
-
-        GiftCard newGiftCard = new GiftCard(); //todo maybe change double to string
-       //
         FirebaseAuth auth = FirebaseAuth.getInstance();
         FirebaseUser user= auth.getCurrentUser();
         String emailUser=user.getEmail().toString();
 
-     /*   if (giftCardBitmap == null){
+        GiftCard newGiftCard = new GiftCard(CardNumber,Double.parseDouble( CardValue),date,Double.parseDouble( CardAskingValue),emailUser); //todo maybe change double to string
+
+        if (giftCardBitmap == null){
             Model.instance.addGiftCard(newGiftCard,()->{
 //                Navigation.findNavController(nameEt).navigateUp(); //todo where do we go?
             });
@@ -128,6 +147,6 @@ public class AddCardFragment extends Fragment {
                 });
             });
         }
-*/
+
     }
 }

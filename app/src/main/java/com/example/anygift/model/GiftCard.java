@@ -23,6 +23,15 @@ public class GiftCard {
     private Boolean isDeleted=false;
     private Long lastUpdated;
     private String ownerEmail;
+
+    public GiftCard(String cardName, double value, String expirationDate, double wantedPrice, String ownerEmail) {
+        this.cardName = cardName;
+        this.value = value;
+        this.expirationDate = expirationDate;
+        this.wantedPrice = wantedPrice;
+        this.ownerEmail = ownerEmail;
+    }
+
     public enum Type{
         GENERAL,
         CLOTHING,
