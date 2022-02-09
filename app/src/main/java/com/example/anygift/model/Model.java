@@ -25,13 +25,13 @@ public class Model {
 
     }
 
-   // MutableLiveData<List<GiftCard>> giftCardsList= new MutableLiveData<>();
+    // MutableLiveData<List<GiftCard>> giftCardsList= new MutableLiveData<>();
   LiveData<List<GiftCard>> giftCardsList;
 
     public LiveData<List<GiftCard>> getAllGiftCard() {
         if (giftCardsList == null){
             giftCardsList = room.getAllGiftCards();
-           // refreshAllGiftCards(null);
+            refreshGiftCardsList(null);
         }
         return giftCardsList;
     }
@@ -51,7 +51,7 @@ public class Model {
                 //3. insert the new updates to the local db
                 long lastU = 0;
                 for (GiftCard gf: result) {
-                    room.addGiftCard(gf,null);
+                     room.addGiftCard(gf,null);
                     if (gf.getLastUpdated()>lastU){
                         lastU = gf.getLastUpdated();
                     }

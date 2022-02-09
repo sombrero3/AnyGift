@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,7 +24,8 @@ public class UserProfileFragment extends Fragment {
     View view;
     TextView name, phone, email,cardCounter,coinCounter;
     UserViewModel userViewModel;
-    Button cardBtn,coinsBtn,editbtn;
+    Button editbtn;
+    ImageButton cardBtn,coinsBtn;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -57,7 +59,7 @@ public class UserProfileFragment extends Fragment {
            // Navigation.findNavController(v).navigate(R.id.action_userProfileFragment_to_editProfileFragment);
         });
         coinsBtn.setOnClickListener((v) -> {
-            Toast.makeText(getContext(),"Comming soon...", Toast.LENGTH_SHORT);
+            Toast.makeText(getContext(),"Coming soon...", Toast.LENGTH_SHORT).show();
         });
         return view;
     }

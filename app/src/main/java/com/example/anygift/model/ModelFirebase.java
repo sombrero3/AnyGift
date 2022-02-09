@@ -28,8 +28,10 @@ public class ModelFirebase {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     public ModelFirebase() {
-        FirebaseFirestoreSettings set = new FirebaseFirestoreSettings.Builder().setPersistenceEnabled(false).build();
+       /* FirebaseFirestoreSettings set = new FirebaseFirestoreSettings.Builder().setPersistenceEnabled(false).build();
         db.setFirestoreSettings(set);
+
+        */
     }
 
 
@@ -59,13 +61,13 @@ public class ModelFirebase {
     }
 
     public void addGiftCard(GiftCard giftCard, final Model.AddGiftCardListener listener) {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
+       // FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         db.collection("giftCards").document(giftCard.getId())
                 .set(giftCard.toMap()).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-                Log.d("TAG", "giftCard added successfully");
+                Log.d("TAG GC", "giftCard added successfully");
                 listener.onComplete();
             }
         }).addOnFailureListener(new OnFailureListener() {
@@ -83,7 +85,7 @@ public class ModelFirebase {
 
 
     public void getGiftCard(String id, final Model.GetGiftCardListener listener) {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        //FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("giftCard").document(id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -162,7 +164,7 @@ public class ModelFirebase {
     }
 
     public void getAllUsers(final GetAllUsersListener listener) {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        //FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("users").get().addOnCompleteListener(task -> {
             List<User> data = new ArrayList<>();
             if (task.isSuccessful()) {
@@ -177,7 +179,7 @@ public class ModelFirebase {
     }
 
     public void addUser(User user, final Model.AddUserListener listener) {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
+       // FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection(User.COLLECTION_NAME).document(user.getEmail())
                 .set(user.toMap()).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
