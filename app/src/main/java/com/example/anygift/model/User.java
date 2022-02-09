@@ -12,7 +12,7 @@ public class User {
 
     final public static String COLLECTION_NAME = "users";
 
-    String id;
+    String id="";
     String firstName;
     String lastName;
     String phone;
@@ -30,7 +30,6 @@ public class User {
         this.email=email;
         this.address=address;
         this.password=password;
-        this.id=email;
     }
     public String getFirstName() {
         return firstName;
@@ -108,7 +107,7 @@ public class User {
         HashMap<String, Object> result = new HashMap<>();
         result.put("id", id);
         result.put("firstName", firstName);
-        result.put("lastName", lastName);
+        result.put("LastName", lastName);
         result.put("phone", phone);
         result.put("email", email);
         result.put("password", password);
