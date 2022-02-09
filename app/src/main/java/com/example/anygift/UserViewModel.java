@@ -12,7 +12,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class UserViewModel extends ViewModel {
 
-    public User user;
+    public User user = null;
 
     public UserViewModel() {
     }
