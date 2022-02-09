@@ -32,8 +32,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 
 public class SignUpFragment extends Fragment {
-
-    User user;
     View view;
 
     private FirebaseAuth mAuth= FirebaseAuth.getInstance();
@@ -125,16 +123,23 @@ public class SignUpFragment extends Fragment {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()){
+                    User user = new User(Fname, Lname, phone_usr, email_usr, address_usr, password_usr);
                    updateProfile();
+
+                    Model.instance.addUser(user, () -> {
+                        Navigation.findNavController(view).navigate(SignUpFragmentDirections.actionSignUpFragmentToUserProfileFragment());
+
+                    });
+                    Snackbar mySnackbar = Snackbar.make(view, "sign Up succeed, Nice to meet you :)", BaseTransientBottomBar.LENGTH_LONG);
+                    mySnackbar.show();
+                }
+                else{
+                    Toast.makeText(getContext(),"Error :-("+task.getException().getMessage(),Toast.LENGTH_SHORT).show();
                 }
             }
         });
-        user = new User(Fname, Lname, phone_usr, email_usr, address_usr, password_usr);
-        Snackbar mySnackbar = Snackbar.make(view, "signUp succeed, Nice to meet you :)", BaseTransientBottomBar.LENGTH_LONG);
-        mySnackbar.show();
-        Model.instance.addUser(user, () -> {
-            Navigation.findNavController(view).navigate(SignUpFragmentDirections.actionSignUpFragmentToUserProfileFragment());
-        });
+
+
     }
 
 
