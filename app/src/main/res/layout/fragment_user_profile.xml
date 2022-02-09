@@ -91,7 +91,8 @@
         android:src="@drawable/mycardsbtn"
         app:layout_constraintEnd_toStartOf="@+id/profileF_coinsBtn"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profileF_editInfoBtn" />
+        app:layout_constraintTop_toBottomOf="@+id/profileF_editInfoBtn"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <ImageButton
         android:id="@+id/profileF_coinsBtn"
@@ -101,7 +102,8 @@
         android:layout_marginEnd="68dp"
         android:src="@drawable/coinsbtn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profileF_editInfoBtn" />
+        app:layout_constraintTop_toBottomOf="@+id/profileF_editInfoBtn"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <TextView
         android:id="@+id/profileF_cards"

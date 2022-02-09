@@ -3,6 +3,7 @@ package com.example.anygift.model;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.FieldValue;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,7 +21,7 @@ public class User {
     String password;
     String address;
     Long lastUpdated=new Long(0);
-    List<GiftCard> giftCards;
+    List<GiftCard> giftCards=new ArrayList<>();
 
     public User(){}
     public User(String firstName,String lastName,String phone,String email,String address,String password){

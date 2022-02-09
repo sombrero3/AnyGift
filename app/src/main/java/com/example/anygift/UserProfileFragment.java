@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.anygift.model.User;
 import com.google.firebase.auth.FirebaseAuth;
@@ -20,10 +21,9 @@ import com.google.firebase.auth.FirebaseUser;
 public class UserProfileFragment extends Fragment {
 
     View view;
-    Button editbtn;
-    TextView name, phone, email, cardsNumber;
+    TextView name, phone, email,cardCounter,coinCounter;
     UserViewModel userViewModel;
-
+    Button cardBtn,coinsBtn,editbtn;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -33,9 +33,11 @@ public class UserProfileFragment extends Fragment {
         name = view.findViewById(R.id.profileF_name);
         phone = view.findViewById(R.id.profileF_phone);
         email = view.findViewById(R.id.profileF_mail);
-        cardsNumber = view.findViewById(R.id.profileF_cards);
-      /*  FirebaseAuth auth = FirebaseAuth.getInstance();
-        FirebaseUser userA= auth.getCurrentUser();*/
+        cardCounter=view.findViewById(R.id.profileF_cards);
+        coinCounter=view.findViewById(R.id.profileF_coins);
+        cardBtn=view.findViewById(R.id.profileF_cardsBtn);
+        coinsBtn=view.findViewById(R.id.profileF_coinsBtn);
+
        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
        userViewModel.getUser(new UserViewModel.GetUserListener() {
            @Override
@@ -43,13 +45,20 @@ public class UserProfileFragment extends Fragment {
                name.setText((user!=null)?user.getName():"null");
                email.setText((user!=null)?user.getEmail():"null");
                phone.setText((user!=null)?user.getPhone():"null");
+              cardCounter.setText((user.getGiftCards()!=null)?String.valueOf(user.getGiftCards().size()):"0");
+               coinCounter.setText("0");
            }
        });
 
         editbtn.setOnClickListener((v) -> {
             Navigation.findNavController(v).navigate(R.id.action_userProfileFragment_to_editProfileFragment);
         });
-
+        cardBtn.setOnClickListener((v) -> {
+           // Navigation.findNavController(v).navigate(R.id.action_userProfileFragment_to_editProfileFragment);
+        });
+        coinsBtn.setOnClickListener((v) -> {
+            Toast.makeText(getContext(),"Comming soon...", Toast.LENGTH_SHORT);
+        });
         return view;
     }
 
