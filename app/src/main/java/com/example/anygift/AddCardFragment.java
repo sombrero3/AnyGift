@@ -10,6 +10,7 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.provider.MediaStore;
 import android.util.Log;
@@ -41,11 +42,12 @@ public class AddCardFragment extends Fragment {
     ImageButton uploadPicButton;
     Button addCardButton;
     Bitmap giftCardBitmap;
+    View view;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_add_card, container, false);
+        view = inflater.inflate(R.layout.fragment_add_card, container, false);
 
         //giftCardInTitle = view.findViewById(R.id.add_card_giftcard_iv);
         //title = view.findViewById(R.id.add_header_tv);
@@ -137,7 +139,7 @@ public class AddCardFragment extends Fragment {
 
         if (giftCardBitmap == null){
             Model.instance.addGiftCard(newGiftCard,()->{
-//                Navigation.findNavController(nameEt).navigateUp(); //todo where do we go?
+                Navigation.findNavController(view).navigate(R.id.action_global_feedFragment);
             });
         }else{
             Model.instance.saveImage(giftCardBitmap, newGiftCard.getId() + ".jpg", url -> {

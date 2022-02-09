@@ -30,6 +30,7 @@ public class GiftCard {
         this.expirationDate = expirationDate;
         this.wantedPrice = wantedPrice;
         this.ownerEmail = ownerEmail;
+        this.id=String.valueOf((cardName+ " " +ownerEmail).hashCode());
     }
 
     public enum Type{
