@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,12 +16,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 
-import java.util.LinkedList;
 import java.util.List;
 
 
@@ -36,8 +35,8 @@ public class CardsListRvFragment extends Fragment {
 
 @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_cards_list_rv, container, false);
-       cards= Model.instance.getCards();
+        View view = inflater.inflate(R.layout.fragment_feed, container, false);
+       cards= Model.instance.getAllGiftCard().getValue();
 
         RecyclerView list = view.findViewById(R.id.cards_list_rv);
         list.setHasFixedSize(true);
@@ -50,7 +49,7 @@ public class CardsListRvFragment extends Fragment {
             public void onItemClick(View v, int position) {
                 String cardName = cards.get(position).getCardName();
                 Log.d("TAG","user's row clicked: " + cardName);
-                //Navigation.findNavController(v).navigate(StudentListRvFragmentDirections.actionStudentListRvFragmentToStudentDetailsFragment(stId));
+              // Navigation.findNavController(v).navigate(StudentListRvFragmentDirections.actionStudentListRvFragmentToStudentDetailsFragment(stId));
 
             }
         });
@@ -61,21 +60,15 @@ public class CardsListRvFragment extends Fragment {
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder{
-        TextView cardName;
+        TextView cardValue;
         ImageView cardImage;
-        CheckBox cb;
+
 
         public MyViewHolder(@NonNull View itemView, OnItemClickListener listener) {
             super(itemView);
-            cardName = itemView.findViewById(R.id.cards_list_row_et);
+            cardValue = itemView.findViewById(R.id.cards_list_row_et_value);
             cardImage = itemView.findViewById(R.id.cards_list_row_iv);
-            cb = itemView.findViewById(R.id.cards_list_row_cb);
-            cb.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    cards.get(getAdapterPosition()).setFlag(cb.isChecked());
-                }
-            });
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -106,8 +99,7 @@ public class CardsListRvFragment extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
             GiftCard card = cards.get(position);
-            holder.cardName.setText(card.getCardName());
-            holder.cb.setChecked(card.isFlag());
+            holder.cardValue.setText(String.valueOf(card.getValue()));
 
 
         }
