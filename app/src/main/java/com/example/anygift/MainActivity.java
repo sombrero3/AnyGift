@@ -32,6 +32,10 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (!super.onOptionsItemSelected(item)) {
             switch (item.getItemId()) {
+                case R.id.menu_feed: {
+                    navCtr.navigate(R.id.action_global_feedFragment);
+                    break;
+                }
                 case R.id.menu_profile: {
                     navCtr.navigate(R.id.action_global_userProfileFragment);
                     break;
