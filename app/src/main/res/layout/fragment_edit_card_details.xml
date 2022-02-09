@@ -1,14 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".EditCardDetailsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    <ImageView
+        android:id="@+id/editDetails_picture_iv"
+        android:layout_width="238dp"
+        android:layout_height="135dp"
+        android:layout_marginTop="44dp"
+        android:src="@drawable/avatar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/editDetails_username_tv"
+        android:layout_width="125dp"
+        android:layout_height="34dp"
+        android:layout_marginTop="24dp"
+        android:text="name"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editDetails_picture_iv" />
+
+    <EditText
+        android:id="@+id/editDetails_giftvalue_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="100dp"
+        android:text="200$"
+        android:textSize="20sp"
+        app:layout_constraintStart_toEndOf="@+id/editDetails_value_tv"
+        app:layout_constraintTop_toBottomOf="@+id/editDetails_username_tv" />
+
+    <TextView
+        android:id="@+id/editDetails_value_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="100dp"
+        android:text="Value:"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editDetails_username_tv" />
+
+    <Button
+        android:id="@+id/editDetails_stores_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="76dp"
+        android:text="stores"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editDetails_giftpic_iv" />
+
+    <ImageView
+        android:id="@+id/editDetails_giftpic_iv"
+        android:layout_width="214dp"
+        android:layout_height="172dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/giftcard"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editDetails_username_tv" />
+
+    <TextView
+        android:id="@+id/editDetails_buyat_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="116dp"
+        android:text="Buy At:"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editDetails_value_tv" />
+
+    <EditText
+        android:id="@+id/editDetails_buyatval_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="100dp"
+        android:text="180$"
+        android:textSize="20sp"
+        app:layout_constraintStart_toEndOf="@+id/editDetails_buyat_tv"
+        app:layout_constraintTop_toBottomOf="@+id/editDetails_giftvalue_tv" />
+
+    <Button
+        android:id="@+id/editDetails_save_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="149dp"
+        android:layout_marginTop="42dp"
+        android:layout_marginEnd="174dp"
+        android:text="Save"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editDetails_buyatval_tv" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

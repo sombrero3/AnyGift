@@ -1,14 +1,140 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#DC1A1A"
     tools:context=".LoginFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="1019dp"
+        android:background="#F8F8F8">
 
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="150dp"
+            android:layout_marginEnd="200dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="Sign In"
+            android:textColor="@color/black"
+            android:textSize="34sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/Login_textview_Hey"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="100dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="Hi there! Nice to see you  again"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toTopOf="@+id/textInputLayout2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView"
+            tools:ignore="MissingConstraints" />
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:layout_marginTop="15dp"
+            android:hint="@string/Email"
+            android:textColorHint="#E31212"
+            app:errorTextColor="#D53737"
+            app:layout_constraintTop_toBottomOf="@+id/Login_textview_Hey"
+            app:prefixTextColor="#BF1919"
+            tools:layout_editor_absoluteX="-18dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/Login_email_input"
+                android:layout_width="541dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="8dp"
+                android:fontFamily="sans-serif-medium"
+                android:inputType="textEmailAddress"
+                android:maxLines="1"
+                android:textColor="#AE2626" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayout3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:layout_marginTop="116dp"
+            android:hint="@string/Password"
+            android:textColorHint="#E31212"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout2"
+            tools:layout_editor_absoluteX="24dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/Login_password_input"
+                android:layout_width="541dp"
+                android:layout_height="50dp"
+                android:fontFamily="sans-serif-medium"
+                android:inputType="textPassword"
+                android:maxLines="1" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/Login_signIn_btn"
+            android:layout_width="245dp"
+            android:layout_height="54dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="92dp"
+            android:background="#E31212"
+            android:fontFamily="sans-serif-medium"
+            android:text="Sign In"
+            android:textColor="#FFFFFF"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout3"
+            tools:ignore="MissingConstraints" />
+
+        <Button
+            android:id="@+id/Login_btn_forgotp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:background="#FAF6F6"
+            android:fontFamily="sans-serif-medium"
+            android:text="Forgot Password?"
+            app:layout_constraintBaseline_toBaselineOf="@+id/Login_btn_signUp"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="MissingConstraints" />
+
+        <Button
+            android:id="@+id/Login_btn_signUp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="90dp"
+            android:background="#FFF6F6"
+            android:fontFamily="sans-serif-medium"
+            android:text="Sign Up"
+            android:textColor="#E31212"
+            android:textColorLink="#E31212"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.625"
+            app:layout_constraintStart_toEndOf="@+id/Login_btn_forgotp"
+            app:layout_constraintTop_toBottomOf="@+id/Login_signIn_btn"
+            app:strokeColor="#B8A8A8"
+            tools:ignore="MissingConstraints" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

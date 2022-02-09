@@ -3,62 +3,69 @@ package com.example.anygift;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link CardsDetailsFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import com.example.anygift.model.GiftCard;
+import com.google.firebase.auth.FirebaseAuth;
+
 public class CardsDetailsFragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    View view;
+    FeedViewModel viewModel;
+    UserViewModel userViewModel;
+    private TextView name;
+    private TextView value;
+    private TextView buyAt;
+    private Button editBtn;
+    private Button stores;
+    private ImageView userImage;
 
     public CardsDetailsFragment() {
-        // Required empty public constructor
-    }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment CardsDetailsFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static CardsDetailsFragment newInstance(String param1, String param2) {
-        CardsDetailsFragment fragment = new CardsDetailsFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_cards_details, container, false);
+        view = inflater.inflate(R.layout.fragment_cards_details, container, false);
+        viewModel = new ViewModelProvider(this).get(FeedViewModel.class);
+        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
+        int giftCardId = CardsDetailsFragmentArgs.fromBundle(getArguments()).getGiftCardId();
+        GiftCard giftCard = viewModel.getList().getValue().get(giftCardId);
+
+        //toDo:checking
+        if (viewModel.getList().getValue().get(giftCardId).getOwnerEmail().equals(FirebaseAuth.getInstance().getUid())) {
+            editBtn.setVisibility(View.VISIBLE);
+        }
+
+
+        //toDo:checking
+        name = view.findViewById(R.id.details_username_tv);
+        name.setText(userViewModel.getUserName());
+        value = view.findViewById(R.id.details_value_tv);
+        String val = Double.toString(viewModel.getList().getValue().get(giftCardId).getValue());
+        value.setText(val);
+        buyAt = view.findViewById(R.id.details_buyatval_tv);
+        String price = Double.toString(viewModel.getList().getValue().get(giftCardId).getWantedPrice());
+        buyAt.setText(price);
+        editBtn = view.findViewById(R.id.details_edit_btn);
+        editBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CardsDetailsFragmentDirections.ActionCardsDetailsFragmentToEditCardsDetailsFragment toEditDetails = CardsDetailsFragmentDirections.actionCardsDetailsFragmentToEditCardsDetailsFragment(giftCardId);
+                Navigation.findNavController(v).navigate(toEditDetails);
+            }
+        });
+
+        stores = view.findViewById(R.id.details_stores_btn);
+
+        return view;
     }
 }

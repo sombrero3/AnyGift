@@ -1,64 +1,157 @@
 package com.example.anygift;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.Navigation;
+import androidx.room.PrimaryKey;
 
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.Toast;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link SignUpFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import com.example.anygift.model.Model;
+import com.example.anygift.model.User;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
+
 public class SignUpFragment extends Fragment {
+    View view;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private FirebaseAuth mAuth= FirebaseAuth.getInstance();
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    @NonNull
+    TextInputEditText firstName;
+    @NonNull
+    TextInputEditText lastName;
+    @PrimaryKey
+    @NonNull
+    TextInputEditText email;
+    @NonNull
+    TextInputEditText phone;
+    @NonNull
+    TextInputEditText password;
+    @NonNull
+    TextInputEditText address;
+    Button signIn_btn;
+    Button continue_btn;
+    CheckBox terms;
 
-    public SignUpFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment SignUpFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static SignUpFragment newInstance(String param1, String param2) {
-        SignUpFragment fragment = new SignUpFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+    String Fname;
+    String Lname ;
+    String phone_usr;
+    String email_usr;
+    String address_usr;
+    String password_usr;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_sign_up, container, false);
+        setHasOptionsMenu(true);
+        view = inflater.inflate(R.layout.fragment_sign_up, container, false);
+        firstName = view.findViewById(R.id.SignUp_firstName_input);
+        lastName = view.findViewById(R.id.SignUp_lastName_input);
+        phone = view.findViewById(R.id.SignUp_phone_input);
+        email = view.findViewById(R.id.SignUp_email_input);
+        password = view.findViewById(R.id.SignUp_password_input);
+        signIn_btn = view.findViewById(R.id.SignUp_signIn_btn);
+        continue_btn = view.findViewById(R.id.SignUp_continue_btn);
+        address = view.findViewById(R.id.SignUp_address_input);
+        terms = view.findViewById(R.id.SignUp_check_box);
+        signIn_btn.setTypeface(Typeface.SANS_SERIF);
+        continue_btn.setTypeface(Typeface.SANS_SERIF);
+
+        continue_btn.setOnClickListener(v -> {
+            save();
+        });
+
+        signIn_btn.setOnClickListener(v -> {
+            Navigation.findNavController(v).navigate(SignUpFragmentDirections.actionSignUpFragmentToLoginFragment());
+        });
+        return view;
+    }
+
+    public void save() {
+        continue_btn.setEnabled(false);
+        signIn_btn.setEnabled(false);
+        Fname = firstName.getText().toString();
+        Lname = lastName.getText().toString();
+        phone_usr = phone.getText().toString();
+        email_usr = email.getText().toString();
+        address_usr = address.getText().toString();
+        password_usr = password.getText().toString();
+        boolean flag = terms.isChecked();
+
+
+        if (Fname == null || Lname == null || address_usr == null) {
+            firstName.setError("You must enter your first name");
+            lastName.setError("You must ennte your last name");
+            address.setError(" You must enter your address");
+            continue_btn.setEnabled(true);
+            return;
+        }
+
+        if (password_usr.length() < 6) {
+            password.setError("Password must be at least 6 characters");
+            continue_btn.setEnabled(true);
+            return;
+        }
+
+        if (flag == false) {
+            terms.setError("You must agree our terms :)");
+            continue_btn.setEnabled(true);
+            return;
+        }
+
+        mAuth.createUserWithEmailAndPassword(email_usr,password_usr).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()){
+                    User user = new User(Fname, Lname, phone_usr, email_usr, address_usr, password_usr);
+                   updateProfile();
+
+                    Model.instance.addUser(user, () -> {
+                        Navigation.findNavController(view).navigate(SignUpFragmentDirections.actionSignUpFragmentToUserProfileFragment());
+
+                    });
+                    Snackbar mySnackbar = Snackbar.make(view, "sign Up succeed, Nice to meet you :)", BaseTransientBottomBar.LENGTH_LONG);
+                    mySnackbar.show();
+                }
+                else{
+                    Toast.makeText(getContext(),"Error :-("+task.getException().getMessage(),Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+
+    }
+
+
+    public void updateProfile(){
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                .setDisplayName(Fname)
+                .build();
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        menu.clear();
     }
 }

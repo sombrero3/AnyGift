@@ -1,18 +1,37 @@
 package com.example.anygift.model;
 
+import com.google.firebase.Timestamp;
+import com.google.firebase.firestore.FieldValue;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 
 public class User {
-    String id="";
+
+    final public static String COLLECTION_NAME = "users";
+
+    String id;
     String firstName;
     String lastName;
     String phone;
     String email;
     String password;
+    String address;
+    Long lastUpdated=new Long(0);
     List<GiftCard> giftCards;
 
-
-
+    public User(){}
+    public User(String firstName,String lastName,String phone,String email,String address,String password){
+        this.firstName=firstName;
+        this.lastName=lastName;
+        this.phone=phone;
+        this.email=email;
+        this.address=address;
+        this.password=password;
+        this.id=email;
+    }
     public String getFirstName() {
         return firstName;
     }
@@ -51,5 +70,71 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public List<GiftCard> getGiftCards() {
+        return giftCards;
+    }
+
+    public void setGiftCards(List<GiftCard> giftCards) {
+        this.giftCards = giftCards;
+    }
+
+    public Long getLastUpdated() {
+        return lastUpdated;
+    }
+
+    public void setLastUpdated(Long lastUpdated) {
+        this.lastUpdated = lastUpdated;
+    }
+
+    public Map<String, Object> toMap() {
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("id", id);
+        result.put("firstName", firstName);
+        result.put("lastName", lastName);
+        result.put("phone", phone);
+        result.put("email", email);
+        result.put("password", password);
+        result.put("address", address);
+        result.put("lastUpdated", FieldValue.serverTimestamp());
+        //result.put("imageUrl", imageUrl);
+        //result.put("latitude", this.latitude);
+        //result.put("longitude", this.longitude);
+        return result;
+    }
+
+    public void fromMap(Map<String, Object> map) {
+        this.id = (String) map.get("id");
+        this.firstName = (String) map.get("firstName");
+        this.lastName = (String) map.get("lastName");
+        this.phone= (String) map.get("phone");
+        this.email= (String) map.get("email");
+        this.password= (String) map.get("password");
+        //this.imageUrl = (String) map.get("imageUrl");
+        Timestamp ts = (Timestamp) map.get("lastUpdated");
+        this.lastUpdated = ts.getSeconds();
+        //this.latitude = Double.valueOf(map.get("latitude").toString());
+       // this.longitude = Double.valueOf(map.get("longitude").toString());
+    }
+
+    public String getName() {
+        return this.getFirstName()+ " "+ this.getLastName();
     }
 }
