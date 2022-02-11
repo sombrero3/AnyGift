@@ -15,7 +15,7 @@ public class FeedViewModel extends ViewModel {
 
     public FeedViewModel() {
         Log.d("TAG", "FeedViewModel");
-        gfList = Model.instance.getAllGiftCard();
+        gfList = Model.instance.getAll();
     }
 
     LiveData<List<GiftCard>> getList() {

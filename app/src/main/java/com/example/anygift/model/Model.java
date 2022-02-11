@@ -25,22 +25,20 @@ public class Model {
 
     }
 
-    // MutableLiveData<List<GiftCard>> giftCardsList= new MutableLiveData<>();
-  LiveData<List<GiftCard>> giftCardsList;
+     MutableLiveData<List<GiftCard>> giftCardsList= new MutableLiveData<>();
+  //LiveData<List<GiftCard>> giftCardsList;
 
-    public LiveData<List<GiftCard>> getAllGiftCard() {
-        if (giftCardsList == null){
-            giftCardsList = room.getAllGiftCards();
-            refreshGiftCardsList(null);
-        }
-        return giftCardsList;
+    public LiveData<List<GiftCard>> getAll(){
+        if (giftCardsList.getValue() == null) { refreshGiftCardsList(); };
+        return  giftCardsList;
     }
+
 
     public interface GetAllGiftCardListener{
         void onComplete();
     }
 
-    public void refreshGiftCardsList(final GetAllGiftCardListener listener) {
+    public void refreshGiftCardsList() {
         //1. get local last update date
         final SharedPreferences sp = MyApplication.getContext().getSharedPreferences("TAG", Context.MODE_PRIVATE);
         long lastUpdated = sp.getLong("lastUpdated",0);
@@ -59,9 +57,8 @@ public class Model {
                 //4. update the local last update date
                 sp.edit().putLong("lastUpdated", lastU).commit();
                 //5. return the updates data to the listeners
-                if(listener != null){
-                    listener.onComplete();
-                }
+                List<GiftCard> stList = AppLocalDb.db.giftCardDao().getAll();
+                giftCardsList.postValue(stList);
             }
         });
     }
@@ -71,17 +68,7 @@ public class Model {
     }
 
     public void addGiftCard(final GiftCard giftCard, final AddGiftCardListener listener) {
-        modelFirebase.addGiftCard(giftCard, new AddGiftCardListener() {
-            @Override
-            public void onComplete() {
-                refreshGiftCardsList(new GetAllGiftCardListener() {
-                    @Override
-                    public void onComplete() {
-                        listener.onComplete();
-                    }
-                });
-            }
-        });
+        modelFirebase.addGiftCard(giftCard, listener);
     }
 
     public void updateProduct(final GiftCard giftCard, final AddGiftCardListener listener) {

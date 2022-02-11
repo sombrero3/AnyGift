@@ -8,7 +8,7 @@ import java.util.List;
 
 public class ModelRoom {
 
-    public LiveData<List<GiftCard>> getAllGiftCards(){
+    public List<GiftCard> getAllGiftCards(){
         return AppLocalDb.db.giftCardDao().getAll();
     }
 

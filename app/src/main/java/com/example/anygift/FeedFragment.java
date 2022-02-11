@@ -1,12 +1,15 @@
 package com.example.anygift;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -27,11 +30,22 @@ public class FeedFragment extends Fragment {
     EditText cardEt;
     ImageView cardIv;
     View view;
+    FeedViewModel viewModel;
+    MyAdapter adapter;
+    SwipeRefreshLayout swipeRefresh;
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        viewModel = new ViewModelProvider(this).get(FeedViewModel.class);
+    }
+    @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
          view = inflater.inflate(R.layout.fragment_feed, container, false);
-        cards= Model.instance.getAllGiftCard().getValue();
-
+        swipeRefresh = view.findViewById(R.id.giftCardlist_swiperefresh);
+        swipeRefresh.setOnRefreshListener(() -> Model.instance.refreshGiftCardsList());
+        cards= Model.instance.getAll().getValue();
+        adapter = new MyAdapter();
         RecyclerView list = view.findViewById(R.id.cards_list_rv);
         list.setHasFixedSize(true);
         list.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -47,12 +61,26 @@ public class FeedFragment extends Fragment {
 
             }
         });
+        setHasOptionsMenu(true);
+        viewModel.getList().observe(getViewLifecycleOwner(), list1 -> refresh());
+        /*swipeRefresh.setRefreshing(Model.instance.getStudentListLoadingState().getValue() == Model.StudentListLoadingState.loading);
+        Model.instance.getStudentListLoadingState().observe(getViewLifecycleOwner(), studentListLoadingState -> {
+            if (studentListLoadingState == Model.StudentListLoadingState.loading){
+                swipeRefresh.setRefreshing(true);
+            }else{
+                swipeRefresh.setRefreshing(false);
+            }
 
+        });
 
+         */
         return view;
 
     }
-
+    private void refresh() {
+        adapter.notifyDataSetChanged();
+        swipeRefresh.setRefreshing(false);
+    }
     class MyViewHolder extends RecyclerView.ViewHolder{
         TextView cardValue;
         ImageView cardImage;

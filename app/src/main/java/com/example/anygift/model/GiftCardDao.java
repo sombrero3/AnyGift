@@ -13,7 +13,7 @@ import java.util.List;
 @Dao
 public interface GiftCardDao {
     @Query("select * from GiftCard")
-    LiveData<List<GiftCard>> getAll();
+  List<GiftCard> getAll();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(GiftCard... giftCards);
