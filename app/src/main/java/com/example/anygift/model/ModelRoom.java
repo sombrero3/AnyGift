@@ -1,14 +1,20 @@
 package com.example.anygift.model;
 
 import android.os.AsyncTask;
+import android.os.Handler;
+import android.os.Looper;
+
+import androidx.core.os.HandlerCompat;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 public class ModelRoom {
 
-    public LiveData<List<GiftCard>> getAllGiftCards(){
+    public List<GiftCard> getAllGiftCards(){
         return AppLocalDb.db.giftCardDao().getAll();
     }
 
