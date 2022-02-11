@@ -109,7 +109,7 @@ public class LoginFragment extends Fragment {
                     mySnackbar = Snackbar.make(view, "Login successful :)", BaseTransientBottomBar.LENGTH_LONG);
                     mySnackbar.show();
                     Log.d("TAG","login successful");
-                    Navigation.findNavController(view).navigate(LoginFragmentDirections.actionLoginFragmentToUserProfileFragment());
+                    Navigation.findNavController(view).navigate(LoginFragmentDirections.actionGlobalFeedFragment());
                 }
                 else
                     //Log.d("TAG","Login failed");

@@ -3,23 +3,27 @@ package com.example.anygift.model;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.Menu;
 
+import androidx.core.os.HandlerCompat;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.anygift.MyApplication;
 
 import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 public class Model {
     public static final Model instance = new Model();
     public ModelFirebase modelFirebase = new ModelFirebase();
     ModelRoom room=new ModelRoom();
-/*
     Executor executor = Executors.newFixedThreadPool(1);
     Handler mainThread = HandlerCompat.createAsync(Looper.getMainLooper());
-*/
+
 
     private Model() {
 
@@ -29,7 +33,7 @@ public class Model {
   //LiveData<List<GiftCard>> giftCardsList;
 
     public LiveData<List<GiftCard>> getAll(){
-        if (giftCardsList.getValue() == null) { refreshGiftCardsList(); };
+        if (giftCardsList.getValue() == null) { refreshGiftCardsList(null); };
         return  giftCardsList;
     }
 
@@ -38,7 +42,46 @@ public class Model {
         void onComplete();
     }
 
-    public void refreshGiftCardsList() {
+    public void refreshGiftCardsList(final GetAllGiftCardListener listener) {
+        //1. get local last update date
+        final SharedPreferences sp = MyApplication.getContext().getSharedPreferences("TAG", Context.MODE_PRIVATE);
+        long lastUpdated = sp.getLong("lastUpdated",0);
+        //2. get all updated record from firebase from the last update date
+        modelFirebase.getAllProducts (lastUpdated, new ModelFirebase.GetAllGiftCardListener() {
+            @Override
+            public void onComplete(List<GiftCard> result) {
+                //3. insert the new updates to the local db
+                executor.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        long lastU = 0;
+                        for (
+                                GiftCard gf : result) {
+                            room.addGiftCard(gf, null);
+                            if (gf.getLastUpdated() > lastU) {
+                                lastU = gf.getLastUpdated();
+                            }
+                        }
+                        //4. update the local last update date
+                        sp.edit().
+
+                                putLong("lastUpdated", lastU).
+
+                                commit();
+
+                        //5. return the updates data to the listeners
+                        List<GiftCard> stList = AppLocalDb.db.giftCardDao().getAll();
+                        giftCardsList.postValue(stList);
+                        if(listener != null){
+                            listener.onComplete();
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+   /* public void refreshGiftCardsList(final GetAllGiftCardListener listener) {
         //1. get local last update date
         final SharedPreferences sp = MyApplication.getContext().getSharedPreferences("TAG", Context.MODE_PRIVATE);
         long lastUpdated = sp.getLong("lastUpdated",0);
@@ -49,7 +92,7 @@ public class Model {
                 //3. insert the new updates to the local db
                 long lastU = 0;
                 for (GiftCard gf: result) {
-                     room.addGiftCard(gf,null);
+                    room.addGiftCard(gf,null);
                     if (gf.getLastUpdated()>lastU){
                         lastU = gf.getLastUpdated();
                     }
@@ -59,10 +102,16 @@ public class Model {
                 //5. return the updates data to the listeners
                 List<GiftCard> stList = AppLocalDb.db.giftCardDao().getAll();
                 giftCardsList.postValue(stList);
+              if(listener != null){
+                    listener.onComplete();
+                }
+
+
+
             }
         });
     }
-
+    */
     public interface AddGiftCardListener {
         void onComplete();
     }

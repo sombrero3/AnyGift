@@ -53,12 +53,16 @@
         android:id="@+id/feedFragment"
         android:name="com.example.anygift.FeedFragment"
         android:label="fragment_feed"
-        tools:layout="@layout/fragment_feed" />
+        tools:layout="@layout/fragment_feed" >
+        <action
+            android:id="@+id/action_feedFragment_to_cardsDetailsFragment"
+            app:destination="@id/cardsDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/cardsDetailsFragment"
         android:name="com.example.anygift.CardsDetailsFragment"
         android:label="fragment_cards_details"
-        tools:layout="@layout/fragment_cards_details" >
+        tools:layout="@layout/fragment_cards_details">
         <argument
             android:name="giftCardId"
             app:argType="integer" />
