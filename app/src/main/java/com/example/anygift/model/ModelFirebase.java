@@ -195,6 +195,9 @@ public class ModelFirebase {
             }
         });
     }
+    public void updateUser(User user, Model.AddUserListener listener) {
+        addUser(user,listener);
+    }
 
     public void saveImage(Bitmap imageBitmap, String imageName, Model.SaveImageListener listener) {
         FirebaseStorage storage = FirebaseStorage.getInstance();

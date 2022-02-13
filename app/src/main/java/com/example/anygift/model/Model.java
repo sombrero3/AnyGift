@@ -120,7 +120,7 @@ public class Model {
         modelFirebase.addGiftCard(giftCard, listener);
     }
 
-    public void updateProduct(final GiftCard giftCard, final AddGiftCardListener listener) {
+    public void updateGiftCard(final GiftCard giftCard, final AddGiftCardListener listener) {
         modelFirebase.updateGiftCard(giftCard, listener);
     }
 
@@ -168,6 +168,10 @@ public class Model {
             }
         });
     }
+    public void updateUser(final User user, final AddUserListener listener) {
+        modelFirebase.updateUser(user, listener);
+    }
+
 
     public ModelFirebase getModelFirebase(){
         return this.modelFirebase;
