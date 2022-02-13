@@ -28,10 +28,9 @@ public class ModelFirebase {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     public ModelFirebase() {
-       /* FirebaseFirestoreSettings set = new FirebaseFirestoreSettings.Builder().setPersistenceEnabled(false).build();
+        FirebaseFirestoreSettings set = new FirebaseFirestoreSettings.Builder().setPersistenceEnabled(false).build();
         db.setFirestoreSettings(set);
 
-        */
     }
 
 

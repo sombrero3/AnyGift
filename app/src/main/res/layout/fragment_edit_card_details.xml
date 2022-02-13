@@ -94,13 +94,14 @@
 
     <Button
         android:id="@+id/editDetails_save_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="107dp"
+        android:layout_height="38dp"
         android:layout_marginStart="149dp"
-        android:layout_marginTop="42dp"
         android:layout_marginEnd="174dp"
-        android:text="Save"
+        android:background="#FF9800"
+        android:text="Delete"
         android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editDetails_buyatval_tv" />

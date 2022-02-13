@@ -165,7 +165,6 @@ public void onActivityResult(int requestCode, int resultCode, Intent data) {
     }
 }
 
-
     void popMsg(String Msg) {
         Snackbar mySnackbar = Snackbar.make(view, Msg, BaseTransientBottomBar.LENGTH_LONG);
         mySnackbar.show();

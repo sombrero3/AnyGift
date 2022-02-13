@@ -14,6 +14,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.anygift.model.GiftCard;
+import com.example.anygift.model.Model;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class CardsDetailsFragment extends Fragment {
@@ -23,7 +26,7 @@ public class CardsDetailsFragment extends Fragment {
     private TextView name;
     private TextView value;
     private TextView buyAt;
-    private Button editBtn;
+    private Button deleteBtn;
     private Button stores;
     private ImageView userImage;
 
@@ -49,21 +52,24 @@ public class CardsDetailsFragment extends Fragment {
         buyAt = view.findViewById(R.id.details_buyatval_tv);
         String price = Double.toString(viewModel.getList().getValue().get(giftCardId).getWantedPrice());
         buyAt.setText(price);
-        editBtn = view.findViewById(R.id.details_edit_btn);
+        deleteBtn = view.findViewById(R.id.details_delete_btn);
         if (giftCard.getOwnerEmail().equals(FirebaseAuth.getInstance().getCurrentUser().getEmail())) {
-            editBtn.setVisibility(View.VISIBLE);
+            deleteBtn.setVisibility(View.VISIBLE);
         }
 
 
-        editBtn.setOnClickListener(new View.OnClickListener() {
+        deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CardsDetailsFragmentDirections.ActionCardsDetailsFragmentToEditCardsDetailsFragment toEditDetails = CardsDetailsFragmentDirections.actionCardsDetailsFragmentToEditCardsDetailsFragment(giftCardId);
-                Navigation.findNavController(v).navigate(toEditDetails);
+                Model.instance.modelFirebase.delete(viewModel.getList().getValue().get(giftCardId).getId());
+                // add spinner
+                Navigation.findNavController(view).navigateUp();
+                Snackbar mySnackbar = Snackbar.make(view, "GiftCard Deleted!", BaseTransientBottomBar.LENGTH_LONG);
+                mySnackbar.show();
             }
         });
 
-        stores = view.findViewById(R.id.details_stores_btn);
+//        stores = view.findViewById(R.id.details_stores_btn);
 
         return view;
     }
