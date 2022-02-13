@@ -130,7 +130,7 @@ public class GiftCard {
         result.put("cardName", cardName);
         result.put("value",value);
         result.put("wantedPrice", wantedPrice);
-        //result.put("imageUrl", imageUrl);
+        result.put("imageUrl", giftCardImageUrl);
         result.put("lastUpdated", FieldValue.serverTimestamp());
         result.put("expirationDate",expirationDate);
         result.put("ownerEmail", ownerEmail);
@@ -151,6 +151,7 @@ public class GiftCard {
         Timestamp ts = (Timestamp)map.get("lastUpdated");
         isDeleted = (Boolean) map.get("isDeleted");
         lastUpdated = ts.getSeconds();
+        giftCardImageUrl = (String)map.get("imageUrl");
 
         //long time = ts.toDate().getTime();
     }

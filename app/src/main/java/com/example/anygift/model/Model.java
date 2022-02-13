@@ -132,8 +132,8 @@ public class Model {
     public void getGiftCard(String email, GetGiftCardListener listener) {
         modelFirebase.getGiftCard(email, listener);
     }
-
-/* upload image
+/*
+ //upload image
   public interface Listener<T> {
         void onComplete(T result);
     }
@@ -141,12 +141,19 @@ public class Model {
 
   public interface UploadImageListener extends Listener<String>{ }
 
+ */
+    public interface UploadImageListener {
+        void onComplete(String url);
+    }
+
+
+
     public void uploadImage(Bitmap imageBmp, String name, final UploadImageListener listener) {
         modelFirebase.uploadImage(imageBmp, name, listener);
     }
 
 
- */
+
 
     public interface SaveImageListener {
         void onComplete(String url);

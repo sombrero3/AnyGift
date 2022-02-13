@@ -128,10 +128,10 @@ public class ModelFirebase {
 //            }
 //        });
     }
-/*
+
     public void uploadImage(Bitmap imageBmp, String name, final Model.UploadImageListener listener){
         FirebaseStorage storage = FirebaseStorage.getInstance();
-        final StorageReference imagesRef = storage.getReference().child("images").child(name);
+        final StorageReference imagesRef = storage.getReference().child("giftCard_photos").child(name);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         imageBmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         byte[] data = baos.toByteArray();
@@ -155,7 +155,7 @@ public class ModelFirebase {
         });
     }
 
- */
+
 
 //User
 
