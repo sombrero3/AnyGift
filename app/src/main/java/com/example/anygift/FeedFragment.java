@@ -31,7 +31,6 @@ import java.util.TimerTask;
 
 
 public class FeedFragment extends Fragment {
-    EditText cardEt;
     ImageView cardIv;
     View view;
     FeedViewModel viewModel;
@@ -100,7 +99,7 @@ public class FeedFragment extends Fragment {
 
     class MyViewHolder extends RecyclerView.ViewHolder {
         public OnItemClickListener listener;
-        TextView cardValue;
+        TextView cardValue,cardValTag;
         ImageView cardImage;
         int position;
         private LiveData<List<GiftCard>> giftCardList = Model.instance.getAll();
@@ -109,7 +108,8 @@ public class FeedFragment extends Fragment {
             super(itemView);
             cardValue = itemView.findViewById(R.id.cards_list_row_et_value);
             cardImage = itemView.findViewById(R.id.cards_list_row_iv);
-            itemView.setOnClickListener(new View.OnClickListener() {
+            cardValTag=itemView.findViewById(R.id.listRow_tv_value);
+                itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
@@ -125,6 +125,7 @@ public class FeedFragment extends Fragment {
                 } else {
                     cardValue.setVisibility(View.GONE);
                     cardImage.setVisibility(View.GONE);
+                    cardValTag.setVisibility(View.GONE);
                 }
             }
         }

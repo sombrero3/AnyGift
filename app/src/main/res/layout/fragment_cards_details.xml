@@ -19,15 +19,14 @@
 
     <TextView
         android:id="@+id/details_username_tv"
-        android:layout_width="125dp"
-        android:layout_height="34dp"
-        android:layout_marginTop="24dp"
+        android:layout_width="234dp"
+        android:layout_height="33dp"
         android:text="name"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/details_picture_iv" />
+        app:layout_constraintHorizontal_bias="0.255"
+        app:layout_constraintStart_toEndOf="@+id/textView10"
+        app:layout_constraintTop_toTopOf="@+id/textView10" />
 
     <TextView
         android:id="@+id/details_giftvalue_tv"
@@ -101,9 +100,21 @@
         android:layout_marginEnd="167dp"
         android:text="Edit"
         android:textSize="20sp"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/details_buyatval_tv" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="117dp"
+        android:layout_height="37dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="28dp"
+        android:text="Belong to:"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/details_picture_iv" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

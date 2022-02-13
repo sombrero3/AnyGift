@@ -213,10 +213,12 @@ public void onActivityResult(int requestCode, int resultCode, Intent data) {
             error=true;
             errorMsg += "date: " + dateFormatted + " is Invalid!\n";
         }
-        if (imgName.equals("")) {
+    /*    if (imgName.equals("")) {
             error = true;
             errorMsg += "GiftCard Picture Is Missing!";
         }
+
+     */
 
         if (error) {
             popMsg(errorMsg);

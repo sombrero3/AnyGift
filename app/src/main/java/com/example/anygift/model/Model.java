@@ -37,7 +37,6 @@ public class Model {
         return  giftCardsList;
     }
 
-
     public interface GetAllGiftCardListener{
         void onComplete();
     }

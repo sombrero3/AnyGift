@@ -41,14 +41,8 @@ public class CardsDetailsFragment extends Fragment {
         GiftCard giftCard = viewModel.getList().getValue().get(giftCardId);
 
         //toDo:checking
-        if (viewModel.getList().getValue().get(giftCardId).getOwnerEmail().equals(FirebaseAuth.getInstance().getUid())) {
-            editBtn.setVisibility(View.VISIBLE);
-        }
-
-
-        //toDo:checking
         name = view.findViewById(R.id.details_username_tv);
-        name.setText(userViewModel.getUserName());
+        name.setText(giftCard.getOwnerEmail());
         value = view.findViewById(R.id.details_value_tv);
         String val = Double.toString(viewModel.getList().getValue().get(giftCardId).getValue());
         value.setText(val);
@@ -56,6 +50,11 @@ public class CardsDetailsFragment extends Fragment {
         String price = Double.toString(viewModel.getList().getValue().get(giftCardId).getWantedPrice());
         buyAt.setText(price);
         editBtn = view.findViewById(R.id.details_edit_btn);
+        if (giftCard.getOwnerEmail().equals(FirebaseAuth.getInstance().getCurrentUser().getEmail())) {
+            editBtn.setVisibility(View.VISIBLE);
+        }
+
+
         editBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

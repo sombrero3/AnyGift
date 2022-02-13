@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 }
                 case R.id.menu_cards: {
-                    navCtr.navigate(R.id.action_global_cardsDetailsFragment);
+                    navCtr.navigate(R.id.action_global_myCardsFragment);
                     break;
                 }
                 case R.id.add_card: {
