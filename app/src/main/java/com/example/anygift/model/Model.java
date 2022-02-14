@@ -20,7 +20,6 @@ import java.util.concurrent.Executors;
 public class Model {
     public static final Model instance = new Model();
     public ModelFirebase modelFirebase = new ModelFirebase();
-    //ModelRoom room=new ModelRoom();
     Executor executor = Executors.newFixedThreadPool(1);
     Handler mainThread = HandlerCompat.createAsync(Looper.getMainLooper());
 
@@ -30,98 +29,62 @@ public class Model {
 
     }
 
-     MutableLiveData<List<GiftCard>> giftCardsList= new MutableLiveData<>();
-  //LiveData<List<GiftCard>> giftCardsList;
+    MutableLiveData<List<GiftCard>> giftCardsList = new MutableLiveData<>();
+    //LiveData<List<GiftCard>> giftCardsList;
 
-    public LiveData<List<GiftCard>> getAll(){
-        if (giftCardsList.getValue() == null) { refreshGiftCardsList(); };
-        return  giftCardsList;
+    public LiveData<List<GiftCard>> getAll() {
+        if (giftCardsList.getValue() == null) {
+            refreshGiftCardsList();
+        }
+        ;
+        return giftCardsList;
     }
+
     public enum GiftListLoadingState {
         loading,
         loaded
     }
+
     MutableLiveData<GiftListLoadingState> ListLoadingState = new MutableLiveData<GiftListLoadingState>();
 
     public MutableLiveData<GiftListLoadingState> getListLoadingState() {
         return ListLoadingState;
     }
 
-    public interface GetAllGiftCardListener{
+    public interface GetAllGiftCardListener {
         void onComplete();
     }
 
-    /*public void refreshGiftCardsList(final GetAllGiftCardListener listener) {
-        //1. get local last update date
-        final SharedPreferences sp = MyApplication.getContext().getSharedPreferences("TAG", Context.MODE_PRIVATE);
-        long lastUpdated = sp.getLong("lastUpdated",0);
-        //2. get all updated record from firebase from the last update date
-        modelFirebase.getAllProducts (lastUpdated, new ModelFirebase.GetAllGiftCardListener() {
-            @Override
-            public void onComplete(List<GiftCard> result) {
-                //3. insert the new updates to the local db
-                executor.execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        long lastU = 0;
-                        for (GiftCard gf : result) {
-                            AppLocalDb.db.giftCardDao().insertAll(gf);
-                            // room.addGiftCard(gf, null);
-                            if (gf.getLastUpdated() > lastU) {
-                                lastU = gf.getLastUpdated();
-                            }
-                        }
-                        //4. update the local last update date
-                        sp.edit().
-
-                                putLong("lastUpdated", lastU).
-
-                                commit();
-
-                        //5. return the updates data to the listeners
-                        List<GiftCard> stList = AppLocalDb.db.giftCardDao().getAll();
-                        giftCardsList.postValue(stList);
-                        if(listener != null){
-                            listener.onComplete();
-                        }
-                    }
-                });
-            }
-        });
-    }
-
-
-     */
     public void refreshGiftCardsList() {
         ListLoadingState.setValue(GiftListLoadingState.loading);
 
         //1. get local last update date
         final SharedPreferences sp = MyApplication.getContext().getSharedPreferences("TAG", Context.MODE_PRIVATE);
-        long lastUpdated = sp.getLong("lastUpdated",0);
+        long lastUpdated = sp.getLong("lastUpdated", 0);
+        executor.execute(() -> {
+            List<GiftCard> gcList = AppLocalDb.db.giftCardDao().getAll();
+            giftCardsList.postValue(gcList);
+        });
         //2. get all updated record from firebase from the last update date
-        modelFirebase.getAllProducts (lastUpdated, new ModelFirebase.GetAllGiftCardListener() {
+        modelFirebase.getAllProducts(lastUpdated, new ModelFirebase.GetAllGiftCardListener() {
             @Override
             public void onComplete(List<GiftCard> result) {
-                //3. insert the new updates to the local db
                 executor.execute(new Runnable() {
                     @Override
                     public void run() {
                         long lastU = 0;
                         for (GiftCard gf : result) {
                             AppLocalDb.db.giftCardDao().insertAll(gf);
-                            // room.addGiftCard(gf, null);
                             if (gf.getLastUpdated() > lastU) {
                                 lastU = gf.getLastUpdated();
                             }
                         }
-                        //4. update the local last update date
-                        sp.edit().
+                        MyApplication.getContext()
+                                .getSharedPreferences("TAG", Context.MODE_PRIVATE)
+                                .edit()
+                                .putLong("lastUpdated", lastU)
+                                .commit();
 
-                                putLong("lastUpdated", lastU).
-
-                                commit();
-
-                        //5. return the updates data to the listeners
                         List<GiftCard> stList = AppLocalDb.db.giftCardDao().getAll();
                         giftCardsList.postValue(stList);
                         ListLoadingState.postValue(GiftListLoadingState.loaded);
@@ -132,7 +95,6 @@ public class Model {
             }
         });
     }
-
 
 
     public interface AddGiftCardListener {
@@ -155,27 +117,25 @@ public class Model {
     public void getGiftCard(String email, GetGiftCardListener listener) {
         modelFirebase.getGiftCard(email, listener);
     }
-/*
- //upload image
-  public interface Listener<T> {
-        void onComplete(T result);
-    }
+
+    /*
+     //upload image
+      public interface Listener<T> {
+            void onComplete(T result);
+        }
 
 
-  public interface UploadImageListener extends Listener<String>{ }
+      public interface UploadImageListener extends Listener<String>{ }
 
- */
+     */
     public interface UploadImageListener {
         void onComplete(String url);
     }
 
 
-
     public void uploadImage(Bitmap imageBmp, String name, final UploadImageListener listener) {
         modelFirebase.uploadImage(imageBmp, name, listener);
     }
-
-
 
 
     public interface SaveImageListener {
@@ -187,10 +147,11 @@ public class Model {
     }
 
     //user
-    public interface  AddUserListener{
+    public interface AddUserListener {
         void onComplete();
     }
-    public void addUser(final User user , final AddUserListener listener) {
+
+    public void addUser(final User user, final AddUserListener listener) {
         modelFirebase.addUser(user, new AddUserListener() {
             @Override
             public void onComplete() {
@@ -198,12 +159,13 @@ public class Model {
             }
         });
     }
+
     public void updateUser(final User user, final AddUserListener listener) {
         modelFirebase.updateUser(user, listener);
     }
 
 
-    public ModelFirebase getModelFirebase(){
+    public ModelFirebase getModelFirebase() {
         return this.modelFirebase;
     }
 }

@@ -26,58 +26,50 @@ import com.example.anygift.model.GiftCard;
 import com.example.anygift.model.Model;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
 
 
 public class FeedFragment extends Fragment {
-    ImageView cardIv;
-    View view;
     FeedViewModel viewModel;
     MyAdapter adapter;
     SwipeRefreshLayout swipeRefresh;
-    LiveData<List<GiftCard>> liveData;
-    public FeedFragment() {
-        // Required empty public constructor
-    }
-
-
 
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         viewModel = new ViewModelProvider(this).get(FeedViewModel.class);
     }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-         view = inflater.inflate(R.layout.fragment_feed, container, false);
-         getActivity().setTitle("AnyGift - Feed");
+        View view = inflater.inflate(R.layout.fragment_feed, container, false);
+        getActivity().setTitle("AnyGift - Feed");
         swipeRefresh = view.findViewById(R.id.giftCardlist_swiperefresh);
-        swipeRefresh.setOnRefreshListener(()->  Model.instance.refreshGiftCardsList());
-        adapter = new MyAdapter();
+        swipeRefresh.setOnRefreshListener(() -> Model.instance.refreshGiftCardsList());
         RecyclerView list = view.findViewById(R.id.cards_list_rv);
         list.setHasFixedSize(true);
         list.setLayoutManager(new LinearLayoutManager(getContext()));
-        FeedFragment.MyAdapter adapter = new FeedFragment.MyAdapter();
+        adapter = new MyAdapter();
         list.setAdapter(adapter);
         adapter.setOnItemClickListener(new FeedFragment.OnItemClickListener() {
             @Override
             public void onItemClick(View v, int position) {
                 double val = viewModel.getList().getValue().get(position).getValue();
-                String id=viewModel.getList().getValue().get(position).getId();
-                Log.d("TAG","Gift card in vlaue of: " + val);
-                 Navigation.findNavController(v).navigate(FeedFragmentDirections.actionFeedFragmentToCardsDetailsFragment(id));
-
+                String id = viewModel.getList().getValue().get(position).getId();
+                Log.d("TAG", "Gift card in value of: " + val);
+                Navigation.findNavController(v).navigate(FeedFragmentDirections.actionFeedFragmentToCardsDetailsFragment(id));
             }
         });
         setHasOptionsMenu(true);
         viewModel.getList().observe(getViewLifecycleOwner(), list1 -> refresh());
         swipeRefresh.setRefreshing(Model.instance.getListLoadingState().getValue() == Model.GiftListLoadingState.loading);
         Model.instance.getListLoadingState().observe(getViewLifecycleOwner(), ListLoadingState -> {
-            if (ListLoadingState == Model.GiftListLoadingState.loading){
+            if (ListLoadingState == Model.GiftListLoadingState.loading) {
                 swipeRefresh.setRefreshing(true);
-            }else{
+            } else {
                 swipeRefresh.setRefreshing(false);
             }
 
@@ -85,70 +77,61 @@ public class FeedFragment extends Fragment {
         return view;
 
     }
+
     private void refresh() {
 
         adapter.notifyDataSetChanged();
     }
 
-    /*void reloadData() {
-        Model.instance.refreshGiftCardsList(new Model.GetAllGiftCardListener() {
-            @Override
-            public void onComplete() {
-               adapter.notifyDataSetChanged();
-                swipeRefresh.setRefreshing(false);
-            }
-        });
-    }*/
-
     class MyViewHolder extends RecyclerView.ViewHolder {
         public OnItemClickListener listener;
-        TextView cardValue,cardValTag;
+        TextView cardValue, cardValTag;
         ImageView cardImage;
         int position;
-        //private LiveData<List<GiftCard>> giftCardList = Model.instance.getAll();
 
-            public MyViewHolder(View itemView) {
+        public MyViewHolder(View itemView) {
             super(itemView);
             cardValue = itemView.findViewById(R.id.cards_list_row_et_value);
             cardImage = itemView.findViewById(R.id.cards_list_row_iv);
-            cardValTag=itemView.findViewById(R.id.listRow_tv_value);
-                itemView.setOnClickListener(new View.OnClickListener() {
+            cardValTag = itemView.findViewById(R.id.listRow_tv_value);
+            itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
-                    listener.onItemClick( v,position);
+                    listener.onItemClick(v, position);
                 }
             });
         }
-            public void bindView (int position){
-                if (!viewModel.getList().getValue().get(position).getDeleted()) {
-                    cardValue.setText(String.valueOf(viewModel.getList().getValue().get(position).getValue()));
-                    // Picasso.get().load(viewModel.getList().getValue().get(position).getImageUrl()).into(cardImage);
-                    this.position = position;
-                } else {
-                    cardValue.setVisibility(View.GONE);
-                    cardImage.setVisibility(View.GONE);
-                    cardValTag.setVisibility(View.GONE);
-                }
+
+        public void bindView(int position) {
+            if (!Objects.requireNonNull(viewModel.getList().getValue()).get(position).getDeleted()) {
+                cardValue.setText(String.valueOf(viewModel.getList().getValue().get(position).getValue()));
+                // Picasso.get().load(viewModel.getList().getValue().get(position).getImageUrl()).into(cardImage);
+                this.position = position;
+            } else {
+                cardValue.setVisibility(View.GONE);
+                cardImage.setVisibility(View.GONE);
+                cardValTag.setVisibility(View.GONE);
             }
         }
-
-    interface OnItemClickListener{
-
-         void onItemClick(View v, int position);
     }
 
-    class MyAdapter extends RecyclerView.Adapter<FeedFragment.MyViewHolder>{
-       OnItemClickListener listener;
-       // private LiveData<List<GiftCard>> giftCardList = Model.instance.getAll();
-        public void setOnItemClickListener(FeedFragment.OnItemClickListener listener){
+    interface OnItemClickListener {
+
+        void onItemClick(View v, int position);
+    }
+
+    class MyAdapter extends RecyclerView.Adapter<FeedFragment.MyViewHolder> {
+        OnItemClickListener listener;
+
+        public void setOnItemClickListener(FeedFragment.OnItemClickListener listener) {
             this.listener = listener;
         }
 
         @NonNull
         @Override
         public FeedFragment.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View view = getLayoutInflater().inflate(R.layout.cards_list_row,parent,false);
+            View view = getLayoutInflater().inflate(R.layout.cards_list_row, parent, false);
             MyViewHolder holder = new MyViewHolder(view);
             holder.listener = listener;
 
@@ -173,7 +156,7 @@ public class FeedFragment extends Fragment {
 
         @Override
         public int getItemCount() {
-            if(viewModel.getList().getValue()==null)
+            if (viewModel.getList().getValue() == null)
                 return 0;
             return viewModel.getList().getValue().size();
         }
