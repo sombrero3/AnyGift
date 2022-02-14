@@ -26,6 +26,7 @@ import android.widget.TextView;
 import com.example.anygift.model.GiftCard;
 import com.example.anygift.model.Model;
 import com.google.firebase.auth.FirebaseAuth;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -110,7 +111,7 @@ public class MyCardsFragment extends Fragment {
             String userEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
             if (!viewModel.getList().getValue().get(position).getDeleted() && (gfEmail.compareTo(userEmail) == 0)) {
                 cardValue.setText(String.valueOf(viewModel.getList().getValue().get(position).getValue()));
-                // Picasso.get().load(viewModel.getList().getValue().get(position).getGiftCardImageUrl()).into(cardImage);
+                Picasso.get().load(viewModel.getList().getValue().get(position).getGiftCardImageUrl()).into(cardImage);
                 this.position = position;
             } else {
                 cardValue.setVisibility(View.GONE);

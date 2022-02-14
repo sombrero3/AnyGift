@@ -24,6 +24,7 @@ import android.widget.TextView;
 
 import com.example.anygift.model.GiftCard;
 import com.example.anygift.model.Model;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 import java.util.Objects;
@@ -106,7 +107,7 @@ public class FeedFragment extends Fragment {
         public void bindView(int position) {
             if (!Objects.requireNonNull(viewModel.getList().getValue()).get(position).getDeleted()) {
                 cardValue.setText(String.valueOf(viewModel.getList().getValue().get(position).getValue()));
-                // Picasso.get().load(viewModel.getList().getValue().get(position).getImageUrl()).into(cardImage);
+                Picasso.get().load(viewModel.getList().getValue().get(position).getGiftCardImageUrl()).into(cardImage);
                 this.position = position;
             } else {
                 cardValue.setVisibility(View.GONE);
