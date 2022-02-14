@@ -52,6 +52,7 @@ public class FeedFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
          view = inflater.inflate(R.layout.fragment_feed, container, false);
+         getActivity().setTitle("AnyGift - Feed");
         swipeRefresh = view.findViewById(R.id.giftCardlist_swiperefresh);
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -82,7 +83,7 @@ public class FeedFragment extends Fragment {
                 adapter.notifyDataSetChanged();
             }
         });
-
+        reloadData();
         return view;
 
     }

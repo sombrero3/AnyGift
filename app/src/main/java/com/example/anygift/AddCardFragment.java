@@ -60,6 +60,7 @@ public class AddCardFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        getActivity().setTitle("AnyGift - AddCard");
         view = inflater.inflate(R.layout.fragment_add_card, container, false);
         cardNumber = view.findViewById(R.id.add_card_number);
         cardValue = view.findViewById(R.id.add_card_value);
@@ -67,9 +68,8 @@ public class AddCardFragment extends Fragment {
         cardExpMonth = view.findViewById(R.id.add_card_exp_mo);
         cardExpYear = view.findViewById(R.id.add_card_exp_year);
         cardAskingValue = view.findViewById(R.id.add_card_exp_value);
-        giftCardImage=view.findViewById(R.id.add_giftCardImage);
+        giftCardImage = view.findViewById(R.id.add_giftCardImage);
         giftCardImage.setTag("");
-
 
 
         // uploadPicText = view.findViewById(R.id.add_take_picture_tv);
@@ -90,15 +90,9 @@ public class AddCardFragment extends Fragment {
 
         return view;
     }
-/*
-    private void openCam() {
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(intent, REQUEST_CAMERA);
-    }
 
- */
     private void editImage() {
-        final CharSequence[] options = { "Take Photo", "Choose from Gallery","Cancel" };
+        final CharSequence[] options = {"Take Photo", "Choose from Gallery", "Cancel"};
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("Choose your profile picture");
         builder.setItems(options, new DialogInterface.OnClickListener() {
@@ -109,7 +103,7 @@ public class AddCardFragment extends Fragment {
                     startActivityForResult(takePicture, 0);
                 } else if (options[item].equals("Choose from Gallery")) {
                     Intent pickPhoto = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                    startActivityForResult(pickPhoto , 1);
+                    startActivityForResult(pickPhoto, 1);
                 } else if (options[item].equals("Cancel")) {
                     dialog.dismiss();
                 }
@@ -119,51 +113,38 @@ public class AddCardFragment extends Fragment {
     }
 
 
-/*
     @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_CAMERA) {
-            if (resultCode == Activity.RESULT_OK) {
-                Bundle extras = data.getExtras();
-                giftCardBitmap = (Bitmap) extras.get("data");
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode != RESULT_CANCELED) {
+            switch (requestCode) {
+                case 0:
+                    if (resultCode == RESULT_OK && data != null) {
+                        Bitmap selectedImage = (Bitmap) data.getExtras().get("data");
+                        giftCardImage.setImageBitmap(selectedImage);
+                        giftCardImage.setTag("img");
+                    }
+                    break;
+                case 1:
+                    if (resultCode == RESULT_OK && data != null) {
+                        Uri selectedImage = data.getData();
+                        String[] filePathColumn = {MediaStore.Images.Media.DATA};
+                        if (selectedImage != null) {
+                            Cursor cursor = getActivity().getContentResolver().query(selectedImage,
+                                    filePathColumn, null, null, null);
+                            if (cursor != null) {
+                                cursor.moveToFirst();
+                                int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                                String picturePath = cursor.getString(columnIndex);
+                                giftCardImage.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+                                giftCardImage.setTag("img");
+                                cursor.close();
+                            }
+                        }
+                    }
+                    break;
             }
         }
     }
-
- */
-@Override
-public void onActivityResult(int requestCode, int resultCode, Intent data) {
-    if(resultCode != RESULT_CANCELED) {
-        switch (requestCode) {
-            case 0:
-                if (resultCode == RESULT_OK && data != null) {
-                    Bitmap selectedImage = (Bitmap) data.getExtras().get("data");
-                    giftCardImage.setImageBitmap(selectedImage);
-                    giftCardImage.setTag("img");
-                }
-                break;
-            case 1:
-                if (resultCode == RESULT_OK && data != null) {
-                    Uri selectedImage =  data.getData();
-                    String[] filePathColumn = {MediaStore.Images.Media.DATA};
-                    if (selectedImage != null) {
-                        Cursor cursor = getActivity().getContentResolver().query(selectedImage,
-                                filePathColumn, null, null, null);
-                        if (cursor != null) {
-                            cursor.moveToFirst();
-                            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                            String picturePath = cursor.getString(columnIndex);
-                            giftCardImage.setImageBitmap(BitmapFactory.decodeFile(picturePath));
-                            giftCardImage.setTag("img");
-                            cursor.close();
-                        }
-                    }
-                }
-                break;
-        }
-    }
-}
 
     void popMsg(String Msg) {
         Snackbar mySnackbar = Snackbar.make(view, Msg, BaseTransientBottomBar.LENGTH_LONG);
@@ -189,7 +170,6 @@ public void onActivityResult(int requestCode, int resultCode, Intent data) {
     }
 
 
-
     void logging(String CardValue, String CardAskingValue, String CardNumber) {
         Log.d("TAG", CardValue);
         Log.d("TAG", CardAskingValue);
@@ -200,7 +180,7 @@ public void onActivityResult(int requestCode, int resultCode, Intent data) {
         boolean error = false;
         String errorMsg = "";
         disableButtons();
-        String imgName=(String) giftCardImage.getTag();
+        String imgName = (String) giftCardImage.getTag();
         String CardValue = cardValue.getText().toString();
         String CardAskingValue = cardAskingValue.getText().toString();
         String CardNumber = cardNumber.getText().toString();
@@ -208,8 +188,8 @@ public void onActivityResult(int requestCode, int resultCode, Intent data) {
         String mo = cardExpMonth.getText().toString();
         String year = cardExpYear.getText().toString();
         String dateFormatted = year + "-" + mo + "-" + day;
-        if (!isLegalDate(dateFormatted)){
-            error=true;
+        if (!isLegalDate(dateFormatted)) {
+            error = true;
             errorMsg += "date: " + dateFormatted + " is Invalid!\n";
         }
     /*    if (imgName.equals("")) {
@@ -233,16 +213,16 @@ public void onActivityResult(int requestCode, int resultCode, Intent data) {
         String emailUser = user.getEmail().toString();
 
         GiftCard newGiftCard = new GiftCard(CardNumber, Double.parseDouble(CardValue), date, Double.parseDouble(CardAskingValue), emailUser); //todo maybe change double to string
-        BitmapDrawable drawable = (BitmapDrawable)giftCardImage.getDrawable();
-        Log.d("BITAG",drawable.toString());
+        BitmapDrawable drawable = (BitmapDrawable) giftCardImage.getDrawable();
+        Log.d("BITAG", drawable.toString());
         Bitmap bitmap = drawable.getBitmap();
 
         Model.instance.uploadImage(bitmap, newGiftCard.getCardName(), new Model.UploadImageListener() {
             @Override
             public void onComplete(String url) {
-                if (url == null){
+                if (url == null) {
                     displayFailedError();
-                }else{
+                } else {
                     newGiftCard.setGiftCardImageUrl(url);
                     Model.instance.addGiftCard(newGiftCard, () -> {
                         Navigation.findNavController(view).navigate(R.id.action_global_feedFragment);
@@ -251,20 +231,8 @@ public void onActivityResult(int requestCode, int resultCode, Intent data) {
                 }
             }
         });
-/*
-        Model.instance.saveImage(bitmap, newGiftCard.getId() + ".jpg", url -> {
-            newGiftCard.setGiftCardImageUrl(url);
-            Model.instance.addGiftCard(newGiftCard, () -> {
-                Navigation.findNavController(view).navigate(R.id.action_global_feedFragment);
-                popMsg("GiftCard Added! :)");
-            });
-        });
-
- */
-
-
-
     }
+
     private void displayFailedError() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("Operation Failed");

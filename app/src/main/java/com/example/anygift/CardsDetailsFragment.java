@@ -38,11 +38,9 @@ public class CardsDetailsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_cards_details, container, false);
-        viewModel = new ViewModelProvider(this).get(FeedViewModel.class);
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
         int giftCardId = CardsDetailsFragmentArgs.fromBundle(getArguments()).getGiftCardId();
         GiftCard giftCard = viewModel.getList().getValue().get(giftCardId);
-
         //toDo:checking
         name = view.findViewById(R.id.details_username_tv);
         name.setText(giftCard.getOwnerEmail());
@@ -59,8 +57,10 @@ public class CardsDetailsFragment extends Fragment {
 
 
         deleteBtn.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
+                deleteBtn.setEnabled(false);
                 GiftCard gc=viewModel.getList().getValue().get(giftCardId);
                 gc.setDeleted(true);
                 Model.instance.modelFirebase.addGiftCard(gc, new Model.AddGiftCardListener() {

@@ -56,6 +56,7 @@ public class LoginFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         setHasOptionsMenu(true);
+        getActivity().setTitle("AnyGift - Login");
         view= inflater.inflate(R.layout.fragment_login, container, false);
         signIn_btn=view.findViewById(R.id.Login_signIn_btn);
         signUp_btn=view.findViewById(R.id.Login_btn_signUp);

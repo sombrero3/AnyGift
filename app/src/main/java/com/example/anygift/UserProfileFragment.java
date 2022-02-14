@@ -33,6 +33,7 @@ public class UserProfileFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        getActivity().setTitle("AnyGift - Profile");
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_user_profile, container, false);
         editBtn = view.findViewById(R.id.profileF_editInfoBtn);
