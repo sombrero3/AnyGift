@@ -19,6 +19,8 @@ import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.List;
+
 public class CardsDetailsFragment extends Fragment {
     View view;
     FeedViewModel viewModel;
@@ -29,7 +31,7 @@ public class CardsDetailsFragment extends Fragment {
     private Button deleteBtn;
     private Button stores;
     private ImageView userImage;
-
+    GiftCard giftCard = null;
     public CardsDetailsFragment() {
 
     }
@@ -39,16 +41,22 @@ public class CardsDetailsFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_cards_details, container, false);
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
-        int giftCardId = CardsDetailsFragmentArgs.fromBundle(getArguments()).getGiftCardId();
-        GiftCard giftCard = viewModel.getList().getValue().get(giftCardId);
+        String giftCardId = CardsDetailsFragmentArgs.fromBundle(getArguments()).getGiftCardId();
+        viewModel = new ViewModelProvider(this).get(FeedViewModel.class);
+        List<GiftCard> list=viewModel.getList().getValue();
+
+        for(GiftCard gc:list){
+            if(gc.getId().equals(giftCardId))
+                giftCard=gc;
+        }
         //toDo:checking
         name = view.findViewById(R.id.details_username_tv);
         name.setText(giftCard.getOwnerEmail());
         value = view.findViewById(R.id.details_giftvalue_tv);
-        String val = Double.toString(viewModel.getList().getValue().get(giftCardId).getValue());
+        String val = Double.toString(giftCard.getValue());
         value.setText(val);
         buyAt = view.findViewById(R.id.details_buyatval_tv);
-        String price = Double.toString(viewModel.getList().getValue().get(giftCardId).getWantedPrice());
+        String price = Double.toString(giftCard.getWantedPrice());
         buyAt.setText(price);
         deleteBtn = view.findViewById(R.id.details_delete_btn);
         if (giftCard.getOwnerEmail().equals(FirebaseAuth.getInstance().getCurrentUser().getEmail())) {
@@ -61,9 +69,8 @@ public class CardsDetailsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 deleteBtn.setEnabled(false);
-                GiftCard gc=viewModel.getList().getValue().get(giftCardId);
-                gc.setDeleted(true);
-                Model.instance.modelFirebase.addGiftCard(gc, new Model.AddGiftCardListener() {
+                giftCard.setDeleted(true);
+                Model.instance.modelFirebase.addGiftCard(giftCard, new Model.AddGiftCardListener() {
                     @Override
                     public void onComplete() {
                         Navigation.findNavController(view).navigateUp();

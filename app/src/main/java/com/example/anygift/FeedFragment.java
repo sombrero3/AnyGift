@@ -61,6 +61,7 @@ public class FeedFragment extends Fragment {
                 reloadData();
             }
         });
+       
         adapter = new MyAdapter();
         RecyclerView list = view.findViewById(R.id.cards_list_rv);
         list.setHasFixedSize(true);
@@ -71,8 +72,9 @@ public class FeedFragment extends Fragment {
             @Override
             public void onItemClick(View v, int position) {
                 double val = viewModel.getList().getValue().get(position).getValue();
+                String id=viewModel.getList().getValue().get(position).getId();
                 Log.d("TAG","Gift card in vlaue of: " + val);
-                 Navigation.findNavController(v).navigate(FeedFragmentDirections.actionFeedFragmentToCardsDetailsFragment(position));
+                 Navigation.findNavController(v).navigate(FeedFragmentDirections.actionFeedFragmentToCardsDetailsFragment(id));
 
             }
         });
@@ -83,7 +85,6 @@ public class FeedFragment extends Fragment {
                 adapter.notifyDataSetChanged();
             }
         });
-        reloadData();
         return view;
 
     }
@@ -92,7 +93,7 @@ public class FeedFragment extends Fragment {
         Model.instance.refreshGiftCardsList(new Model.GetAllGiftCardListener() {
             @Override
             public void onComplete() {
-                adapter.notifyDataSetChanged();
+               adapter.notifyDataSetChanged();
                 swipeRefresh.setRefreshing(false);
             }
         });

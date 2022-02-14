@@ -70,8 +70,9 @@ public class MyCardsFragment extends Fragment {
             @Override
             public void onItemClick(View v, int position) {
                 double val = viewModel.getList().getValue().get(position).getValue();
+                String id=viewModel.getList().getValue().get(position).getId();
                 Log.d("TAG","Gift card in value of: " + val);
-                Navigation.findNavController(v).navigate(MyCardsFragmentDirections.actionMyCardsFragmentToCardsDetailsFragment(position));
+                Navigation.findNavController(v).navigate(MyCardsFragmentDirections.actionMyCardsFragmentToCardsDetailsFragment(id));
 
             }
         });
@@ -82,8 +83,6 @@ public class MyCardsFragment extends Fragment {
                 adapter.notifyDataSetChanged();
             }
         });
-        reloadData();
-
         return view;
 
     }
@@ -119,9 +118,11 @@ public class MyCardsFragment extends Fragment {
         public void bindView (int position){
             String gfEmail=viewModel.getList().getValue().get(position).getOwnerEmail();
             String userEmail=FirebaseAuth.getInstance().getCurrentUser().getEmail();
-            if (!viewModel.getList().getValue().get(position).getDeleted()&&(gfEmail.compareTo(userEmail)==0)) {
+            if (!viewModel.getList().getValue().get(position).getDeleted()&&(gfEmail.compareTo(userEmail)==0))
+            //if (!viewModel.getList().getValue().get(position).getDeleted())
+            {
                 cardValue.setText(String.valueOf(viewModel.getList().getValue().get(position).getValue()));
-                // Picasso.get().load(viewModel.getList().getValue().get(position).getImageUrl()).into(cardImage);
+               // Picasso.get().load(viewModel.getList().getValue().get(position).getGiftCardImageUrl()).into(cardImage);
                 this.position = position;
             } else {
                 cardValue.setVisibility(View.GONE);

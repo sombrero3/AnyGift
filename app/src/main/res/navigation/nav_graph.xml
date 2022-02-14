@@ -69,7 +69,7 @@
         tools:layout="@layout/fragment_cards_details">
         <argument
             android:name="giftCardId"
-            app:argType="integer" />
+            app:argType="string" />
         <action
             android:id="@+id/action_cardsDetailsFragment_to_editCardsDetailsFragment"
             app:destination="@id/editCardDetailsFragment" />

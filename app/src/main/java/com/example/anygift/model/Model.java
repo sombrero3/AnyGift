@@ -20,7 +20,7 @@ import java.util.concurrent.Executors;
 public class Model {
     public static final Model instance = new Model();
     public ModelFirebase modelFirebase = new ModelFirebase();
-    ModelRoom room=new ModelRoom();
+    //ModelRoom room=new ModelRoom();
     Executor executor = Executors.newFixedThreadPool(1);
     Handler mainThread = HandlerCompat.createAsync(Looper.getMainLooper());
 
@@ -54,9 +54,9 @@ public class Model {
                     @Override
                     public void run() {
                         long lastU = 0;
-                        for (
-                                GiftCard gf : result) {
-                            room.addGiftCard(gf, null);
+                        for (GiftCard gf : result) {
+                            AppLocalDb.db.giftCardDao().insertAll(gf);
+                            // room.addGiftCard(gf, null);
                             if (gf.getLastUpdated() > lastU) {
                                 lastU = gf.getLastUpdated();
                             }
