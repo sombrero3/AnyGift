@@ -43,7 +43,11 @@
         android:id="@+id/myCardsFragment"
         android:name="com.example.anygift.MyCardsFragment"
         android:label="fragment_my_cards"
-        tools:layout="@layout/fragment_my_cards" />
+        tools:layout="@layout/fragment_my_cards" >
+        <action
+            android:id="@+id/action_myCardsFragment_to_cardsDetailsFragment"
+            app:destination="@id/cardsDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/addCardFragment"
         android:name="com.example.anygift.AddCardFragment"

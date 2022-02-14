@@ -72,7 +72,7 @@ public class MyCardsFragment extends Fragment {
             public void onItemClick(View v, int position) {
                 double val = viewModel.getList().getValue().get(position).getValue();
                 Log.d("TAG","Gift card in value of: " + val);
-                //Navigation.findNavController(v).navigate(FeedFragmentDirections.actionFeedFragmentToCardsDetailsFragment(position));
+                Navigation.findNavController(v).navigate(MyCardsFragmentDirections.actionMyCardsFragmentToCardsDetailsFragment(position));
 
             }
         });

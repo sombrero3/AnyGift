@@ -56,7 +56,7 @@ public class UserProfileFragment extends Fragment {
                String userEmail=FirebaseAuth.getInstance().getCurrentUser().getEmail();
                for (GiftCard gc: giftCardList
                     ) {
-                   if(gc.getOwnerEmail().compareTo(userEmail)==0) {
+                   if(gc.getOwnerEmail().compareTo(userEmail)==0&&!gc.getDeleted()) {
                        count++;
                    }
                }
