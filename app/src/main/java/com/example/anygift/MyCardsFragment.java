@@ -42,8 +42,6 @@ public class MyCardsFragment extends Fragment {
         // Required empty public constructor
     }
 
-
-
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
@@ -53,6 +51,7 @@ public class MyCardsFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_my_cards, container, false);
+        getActivity().setTitle("AnyGift - MyCards");
         swipeRefresh = view.findViewById(R.id.MyGiftCardlist_swiperefresh);
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -72,7 +71,7 @@ public class MyCardsFragment extends Fragment {
             public void onItemClick(View v, int position) {
                 double val = viewModel.getList().getValue().get(position).getValue();
                 Log.d("TAG","Gift card in value of: " + val);
-                //Navigation.findNavController(v).navigate(FeedFragmentDirections.actionFeedFragmentToCardsDetailsFragment(position));
+                Navigation.findNavController(v).navigate(MyCardsFragmentDirections.actionMyCardsFragmentToCardsDetailsFragment(position));
 
             }
         });
@@ -83,6 +82,7 @@ public class MyCardsFragment extends Fragment {
                 adapter.notifyDataSetChanged();
             }
         });
+        reloadData();
 
         return view;
 
