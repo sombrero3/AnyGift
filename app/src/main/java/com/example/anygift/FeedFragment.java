@@ -54,14 +54,7 @@ public class FeedFragment extends Fragment {
          view = inflater.inflate(R.layout.fragment_feed, container, false);
          getActivity().setTitle("AnyGift - Feed");
         swipeRefresh = view.findViewById(R.id.giftCardlist_swiperefresh);
-        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                swipeRefresh.setRefreshing(true);
-                reloadData();
-            }
-        });
-       
+        swipeRefresh.setOnRefreshListener(()->  Model.instance.refreshGiftCardsList());
         adapter = new MyAdapter();
         RecyclerView list = view.findViewById(R.id.cards_list_rv);
         list.setHasFixedSize(true);
@@ -79,17 +72,25 @@ public class FeedFragment extends Fragment {
             }
         });
         setHasOptionsMenu(true);
-        viewModel.getList().observe(getViewLifecycleOwner(), new Observer<List<GiftCard>>() {
-            @Override
-            public void onChanged(List<GiftCard> giftCards) {
-                adapter.notifyDataSetChanged();
+        viewModel.getList().observe(getViewLifecycleOwner(), list1 -> refresh());
+        swipeRefresh.setRefreshing(Model.instance.getListLoadingState().getValue() == Model.GiftListLoadingState.loading);
+        Model.instance.getListLoadingState().observe(getViewLifecycleOwner(), ListLoadingState -> {
+            if (ListLoadingState == Model.GiftListLoadingState.loading){
+                swipeRefresh.setRefreshing(true);
+            }else{
+                swipeRefresh.setRefreshing(false);
             }
+
         });
         return view;
 
     }
+    private void refresh() {
 
-    void reloadData() {
+        adapter.notifyDataSetChanged();
+    }
+
+    /*void reloadData() {
         Model.instance.refreshGiftCardsList(new Model.GetAllGiftCardListener() {
             @Override
             public void onComplete() {
@@ -97,14 +98,14 @@ public class FeedFragment extends Fragment {
                 swipeRefresh.setRefreshing(false);
             }
         });
-    }
+    }*/
 
     class MyViewHolder extends RecyclerView.ViewHolder {
         public OnItemClickListener listener;
         TextView cardValue,cardValTag;
         ImageView cardImage;
         int position;
-        private LiveData<List<GiftCard>> giftCardList = Model.instance.getAll();
+        //private LiveData<List<GiftCard>> giftCardList = Model.instance.getAll();
 
             public MyViewHolder(View itemView) {
             super(itemView);
@@ -138,8 +139,8 @@ public class FeedFragment extends Fragment {
     }
 
     class MyAdapter extends RecyclerView.Adapter<FeedFragment.MyViewHolder>{
-        FeedFragment.OnItemClickListener listener;
-        private LiveData<List<GiftCard>> giftCardList = Model.instance.getAll();
+       OnItemClickListener listener;
+       // private LiveData<List<GiftCard>> giftCardList = Model.instance.getAll();
         public void setOnItemClickListener(FeedFragment.OnItemClickListener listener){
             this.listener = listener;
         }

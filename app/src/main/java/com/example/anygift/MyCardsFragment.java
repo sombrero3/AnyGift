@@ -53,13 +53,7 @@ public class MyCardsFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_my_cards, container, false);
         getActivity().setTitle("AnyGift - MyCards");
         swipeRefresh = view.findViewById(R.id.MyGiftCardlist_swiperefresh);
-        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                swipeRefresh.setRefreshing(true);
-                reloadData();
-            }
-        });
+        swipeRefresh.setOnRefreshListener(()->   Model.instance.refreshGiftCardsList());
         adapter = new MyCardsFragment.MyAdapter();
         RecyclerView list = view.findViewById(R.id.MyCards_list_rv);
         list.setHasFixedSize(true);
@@ -77,25 +71,23 @@ public class MyCardsFragment extends Fragment {
             }
         });
         setHasOptionsMenu(true);
-        viewModel.getList().observe(getViewLifecycleOwner(), new Observer<List<GiftCard>>() {
-            @Override
-            public void onChanged(List<GiftCard> giftCards) {
-                adapter.notifyDataSetChanged();
+        viewModel.getList().observe(getViewLifecycleOwner(), list1 -> refresh());
+        swipeRefresh.setRefreshing(Model.instance.getListLoadingState().getValue() == Model.GiftListLoadingState.loading);
+        Model.instance.getListLoadingState().observe(getViewLifecycleOwner(), ListLoadingState -> {
+            if (ListLoadingState == Model.GiftListLoadingState.loading){
+                swipeRefresh.setRefreshing(true);
+            }else{
+                swipeRefresh.setRefreshing(false);
             }
+
         });
         return view;
 
     }
-
-    void reloadData() {
-        Model.instance.refreshGiftCardsList(new Model.GetAllGiftCardListener() {
-            @Override
-            public void onComplete() {
-                adapter.notifyDataSetChanged();
-                swipeRefresh.setRefreshing(false);
-            }
-        });
+    private void refresh() {
+        adapter.notifyDataSetChanged();
     }
+
 
     class MyViewHolder extends RecyclerView.ViewHolder {
         public MyCardsFragment.OnItemClickListener listener;
@@ -119,7 +111,6 @@ public class MyCardsFragment extends Fragment {
             String gfEmail=viewModel.getList().getValue().get(position).getOwnerEmail();
             String userEmail=FirebaseAuth.getInstance().getCurrentUser().getEmail();
             if (!viewModel.getList().getValue().get(position).getDeleted()&&(gfEmail.compareTo(userEmail)==0))
-            //if (!viewModel.getList().getValue().get(position).getDeleted())
             {
                 cardValue.setText(String.valueOf(viewModel.getList().getValue().get(position).getValue()));
                // Picasso.get().load(viewModel.getList().getValue().get(position).getGiftCardImageUrl()).into(cardImage);
@@ -139,7 +130,6 @@ public class MyCardsFragment extends Fragment {
 
     class MyAdapter extends RecyclerView.Adapter<MyCardsFragment.MyViewHolder>{
         MyCardsFragment.OnItemClickListener listener;
-       // private LiveData<List<GiftCard>> giftCardList = Model.instance.getAll();
         public void setOnItemClickListener(MyCardsFragment.OnItemClickListener listener){
             this.listener = listener;
         }

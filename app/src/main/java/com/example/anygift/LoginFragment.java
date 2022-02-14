@@ -6,6 +6,8 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.NavHost;
 import androidx.navigation.Navigation;
 
 import android.text.TextUtils;
@@ -110,7 +112,8 @@ public class LoginFragment extends Fragment {
                     mySnackbar = Snackbar.make(view, "Login successful :)", BaseTransientBottomBar.LENGTH_LONG);
                     mySnackbar.show();
                     Log.d("TAG","login successful");
-                    Navigation.findNavController(view).navigate(LoginFragmentDirections.actionGlobalFeedFragment());
+
+                   Navigation.findNavController(view).navigate(R.id.action_global_feedFragment);
                 }
                 else
                     //Log.d("TAG","Login failed");
