@@ -14,9 +14,13 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.anygift.model.GiftCard;
+import com.example.anygift.model.Model;
 import com.example.anygift.model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import java.util.List;
 
 
 public class UserProfileFragment extends Fragment {
@@ -47,7 +51,17 @@ public class UserProfileFragment extends Fragment {
                name.setText((user!=null)?user.getName():"null");
                email.setText((user!=null)?user.getEmail():"null");
                phone.setText((user!=null)?user.getPhone():"null");
-              cardCounter.setText((user.getGiftCards()!=null)?String.valueOf(user.getGiftCards().size()):"0");
+               int count =0;
+                List<GiftCard> giftCardList = Model.instance.getAll().getValue();
+               String userEmail=FirebaseAuth.getInstance().getCurrentUser().getEmail();
+               for (GiftCard gc: giftCardList
+                    ) {
+                   if(gc.getOwnerEmail().compareTo(userEmail)==0) {
+                       count++;
+                   }
+               }
+
+              cardCounter.setText(String.valueOf(count));
                coinCounter.setText("0");
            }
        });
@@ -56,7 +70,7 @@ public class UserProfileFragment extends Fragment {
             Navigation.findNavController(v).navigate(R.id.action_userProfileFragment_to_editProfileFragment);
         });
         cardBtn.setOnClickListener((v) -> {
-           // Navigation.findNavController(v).navigate(R.id.action_userProfileFragment_to_editProfileFragment);
+           Navigation.findNavController(v).navigate(R.id.action_global_myCardsFragment);
         });
         coinsBtn.setOnClickListener((v) -> {
             Toast.makeText(getContext(),"Coming soon...", Toast.LENGTH_SHORT).show();

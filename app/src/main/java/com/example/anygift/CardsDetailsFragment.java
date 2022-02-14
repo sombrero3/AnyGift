@@ -46,7 +46,7 @@ public class CardsDetailsFragment extends Fragment {
         //toDo:checking
         name = view.findViewById(R.id.details_username_tv);
         name.setText(giftCard.getOwnerEmail());
-        value = view.findViewById(R.id.details_value_tv);
+        value = view.findViewById(R.id.details_giftvalue_tv);
         String val = Double.toString(viewModel.getList().getValue().get(giftCardId).getValue());
         value.setText(val);
         buyAt = view.findViewById(R.id.details_buyatval_tv);
@@ -61,11 +61,17 @@ public class CardsDetailsFragment extends Fragment {
         deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Model.instance.modelFirebase.delete(viewModel.getList().getValue().get(giftCardId).getId());
-                // add spinner
-                Navigation.findNavController(view).navigateUp();
-                Snackbar mySnackbar = Snackbar.make(view, "GiftCard Deleted!", BaseTransientBottomBar.LENGTH_LONG);
-                mySnackbar.show();
+                GiftCard gc=viewModel.getList().getValue().get(giftCardId);
+                gc.setDeleted(true);
+                Model.instance.modelFirebase.addGiftCard(gc, new Model.AddGiftCardListener() {
+                    @Override
+                    public void onComplete() {
+                        Navigation.findNavController(view).navigateUp();
+                        Snackbar mySnackbar = Snackbar.make(view, "GiftCard Deleted!", BaseTransientBottomBar.LENGTH_LONG);
+                        mySnackbar.show();
+                    }
+                });
+
             }
         });
 
