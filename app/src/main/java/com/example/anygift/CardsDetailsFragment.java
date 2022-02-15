@@ -18,6 +18,7 @@ import com.example.anygift.model.Model;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -31,6 +32,7 @@ public class CardsDetailsFragment extends Fragment {
     private Button deleteBtn;
     private Button stores;
     private ImageView userImage;
+    private ImageView giftCardImage;
     GiftCard giftCard = null;
     public CardsDetailsFragment() {
 
@@ -49,6 +51,7 @@ public class CardsDetailsFragment extends Fragment {
             if(gc.getId().equals(giftCardId))
                 giftCard=gc;
         }
+
         //toDo:checking
         name = view.findViewById(R.id.details_username_tv);
         name.setText(giftCard.getOwnerEmail());
@@ -58,6 +61,8 @@ public class CardsDetailsFragment extends Fragment {
         buyAt = view.findViewById(R.id.details_buyatval_tv);
         String price = Double.toString(giftCard.getWantedPrice());
         buyAt.setText(price);
+        giftCardImage=view.findViewById(R.id.details_giftpic_iv);
+        Picasso.get().load(giftCard.getGiftCardImageUrl()).into(giftCardImage);
         deleteBtn = view.findViewById(R.id.details_delete_btn);
         if (giftCard.getOwnerEmail().equals(FirebaseAuth.getInstance().getCurrentUser().getEmail())) {
             deleteBtn.setVisibility(View.VISIBLE);
