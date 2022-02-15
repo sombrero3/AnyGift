@@ -9,11 +9,9 @@
         <entry key="..\:/Users/Shir/AnyGift/app/src/main/res/layout/fragment_cards_details.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/Shir/AnyGift/app/src/main/res/layout/fragment_cards_list_rv.xml" value="0.1" />
         <entry key="..\:/Users/Shir/AnyGift/app/src/main/res/layout/fragment_edit_card_details.xml" value="0.22" />
-        <entry key="..\:/Users/Shir/AnyGift/app/src/main/res/layout/fragment_edit_profile.xml" value="0.1" />
         <entry key="..\:/Users/Shir/AnyGift/app/src/main/res/layout/fragment_feed.xml" value="0.1" />
         <entry key="..\:/Users/Shir/AnyGift/app/src/main/res/layout/fragment_login.xml" value="0.1082427536231884" />
         <entry key="..\:/Users/Shir/AnyGift/app/src/main/res/layout/fragment_my_cards.xml" value="0.1796875" />
-        <entry key="..\:/Users/Shir/AnyGift/app/src/main/res/layout/fragment_sign_up.xml" value="0.1" />
         <entry key="..\:/Users/Shir/AnyGift/app/src/main/res/layout/fragment_user_profile.xml" value="0.1796875" />
         <entry key="..\:/Users/gils/AnyGift/app/src/main/res/layout/activity_main.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/gils/AnyGift/app/src/main/res/layout/fragment_login.xml" value="0.29739583333333336" />
@@ -24,11 +22,12 @@
         <entry key="..\:/Users/guyle/AndroidStudioProjects/AnyGift/app/src/main/res/layout/fragment_add_card.xml" value="0.6" />
         <entry key="..\:/Users/guyle/AndroidStudioProjects/AnyGift/app/src/main/res/layout/fragment_cards_details.xml" value="0.4" />
         <entry key="..\:/Users/guyle/AndroidStudioProjects/AnyGift/app/src/main/res/layout/fragment_cards_list_rv.xml" value="0.12916666666666668" />
+        <entry key="..\:/Users/guyle/AndroidStudioProjects/AnyGift/app/src/main/res/layout/fragment_edit_card_details.xml" value="0.4" />
         <entry key="..\:/Users/guyle/AndroidStudioProjects/AnyGift/app/src/main/res/layout/fragment_edit_profile.xml" value="0.4" />
         <entry key="..\:/Users/guyle/AndroidStudioProjects/AnyGift/app/src/main/res/layout/fragment_feed.xml" value="0.1328125" />
         <entry key="..\:/Users/guyle/AndroidStudioProjects/AnyGift/app/src/main/res/layout/fragment_login.xml" value="0.25" />
         <entry key="..\:/Users/guyle/AndroidStudioProjects/AnyGift/app/src/main/res/layout/fragment_my_cards.xml" value="0.1" />
-        <entry key="..\:/Users/guyle/AndroidStudioProjects/AnyGift/app/src/main/res/layout/fragment_sign_up.xml" value="0.536" />
+        <entry key="..\:/Users/guyle/AndroidStudioProjects/AnyGift/app/src/main/res/layout/fragment_sign_up.xml" value="0.21869488536155202" />
         <entry key="..\:/Users/guyle/AndroidStudioProjects/AnyGift/app/src/main/res/layout/fragment_user_profile.xml" value="0.165625" />
       </map>
     </option>

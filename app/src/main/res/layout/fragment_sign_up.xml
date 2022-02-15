@@ -160,24 +160,23 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/SignUp_textInput_address"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="278dp"
+            android:layout_height="51dp"
             android:layout_margin="4dp"
             android:hint="@string/Address"
             android:textColorHint="#E31212"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.375"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/SignUp_textInputnput_Email"
             tools:ignore="MissingConstraints">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/SignUp_address_input"
-                android:layout_width="match_parent"
+                android:layout_width="264dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-medium"
                 android:inputType="text"
                 android:maxLines="1" />
+
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -225,6 +224,16 @@
                 android:inputType="text"
                 android:maxLines="1" />
         </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/SignUp_btn_find_addres"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:text="Find"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/SignUp_textInput_address"
+            app:layout_constraintTop_toTopOf="@+id/SignUp_textInput_address" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
