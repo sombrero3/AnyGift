@@ -28,6 +28,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.anygift.model.GiftCard;
@@ -55,6 +56,7 @@ public class AddCardFragment extends Fragment {
     //Bitmap giftCardBitmap;
     ImageView giftCardImage;
     View view;
+    ProgressBar pb;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -70,6 +72,8 @@ public class AddCardFragment extends Fragment {
         cardAskingValue = view.findViewById(R.id.add_card_exp_value);
         giftCardImage = view.findViewById(R.id.add_giftCardImage);
         giftCardImage.setTag("");
+        pb=view.findViewById(R.id.add_pb);
+        pb.setVisibility(View.INVISIBLE);
 
 
         // uploadPicText = view.findViewById(R.id.add_take_picture_tv);
@@ -177,6 +181,7 @@ public class AddCardFragment extends Fragment {
     }
 
     private void upload() {
+        pb.setVisibility(View.VISIBLE);
         boolean error = false;
         String errorMsg = "";
         disableButtons();
@@ -206,6 +211,7 @@ public class AddCardFragment extends Fragment {
         }
 
         // if reached here all is good
+
         String date = day + "/" + mo + "/" + year;
         logging(CardValue, CardAskingValue, CardNumber);
         FirebaseAuth auth = FirebaseAuth.getInstance();
@@ -216,7 +222,6 @@ public class AddCardFragment extends Fragment {
         BitmapDrawable drawable = (BitmapDrawable) giftCardImage.getDrawable();
         Log.d("BITAG", drawable.toString());
         Bitmap bitmap = drawable.getBitmap();
-
         Model.instance.uploadImage(bitmap, newGiftCard.getCardName(), new Model.UploadImageListener() {
             @Override
             public void onComplete(String url) {
