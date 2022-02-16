@@ -1,8 +1,13 @@
 package com.example.anygift;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
@@ -17,6 +22,8 @@ import android.widget.Toast;
 import com.example.anygift.model.GiftCard;
 import com.example.anygift.model.Model;
 import com.example.anygift.model.User;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -29,7 +36,9 @@ public class UserProfileFragment extends Fragment {
     TextView name, phone, email,cardCounter,coinCounter;
     UserViewModel userViewModel;
     Button editBtn;
+    Button MapBtn;
     ImageButton cardBtn,coinsBtn;
+    String latAndLong=new String();
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -44,6 +53,7 @@ public class UserProfileFragment extends Fragment {
         coinCounter=view.findViewById(R.id.profileF_coins);
         cardBtn=view.findViewById(R.id.profileF_cardsBtn);
         coinsBtn=view.findViewById(R.id.profileF_coinsBtn);
+        MapBtn=view.findViewById(R.id.profileF_mapBtn);
 
        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
        userViewModel.getUser(new UserViewModel.GetUserListener() {
@@ -52,6 +62,7 @@ public class UserProfileFragment extends Fragment {
                name.setText((user!=null)?user.getName():"null");
                email.setText((user!=null)?user.getEmail():"null");
                phone.setText((user!=null)?user.getPhone():"null");
+               latAndLong=user.getLatAndLong();
                int count =0;
                 List<GiftCard> giftCardList = Model.instance.getAll().getValue();
                String userEmail=FirebaseAuth.getInstance().getCurrentUser().getEmail();
@@ -75,6 +86,13 @@ public class UserProfileFragment extends Fragment {
         });
         coinsBtn.setOnClickListener((v) -> {
             Toast.makeText(getContext(),"Coming soon...", Toast.LENGTH_SHORT).show();
+        });
+        MapBtn.setOnClickListener((v)->{
+        String[] cordinate=latAndLong.split(",");
+            String uri = "http://maps.google.com/maps?q=loc:" + cordinate[0] + "," + cordinate[1];
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+            intent.setPackage("com.google.android.apps.maps");
+            startActivity(intent);
         });
         return view;
     }

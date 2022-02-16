@@ -20,11 +20,12 @@ public class User {
     String email;
     String password;
     String address;
+    String latAndLong;
     Long lastUpdated=new Long(0);
     List<GiftCard> giftCards=new ArrayList<>();
 
     public User(){}
-    public User(String firstName,String lastName,String phone,String email,String address,String password){
+    public User(String firstName,String lastName,String phone,String email,String address,String password,String latAndLong){
         this.firstName=firstName;
         this.lastName=lastName;
         this.phone=phone;
@@ -32,6 +33,7 @@ public class User {
         this.address=address;
         this.password=password;
         this.id=email;
+        this.latAndLong=latAndLong;
     }
     public String getFirstName() {
         return firstName;
@@ -105,6 +107,14 @@ public class User {
         this.lastUpdated = lastUpdated;
     }
 
+    public String getLatAndLong() {
+        return latAndLong;
+    }
+
+    public void setLatAndLong(String latAndLong) {
+        this.latAndLong = latAndLong;
+    }
+
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
         result.put("id", id);
@@ -116,8 +126,7 @@ public class User {
         result.put("address", address);
         result.put("lastUpdated", FieldValue.serverTimestamp());
         //result.put("imageUrl", imageUrl);
-        //result.put("latitude", this.latitude);
-        //result.put("longitude", this.longitude);
+      result.put("latAndLong", this.latAndLong);
         return result;
     }
 
@@ -128,6 +137,7 @@ public class User {
         this.phone= (String) map.get("phone");
         this.email= (String) map.get("email");
         this.password= (String) map.get("password");
+        this.latAndLong= (String) map.get("latAndLong");
         //this.imageUrl = (String) map.get("imageUrl");
         Timestamp ts = (Timestamp) map.get("lastUpdated");
         this.lastUpdated = ts.getSeconds();

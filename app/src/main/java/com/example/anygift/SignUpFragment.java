@@ -87,7 +87,7 @@ public class SignUpFragment extends Fragment {
     String address_usr;
     String password_usr;
     FusedLocationProviderClient client;
-
+    String latAndLong;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -115,7 +115,7 @@ public class SignUpFragment extends Fragment {
             @Override
             public void onClick(View view) {
                if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                  //  getCurrentLocation();
+                   getCurrentLocation();
                 }
                 else{
                         requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
@@ -160,7 +160,10 @@ public class SignUpFragment extends Fragment {
                             List<Address> addresses = gcd.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
                             if (addresses.size() > 0) {
                                 System.out.println(addresses.get(0).getLocality());
-                                cityName = addresses.get(0).getLocality();
+                                cityName = addresses.get(0).getCountryName()+", "+
+                                        addresses.get(0).getAdminArea() +", "+
+                                        addresses.get(0).getPostalCode()+".";
+                                latAndLong=  String.valueOf( location.getLatitude()) +","+String.valueOf(location.getLongitude());
                             }
                             address.setText(cityName);
                         } catch (IOException e) {
@@ -220,7 +223,7 @@ public class SignUpFragment extends Fragment {
                 }
             }
         });
-        user = new User(Fname, Lname, phone_usr, email_usr, address_usr, password_usr);
+        user = new User(Fname, Lname, phone_usr, email_usr, address_usr, password_usr,latAndLong);
         Snackbar mySnackbar = Snackbar.make(view, "signUp succeed, Nice to meet you :)", BaseTransientBottomBar.LENGTH_LONG);
         mySnackbar.show();
         Model.instance.addUser(user, () -> {

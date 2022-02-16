@@ -139,12 +139,12 @@
         android:id="@+id/profileF_editInfoBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="16dp"
         android:text="Edit Info"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.446"
+        app:layout_constraintHorizontal_bias="0.439"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profileF_mail" />
+        app:layout_constraintTop_toBottomOf="@+id/profileF_mapBtn" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -156,5 +156,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:src="@drawable/avatar" />
+
+    <Button
+        android:id="@+id/profileF_mapBtn"
+        android:layout_width="132dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="145dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="178dp"
+        android:shadowColor="#039BE5"
+        android:text="Addres in map"
+        android:textColor="#9F4242"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
