@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.NavHost;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -53,7 +54,8 @@ public class MainActivity extends AppCompatActivity {
                 }
                 case R.id.cards_map: {
 
-
+                    Intent map = new Intent(this, MapsActivity.class);
+                    startActivity(map);
 
                     break;
                 }
