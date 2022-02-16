@@ -32,7 +32,7 @@ public class CardsDetailsFragment extends Fragment {
     private TextView value;
     private TextView buyAt;
     private Button deleteBtn;
-    private Button mapBtn;
+    private Button mapBtn,editBtn;
     private ImageView userImage;
     private ImageView giftCardImage;
     GiftCard giftCard = null;
@@ -44,6 +44,7 @@ public class CardsDetailsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_cards_details, container, false);
+        getActivity().setTitle("AnyGift - CardsDetails");
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
         String giftCardId = CardsDetailsFragmentArgs.fromBundle(getArguments()).getGiftCardId();
         viewModel = new ViewModelProvider(this).get(FeedViewModel.class);
@@ -54,7 +55,6 @@ public class CardsDetailsFragment extends Fragment {
                 giftCard=gc;
         }
 
-        //toDo:checking
         name = view.findViewById(R.id.details_username_tv);
         name.setText(giftCard.getOwnerEmail());
         value = view.findViewById(R.id.details_giftvalue_tv);
@@ -67,8 +67,11 @@ public class CardsDetailsFragment extends Fragment {
         giftCardImage=view.findViewById(R.id.details_giftpic_iv);
         Picasso.get().load(giftCard.getGiftCardImageUrl()).into(giftCardImage);
         deleteBtn = view.findViewById(R.id.details_delete_btn);
+        editBtn = view.findViewById(R.id.details_edit_btn2);
+        editBtn.setEnabled(true);
         if (giftCard.getOwnerEmail().equals(FirebaseAuth.getInstance().getCurrentUser().getEmail())) {
             deleteBtn.setVisibility(View.VISIBLE);
+            editBtn.setVisibility(View.VISIBLE);
         }
 
 
@@ -89,6 +92,7 @@ public class CardsDetailsFragment extends Fragment {
 
             }
         });
+
         mapBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -99,8 +103,16 @@ public class CardsDetailsFragment extends Fragment {
                 startActivity(intent);
             }
         });
-//        stores = view.findViewById(R.id.details_stores_btn);
 
+        editBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+//                deleteBtn.setEnabled(false);
+//                editBtn.setEnabled(false);
+                //editCardDetailsFragment
+                Navigation.findNavController(view).navigate(CardsDetailsFragmentDirections.actionCardsDetailsFragmentToEditCardsDetailsFragment(giftCard.getId()));
+            }
+        });
         return view;
     }
 }
