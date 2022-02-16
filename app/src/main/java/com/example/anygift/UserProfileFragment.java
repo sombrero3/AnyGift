@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +27,7 @@ import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -39,6 +41,7 @@ public class UserProfileFragment extends Fragment {
     Button MapBtn;
     ImageButton cardBtn,coinsBtn;
     String latAndLong=new String();
+    ImageView profileImage;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -54,6 +57,7 @@ public class UserProfileFragment extends Fragment {
         cardBtn=view.findViewById(R.id.profileF_cardsBtn);
         coinsBtn=view.findViewById(R.id.profileF_coinsBtn);
         MapBtn=view.findViewById(R.id.profileF_mapBtn);
+        profileImage=view.findViewById(R.id.profileF_imageView);
 
        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
        userViewModel.getUser(new UserViewModel.GetUserListener() {
@@ -62,6 +66,11 @@ public class UserProfileFragment extends Fragment {
                name.setText((user!=null)?user.getName():"null");
                email.setText((user!=null)?user.getEmail():"null");
                phone.setText((user!=null)?user.getPhone():"null");
+               if(user.getImageUrl()!=null) {
+                   Picasso.get().load(user.getImageUrl()).into(profileImage);
+                   profileImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                   profileImage.setClipToOutline(true);
+               }
                latAndLong=user.getLatAndLong();
                int count =0;
                 List<GiftCard> giftCardList = Model.instance.getAll().getValue();

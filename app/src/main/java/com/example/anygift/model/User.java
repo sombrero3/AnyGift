@@ -23,6 +23,8 @@ public class User {
     String latAndLong;
     Long lastUpdated=new Long(0);
     List<GiftCard> giftCards=new ArrayList<>();
+    String imageUrl;
+
 
     public User(){}
     public User(String firstName,String lastName,String phone,String email,String address,String password,String latAndLong){
@@ -115,6 +117,14 @@ public class User {
         this.latAndLong = latAndLong;
     }
 
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
         result.put("id", id);
@@ -125,8 +135,8 @@ public class User {
         result.put("password", password);
         result.put("address", address);
         result.put("lastUpdated", FieldValue.serverTimestamp());
-        //result.put("imageUrl", imageUrl);
-      result.put("latAndLong", this.latAndLong);
+        result.put("imageUrl", imageUrl);
+        result.put("latAndLong", this.latAndLong);
         return result;
     }
 
@@ -138,7 +148,7 @@ public class User {
         this.email= (String) map.get("email");
         this.password= (String) map.get("password");
         this.latAndLong= (String) map.get("latAndLong");
-        //this.imageUrl = (String) map.get("imageUrl");
+        this.imageUrl = (String) map.get("imageUrl");
         Timestamp ts = (Timestamp) map.get("lastUpdated");
         this.lastUpdated = ts.getSeconds();
         //this.latitude = Double.valueOf(map.get("latitude").toString());

@@ -165,4 +165,14 @@
         app:layout_constraintStart_toEndOf="@+id/textView9"
         app:layout_constraintTop_toTopOf="@+id/textView9" />
 
+    <ImageButton
+        android:id="@+id/editProfile_imageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="18dp"
+        android:src="@android:drawable/ic_menu_camera"
+        app:layout_constraintBottom_toTopOf="@+id/editProfileF_name"
+        app:layout_constraintStart_toEndOf="@+id/editProfileF_image" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
