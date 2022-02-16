@@ -18,6 +18,7 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import android.provider.MediaStore;
@@ -33,6 +34,7 @@ import android.widget.TextView;
 
 import com.example.anygift.model.GiftCard;
 import com.example.anygift.model.Model;
+import com.example.anygift.model.User;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
@@ -57,7 +59,8 @@ public class AddCardFragment extends Fragment {
     ImageView giftCardImage;
     View view;
     ProgressBar pb;
-
+String latAndLong;
+    UserViewModel userViewModel;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -79,6 +82,13 @@ public class AddCardFragment extends Fragment {
         // uploadPicText = view.findViewById(R.id.add_take_picture_tv);
         uploadPicButton = view.findViewById(R.id.add_camera_bt);
         addCardButton = view.findViewById(R.id.add_upload_bt);
+        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
+        userViewModel.getUser(new UserViewModel.GetUserListener() {
+            @Override
+            public void onComplete(User user) {
+                latAndLong=user.getLatAndLong();
+            }
+        });
         addCardButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -218,7 +228,7 @@ public class AddCardFragment extends Fragment {
         FirebaseUser user = auth.getCurrentUser();
         String emailUser = user.getEmail().toString();
 
-        GiftCard newGiftCard = new GiftCard(CardNumber, Double.parseDouble(CardValue), date, Double.parseDouble(CardAskingValue), emailUser); //todo maybe change double to string
+        GiftCard newGiftCard = new GiftCard(CardNumber, Double.parseDouble(CardValue), date, Double.parseDouble(CardAskingValue), emailUser,latAndLong); //todo maybe change double to string
         BitmapDrawable drawable = (BitmapDrawable) giftCardImage.getDrawable();
         Log.d("BITAG", drawable.toString());
         Bitmap bitmap = drawable.getBitmap();

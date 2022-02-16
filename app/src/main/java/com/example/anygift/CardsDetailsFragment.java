@@ -1,5 +1,7 @@
 package com.example.anygift;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -30,7 +32,7 @@ public class CardsDetailsFragment extends Fragment {
     private TextView value;
     private TextView buyAt;
     private Button deleteBtn;
-    private Button stores;
+    private Button mapBtn;
     private ImageView userImage;
     private ImageView giftCardImage;
     GiftCard giftCard = null;
@@ -56,6 +58,7 @@ public class CardsDetailsFragment extends Fragment {
         name = view.findViewById(R.id.details_username_tv);
         name.setText(giftCard.getOwnerEmail());
         value = view.findViewById(R.id.details_giftvalue_tv);
+        mapBtn=view.findViewById(R.id.cardDetails_mapBtn);
         String val = Double.toString(giftCard.getValue());
         value.setText(val);
         buyAt = view.findViewById(R.id.details_buyatval_tv);
@@ -86,7 +89,16 @@ public class CardsDetailsFragment extends Fragment {
 
             }
         });
-
+        mapBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String[] cordinate= giftCard.getLatAndLong().split(",");
+                String uri = "http://maps.google.com/maps?q=loc:" + cordinate[0] + "," + cordinate[1];
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+                intent.setPackage("com.google.android.apps.maps");
+                startActivity(intent);
+            }
+        });
 //        stores = view.findViewById(R.id.details_stores_btn);
 
         return view;

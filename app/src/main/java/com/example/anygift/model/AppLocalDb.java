@@ -6,7 +6,7 @@ import androidx.room.RoomDatabase;
 
 import com.example.anygift.MyApplication;
 
-@Database(entities = {GiftCard.class}, version = 5)
+@Database(entities = {GiftCard.class}, version = 6)
     abstract class AppLocalDbRepository extends RoomDatabase {
         //public abstract UserDao userDao();
         public abstract GiftCardDao giftCardDao();

@@ -23,14 +23,16 @@ public class GiftCard {
     private Boolean isDeleted=false;
     private Long lastUpdated;
     private String ownerEmail;
+    String latAndLong;
 
-    public GiftCard(String cardName, double value, String expirationDate, double wantedPrice, String ownerEmail) {
+    public GiftCard(String cardName, double value, String expirationDate, double wantedPrice, String ownerEmail ,String latAndLong) {
         this.cardName = cardName;
         this.value = value;
         this.expirationDate = expirationDate;
         this.wantedPrice = wantedPrice;
         this.ownerEmail = ownerEmail;
         this.id=String.valueOf((cardName+ " " +ownerEmail).hashCode());
+        this.latAndLong=latAndLong;
     }
 
     public enum Type{
@@ -124,6 +126,14 @@ public class GiftCard {
         this.cardType = cardType;
     }
 
+    public String getLatAndLong() {
+        return latAndLong;
+    }
+
+    public void setLatAndLong(String latAndLong) {
+        this.latAndLong = latAndLong;
+    }
+
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
         result.put("id", id);
@@ -136,7 +146,7 @@ public class GiftCard {
         result.put("ownerEmail", ownerEmail);
         result.put("isDeleted", isDeleted);
         result.put("type", cardType);
-
+        result.put("latAndLong", latAndLong);
         return result;
     }
 
@@ -152,7 +162,7 @@ public class GiftCard {
         isDeleted = (Boolean) map.get("isDeleted");
         lastUpdated = ts.getSeconds();
         giftCardImageUrl = (String)map.get("imageUrl");
-
+        latAndLong=(String)map.get("latAndLong");
         //long time = ts.toDate().getTime();
     }
 
