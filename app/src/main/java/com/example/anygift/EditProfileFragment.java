@@ -103,9 +103,7 @@ public class EditProfileFragment extends Fragment {
                     temp.setPassword(password.getText().toString());
                 }
                 updateImage();
-                Model.instance.updateUser(temp, () -> {
-                    Navigation.findNavController(view).navigate(R.id.action_global_userProfileFragment);
-                });
+
             }
         });
         return view;
@@ -169,13 +167,16 @@ public class EditProfileFragment extends Fragment {
         BitmapDrawable drawable = (BitmapDrawable) profileImage.getDrawable();
         Log.d("BITAG", drawable.toString());
         Bitmap bitmap = drawable.getBitmap();
-        Model.instance.uploadUserImage(bitmap,temp.getEmail(),new Model.UploadUserImageListener(){
+        Model.instance.uploadUserImage(bitmap,temp.getId(),new Model.UploadUserImageListener(){
             @Override
             public void onComplete(String url) {
                 if (url == null) {
                     displayFailedError();
                 } else {
                     temp.setImageUrl(url);
+                    Model.instance.addUser(temp, () -> {
+                        Navigation.findNavController(view).navigate(R.id.action_global_userProfileFragment);
+                    });
                 }
             }
         });

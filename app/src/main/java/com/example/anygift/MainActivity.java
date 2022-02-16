@@ -2,6 +2,7 @@ package com.example.anygift;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.NavHost;
 
@@ -12,6 +13,7 @@ import android.view.MenuItem;
 public class MainActivity extends AppCompatActivity {
 
     NavController navCtr;
+    FeedViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         NavHost navHost = (NavHost) getSupportFragmentManager().findFragmentById(R.id.main_navhost);
         navCtr = navHost.getNavController();
+        viewModel=  new ViewModelProvider(this).get(FeedViewModel.class);;
     }
 
     @Override
@@ -46,6 +49,12 @@ public class MainActivity extends AppCompatActivity {
                 }
                 case R.id.add_card: {
                     navCtr.navigate(R.id.action_global_addCardFragment);
+                    break;
+                }
+                case R.id.cards_map: {
+
+
+
                     break;
                 }
             }
