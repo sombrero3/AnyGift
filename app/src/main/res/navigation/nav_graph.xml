@@ -73,6 +73,9 @@
         <action
             android:id="@+id/action_cardsDetailsFragment_to_editCardsDetailsFragment"
             app:destination="@id/editCardDetailsFragment" />
+        <action
+            android:id="@+id/action_cardsDetailsFragment_to_userDetailsFragment"
+            app:destination="@id/userDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/editCardDetailsFragment"
@@ -95,4 +98,13 @@
             app:argType="string"
             app:nullable="true" />
     </fragment><action android:id="@+id/action_global_userProfileFragment" app:destination="@id/userProfileFragment"/><action android:id="@+id/action_global_addCardFragment" app:destination="@id/addCardFragment"/><action android:id="@+id/action_global_feedFragment" app:destination="@id/feedFragment"/><action android:id="@+id/action_global_myCardsFragment" app:destination="@id/myCardsFragment"/>
+    <fragment
+        android:id="@+id/userDetailsFragment"
+        android:name="com.example.anygift.UserDetailsFragment"
+        android:label="fragment_user_details"
+        tools:layout="@layout/fragment_user_details" >
+        <argument
+            android:name="userId"
+            app:argType="string" />
+    </fragment>
 </navigation>
