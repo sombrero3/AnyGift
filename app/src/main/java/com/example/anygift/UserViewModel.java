@@ -36,6 +36,21 @@ public class UserViewModel extends ViewModel {
             }
         });
     }
+    public void getUserById(final GetUserListener listener,String email) {
+        FirebaseFirestore.getInstance().collection("users").document(email).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot doc = task.getResult();
+                    if (doc != null) {
+                        user = new User();
+                        user.fromMap(task.getResult().getData());
+                    }
+                }
+                listener.onComplete(user);
+            }
+        });
+    }
 
     String getUserName() {
         return (user != null) ? user.getName() : "User_Name";
