@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.example.anygift.model.GiftCard;
 import com.example.anygift.model.Model;
+import com.example.anygift.model.User;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
@@ -48,13 +49,24 @@ public class CardsDetailsFragment extends Fragment {
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
         String giftCardId = CardsDetailsFragmentArgs.fromBundle(getArguments()).getGiftCardId();
         viewModel = new ViewModelProvider(this).get(FeedViewModel.class);
+
         List<GiftCard> list=viewModel.getList().getValue();
 
         for(GiftCard gc:list){
             if(gc.getId().equals(giftCardId))
                 giftCard=gc;
         }
-
+        userImage=view.findViewById(R.id.details_picture_iv);
+        userViewModel.getUserById(giftCard.getOwnerEmail(), new UserViewModel.GetUserListener() {
+            @Override
+            public void onComplete(User user) {
+                if (user.getImageUrl() != null) {
+                    Picasso.get().load(user.getImageUrl()).into(userImage);
+                    userImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                    userImage.setClipToOutline(true);
+                }
+            }
+        });
         name = view.findViewById(R.id.details_username_tv);
         name.setText(giftCard.getOwnerEmail());
         value = view.findViewById(R.id.details_giftvalue_tv);

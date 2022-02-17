@@ -27,9 +27,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.anygift.model.GiftCard;
 import com.example.anygift.model.Model;
+import com.example.anygift.model.User;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -39,8 +41,10 @@ public class EditCardDetailsFragment extends Fragment {
     View view;
     EditText value;
     EditText buyAt;
+    TextView name;
     Button save;
     ImageView giftCardImage;
+    ImageView userImage;
     ImageButton uploadPicbtn;
     UserViewModel userViewModel;
     MyCardsViewModel viewModel;
@@ -62,6 +66,9 @@ public class EditCardDetailsFragment extends Fragment {
             if (gc.getId().equals(giftCardId))
                 giftCard = gc;
         }
+        name=view.findViewById(R.id.editDetails_username_tv);
+        name.setText(String.valueOf( "Belong to: " + giftCard.getOwnerEmail()));
+
         value = view.findViewById(R.id.editDetails_giftvalue_tv);
         value.setText(String.valueOf( giftCard.getValue()));
 
@@ -72,6 +79,17 @@ public class EditCardDetailsFragment extends Fragment {
         save = view.findViewById(R.id.editDetails_save_btn);
         giftCardImage = view.findViewById(R.id.editDetails_giftpic_iv);
         Picasso.get().load(giftCard.getGiftCardImageUrl()).into(giftCardImage);
+        userImage=view.findViewById(R.id.editDetails_picture_iv);
+        userViewModel.getUserById(giftCard.getOwnerEmail(), new UserViewModel.GetUserListener() {
+            @Override
+            public void onComplete(User user) {
+                if (user.getImageUrl() != null) {
+                    Picasso.get().load(user.getImageUrl()).into(userImage);
+                    userImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                    userImage.setClipToOutline(true);
+                }
+            }
+        });
         uploadPicbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
