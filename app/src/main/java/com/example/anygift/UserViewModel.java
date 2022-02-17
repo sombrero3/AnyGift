@@ -36,7 +36,7 @@ public class UserViewModel extends ViewModel {
             }
         });
     }
-    public void getUserById(final GetUserListener listener,String email) {
+    public void getUserById(String email,final GetUserListener listener) {
         FirebaseFirestore.getInstance().collection("users").document(email).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {

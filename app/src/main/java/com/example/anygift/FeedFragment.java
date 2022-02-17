@@ -37,6 +37,7 @@ public class FeedFragment extends Fragment {
     MyAdapter adapter;
     SwipeRefreshLayout swipeRefresh;
 
+
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);

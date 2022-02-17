@@ -19,13 +19,12 @@
 
     <TextView
         android:id="@+id/editDetails_username_tv"
-        android:layout_width="125dp"
-        android:layout_height="34dp"
+        android:layout_width="359dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="28dp"
         android:layout_marginTop="24dp"
         android:text="name"
         android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editDetails_picture_iv" />
 
@@ -53,8 +52,8 @@
 
     <ImageView
         android:id="@+id/editDetails_giftpic_iv"
-        android:layout_width="214dp"
-        android:layout_height="172dp"
+        android:layout_width="199dp"
+        android:layout_height="138dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:src="@drawable/giftcard"
