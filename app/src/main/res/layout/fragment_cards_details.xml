@@ -12,6 +12,7 @@
         android:layout_height="135dp"
         android:layout_marginTop="44dp"
         android:src="@drawable/avatar"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,6 +23,10 @@
         android:layout_width="234dp"
         android:layout_height="33dp"
         android:text="name"
+        android:textColor="#039BE5"
+        android:textColorHighlight="#039BE5"
+        android:textColorHint="#039BE5"
+        android:textColorLink="#039BE5"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.255"
@@ -35,6 +40,7 @@
         android:layout_marginStart="12dp"
         android:layout_marginTop="36dp"
         android:text="200$"
+        android:textColor="#43A047"
         android:textSize="24sp"
         app:layout_constraintStart_toEndOf="@+id/details_value_tv"
         app:layout_constraintTop_toBottomOf="@+id/details_username_tv" />
@@ -52,8 +58,8 @@
 
     <ImageView
         android:id="@+id/details_giftpic_iv"
-        android:layout_width="214dp"
-        android:layout_height="172dp"
+        android:layout_width="161dp"
+        android:layout_height="133dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:src="@drawable/giftcard"
@@ -78,32 +84,37 @@
         android:layout_marginStart="12dp"
         android:layout_marginTop="56dp"
         android:text="180$"
+        android:textColor="#43A047"
         android:textSize="24sp"
         app:layout_constraintStart_toEndOf="@+id/details_buyat_tv"
-        app:layout_constraintTop_toBottomOf="@+id/details_giftvalue_tv" />
+        app:layout_constraintTop_toBottomOf="@+id/details_giftvalue_tv" /><![CDATA[
+
+    app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.843"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardDetails_mapBtn" />
+
+    ]]>
 
     <Button
         android:id="@+id/details_delete_btn"
         android:layout_width="151dp"
         android:layout_height="49dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="12dp"
         android:background="#FF9800"
         android:text="Delete"
         android:textSize="20sp"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/details_edit_btn2"
         app:layout_constraintEnd_toStartOf="@+id/details_edit_btn2"
-        app:layout_constraintTop_toTopOf="@+id/details_edit_btn2" />
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.843"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardDetails_mapBtn" />
+        app:layout_constraintTop_toTopOf="@+id/details_edit_btn2"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/details_edit_btn2"
         android:layout_width="151dp"
         android:layout_height="49dp"
-        android:layout_marginStart="220dp"
+        android:layout_marginStart="224dp"
         android:background="#FFC107"
         android:text="Edit"
         android:textSize="20sp"
@@ -111,7 +122,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/details_buyatval_tv"
-        app:layout_constraintVertical_bias="0.501" />
+        app:layout_constraintVertical_bias="0.361" />
 
     <TextView
         android:id="@+id/textView10"
@@ -136,9 +147,10 @@
         android:textColor="#9F4242"
         app:layout_constraintBottom_toTopOf="@+id/details_edit_btn2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.681"
+        app:layout_constraintHorizontal_bias="0.136"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/details_giftpic_iv" />
+        app:layout_constraintTop_toBottomOf="@+id/details_giftpic_iv"
+        app:layout_constraintVertical_bias="0.089" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
