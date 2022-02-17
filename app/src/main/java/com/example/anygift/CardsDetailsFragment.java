@@ -69,6 +69,14 @@ public class CardsDetailsFragment extends Fragment {
         });
         name = view.findViewById(R.id.details_username_tv);
         name.setText(giftCard.getOwnerEmail());
+        name.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(CardsDetailsFragmentDirections.actionCardsDetailsFragmentToUserDetailsFragment(giftCard.getOwnerEmail()));
+
+
+            }
+        });
         value = view.findViewById(R.id.details_giftvalue_tv);
         mapBtn=view.findViewById(R.id.cardDetails_mapBtn);
         String val = Double.toString(giftCard.getValue());
