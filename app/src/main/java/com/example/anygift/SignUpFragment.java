@@ -88,6 +88,7 @@ public class SignUpFragment extends Fragment {
     String password_usr;
     FusedLocationProviderClient client;
     String latAndLong;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -114,14 +115,13 @@ public class SignUpFragment extends Fragment {
         find_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                   getCurrentLocation();
-                }
-                else{
-                        requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
-                                Manifest.permission.ACCESS_COARSE_LOCATION},100);
+                if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                    getCurrentLocation();
+                } else {
+                    requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
+                            Manifest.permission.ACCESS_COARSE_LOCATION}, 100);
 
-                    }
+                }
 
             }
         });
@@ -136,19 +136,19 @@ public class SignUpFragment extends Fragment {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if(requestCode==100&&( grantResults.length>0)&&(grantResults[0]+grantResults[1]==PackageManager.PERMISSION_GRANTED)
-        ){
+        if (requestCode == 100 && (grantResults.length > 0) && (grantResults[0] + grantResults[1] == PackageManager.PERMISSION_GRANTED)
+        ) {
             getCurrentLocation();
-        }else{
-            Toast.makeText(getActivity(),"Permission denied",Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getActivity(), "Permission denied", Toast.LENGTH_SHORT).show();
         }
     }
 
     @SuppressLint("MissingPermission")
     private void getCurrentLocation() {
         LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-        if( locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)||
-                locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)){
+        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
+                locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
             client.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
                 @Override
                 public void onComplete(@NonNull Task<Location> task) {
@@ -160,10 +160,10 @@ public class SignUpFragment extends Fragment {
                             List<Address> addresses = gcd.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
                             if (addresses.size() > 0) {
                                 System.out.println(addresses.get(0).getLocality());
-                                cityName = addresses.get(0).getCountryName()+", "+
-                                        addresses.get(0).getAdminArea() +", "+
-                                        addresses.get(0).getPostalCode()+".";
-                                latAndLong=  String.valueOf( location.getLatitude()) +","+String.valueOf(location.getLongitude());
+                                cityName = addresses.get(0).getCountryName() + ", " +
+                                        addresses.get(0).getAdminArea() + ", " +
+                                        addresses.get(0).getPostalCode() + ".";
+                                latAndLong = String.valueOf(location.getLatitude()) + "," + String.valueOf(location.getLongitude());
                             }
                             address.setText(cityName);
                         } catch (IOException e) {
@@ -174,13 +174,11 @@ public class SignUpFragment extends Fragment {
 
                 }
             });
+        } else {
+            startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
         }
-        else{
-            startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK ));
-                }
 
     }
-
 
 
     public void save() {
@@ -215,15 +213,15 @@ public class SignUpFragment extends Fragment {
             return;
         }
 
-        mAuth.createUserWithEmailAndPassword(email_usr,password_usr).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        mAuth.createUserWithEmailAndPassword(email_usr, password_usr).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()){
-                   updateProfile();
+                if (task.isSuccessful()) {
+                    updateProfile();
                 }
             }
         });
-        user = new User(Fname, Lname, phone_usr, email_usr, address_usr, password_usr,latAndLong);
+        user = new User(Fname, Lname, phone_usr, email_usr, address_usr, password_usr, latAndLong);
         Snackbar mySnackbar = Snackbar.make(view, "signUp succeed, Nice to meet you :)", BaseTransientBottomBar.LENGTH_LONG);
         mySnackbar.show();
         Model.instance.addUser(user, () -> {
@@ -232,7 +230,7 @@ public class SignUpFragment extends Fragment {
     }
 
 
-    public void updateProfile(){
+    public void updateProfile() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                 .setDisplayName(Fname)
