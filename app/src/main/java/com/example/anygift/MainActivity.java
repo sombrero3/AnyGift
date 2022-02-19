@@ -22,7 +22,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         NavHost navHost = (NavHost) getSupportFragmentManager().findFragmentById(R.id.main_navhost);
         navCtr = navHost.getNavController();
-        viewModel=  new ViewModelProvider(this).get(FeedViewModel.class);;
+        viewModel = new ViewModelProvider(this).get(FeedViewModel.class);
+        ;
     }
 
     @Override
