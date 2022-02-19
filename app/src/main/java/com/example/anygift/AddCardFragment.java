@@ -49,18 +49,15 @@ import java.util.Date;
 
 public class AddCardFragment extends Fragment {
     private static final int REQUEST_CAMERA = 1;
-    TextInputEditText cardValue;
-    TextInputEditText cardExpDay, cardExpMonth, cardExpYear;
-    TextInputEditText cardAskingValue;
-    TextInputEditText cardNumber;
+    TextInputEditText cardValue, cardExpDay, cardExpMonth, cardExpYear, cardAskingValue, cardNumber;
     ImageButton uploadPicButton;
     Button addCardButton;
-    //Bitmap giftCardBitmap;
     ImageView giftCardImage;
     View view;
     ProgressBar pb;
-String latAndLong;
+    String latAndLong;
     UserViewModel userViewModel;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -75,18 +72,17 @@ String latAndLong;
         cardAskingValue = view.findViewById(R.id.add_card_exp_value);
         giftCardImage = view.findViewById(R.id.add_giftCardImage);
         giftCardImage.setTag("");
-        pb=view.findViewById(R.id.add_pb);
+        pb = view.findViewById(R.id.add_pb);
         pb.setVisibility(View.INVISIBLE);
 
 
-        // uploadPicText = view.findViewById(R.id.add_take_picture_tv);
         uploadPicButton = view.findViewById(R.id.add_camera_bt);
         addCardButton = view.findViewById(R.id.add_upload_bt);
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
         userViewModel.getUser(new UserViewModel.GetUserListener() {
             @Override
             public void onComplete(User user) {
-                latAndLong=user.getLatAndLong();
+                latAndLong = user.getLatAndLong();
             }
         });
         addCardButton.setOnClickListener(new View.OnClickListener() {
@@ -195,7 +191,6 @@ String latAndLong;
         boolean error = false;
         String errorMsg = "";
         disableButtons();
-        String imgName = (String) giftCardImage.getTag();
         String CardValue = cardValue.getText().toString();
         String CardAskingValue = cardAskingValue.getText().toString();
         String CardNumber = cardNumber.getText().toString();
@@ -207,20 +202,11 @@ String latAndLong;
             error = true;
             errorMsg += "date: " + dateFormatted + " is Invalid!\n";
         }
-    /*    if (imgName.equals("")) {
-            error = true;
-            errorMsg += "GiftCard Picture Is Missing!";
-        }
-
-     */
-
         if (error) {
             popMsg(errorMsg);
             enableButtons();
             return;
         }
-
-        // if reached here all is good
 
         String date = day + "/" + mo + "/" + year;
         logging(CardValue, CardAskingValue, CardNumber);
@@ -228,7 +214,7 @@ String latAndLong;
         FirebaseUser user = auth.getCurrentUser();
         String emailUser = user.getEmail().toString();
 
-        GiftCard newGiftCard = new GiftCard(CardNumber, Double.parseDouble(CardValue), date, Double.parseDouble(CardAskingValue), emailUser,latAndLong); //todo maybe change double to string
+        GiftCard newGiftCard = new GiftCard(CardNumber, Double.parseDouble(CardValue), date, Double.parseDouble(CardAskingValue), emailUser, latAndLong); //todo maybe change double to string
         BitmapDrawable drawable = (BitmapDrawable) giftCardImage.getDrawable();
         Log.d("BITAG", drawable.toString());
         Bitmap bitmap = drawable.getBitmap();
