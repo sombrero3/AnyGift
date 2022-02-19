@@ -125,6 +125,7 @@ public class SignUpFragment extends Fragment {
 
             }
         });
+
         signIn_btn.setOnClickListener(v -> {
             Navigation.findNavController(v).navigate(SignUpFragmentDirections.actionSignUpFragmentToLoginFragment());
         });
