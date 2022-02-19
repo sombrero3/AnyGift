@@ -38,47 +38,47 @@ public class EditProfileFragment extends Fragment {
 
     View view;
     UserViewModel userViewModel;
-    TextView name;
-    EditText firstName,LastName,phone,password;
-    TextView email;
+    TextView name,email;
+    EditText firstName, LastName, phone, password;
     Button saveBtn;
     User temp;
     ImageButton cameraBtn;
     ImageView profileImage;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         getActivity().setTitle("AnyGift - EditProfile");
-        view= inflater.inflate(R.layout.fragment_edit_profile, container, false);
+        view = inflater.inflate(R.layout.fragment_edit_profile, container, false);
         saveBtn = view.findViewById(R.id.editProfile_saveBtn);
         name = view.findViewById(R.id.editProfileF_name);
         firstName = view.findViewById(R.id.editProfileF_firstName);
         LastName = view.findViewById(R.id.editProfileF_LastName);
         phone = view.findViewById(R.id.editProfileF_phone);
         email = view.findViewById(R.id.editProfileF_email);
-        password=view.findViewById(R.id.editProfileF_password);
-        profileImage=view.findViewById(R.id.editProfileF_image);
+        password = view.findViewById(R.id.editProfileF_password);
+        profileImage = view.findViewById(R.id.editProfileF_image);
         profileImage.setTag("");
 
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
         userViewModel.getUser(new UserViewModel.GetUserListener() {
             @Override
             public void onComplete(User user) {
-                temp=user;
-                name.setText((user!=null)?user.getName():"null");
-                firstName.setText((user!=null)?user.getFirstName():"null");
-                LastName.setText((user!=null)?user.getLastName():"null");
-                 email.setText((user!=null)?user.getEmail():"null");
-                phone.setText((user!=null)?user.getPhone():"null");
-                password.setText((user!=null)?user.getPassword():"null");
+                temp = user;
+                name.setText((user != null) ? user.getName() : "null");
+                firstName.setText((user != null) ? user.getFirstName() : "null");
+                LastName.setText((user != null) ? user.getLastName() : "null");
+                email.setText((user != null) ? user.getEmail() : "null");
+                phone.setText((user != null) ? user.getPhone() : "null");
+                password.setText((user != null) ? user.getPassword() : "null");
 
 
             }
 
         });
 
-        cameraBtn=view.findViewById(R.id.editProfile_imageButton);
+        cameraBtn = view.findViewById(R.id.editProfile_imageButton);
         cameraBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -90,16 +90,16 @@ public class EditProfileFragment extends Fragment {
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(temp.getFirstName().compareTo(firstName.getText().toString())!=0){
+                if (temp.getFirstName().compareTo(firstName.getText().toString()) != 0) {
                     temp.setFirstName(firstName.getText().toString());
                 }
-                if(temp.getLastName().compareTo(LastName.getText().toString())!=0){
+                if (temp.getLastName().compareTo(LastName.getText().toString()) != 0) {
                     temp.setLastName(LastName.getText().toString());
                 }
-                if(temp.getPhone().compareTo(phone.getText().toString())!=0){
+                if (temp.getPhone().compareTo(phone.getText().toString()) != 0) {
                     temp.setPhone(phone.getText().toString());
                 }
-                if(temp.getPassword().compareTo(password.getText().toString())!=0) {
+                if (temp.getPassword().compareTo(password.getText().toString()) != 0) {
                     temp.setPassword(password.getText().toString());
                 }
                 updateImage();
@@ -163,11 +163,11 @@ public class EditProfileFragment extends Fragment {
         }
     }
 
-    private void updateImage(){
+    private void updateImage() {
         BitmapDrawable drawable = (BitmapDrawable) profileImage.getDrawable();
         Log.d("BITAG", drawable.toString());
         Bitmap bitmap = drawable.getBitmap();
-        Model.instance.uploadUserImage(bitmap,temp.getId(),new Model.UploadUserImageListener(){
+        Model.instance.uploadUserImage(bitmap, temp.getId(), new Model.UploadUserImageListener() {
             @Override
             public void onComplete(String url) {
                 if (url == null) {
