@@ -68,9 +68,9 @@ public class UserDetailsFragment extends Fragment {
         MapBtn = view.findViewById(R.id.UserprofileF_mapBtn);
         ;
         profileImage = view.findViewById(R.id.UserprofileF_imageView);
-        String userId = UserDetailsFragmentArgs.fromBundle(getArguments()).getUserId();
+        String userIdFrag = UserDetailsFragmentArgs.fromBundle(getArguments()).getUserId().toString();
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
-        userViewModel.getUserById(userId, new UserViewModel.GetUserListener() {
+        userViewModel.getUserById(userIdFrag, new UserViewModel.GetUserListener() {
             @Override
             public void onComplete(User user) {
                 name.setText(user.getName());
