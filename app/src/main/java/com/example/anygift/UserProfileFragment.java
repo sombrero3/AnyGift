@@ -35,13 +35,14 @@ import java.util.List;
 public class UserProfileFragment extends Fragment {
 
     View view;
-    TextView name, phone, email,cardCounter,coinCounter;
+    TextView name, phone, email, cardCounter, coinCounter;
     UserViewModel userViewModel;
     Button editBtn;
     Button MapBtn;
-    ImageButton cardBtn,coinsBtn;
-    String latAndLong=new String();
+    ImageButton cardBtn, coinsBtn;
+    String latAndLong = new String();
     ImageView profileImage;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -52,52 +53,52 @@ public class UserProfileFragment extends Fragment {
         name = view.findViewById(R.id.profileF_name);
         phone = view.findViewById(R.id.profileF_phone);
         email = view.findViewById(R.id.profileF_mail);
-        cardCounter=view.findViewById(R.id.profileF_cards);
-        coinCounter=view.findViewById(R.id.profileF_coins);
-        cardBtn=view.findViewById(R.id.profileF_cardsBtn);
-        coinsBtn=view.findViewById(R.id.profileF_coinsBtn);
-        MapBtn=view.findViewById(R.id.profileF_mapBtn);
-        profileImage=view.findViewById(R.id.profileF_imageView);
+        cardCounter = view.findViewById(R.id.profileF_cards);
+        coinCounter = view.findViewById(R.id.profileF_coins);
+        cardBtn = view.findViewById(R.id.profileF_cardsBtn);
+        coinsBtn = view.findViewById(R.id.profileF_coinsBtn);
+        MapBtn = view.findViewById(R.id.profileF_mapBtn);
+        profileImage = view.findViewById(R.id.profileF_imageView);
 
-       userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
-       userViewModel.getUser(new UserViewModel.GetUserListener() {
-           @Override
-           public void onComplete(User user) {
-               name.setText((user!=null)?user.getName():"null");
-               email.setText((user!=null)?user.getEmail():"null");
-               phone.setText((user!=null)?user.getPhone():"null");
-               if(user.getImageUrl()!=null) {
-                   Picasso.get().load(user.getImageUrl()).into(profileImage);
-                   profileImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                   profileImage.setClipToOutline(true);
-               }
-               latAndLong=user.getLatAndLong();
-               int count =0;
+        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
+        userViewModel.getUser(new UserViewModel.GetUserListener() {
+            @Override
+            public void onComplete(User user) {
+                name.setText((user != null) ? user.getName() : "null");
+                email.setText((user != null) ? user.getEmail() : "null");
+                phone.setText((user != null) ? user.getPhone() : "null");
+                if (user.getImageUrl() != null) {
+                    Picasso.get().load(user.getImageUrl()).into(profileImage);
+                    profileImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                    profileImage.setClipToOutline(true);
+                }
+                latAndLong = user.getLatAndLong();
+                int count = 0;
                 List<GiftCard> giftCardList = Model.instance.getAll().getValue();
-               String userEmail=FirebaseAuth.getInstance().getCurrentUser().getEmail();
-               for (GiftCard gc: giftCardList
-                    ) {
-                   if(gc.getOwnerEmail().compareTo(userEmail)==0&&!gc.getDeleted()) {
-                       count++;
-                   }
-               }
+                String userEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+                for (GiftCard gc : giftCardList
+                ) {
+                    if (gc.getOwnerEmail().compareTo(userEmail) == 0 && !gc.getDeleted()) {
+                        count++;
+                    }
+                }
 
-              cardCounter.setText(String.valueOf(count));
-               coinCounter.setText("0");
-           }
-       });
+                cardCounter.setText(String.valueOf(count));
+                coinCounter.setText("0");
+            }
+        });
 
         editBtn.setOnClickListener((v) -> {
             Navigation.findNavController(v).navigate(R.id.action_userProfileFragment_to_editProfileFragment);
         });
         cardBtn.setOnClickListener((v) -> {
-           Navigation.findNavController(v).navigate(R.id.action_global_myCardsFragment);
+            Navigation.findNavController(v).navigate(R.id.action_global_myCardsFragment);
         });
         coinsBtn.setOnClickListener((v) -> {
-            Toast.makeText(getContext(),"Coming soon...", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Coming soon...", Toast.LENGTH_SHORT).show();
         });
-        MapBtn.setOnClickListener((v)->{
-        String[] cordinate=latAndLong.split(",");
+        MapBtn.setOnClickListener((v) -> {
+            String[] cordinate = latAndLong.split(",");
             String uri = "http://maps.google.com/maps?q=loc:" + cordinate[0] + "," + cordinate[1];
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
             intent.setPackage("com.google.android.apps.maps");

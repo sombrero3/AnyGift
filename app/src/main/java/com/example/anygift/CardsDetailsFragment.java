@@ -33,10 +33,11 @@ public class CardsDetailsFragment extends Fragment {
     private TextView value;
     private TextView buyAt;
     private Button deleteBtn;
-    private Button mapBtn,editBtn;
+    private Button mapBtn, editBtn;
     private ImageView userImage;
     private ImageView giftCardImage;
     GiftCard giftCard = null;
+
     public CardsDetailsFragment() {
 
     }
@@ -50,13 +51,13 @@ public class CardsDetailsFragment extends Fragment {
         String giftCardId = CardsDetailsFragmentArgs.fromBundle(getArguments()).getGiftCardId();
         viewModel = new ViewModelProvider(this).get(FeedViewModel.class);
 
-        List<GiftCard> list=viewModel.getList().getValue();
+        List<GiftCard> list = viewModel.getList().getValue();
 
-        for(GiftCard gc:list){
-            if(gc.getId().equals(giftCardId))
-                giftCard=gc;
+        for (GiftCard gc : list) {
+            if (gc.getId().equals(giftCardId))
+                giftCard = gc;
         }
-        userImage=view.findViewById(R.id.details_picture_iv);
+        userImage = view.findViewById(R.id.details_picture_iv);
         userViewModel.getUserById(giftCard.getOwnerEmail(), new UserViewModel.GetUserListener() {
             @Override
             public void onComplete(User user) {
@@ -78,13 +79,13 @@ public class CardsDetailsFragment extends Fragment {
             }
         });
         value = view.findViewById(R.id.details_giftvalue_tv);
-        mapBtn=view.findViewById(R.id.cardDetails_mapBtn);
+        mapBtn = view.findViewById(R.id.cardDetails_mapBtn);
         String val = Double.toString(giftCard.getValue());
         value.setText(val);
         buyAt = view.findViewById(R.id.details_buyatval_tv);
         String price = Double.toString(giftCard.getWantedPrice());
         buyAt.setText(price);
-        giftCardImage=view.findViewById(R.id.details_giftpic_iv);
+        giftCardImage = view.findViewById(R.id.details_giftpic_iv);
         Picasso.get().load(giftCard.getGiftCardImageUrl()).into(giftCardImage);
         deleteBtn = view.findViewById(R.id.details_delete_btn);
         editBtn = view.findViewById(R.id.details_edit_btn2);
@@ -116,7 +117,7 @@ public class CardsDetailsFragment extends Fragment {
         mapBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String[] cordinate= giftCard.getLatAndLong().split(",");
+                String[] cordinate = giftCard.getLatAndLong().split(",");
                 String uri = "http://maps.google.com/maps?q=loc:" + cordinate[0] + "," + cordinate[1];
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
                 intent.setPackage("com.google.android.apps.maps");
@@ -124,12 +125,9 @@ public class CardsDetailsFragment extends Fragment {
             }
         });
 
-        editBtn.setOnClickListener(new View.OnClickListener(){
+        editBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                deleteBtn.setEnabled(false);
-//                editBtn.setEnabled(false);
-                //editCardDetailsFragment
                 Navigation.findNavController(view).navigate(CardsDetailsFragmentDirections.actionCardsDetailsFragmentToEditCardsDetailsFragment(giftCard.getId()));
             }
         });

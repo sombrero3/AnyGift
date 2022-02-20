@@ -38,62 +38,59 @@ import com.google.firebase.firestore.Query;
 
 public class LoginFragment extends Fragment {
 
-    private FirebaseAuth mAuth= FirebaseAuth.getInstance();
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     View view;
     Snackbar mySnackbar;
     String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
     ProgressBar pb;
 
-    Button signIn_btn;
-    Button signUp_btn;
-    Button forgotP_btn;
-    TextInputEditText email;
-    TextInputEditText password;
-
-    String email_user;
-    String password_user;
+    Button signIn_btn, signUp_btn, forgotP_btn;
+    TextInputEditText email, password;
+    String email_user, password_user;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         setHasOptionsMenu(true);
         getActivity().setTitle("AnyGift - Login");
-        view= inflater.inflate(R.layout.fragment_login, container, false);
-        signIn_btn=view.findViewById(R.id.Login_signIn_btn);
-        signUp_btn=view.findViewById(R.id.Login_btn_signUp);
-        forgotP_btn=view.findViewById(R.id.Login_btn_forgotp);
-        email=view.findViewById(R.id.Login_email_input);
-        password=view.findViewById(R.id.Login_password_input);
-        pb=view.findViewById(R.id.login_prob);
+        view = inflater.inflate(R.layout.fragment_login, container, false);
+        signIn_btn = view.findViewById(R.id.Login_signIn_btn);
+        signUp_btn = view.findViewById(R.id.Login_btn_signUp);
+        forgotP_btn = view.findViewById(R.id.Login_btn_forgotp);
+        email = view.findViewById(R.id.Login_email_input);
+        password = view.findViewById(R.id.Login_password_input);
+        pb = view.findViewById(R.id.login_prob);
         pb.setVisibility(View.INVISIBLE);
 
         signIn_btn.setTypeface(Typeface.SANS_SERIF);
         signUp_btn.setTypeface(Typeface.SANS_SERIF);
         forgotP_btn.setTypeface(Typeface.SANS_SERIF);
 
-        signIn_btn.setOnClickListener(v -> {checkUser();});
+        signIn_btn.setOnClickListener(v -> {
+            checkUser();
+        });
 
         signUp_btn.setOnClickListener(v -> {
             Navigation.findNavController(v).navigate(LoginFragmentDirections.actionLoginFragmentToSignUpFragment());
         });
 
-        forgotP_btn.setOnClickListener(v -> {forgotPassword();});
+        forgotP_btn.setOnClickListener(v -> {
+            forgotPassword();
+        });
         return view;
     }
 
     public void checkUser() {
 
 
-        email_user=email.getText().toString();
-        password_user=password.getText().toString();
-        if(TextUtils.isEmpty(email_user) && email_user.matches(emailPattern))
-        {
+        email_user = email.getText().toString();
+        password_user = password.getText().toString();
+        if (TextUtils.isEmpty(email_user) && email_user.matches(emailPattern)) {
             email.setError("please enter  correct   email");
             return;
         }
-        if(TextUtils.isEmpty(password_user))
-        {
+        if (TextUtils.isEmpty(password_user)) {
             password.setError("please enter correct  password");
             return;
         }
@@ -101,40 +98,38 @@ public class LoginFragment extends Fragment {
         pb.setVisibility(View.VISIBLE);
 
         //authenticate the user
-        mAuth.signInWithEmailAndPassword(email_user,password_user).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        mAuth.signInWithEmailAndPassword(email_user, password_user).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()) {
+                if (task.isSuccessful()) {
                     signIn_btn.setEnabled(false);
                     signUp_btn.setEnabled(false);
                     forgotP_btn.setEnabled(false);
                     pb.setVisibility(View.INVISIBLE);
                     mySnackbar = Snackbar.make(view, "Login successful :)", BaseTransientBottomBar.LENGTH_LONG);
                     mySnackbar.show();
-                    Log.d("TAG","login successful");
+                    Log.d("TAG", "login successful");
 
-                   Navigation.findNavController(view).navigate(R.id.action_global_feedFragment);
-                }
-                else
+                    Navigation.findNavController(view).navigate(R.id.action_global_feedFragment);
+                } else
                     //Log.d("TAG","Login failed");
-                    Toast.makeText(getContext(),"Error! "+ task.getException().getMessage() ,Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "Error! " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
                 pb.setVisibility(View.INVISIBLE);
             }
         });
     }
 
 
-    public void forgotPassword(){
-        email_user=email.getText().toString();
+    public void forgotPassword() {
+        email_user = email.getText().toString();
         mAuth.sendPasswordResetEmail(email_user).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                if(task.isSuccessful()) {
+                if (task.isSuccessful()) {
                     mySnackbar = Snackbar.make(view, "Email sent, check your mailbox :)", BaseTransientBottomBar.LENGTH_LONG);
                     mySnackbar.show();
 
-                }
-                else
+                } else
                     Log.d("TAG", "failed");
             }
         });

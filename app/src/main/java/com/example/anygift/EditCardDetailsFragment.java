@@ -39,12 +39,10 @@ import java.util.List;
 
 public class EditCardDetailsFragment extends Fragment {
     View view;
-    EditText value;
-    EditText buyAt;
+    EditText value, buyAt;
     TextView name;
     Button save;
-    ImageView giftCardImage;
-    ImageView userImage;
+    ImageView giftCardImage, userImage;
     ImageButton uploadPicbtn;
     UserViewModel userViewModel;
     MyCardsViewModel viewModel;
@@ -66,20 +64,20 @@ public class EditCardDetailsFragment extends Fragment {
             if (gc.getId().equals(giftCardId))
                 giftCard = gc;
         }
-        name=view.findViewById(R.id.editDetails_username_tv);
-        name.setText(String.valueOf( "Belong to: " + giftCard.getOwnerEmail()));
+        name = view.findViewById(R.id.editDetails_username_tv);
+        name.setText(String.valueOf("Belong to: " + giftCard.getOwnerEmail()));
 
         value = view.findViewById(R.id.editDetails_giftvalue_tv);
-        value.setText(String.valueOf( giftCard.getValue()));
+        value.setText(String.valueOf(giftCard.getValue()));
 
         buyAt = view.findViewById(R.id.editDetails_buyatval_tv);
-        buyAt.setText(String.valueOf( giftCard.getWantedPrice()));
+        buyAt.setText(String.valueOf(giftCard.getWantedPrice()));
 
         uploadPicbtn = view.findViewById(R.id.take_pic_IB);
         save = view.findViewById(R.id.editDetails_save_btn);
         giftCardImage = view.findViewById(R.id.editDetails_giftpic_iv);
         Picasso.get().load(giftCard.getGiftCardImageUrl()).into(giftCardImage);
-        userImage=view.findViewById(R.id.editDetails_picture_iv);
+        userImage = view.findViewById(R.id.editDetails_picture_iv);
         userViewModel.getUserById(giftCard.getOwnerEmail(), new UserViewModel.GetUserListener() {
             @Override
             public void onComplete(User user) {
@@ -160,19 +158,19 @@ public class EditCardDetailsFragment extends Fragment {
         }
     }
 
-    private void update(){
+    private void update() {
         BitmapDrawable drawable = (BitmapDrawable) giftCardImage.getDrawable();
         Log.d("BITAG", drawable.toString());
         Bitmap bitmap = drawable.getBitmap();
-        Model.instance.uploadImage(bitmap,giftCard.getId(),new Model.UploadImageListener(){
+        Model.instance.uploadImage(bitmap, giftCard.getId(), new Model.UploadImageListener() {
             @Override
             public void onComplete(String url) {
                 if (url == null) {
                     displayFailedError();
                 } else {
                     giftCard.setGiftCardImageUrl(url);
-                    giftCard.setValue(Double.parseDouble(value.getText().toString() ));
-                    giftCard.setWantedPrice(Double.parseDouble(buyAt.getText().toString() ));
+                    giftCard.setValue(Double.parseDouble(value.getText().toString()));
+                    giftCard.setWantedPrice(Double.parseDouble(buyAt.getText().toString()));
                     Model.instance.addGiftCard(giftCard, () -> {
                         Navigation.findNavController(view).navigate(R.id.action_global_feedFragment);
                     });

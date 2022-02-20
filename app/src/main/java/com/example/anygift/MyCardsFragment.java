@@ -139,16 +139,6 @@ public class MyCardsFragment extends Fragment {
             View view = getLayoutInflater().inflate(R.layout.cards_list_row, parent, false);
             MyCardsFragment.MyViewHolder holder = new MyCardsFragment.MyViewHolder(view);
             holder.listener = listener;
-
-            /* use progress bar
-            Timer t = new Timer();
-            t.schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    pb.setVisibility(View.INVISIBLE);
-                }
-            }, 2500);*/
-
             return holder;
         }
 
