@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.google.firebase.firestore.FirebaseFirestore;
+
 public class MainActivity extends AppCompatActivity {
 
     NavController navCtr;
@@ -60,7 +62,8 @@ public class MainActivity extends AppCompatActivity {
 
                     break;
                 }
-            }
+
+                            }
         } else {
             return true;
         }
