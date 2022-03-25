@@ -3,19 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="120dp"
+    android:background="@drawable/shape">
 
     <TextView
         android:id="@+id/cards_list_row_et_value"
         android:layout_width="180dp"
         android:layout_height="35dp"
-        android:layout_marginStart="108dp"
+        android:layout_marginStart="8dp"
         android:text="TextView"
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/cards_list_row_iv"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.543" />
+        app:layout_constraintBottom_toTopOf="@+id/cards_list_row_et_buyAt"
+        app:layout_constraintStart_toEndOf="@+id/listRow_tv_value"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/cards_list_row_iv"
@@ -33,12 +33,36 @@
     <TextView
         android:id="@+id/listRow_tv_value"
         android:layout_width="88dp"
-        android:layout_height="34dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="44dp"
-        android:text="value:"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="128dp"
+        android:text="Value:"
         android:textSize="24sp"
-        app:layout_constraintStart_toEndOf="@+id/cards_list_row_iv"
+        app:layout_constraintBottom_toTopOf="@+id/listRow_tv_buyAt"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/listRow_tv_buyAt"
+        android:layout_width="88dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="128dp"
+        android:layout_marginTop="8dp"
+        android:text="Buy At:"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/listRow_tv_value" />
+
+    <TextView
+        android:id="@+id/cards_list_row_et_buyAt"
+        android:layout_width="180dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:text="125"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/listRow_tv_buyAt"
+        app:layout_constraintTop_toBottomOf="@+id/cards_list_row_et_value" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
