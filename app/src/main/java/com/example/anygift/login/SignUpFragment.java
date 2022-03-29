@@ -1,4 +1,4 @@
-package com.example.anygift;
+package com.example.anygift.login;
 
 import static androidx.core.content.ContextCompat.getSystemService;
 
@@ -35,6 +35,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Toast;
 
+import com.example.anygift.R;
 import com.example.anygift.model.Model;
 import com.example.anygift.model.User;
 import com.google.android.gms.location.FusedLocationProviderClient;

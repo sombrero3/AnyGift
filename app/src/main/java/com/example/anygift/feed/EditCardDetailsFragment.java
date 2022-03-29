@@ -1,4 +1,4 @@
-package com.example.anygift;
+package com.example.anygift.feed;
 
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
@@ -28,86 +28,81 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.anygift.R;
+import com.example.anygift.model.GiftCard;
 import com.example.anygift.model.Model;
 import com.example.anygift.model.User;
-import com.google.android.material.snackbar.BaseTransientBottomBar;
-import com.google.android.material.snackbar.Snackbar;
+import com.squareup.picasso.Picasso;
+
+import java.util.List;
 
 
-public class EditProfileFragment extends Fragment {
-
+public class EditCardDetailsFragment extends Fragment {
     View view;
+    EditText value, buyAt;
+    TextView name;
+    Button save;
+    ImageView giftCardImage, userImage;
+    ImageButton uploadPicbtn;
     UserViewModel userViewModel;
-    TextView name,email;
-    EditText firstName, LastName, phone, password;
-    Button saveBtn;
-    User temp;
-    ImageButton cameraBtn;
-    ImageView profileImage;
+    MyCardsViewModel viewModel;
+    GiftCard giftCard = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        getActivity().setTitle("AnyGift - EditProfile");
-        view = inflater.inflate(R.layout.fragment_edit_profile, container, false);
-        saveBtn = view.findViewById(R.id.editProfile_saveBtn);
-        name = view.findViewById(R.id.editProfileF_name);
-        firstName = view.findViewById(R.id.editProfileF_firstName);
-        LastName = view.findViewById(R.id.editProfileF_LastName);
-        phone = view.findViewById(R.id.editProfileF_phone);
-        email = view.findViewById(R.id.editProfileF_email);
-        password = view.findViewById(R.id.editProfileF_password);
-        profileImage = view.findViewById(R.id.editProfileF_image);
-        profileImage.setTag("");
 
+        view = inflater.inflate(R.layout.fragment_edit_card_details, container, false);
+        getActivity().setTitle("AnyGift - EditCardDetails");
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
-        userViewModel.getUser(new UserViewModel.GetUserListener() {
+        String giftCardId = EditCardDetailsFragmentArgs.fromBundle(getArguments()).getGiftCardId();
+        viewModel = new ViewModelProvider(this).get(MyCardsViewModel.class);
+        List<GiftCard> list = viewModel.getList().getValue();
+
+        for (GiftCard gc : list) {
+            if (gc.getId().equals(giftCardId))
+                giftCard = gc;
+        }
+        name = view.findViewById(R.id.editDetails_username_tv);
+        name.setText(String.valueOf("Belong to: " + giftCard.getOwnerEmail()));
+
+        value = view.findViewById(R.id.editDetails_giftvalue_tv);
+        value.setText(String.valueOf(giftCard.getValue()));
+
+        buyAt = view.findViewById(R.id.editDetails_buyatval_tv);
+        buyAt.setText(String.valueOf(giftCard.getWantedPrice()));
+
+        uploadPicbtn = view.findViewById(R.id.take_pic_IB);
+        save = view.findViewById(R.id.editDetails_save_btn);
+        giftCardImage = view.findViewById(R.id.editDetails_giftpic_iv);
+        Picasso.get().load(giftCard.getGiftCardImageUrl()).into(giftCardImage);
+        userImage = view.findViewById(R.id.editDetails_picture_iv);
+        userViewModel.getUserById(giftCard.getOwnerEmail(), new UserViewModel.GetUserListener() {
             @Override
             public void onComplete(User user) {
-                temp = user;
-                name.setText((user != null) ? user.getName() : "null");
-                firstName.setText((user != null) ? user.getFirstName() : "null");
-                LastName.setText((user != null) ? user.getLastName() : "null");
-                email.setText((user != null) ? user.getEmail() : "null");
-                phone.setText((user != null) ? user.getPhone() : "null");
-                password.setText((user != null) ? user.getPassword() : "null");
-
-
+                if (user.getImageUrl() != null) {
+                    Picasso.get().load(user.getImageUrl()).into(userImage);
+                    userImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                    userImage.setClipToOutline(true);
+                }
             }
-
         });
-
-        cameraBtn = view.findViewById(R.id.editProfile_imageButton);
-        cameraBtn.setOnClickListener(new View.OnClickListener() {
+        uploadPicbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 editImage();
             }
         });
-
-
-        saveBtn.setOnClickListener(new View.OnClickListener() {
+        save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (temp.getFirstName().compareTo(firstName.getText().toString()) != 0) {
-                    temp.setFirstName(firstName.getText().toString());
-                }
-                if (temp.getLastName().compareTo(LastName.getText().toString()) != 0) {
-                    temp.setLastName(LastName.getText().toString());
-                }
-                if (temp.getPhone().compareTo(phone.getText().toString()) != 0) {
-                    temp.setPhone(phone.getText().toString());
-                }
-                if (temp.getPassword().compareTo(password.getText().toString()) != 0) {
-                    temp.setPassword(password.getText().toString());
-                }
-                updateImage();
-
+                update();
             }
         });
         return view;
     }
+
 
     private void editImage() {
         final CharSequence[] options = {"Take Photo", "Choose from Gallery", "Cancel"};
@@ -137,8 +132,8 @@ public class EditProfileFragment extends Fragment {
                 case 0:
                     if (resultCode == RESULT_OK && data != null) {
                         Bitmap selectedImage = (Bitmap) data.getExtras().get("data");
-                        profileImage.setImageBitmap(selectedImage);
-                        profileImage.setTag("img");
+                        giftCardImage.setImageBitmap(selectedImage);
+                        giftCardImage.setTag("img");
                     }
                     break;
                 case 1:
@@ -152,8 +147,8 @@ public class EditProfileFragment extends Fragment {
                                 cursor.moveToFirst();
                                 int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
                                 String picturePath = cursor.getString(columnIndex);
-                                profileImage.setImageBitmap(BitmapFactory.decodeFile(picturePath));
-                                profileImage.setTag("img");
+                                giftCardImage.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+                                giftCardImage.setTag("img");
                                 cursor.close();
                             }
                         }
@@ -163,19 +158,21 @@ public class EditProfileFragment extends Fragment {
         }
     }
 
-    private void updateImage() {
-        BitmapDrawable drawable = (BitmapDrawable) profileImage.getDrawable();
+    private void update() {
+        BitmapDrawable drawable = (BitmapDrawable) giftCardImage.getDrawable();
         Log.d("BITAG", drawable.toString());
         Bitmap bitmap = drawable.getBitmap();
-        Model.instance.uploadUserImage(bitmap, temp.getId(), new Model.UploadUserImageListener() {
+        Model.instance.uploadImage(bitmap, giftCard.getId(), new Model.UploadImageListener() {
             @Override
             public void onComplete(String url) {
                 if (url == null) {
                     displayFailedError();
                 } else {
-                    temp.setImageUrl(url);
-                    Model.instance.addUser(temp, () -> {
-                        Navigation.findNavController(view).navigate(R.id.action_global_userProfileFragment);
+                    giftCard.setGiftCardImageUrl(url);
+                    giftCard.setValue(Double.parseDouble(value.getText().toString()));
+                    giftCard.setWantedPrice(Double.parseDouble(buyAt.getText().toString()));
+                    Model.instance.addGiftCard(giftCard, () -> {
+                        Navigation.findNavController(view).navigate(R.id.action_global_feedFragment);
                     });
                 }
             }
@@ -196,5 +193,6 @@ public class EditProfileFragment extends Fragment {
         });
         builder.show();
     }
+
 
 }

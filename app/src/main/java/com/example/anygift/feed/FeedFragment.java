@@ -1,4 +1,4 @@
-package com.example.anygift;
+package com.example.anygift.feed;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -6,8 +6,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -18,18 +16,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.anygift.model.GiftCard;
+import com.example.anygift.R;
 import com.example.anygift.model.Model;
 import com.squareup.picasso.Picasso;
 
-import java.util.List;
 import java.util.Objects;
-import java.util.Timer;
-import java.util.TimerTask;
 
 
 public class FeedFragment extends Fragment {

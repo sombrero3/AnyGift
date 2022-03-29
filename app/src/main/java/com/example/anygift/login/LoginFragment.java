@@ -1,4 +1,4 @@
-package com.example.anygift;
+package com.example.anygift.login;
 
 import android.content.Context;
 import android.graphics.Typeface;
@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.anygift.R;
 import com.example.anygift.model.Model;
 import com.example.anygift.model.ModelFirebase;
 import com.example.anygift.model.User;

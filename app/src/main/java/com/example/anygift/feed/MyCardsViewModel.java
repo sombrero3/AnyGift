@@ -1,4 +1,4 @@
-package com.example.anygift;
+package com.example.anygift.feed;
 
 import android.util.Log;
 
@@ -10,10 +10,10 @@ import com.example.anygift.model.Model;
 
 import java.util.List;
 
-public class FeedViewModel extends ViewModel {
+public class MyCardsViewModel extends ViewModel {
     private LiveData<List<GiftCard>> gfList;
 
-    public FeedViewModel() {
+    public MyCardsViewModel() {
         Log.d("TAG", "FeedViewModel");
         gfList = Model.instance.getAll();
     }

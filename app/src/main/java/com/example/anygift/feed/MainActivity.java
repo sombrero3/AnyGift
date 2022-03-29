@@ -1,4 +1,4 @@
-package com.example.anygift;
+package com.example.anygift.feed;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,6 +10,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.example.anygift.R;
 
 public class MainActivity extends AppCompatActivity {
 

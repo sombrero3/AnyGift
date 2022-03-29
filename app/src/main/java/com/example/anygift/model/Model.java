@@ -20,8 +20,9 @@ import java.util.concurrent.Executors;
 public class Model {
     public static final Model instance = new Model();
     public ModelFirebase modelFirebase = new ModelFirebase();
-    Executor executor = Executors.newFixedThreadPool(1);
-    Handler mainThread = HandlerCompat.createAsync(Looper.getMainLooper());
+    public Executor executor = Executors.newFixedThreadPool(1);
+    public Handler mainThread = HandlerCompat.createAsync(Looper.getMainLooper());
+    public User signedUser;
 
 
     private Model() {
@@ -53,6 +54,9 @@ public class Model {
 
     public interface GetAllGiftCardListener {
         void onComplete();
+    }
+    public interface GetUserListener{
+        void onComplete(User user);
     }
 
     public void refreshGiftCardsList() {
@@ -179,5 +183,21 @@ public class Model {
 
     public ModelFirebase getModelFirebase() {
         return this.modelFirebase;
+    }
+
+    /**
+     * Authentication
+     */
+    public boolean isSignedIn() {
+        return modelFirebase.isSignedIn();
+    }
+    public User getSignedUser() {
+        return signedUser;
+    }
+    public void setCurrentUser(GetUserListener listener) {
+        modelFirebase.setCurrentUser(user -> {
+            signedUser = user;
+            listener.onComplete(user);
+        });
     }
 }

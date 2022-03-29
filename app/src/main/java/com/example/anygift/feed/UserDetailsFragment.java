@@ -1,4 +1,4 @@
-package com.example.anygift;
+package com.example.anygift.feed;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.anygift.R;
 import com.example.anygift.model.User;
 import com.squareup.picasso.Picasso;
 
