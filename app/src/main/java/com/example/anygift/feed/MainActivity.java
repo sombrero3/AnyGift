@@ -10,8 +10,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.anygift.R;
+import com.example.anygift.login.LoginActivity;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -60,6 +63,14 @@ public class MainActivity extends AppCompatActivity {
                     Intent map = new Intent(this, MapsActivity.class);
                     startActivity(map);
 
+                    break;
+                }
+                case R.id.logout: {
+                    Toast.makeText(this,"Logging Out",Toast.LENGTH_SHORT).show();
+                    FirebaseAuth.getInstance().signOut();
+                    Intent intent = new Intent(this, LoginActivity.class);
+                    startActivity(intent);
+                    finish();
                     break;
                 }
             }

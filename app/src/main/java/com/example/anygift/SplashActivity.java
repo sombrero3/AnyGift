@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.anygift.feed.MainActivity;
+import com.example.anygift.login.LoginActivity;
 import com.example.anygift.model.Model;
 import com.example.anygift.model.User;
 import com.google.firebase.FirebaseApp;
@@ -44,9 +45,9 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void toLoginActivity() {
-//        Intent intent = new Intent(this, LoginActivity.class);
-//        startActivity(intent);
-//        finish();
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     private void toFeedActivity() {

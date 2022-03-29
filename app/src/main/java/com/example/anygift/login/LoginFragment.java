@@ -1,6 +1,7 @@
 package com.example.anygift.login;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 
@@ -21,6 +22,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.anygift.R;
+import com.example.anygift.feed.MainActivity;
 import com.example.anygift.model.Model;
 import com.example.anygift.model.ModelFirebase;
 import com.example.anygift.model.User;
@@ -110,8 +112,8 @@ public class LoginFragment extends Fragment {
                     mySnackbar = Snackbar.make(view, "Login successful :)", BaseTransientBottomBar.LENGTH_LONG);
                     mySnackbar.show();
                     Log.d("TAG", "login successful");
-
-                    Navigation.findNavController(view).navigate(R.id.action_global_feedFragment);
+                    goToFeedActivity();
+                   // Navigation.findNavController(view).navigate(R.id.action_global_feedFragment);
                 } else
                     //Log.d("TAG","Login failed");
                     Toast.makeText(getContext(), "Error! " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
@@ -120,7 +122,17 @@ public class LoginFragment extends Fragment {
         });
     }
 
-
+    public void goToFeedActivity(){
+        Model.instance.setCurrentUser(new Model.GetUserListener() {
+            @Override
+            public void onComplete(User user) {
+                pb.setVisibility(View.INVISIBLE);
+                Intent intent = new Intent(getContext(), MainActivity.class);
+                startActivity(intent);
+                getActivity().finish();
+            }
+        });
+    }
     public void forgotPassword() {
         email_user = email.getText().toString();
         mAuth.sendPasswordResetEmail(email_user).addOnCompleteListener(new OnCompleteListener<Void>() {

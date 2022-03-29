@@ -36,6 +36,7 @@ import android.widget.CheckBox;
 import android.widget.Toast;
 
 import com.example.anygift.R;
+import com.example.anygift.feed.MainActivity;
 import com.example.anygift.model.Model;
 import com.example.anygift.model.User;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -227,7 +228,7 @@ public class SignUpFragment extends Fragment {
         Snackbar mySnackbar = Snackbar.make(view, "signUp succeed, Nice to meet you :)", BaseTransientBottomBar.LENGTH_LONG);
         mySnackbar.show();
         Model.instance.addUser(user, () -> {
-            Navigation.findNavController(view).navigate(SignUpFragmentDirections.actionSignUpFragmentToUserProfileFragment());
+           goToFeedActivity();
         });
     }
 
@@ -244,5 +245,15 @@ public class SignUpFragment extends Fragment {
         menu.clear();
     }
 
-
+    public void goToFeedActivity(){
+        Model.instance.setCurrentUser(new Model.GetUserListener() {
+            @Override
+            public void onComplete(User user) {
+                //progressBar.setVisibility(View.INVISIBLE);
+                Intent intent = new Intent(getContext(), MainActivity.class);
+                startActivity(intent);
+                getActivity().finish();
+            }
+        });
+    }
 }

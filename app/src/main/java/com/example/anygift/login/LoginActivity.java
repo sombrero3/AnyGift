@@ -16,7 +16,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        NavHost navHost = (NavHost) getSupportFragmentManager().findFragmentById(R.id.login_nav);
+        NavHost navHost = (NavHost) getSupportFragmentManager().findFragmentById(R.id.login_navhost);
         navCtl = navHost.getNavController();
         NavigationUI.setupActionBarWithNavController(this, navCtl);
     }

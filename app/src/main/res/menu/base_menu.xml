@@ -21,4 +21,7 @@
     <item
         android:id="@+id/cards_map"
         android:title="Show all Cards" />
+    <item
+        android:id="@+id/logout"
+        android:title="Logout" />
 </menu>

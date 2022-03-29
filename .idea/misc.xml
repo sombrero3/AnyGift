@@ -3,8 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/layout/activity_login.xml" value="0.128" />
+        <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/layout/activity_main.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/layout/activity_splash.xml" value="0.1" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/layout/fragment_login.xml" value="0.2" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/layout/fragment_sign_up.xml" value="0.176" />
+        <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/menu/base_menu.xml" value="0.1" />
         <entry key="..\:/Users/Shir/AnyGift/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/Shir/AnyGift/app/src/main/res/layout/cards_list_row.xml" value="0.14666666666666667" />
         <entry key="..\:/Users/Shir/AnyGift/app/src/main/res/layout/fragment_add_card.xml" value="0.1" />
