@@ -226,9 +226,7 @@ public class SignUpFragment extends Fragment {
         Snackbar mySnackbar = Snackbar.make(view, "signUp succeed, Nice to meet you :)", BaseTransientBottomBar.LENGTH_LONG);
         mySnackbar.show();
         Model.instance.addUser(user, () -> {
-           // Navigation.findNavController(view).navigate(SignUpFragmentDirections.actionSignUpFragmentToUserProfileFragment());
-             Navigation.findNavController(view).navigate(R.id.action_global_feedFragment);
-
+            Navigation.findNavController(view).navigate(SignUpFragmentDirections.actionSignUpFragmentToUserProfileFragment());
         });
     }
 
