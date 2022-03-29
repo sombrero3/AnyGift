@@ -48,7 +48,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class AddCardFragment extends Fragment {
-    private static final int REQUEST_CAMERA = 1;
+    private static final int REQUEST_CAMERA = 1;//
     TextInputEditText cardValue, cardExpDay, cardExpMonth, cardExpYear, cardAskingValue, cardNumber;
     ImageButton uploadPicButton;
     Button addCardButton;
