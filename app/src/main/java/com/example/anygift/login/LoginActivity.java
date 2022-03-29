@@ -7,6 +7,8 @@ import androidx.navigation.ui.NavigationUI;
 
 import android.os.Bundle;
 
+import com.example.anygift.R;
+
 public class LoginActivity extends AppCompatActivity {
     NavController navCtl;
     @Override
@@ -14,7 +16,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        NavHost navHost = (NavHost) getSupportFragmentManager().findFragmentById(R.id.login_navhost);
+        NavHost navHost = (NavHost) getSupportFragmentManager().findFragmentById(R.id.login_nav);
         navCtl = navHost.getNavController();
         NavigationUI.setupActionBarWithNavController(this, navCtl);
     }
