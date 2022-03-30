@@ -52,9 +52,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class LoginFragment extends Fragment {
 
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
-    private Retrofit retrofit;
-    private RetrofitInterface retrofitInterface;
-    private String Base_URL="http://10.0.2.2:3000";
+
 
     View view;
     Snackbar mySnackbar;
@@ -69,11 +67,6 @@ public class LoginFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         setHasOptionsMenu(true);
-        retrofit=new Retrofit.Builder()
-                .baseUrl(Base_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        retrofitInterface=retrofit.create(RetrofitInterface.class);
         getActivity().setTitle("AnyGift - Login");
         view = inflater.inflate(R.layout.fragment_login, container, false);
         signIn_btn = view.findViewById(R.id.Login_signIn_btn);
@@ -102,6 +95,25 @@ public class LoginFragment extends Fragment {
         return view;
     }
 
+    public void login(){
+        pb.setVisibility(View.VISIBLE);
+        //TODO Login using Retrofit
+        HashMap<String,String> map=new HashMap<>();
+        map.put("email",email_user);
+        map.put("password",password_user);
+        Model.instance.login(map, new Model.StringListener() {
+            @Override
+            public void onComplete(String message) {
+                Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+
+            }
+        });
+
+
+    }
+
+
+
     public void checkUser() {
 
 
@@ -115,35 +127,9 @@ public class LoginFragment extends Fragment {
             password.setError("please enter correct  password");
             return;
         }
+        //connect via http request
+        login();
 
-        pb.setVisibility(View.VISIBLE);
-        //TODO Login using Retrofit
-        HashMap<String,String> map=new HashMap<>();
-        map.put("email",email_user);
-        map.put("password",password_user);
-        Call<LoginResult> call=retrofitInterface.executeLogin(map);
-        call.enqueue(new Callback<LoginResult>() {
-            @Override
-            public void onResponse(Call<LoginResult> call, Response<LoginResult> response)
-            {
-                if(response.code()==200)
-                {
-                    Toast.makeText(getContext(), "Login to app", Toast.LENGTH_LONG).show();
-
-                }else
-                    if(response.code()==400){
-                    Toast.makeText(getContext(), "Cant Login To App Right Now....", Toast.LENGTH_LONG).show();
-
-                    }
-            }
-
-            @Override
-            public void onFailure(Call<LoginResult> call, Throwable t) {
-                Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_LONG).show();
-            }
-        });
-        /*
-        //authenticate the user
         mAuth.signInWithEmailAndPassword(email_user, password_user).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -164,7 +150,7 @@ public class LoginFragment extends Fragment {
             }
         });
 
-         */
+
     }
 
     public void goToFeedActivity(){
