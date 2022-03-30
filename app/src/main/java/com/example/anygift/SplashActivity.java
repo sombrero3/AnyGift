@@ -23,18 +23,13 @@ public class SplashActivity extends AppCompatActivity {
 
         Model.instance.executor.execute(()->{
             try {
-                Thread.sleep(2500);
+                Thread.sleep(3000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
             if(Model.instance.isSignedIn()){
                 Model.instance.mainThread.post(()->{
-                    Model.instance.setCurrentUser(new Model.GetUserListener() {
-                        @Override
-                        public void onComplete(User user) {
-                            toFeedActivity();
-                        }
-                    });
+                    Model.instance.setCurrentUser(user -> toFeedActivity());
                 });
             }else{
                 Model.instance.mainThread.post(()-> {
