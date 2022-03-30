@@ -105,10 +105,10 @@ public class LoginFragment extends Fragment {
             @Override
             public void onComplete(String message) {
                 Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+                pb.setVisibility(View.GONE);
 
             }
         });
-
 
     }
 
@@ -129,7 +129,7 @@ public class LoginFragment extends Fragment {
         }
         //connect via http request
         login();
-
+/*
         mAuth.signInWithEmailAndPassword(email_user, password_user).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -149,7 +149,7 @@ public class LoginFragment extends Fragment {
                 pb.setVisibility(View.INVISIBLE);
             }
         });
-
+*/
 
     }
 

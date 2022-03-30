@@ -57,15 +57,16 @@ public class Model {
         ;
         return giftCardsList;
     }
-public interface StringListener{
-       void onComplete(String message);
-}
+    public interface StringListener{
+           void onComplete(String message);
+    }
     public void login(HashMap<String, String> map, StringListener listener) {
         Call<LoginResult> call=retrofitInterface.executeLogin(map);
+
+
         call.enqueue(new Callback<LoginResult>() {
             @Override
-            public void onResponse(Call<LoginResult> call, Response<LoginResult> response)
-            {
+            public void onResponse(Call<LoginResult> call, Response<LoginResult> response) {
                 if(response.code()==200)
                 {
                     //Toast.makeText(getContext(), "Login to app", Toast.LENGTH_LONG).show();
@@ -81,7 +82,7 @@ public interface StringListener{
 
             @Override
             public void onFailure(Call<LoginResult> call, Throwable t) {
-                listener.onComplete(t.getMessage());
+                listener.onComplete("fail");
             }
         });
     }
