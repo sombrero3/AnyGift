@@ -1,14 +1,11 @@
-package com.example.anygift;
+package com.example.anygift.feed;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -19,28 +16,25 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.anygift.model.GiftCard;
+import com.example.anygift.R;
 import com.example.anygift.model.Model;
 import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
 
-import java.util.List;
-
 
 public class MyCardsFragment extends Fragment {
     View view;
-    com.example.anygift.MyCardsViewModel viewModel;
+    MyCardsViewModel viewModel;
     MyAdapter adapter;
     SwipeRefreshLayout swipeRefresh;
 
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        viewModel = new ViewModelProvider(this).get(com.example.anygift.MyCardsViewModel.class);
+        viewModel = new ViewModelProvider(this).get(MyCardsViewModel.class);
     }
 
     @Nullable

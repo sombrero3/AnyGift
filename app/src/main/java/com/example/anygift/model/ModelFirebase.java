@@ -3,6 +3,9 @@ package com.example.anygift.model;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -11,6 +14,9 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
@@ -26,6 +32,8 @@ import java.util.List;
 
 public class ModelFirebase {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    FirebaseAuth currentUser;
 
     public ModelFirebase() {
         FirebaseFirestoreSettings set = new FirebaseFirestoreSettings.Builder().setPersistenceEnabled(false).build();
@@ -220,6 +228,21 @@ public class ModelFirebase {
             }
         });
     }
+    public void getUserById(String id, Model.GetUserListener listener) {
+        db.collection(User.COLLECTION_NAME)
+                //  .whereEqualTo("id",studentId)
+                .document(id)
+                .get()
+                .addOnCompleteListener(task -> {
+                    User user = null;
+                    if (task.isSuccessful() && task.getResult() != null) {
+                        //  ObjectMapper map = new ObjectMapper();
+                        user = new User();
+                        user.fromMap(task.getResult().getData());
+                    }
+                    listener.onComplete(user);
+                });
+    }
     public void updateUser(User user, Model.AddUserListener listener) {
         addUser(user,listener);
     }
@@ -246,5 +269,44 @@ public class ModelFirebase {
                 });
     }
 
+    /**
+     * Authentication
+     */
+    public boolean isSignedIn() {
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        return (currentUser != null);
+    }
+    public void signIn(String email, String password, String firstName, String lastName, ProgressBar progressBar) {
+        Log.d("TAG", "signIn: " + email + " " + password + " " + mAuth);
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            Log.d("TAG", "onComplete: succeed" + email + " " + password + " " + mAuth.getCurrentUser());
+                        } else {
+                            Toast.makeText(progressBar.getContext(), "Failed To Registered 2", Toast.LENGTH_LONG).show();
 
+                            Log.d("TAG", "onComplete failed: " + email + " " + password + " " + mAuth + " " + task.getException().toString());
+                            progressBar.setVisibility(View.GONE);
+                        }
+                    }
+                });
+    }
+
+    public void setCurrentUser(Model.GetUserListener listener) {
+        currentUser = FirebaseAuth.getInstance();
+        String userUid = currentUser.getCurrentUser().getEmail();
+        getUserById(userUid, new Model.GetUserListener() {
+            @Override
+            public void onComplete(User user) {
+                listener.onComplete(user);
+            }
+        });
+    }
+    private String getSignedUserId() {
+        return Model.instance.getSignedUser().getId();
+    }
 }
+

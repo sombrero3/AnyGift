@@ -1,10 +1,11 @@
-package com.example.anygift;
+package com.example.anygift.feed;
 
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
 
+import com.example.anygift.R;
 import com.example.anygift.model.GiftCard;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;

@@ -1,4 +1,4 @@
-package com.example.anygift;
+package com.example.anygift.feed;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
