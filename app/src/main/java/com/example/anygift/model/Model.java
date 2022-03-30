@@ -34,16 +34,14 @@ public class Model {
     public Executor executor = Executors.newFixedThreadPool(1);
     public Handler mainThread = HandlerCompat.createAsync(Looper.getMainLooper());
     public User signedUser;
-    private Retrofit retrofit;
-    public RetrofitInterface retrofitInterface;
-    private String Base_URL="http://10.0.2.2:8000";
+    public ModelRetrofit  modelRetrofit= new ModelRetrofit();
+//    private Retrofit retrofit;
+//    public RetrofitInterface retrofitInterface;
+//    private String Base_URL="http://10.0.2.2:8000";
 
     private Model() {
         ListLoadingState.setValue(GiftListLoadingState.loaded);
-        retrofitInterface=new Retrofit.Builder()
-                .baseUrl(Base_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build().create(RetrofitInterface.class);
+
 
     }
 
@@ -54,38 +52,14 @@ public class Model {
         if (giftCardsList.getValue() == null) {
             refreshGiftCardsList();
         }
-        ;
         return giftCardsList;
     }
 public interface StringListener{
        void onComplete(String message);
 }
     public void login(HashMap<String, String> map, StringListener listener) {
-        Call<LoginResult> call=retrofitInterface.executeLogin(map);
-        call.enqueue(new Callback<LoginResult>() {
-            @Override
-            public void onResponse(Call<LoginResult> call, Response<LoginResult> response)
-            {
-                if(response.code()==200)
-                {
-                    //Toast.makeText(getContext(), "Login to app", Toast.LENGTH_LONG).show();
-                    listener.onComplete("Sign in complete");
-
-                }else
-                if(response.code()==400){
-                    listener.onComplete("user exist");
-                    //Toast.makeText(getContext(), "Cant Login To App Right Now....", Toast.LENGTH_LONG).show();
-
-                }
-            }
-
-            @Override
-            public void onFailure(Call<LoginResult> call, Throwable t) {
-                listener.onComplete(t.getMessage());
-            }
-        });
+        modelRetrofit.login(map, listener);
     }
-
 
     public enum GiftListLoadingState {
         loading,

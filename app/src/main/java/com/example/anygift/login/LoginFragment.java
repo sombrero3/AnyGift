@@ -35,24 +35,11 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
-
 import java.util.HashMap;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-
 
 public class LoginFragment extends Fragment {
 
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
-
 
     View view;
     Snackbar mySnackbar;
@@ -62,7 +49,6 @@ public class LoginFragment extends Fragment {
     Button signIn_btn, signUp_btn, forgotP_btn;
     TextInputEditText email, password;
     String email_user, password_user;
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -96,7 +82,6 @@ public class LoginFragment extends Fragment {
     }
 
     public void login(){
-        pb.setVisibility(View.VISIBLE);
         //TODO Login using Retrofit
         HashMap<String,String> map=new HashMap<>();
         map.put("email",email_user);
@@ -105,18 +90,11 @@ public class LoginFragment extends Fragment {
             @Override
             public void onComplete(String message) {
                 Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
-
             }
         });
-
-
     }
 
-
-
     public void checkUser() {
-
-
         email_user = email.getText().toString();
         password_user = password.getText().toString();
         if (TextUtils.isEmpty(email_user) && email_user.matches(emailPattern)) {
@@ -128,7 +106,8 @@ public class LoginFragment extends Fragment {
             return;
         }
         //connect via http request
-        login();
+        pb.setVisibility(View.VISIBLE);
+        // login();
 
         mAuth.signInWithEmailAndPassword(email_user, password_user).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
