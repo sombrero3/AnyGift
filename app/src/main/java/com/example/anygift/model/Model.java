@@ -35,18 +35,11 @@ public class Model {
     public Handler mainThread = HandlerCompat.createAsync(Looper.getMainLooper());
     public User signedUser;
     public ModelRetrofit  modelRetrofit= new ModelRetrofit();
-//    private Retrofit retrofit;
-//    public RetrofitInterface retrofitInterface;
-//    private String Base_URL="http://10.0.2.2:8000";
+    public MutableLiveData<List<GiftCard>> giftCardsList = new MutableLiveData<>();
 
     private Model() {
         ListLoadingState.setValue(GiftListLoadingState.loaded);
-
-
     }
-
-    MutableLiveData<List<GiftCard>> giftCardsList = new MutableLiveData<>();
-    //LiveData<List<GiftCard>> giftCardsList;
 
     public LiveData<List<GiftCard>> getAll() {
         if (giftCardsList.getValue() == null) {
@@ -54,9 +47,11 @@ public class Model {
         }
         return giftCardsList;
     }
-public interface StringListener{
+
+    public interface StringListener{
        void onComplete(String message);
-}
+    }
+
     public void login(HashMap<String, String> map, StringListener listener) {
         modelRetrofit.login(map, listener);
     }

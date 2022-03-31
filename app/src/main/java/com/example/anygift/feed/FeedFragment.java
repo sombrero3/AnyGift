@@ -30,6 +30,7 @@ public class FeedFragment extends Fragment {
     FeedViewModel viewModel;
     MyAdapter adapter;
     SwipeRefreshLayout swipeRefresh;
+    TextView nameTv;
 
 
     @Override
@@ -50,6 +51,8 @@ public class FeedFragment extends Fragment {
         list.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new MyAdapter();
         list.setAdapter(adapter);
+        nameTv = view.findViewById(R.id.cards_list_user_name_tv);
+        nameTv.setText("Hello " + Model.instance.getSignedUser().getName() +" and welcome to the gift card trading platform. Find evry gift card buy or trade with your own cards.");
         adapter.setOnItemClickListener(new FeedFragment.OnItemClickListener() {
             @Override
             public void onItemClick(View v, int position) {
