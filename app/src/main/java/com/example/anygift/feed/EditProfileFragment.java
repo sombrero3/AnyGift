@@ -19,6 +19,7 @@ import androidx.navigation.Navigation;
 
 import android.provider.MediaStore;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,10 +36,10 @@ import com.example.anygift.model.User;
 
 public class EditProfileFragment extends Fragment {
 
+    TextView emailTv;
     View view;
     UserViewModel userViewModel;
-    TextView name,email;
-    EditText firstName, LastName, phone, password;
+    EditText firstNameEt, lastNameEt, phoneEt;
     Button saveBtn;
     User temp;
     ImageButton cameraBtn;
@@ -51,30 +52,23 @@ public class EditProfileFragment extends Fragment {
         getActivity().setTitle("AnyGift - EditProfile");
         view = inflater.inflate(R.layout.fragment_edit_profile, container, false);
         saveBtn = view.findViewById(R.id.editProfile_saveBtn);
-        name = view.findViewById(R.id.editProfileF_name);
-        firstName = view.findViewById(R.id.editProfileF_firstName);
-        LastName = view.findViewById(R.id.editProfileF_LastName);
-        phone = view.findViewById(R.id.editProfileF_phone);
-        email = view.findViewById(R.id.editProfileF_email);
-        password = view.findViewById(R.id.editProfileF_password);
+
+        firstNameEt = view.findViewById(R.id.editProfileF_firstName);
+        lastNameEt = view.findViewById(R.id.editProfileF_LastName);
+        phoneEt = view.findViewById(R.id.editProfileF_phone);
         profileImage = view.findViewById(R.id.editProfileF_image);
         profileImage.setTag("");
-
+        emailTv = view.findViewById(R.id.editProfile_email_tv);
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
         userViewModel.getUser(new UserViewModel.GetUserListener() {
             @Override
             public void onComplete(User user) {
                 temp = user;
-                name.setText((user != null) ? user.getName() : "null");
-                firstName.setText((user != null) ? user.getFirstName() : "null");
-                LastName.setText((user != null) ? user.getLastName() : "null");
-                email.setText((user != null) ? user.getEmail() : "null");
-                phone.setText((user != null) ? user.getPhone() : "null");
-                password.setText((user != null) ? user.getPassword() : "null");
-
-
+                firstNameEt.setText((user != null) ? user.getFirstName() : "null");
+                lastNameEt.setText((user != null) ? user.getLastName() : "null");
+                emailTv.setText((user != null) ? user.getEmail() : "null");
+                phoneEt.setText((user != null) ? user.getPhone() : "null");
             }
-
         });
 
         cameraBtn = view.findViewById(R.id.editProfile_imageButton);
@@ -85,27 +79,43 @@ public class EditProfileFragment extends Fragment {
             }
         });
 
-
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (temp.getFirstName().compareTo(firstName.getText().toString()) != 0) {
-                    temp.setFirstName(firstName.getText().toString());
+                if(validation(firstNameEt.getText().toString().trim(),lastNameEt.getText().toString().trim(),phoneEt.getText().toString().trim())) {
+                    if (temp.getFirstName().compareTo(firstNameEt.getText().toString()) != 0) {
+                        temp.setFirstName(firstNameEt.getText().toString());
+                    }
+                    if (temp.getLastName().compareTo(lastNameEt.getText().toString()) != 0) {
+                        temp.setLastName(lastNameEt.getText().toString());
+                    }
+                    if (temp.getPhone().compareTo(phoneEt.getText().toString()) != 0) {
+                        temp.setPhone(phoneEt.getText().toString());
+                    }
+                    updateImage();
                 }
-                if (temp.getLastName().compareTo(LastName.getText().toString()) != 0) {
-                    temp.setLastName(LastName.getText().toString());
-                }
-                if (temp.getPhone().compareTo(phone.getText().toString()) != 0) {
-                    temp.setPhone(phone.getText().toString());
-                }
-                if (temp.getPassword().compareTo(password.getText().toString()) != 0) {
-                    temp.setPassword(password.getText().toString());
-                }
-                updateImage();
-
             }
         });
         return view;
+    }
+
+    private boolean validation(String firstName, String lastName,String phone) {
+        if(firstName.isEmpty()){
+            firstNameEt.setError("First name is required");
+            firstNameEt.requestFocus();
+            return false;
+        }
+        if(lastName.isEmpty()){
+            lastNameEt.setError("Last name is required");
+            lastNameEt.requestFocus();
+            return false;
+        }
+        if(phone.isEmpty()){
+            phoneEt.setError("Email address is required");
+            phoneEt.requestFocus();
+            return false;
+        }
+        return true;
     }
 
     private void editImage() {

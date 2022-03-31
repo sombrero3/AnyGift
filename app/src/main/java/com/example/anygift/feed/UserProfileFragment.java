@@ -44,15 +44,15 @@ public class UserProfileFragment extends Fragment {
         getActivity().setTitle("AnyGift - Profile");
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_user_profile, container, false);
-        editBtn = view.findViewById(R.id.profileF_editInfoBtn);
-        name = view.findViewById(R.id.profileF_name);
-        phone = view.findViewById(R.id.profileF_phone);
-        email = view.findViewById(R.id.profileF_mail);
+        editBtn = view.findViewById(R.id.profile_editInfo_btn);
+        name = view.findViewById(R.id.profile_name_tv);
+        phone = view.findViewById(R.id.profile_phone_tv);
+        email = view.findViewById(R.id.profile_mail_tv);
         cardCounter = view.findViewById(R.id.profileF_cards);
         coinCounter = view.findViewById(R.id.profileF_coins);
-        cardBtn = view.findViewById(R.id.profileF_cardsBtn);
-        coinsBtn = view.findViewById(R.id.profileF_coinsBtn);
-        MapBtn = view.findViewById(R.id.profileF_mapBtn);
+        cardBtn = view.findViewById(R.id.profile_cards_ibtn);
+        coinsBtn = view.findViewById(R.id.profile_coins_ibtn);
+        MapBtn = view.findViewById(R.id.profile_map_btn);
         profileImage = view.findViewById(R.id.profileF_imageView);
 
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
