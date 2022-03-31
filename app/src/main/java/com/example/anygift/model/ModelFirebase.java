@@ -50,7 +50,8 @@ public class ModelFirebase {
 
     public void getAllProducts(Long lastUpdated, final GetAllGiftCardListener listener) {
         Timestamp ts = new Timestamp(lastUpdated, 0);
-        db.collection("giftCards").whereGreaterThanOrEqualTo("lastUpdated", ts).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        db.collection("giftCards")
+                .whereGreaterThanOrEqualTo("lastUpdated", ts).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 List<GiftCard> data = new LinkedList<GiftCard>();
@@ -58,8 +59,11 @@ public class ModelFirebase {
                     for (DocumentSnapshot doc : task.getResult()) {
                         GiftCard gf = new GiftCard();
                         gf.fromMap(doc.getData());
-                        data.add(gf);
-                        Log.d("TAG", "st: " + gf.getId());
+                        if(!gf.getDeleted()) {
+                            data.add(gf);
+                            Log.d("TAG", "st: " + gf.getId());
+                        }
+
                     }
                 }
                 listener.onComplete(data);

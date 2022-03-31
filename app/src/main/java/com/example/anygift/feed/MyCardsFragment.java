@@ -103,7 +103,7 @@ public class MyCardsFragment extends Fragment {
         public void bindView(int position) {
             String gfEmail = viewModel.getList().getValue().get(position).getOwnerEmail();
             String userEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
-            if (!viewModel.getList().getValue().get(position).getDeleted() && (gfEmail.compareTo(userEmail) == 0)) {
+            if (!viewModel.getList().getValue().get(position).getDeleted() && gfEmail.equals(userEmail)) {
                 cardValue.setText(String.valueOf(viewModel.getList().getValue().get(position).getValue()));
                 Picasso.get().load(viewModel.getList().getValue().get(position).getGiftCardImageUrl()).into(cardImage);
                 this.position = position;

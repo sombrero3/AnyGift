@@ -4,17 +4,19 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/layout/activity_login.xml" value="0.128" />
-        <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/layout/activity_main.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/layout/activity_splash.xml" value="0.264" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/layout/cards_list_row.xml" value="0.2433734939759036" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/layout/fragment_cards_details.xml" value="0.1" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/layout/fragment_edit_profile.xml" value="0.264" />
-        <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/layout/fragment_feed.xml" value="0.21403508771929824" />
+        <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/layout/fragment_feed.xml" value="0.20948616600790515" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/layout/fragment_login.xml" value="0.2" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/layout/fragment_my_cards.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/layout/fragment_sign_up.xml" value="0.176" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/layout/fragment_user_profile.xml" value="0.264" />
-        <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/menu/base_menu.xml" value="0.1" />
+        <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/layout/menu_header.xml" value="0.264" />
+        <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/menu/base_menu.xml" value="0.264" />
+        <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/menu/not_home_menu.xml" value="0.1" />
         <entry key="..\:/Users/Shir/AnyGift/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/Shir/AnyGift/app/src/main/res/layout/cards_list_row.xml" value="0.14666666666666667" />
         <entry key="..\:/Users/Shir/AnyGift/app/src/main/res/layout/fragment_add_card.xml" value="0.1" />

@@ -38,6 +38,7 @@ public class Model {
     public MutableLiveData<List<GiftCard>> giftCardsList = new MutableLiveData<>();
 
     private Model() {
+        signedUser = new User();
         ListLoadingState.setValue(GiftListLoadingState.loaded);
     }
 

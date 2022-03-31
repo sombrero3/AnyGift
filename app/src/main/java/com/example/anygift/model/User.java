@@ -37,6 +37,20 @@ public class User {
         this.id=email;
         this.latAndLong=latAndLong;
     }
+    public User(User other){
+        this.firstName = other.firstName;
+        this.id = other.id;
+        this.lastName = other.lastName;
+        this.phone = other.phone;
+        this.email= other.email;
+        this.password= other.password;
+        this.address= other.address;
+        this.latAndLong= other.latAndLong;
+        this.lastUpdated= other.lastUpdated;
+        this.giftCards= other.getGiftCards();
+        this.imageUrl= other.imageUrl;
+
+    }
     public String getFirstName() {
         return firstName;
     }
