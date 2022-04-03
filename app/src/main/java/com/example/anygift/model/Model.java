@@ -44,22 +44,61 @@ public class Model {
 
     public LiveData<List<GiftCard>> getAll() {
         if (giftCardsList.getValue() == null) {
-            refreshGiftCardsList();
+           // refreshGiftCardsList();
         }
         return giftCardsList;
     }
 
+//Node- Retrofit
     public interface StringListener{
        void onComplete(String message);
     }
     public interface userReturnListener{
         void onComplete(User user);
     }
-    ///TODO SHIR
+
     public void login(HashMap<String, String> map, StringListener listener) {
         modelRetrofit.login(map, listener);
     }
 
+    public void signOutRetrofit(HashMap<String, String> map, StringListener listener) {
+        modelRetrofit.signOut(map, listener);
+    }
+
+    public void signUpRetrofit(HashMap<String, String> map, StringListener listener) {
+        modelRetrofit.signUp(map, listener);
+    }
+
+    public void addGiftCardRetrofit(HashMap<String, String> map, StringListener listener) {
+        modelRetrofit.addGiftCard(map, listener);
+    }
+    public void getAllGiftCardsRetrofit(HashMap<String, String> map, StringListener listener) {
+        modelRetrofit.getAllGiftCards(map, listener);
+    }
+    public void getGiftCardByIdRetrofit(HashMap<String, String> map, StringListener listener) {
+        modelRetrofit.getGiftCardById(map, listener);
+    }
+    public void editGiftCardRetrofit(HashMap<String, String> map, StringListener listener) {
+        modelRetrofit.editGiftCard(map, listener);
+    }
+    public void getByPriceGiftCardsRetrofit(HashMap<String, String> map, StringListener listener) {
+        modelRetrofit.getByPriceGiftCards(map, listener);
+    }
+
+    public void getUserRetrofit(HashMap<String, String> map, userReturnListener listener) {
+        modelRetrofit.getUser(map, listener);
+    }
+
+    public void editUserRetrofit(HashMap<String, String> map, StringListener listener) {
+        modelRetrofit.editUser(map, listener);
+    }
+
+
+
+
+
+
+    //Firebase
     public enum GiftListLoadingState {
         loading,
         loaded
@@ -77,7 +116,7 @@ public class Model {
     public interface GetUserListener{
         void onComplete(User user);
     }
-
+/*
     public void refreshGiftCardsList() {
         ListLoadingState.setValue(GiftListLoadingState.loading);
 
@@ -118,15 +157,15 @@ public class Model {
             }
         });
     }
-
+*/
 
     public interface AddGiftCardListener {
         void onComplete();
     }
-
     public void addGiftCard(final GiftCard giftCard, final AddGiftCardListener listener) {
         modelFirebase.addGiftCard(giftCard, listener);
     }
+
 
     public void updateGiftCard(final GiftCard giftCard, final AddGiftCardListener listener) {
         modelFirebase.updateGiftCard(giftCard, listener);

@@ -143,7 +143,7 @@ public class ModelRetrofit {
 
     }
 
-    public void getAllGiftcards(HashMap<String, String> map, Model.StringListener listener) {
+    public void getAllGiftCards(HashMap<String, String> map, Model.StringListener listener) {
         Call<String> call = retrofitInterface.getAllGiftcards(map);
         call.enqueue(new Callback<String>() {
             @Override
@@ -167,7 +167,7 @@ public class ModelRetrofit {
 
     }
 
-    public void addGiftcard(HashMap<String, String> map, Model.StringListener listener) {
+    public void addGiftCard(HashMap<String, String> map, Model.StringListener listener) {
         Call<GiftCard> call = retrofitInterface.addGiftcard(map);
         call.enqueue(new Callback<GiftCard>() {
             @Override
@@ -191,7 +191,7 @@ public class ModelRetrofit {
 
     }
 
-    public void getGiftcardById(HashMap<String, String> map, Model.StringListener listener) {
+    public void getGiftCardById(HashMap<String, String> map, Model.StringListener listener) {
         Call<GiftCard> call = retrofitInterface.getGiftcardById(map);
         call.enqueue(new Callback<GiftCard>() {
             @Override
@@ -215,7 +215,7 @@ public class ModelRetrofit {
 
     }
 
-    public void editGiftcard(HashMap<String, String> map, Model.StringListener listener) {
+    public void editGiftCard(HashMap<String, String> map, Model.StringListener listener) {
         Call<GiftCard> call = retrofitInterface.editGiftCard(map);
         call.enqueue(new Callback<GiftCard>() {
             @Override
@@ -239,7 +239,7 @@ public class ModelRetrofit {
 
     }
 
-    public void getByPriceGiftcards(HashMap<String, String> map, Model.StringListener listener) {
+    public void getByPriceGiftCards(HashMap<String, String> map, Model.StringListener listener) {
         Call<GiftCard> call = retrofitInterface.getByPriceGiftcards(map);
         call.enqueue(new Callback<GiftCard>() {
             @Override
