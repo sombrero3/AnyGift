@@ -13,15 +13,15 @@ import retrofit2.http.PUT;
 
 public interface RetrofitInterface {
     //user
-    @POST("/user/signin")
+    @POST("/users/signin")
     Call<LoginResult> executeLogin(@Body HashMap<String,String> map);
-    @GET("/user/{email}")
+    @GET("/users/{email}")
     Call<User> getUser(@Body HashMap<String,String> map);
-    @PUT("/user/{email}")
+    @PUT("/users/{email}")
     Call<User> editUser(@Body HashMap<String,String> map);
-    @POST("/user/signup")
+    @POST("/users/signup")
     Call<User> userSignUp(@Body HashMap<String,String> map);
-    @POST("/user/signout")
+    @POST("/users/signout")
     Call<User> userSignout(@Body HashMap<String,String> map);
 
     //giftCards

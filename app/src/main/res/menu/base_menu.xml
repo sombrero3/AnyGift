@@ -6,24 +6,27 @@
 
     <item
         android:id="@+id/menu_feed"
-        android:icon="@drawable/home_logo"
+        android:icon="@drawable/ic_baseline_home_24"
         android:title="Home" />
     <item
         android:id="@+id/menu_profile"
-        android:icon="@drawable/ic_profile"
+        android:icon="@drawable/green_face"
         android:title="Profile"
         app:showAsAction="withText" />
     <item
         android:id="@+id/menu_cards"
-        android:icon="@drawable/ic_mycards"
+        android:icon="@drawable/cards_yellow"
         android:title="My Cards" />
     <item
         android:id="@+id/add_card"
+        android:icon="@drawable/add_icon"
         android:title="Add Card" />
     <item
         android:id="@+id/cards_map"
+        android:icon="@drawable/ic_baseline_map_24"
         android:title="Show all Cards" />
     <item
         android:id="@+id/logout"
+        android:icon="@drawable/logout"
         android:title="Logout" />
 </menu>

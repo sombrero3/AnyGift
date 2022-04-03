@@ -22,6 +22,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -34,11 +37,13 @@ import com.example.anygift.model.User;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 public class AddCardFragment extends Fragment {
     private static final int REQUEST_CAMERA = 1;//
@@ -50,6 +55,9 @@ public class AddCardFragment extends Fragment {
     ProgressBar pb;
     String latAndLong;
     UserViewModel userViewModel;
+    AutoCompleteTextView autoCompleteTextView;
+    TextInputLayout textInputLayout;
+    ArrayAdapter<String> optionsAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -63,14 +71,26 @@ public class AddCardFragment extends Fragment {
         cardExpMonth = view.findViewById(R.id.add_card_exp_mo);
         cardExpYear = view.findViewById(R.id.add_card_exp_year);
         cardAskingValue = view.findViewById(R.id.add_card_exp_value);
+        uploadPicButton = view.findViewById(R.id.add_camera_bt);
+        addCardButton = view.findViewById(R.id.add_upload_bt);
         giftCardImage = view.findViewById(R.id.add_giftCardImage);
+
+//        String []items = {"op 1","op 2","op 3","op 4"};
+//        textInputLayout = view.findViewById(R.id.add_card_til);
+//        autoCompleteTextView = view.findViewById(R.id.add_card_otions_actv);
+//        optionsAdapter = new ArrayAdapter<String>(AddCardFragment.this,R.layout.dropdown_item,items);
+//        autoCompleteTextView.setAdapter(optionsAdapter);
+//        autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                adapterView.getItemAtPosition(i);
+//            }
+//        });
+
         giftCardImage.setTag("");
         pb = view.findViewById(R.id.add_pb);
         pb.setVisibility(View.INVISIBLE);
 
-
-        uploadPicButton = view.findViewById(R.id.add_camera_bt);
-        addCardButton = view.findViewById(R.id.add_upload_bt);
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
         userViewModel.getUser(new UserViewModel.GetUserListener() {
             @Override
