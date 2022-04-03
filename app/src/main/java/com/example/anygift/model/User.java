@@ -139,8 +139,8 @@ public class User {
         this.imageUrl = imageUrl;
     }
 
-    public Map<String, Object> toMap() {
-        HashMap<String, Object> result = new HashMap<>();
+    public HashMap<String, String> toMap() {
+        HashMap<String, String> result = new HashMap<>();
         result.put("id", id);
         result.put("firstName", firstName);
         result.put("lastName", lastName);
@@ -148,7 +148,7 @@ public class User {
         result.put("email", email);
         result.put("password", password);
         result.put("address", address);
-        result.put("lastUpdated", FieldValue.serverTimestamp());
+        result.put("lastUpdated", FieldValue.serverTimestamp().toString());
         result.put("imageUrl", imageUrl);
         result.put("latAndLong", this.latAndLong);
         return result;

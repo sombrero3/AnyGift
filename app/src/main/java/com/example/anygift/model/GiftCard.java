@@ -7,6 +7,7 @@ import androidx.room.PrimaryKey;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.FieldValue;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -134,32 +135,32 @@ public class GiftCard {
         this.latAndLong = latAndLong;
     }
 
-    public Map<String, Object> toMap() {
-        HashMap<String, Object> result = new HashMap<>();
+    public Map<String, String> toMap() {
+        HashMap<String, String> result = new HashMap<>();
         result.put("id", id);
         result.put("cardName", cardName);
-        result.put("value",value);
-        result.put("wantedPrice", wantedPrice);
+        result.put("value",String.valueOf(value));
+        result.put("wantedPrice", String.valueOf(wantedPrice));
         result.put("imageUrl", giftCardImageUrl);
-        result.put("lastUpdated", FieldValue.serverTimestamp());
+        result.put("lastUpdated", FieldValue.serverTimestamp().toString());
         result.put("expirationDate",expirationDate);
         result.put("ownerEmail", ownerEmail);
-        result.put("isDeleted", isDeleted);
-        result.put("type", cardType);
+        result.put("isDeleted", String.valueOf(isDeleted));
+        result.put("type", String.valueOf(cardType));
         result.put("latAndLong", latAndLong);
         return result;
     }
 
-    public void fromMap(Map<String, Object> map){
+    public void fromMap(Map<String, String> map){
         id = (String)map.get("id");
         cardName = (String)map.get("cardName");
-        value = (Double)map.get("value");
-        wantedPrice = (double) map.get("wantedPrice");
+        value = new Double(map.get("value"));
+        wantedPrice = new Double(map.get("wantedPrice") );
         expirationDate = (String) map.get("expirationDate");
-        cardType= (Type) map.get("type");
+        cardType=  Type.valueOf(map.get("type"));
         ownerEmail = (String)map.get("ownerEmail");
-        Timestamp ts = (Timestamp)map.get("lastUpdated");
-        isDeleted = (Boolean) map.get("isDeleted");
+        Timestamp ts = new Timestamp (new Date(map.get("lastUpdated")));
+        isDeleted = new Boolean (map.get("isDeleted"));
         lastUpdated = ts.getSeconds();
         giftCardImageUrl = (String)map.get("imageUrl");
         latAndLong=(String)map.get("latAndLong");

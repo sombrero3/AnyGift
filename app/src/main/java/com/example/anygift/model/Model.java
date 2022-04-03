@@ -52,7 +52,10 @@ public class Model {
     public interface StringListener{
        void onComplete(String message);
     }
-
+    public interface userReturnListener{
+        void onComplete(User user);
+    }
+    ///TODO SHIR
     public void login(HashMap<String, String> map, StringListener listener) {
         modelRetrofit.login(map, listener);
     }
