@@ -166,5 +166,35 @@ public class GiftCard {
         latAndLong=(String)map.get("latAndLong");
         //long time = ts.toDate().getTime();
     }
+    public Map<String, Object> toMapObject() {
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("id", id);
+        result.put("cardName", cardName);
+        result.put("value",value);
+        result.put("wantedPrice", wantedPrice);
+        result.put("imageUrl", giftCardImageUrl);
+        result.put("lastUpdated", FieldValue.serverTimestamp());
+        result.put("expirationDate",expirationDate);
+        result.put("ownerEmail", ownerEmail);
+        result.put("isDeleted", isDeleted);
+        result.put("type", cardType);
+        result.put("latAndLong", latAndLong);
+        return result;
+    }
+    public void fromMapObject(Map<String, Object> map){
+        id = (String)map.get("id");
+        cardName = (String)map.get("cardName");
+        value = (Double)map.get("value");
+        wantedPrice = (double) map.get("wantedPrice");
+        expirationDate = (String) map.get("expirationDate");
+        cardType= (Type) map.get("type");
+        ownerEmail = (String)map.get("ownerEmail");
+        Timestamp ts = (Timestamp)map.get("lastUpdated");
+        isDeleted = (Boolean) map.get("isDeleted");
+        lastUpdated = ts.getSeconds();
+        giftCardImageUrl = (String)map.get("imageUrl");
+        latAndLong=(String)map.get("latAndLong");
+        //long time = ts.toDate().getTime();
+    }
 
 }

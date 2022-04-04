@@ -44,7 +44,7 @@ public class Model {
 
     public LiveData<List<GiftCard>> getAll() {
         if (giftCardsList.getValue() == null) {
-           // refreshGiftCardsList();
+            refreshGiftCardsList();
         }
         return giftCardsList;
     }
@@ -116,7 +116,7 @@ public class Model {
     public interface GetUserListener{
         void onComplete(User user);
     }
-/*
+
     public void refreshGiftCardsList() {
         ListLoadingState.setValue(GiftListLoadingState.loading);
 
@@ -157,7 +157,7 @@ public class Model {
             }
         });
     }
-*/
+
 
     public interface AddGiftCardListener {
         void onComplete();

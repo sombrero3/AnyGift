@@ -59,7 +59,7 @@ public class ModelFirebase {
                 if (task.isSuccessful()) {
                     for (DocumentSnapshot doc : task.getResult()) {
                         GiftCard gf = new GiftCard();
-                        //gf.fromMap(doc.getData());
+                        gf.fromMapObject(doc.getData());
                         if(!gf.getDeleted()) {
                             data.add(gf);
                             Log.d("TAG", "st: " + gf.getId());
@@ -106,7 +106,7 @@ public class ModelFirebase {
                     DocumentSnapshot doc = task.getResult();
                     if (doc != null) {
                         giftCard = new GiftCard();
-                        //giftCard.fromMap(task.getResult().getData());
+                        giftCard.fromMapObject(task.getResult().getData());
                     }
                 }
                 listener.onComplete(giftCard);

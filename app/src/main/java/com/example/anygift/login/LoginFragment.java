@@ -68,6 +68,7 @@ public class LoginFragment extends Fragment {
         forgotP_btn.setTypeface(Typeface.SANS_SERIF);
 
         signIn_btn.setOnClickListener(v -> {
+            login();
             checkUser();
         });
 
@@ -84,8 +85,8 @@ public class LoginFragment extends Fragment {
     public void login(){
         //TODO Login using Retrofit
         HashMap<String,String> map=new HashMap<>();
-        map.put("email",email_user);
-        map.put("password",password_user);
+        map.put("email",email.getText().toString());
+        map.put("password",password.getText().toString());
         Model.instance.login(map, new Model.StringListener() {
             @Override
             public void onComplete(String message) {

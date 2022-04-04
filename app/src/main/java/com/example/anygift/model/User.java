@@ -172,4 +172,34 @@ public class User {
     public String getName() {
         return this.getFirstName()+ " "+ this.getLastName();
     }
+    public Map<String, Object> toMapObject() {
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("id", id);
+        result.put("firstName", firstName);
+        result.put("lastName", lastName);
+        result.put("phone", phone);
+        result.put("email", email);
+        result.put("password", password);
+        result.put("address", address);
+        result.put("lastUpdated", FieldValue.serverTimestamp());
+        result.put("imageUrl", imageUrl);
+        result.put("latAndLong", this.latAndLong);
+        return result;
+    }
+    public void fromMapObject(Map<String, Object> map) {
+        this.id = (String) map.get("id");
+        this.firstName = (String) map.get("firstName");
+        this.lastName = (String) map.get("lastName");
+        this.phone= (String) map.get("phone");
+        this.email= (String) map.get("email");
+        this.password= (String) map.get("password");
+        this.latAndLong= (String) map.get("latAndLong");
+        this.imageUrl = (String) map.get("imageUrl");
+        Timestamp ts = (Timestamp) map.get("lastUpdated");
+        this.lastUpdated = ts.getSeconds();
+        //this.latitude = Double.valueOf(map.get("latitude").toString());
+        // this.longitude = Double.valueOf(map.get("longitude").toString());
+    }
+
+
 }

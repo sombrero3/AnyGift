@@ -13,29 +13,29 @@ import retrofit2.http.PUT;
 
 public interface RetrofitInterface {
     //user
-    @POST("/users/signin")
+    @POST("users/signin")
     Call<LoginResult> executeLogin(@Body HashMap<String,String> map);
-    @GET("/users/{email}")
+    @GET("users/{email}")
     Call<User> getUser(@Body HashMap<String,String> map);
-    @PUT("/users/{email}")
+    @PUT("users/{email}")
     Call<String> editUser(@Body HashMap<String,String> map);
-    @POST("/users/signup")
+    @POST("users/signup")
     Call<String> userSignUp(@Body HashMap<String,String> map);
-    @POST("/users/signout")
+    @POST("users/signout")
     Call<String> userSignout(@Body HashMap<String,String> map);
 
     //giftCards
-    @GET("/giftcards")
+    @GET("giftcards")
     Call<String> getAllGiftcards(@Body HashMap<String,String> map);
-    @POST("/giftcards")
+    @POST("giftcards")
     Call<GiftCard> addGiftcard(@Body HashMap<String,String> map);
-    @GET("/giftcards/{id}")
+    @GET("giftcards/{id}")
     Call<GiftCard> getGiftcardById(@Body HashMap<String,String> map);
-    @PUT("/giftcards/{id}")
+    @PUT("giftcards/{id}")
     Call<GiftCard> editGiftCard(@Body HashMap<String,String> map);
-    @GET("/giftcards/price/{pricemin=0}&{pricemax=1000000}")
+    @GET("giftcards/price/{pricemin=0}&{pricemax=1000000}")
     Call<GiftCard> getByPriceGiftcards(@Body HashMap<String,String> map);
-    @GET("/giftcards/store/{storeName}")
+    @GET("giftcards/store/{storeName}")
     Call<GiftCard> getClosetStoreGiftcards(@Body HashMap<String,String> map);
 
 }
