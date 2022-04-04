@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -12,7 +11,7 @@
         android:id="@+id/add_header_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="18dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="69dp"
         android:text="Adding New Gift Card"
         android:textSize="20sp"
@@ -23,10 +22,12 @@
         android:id="@+id/textInputLayout"
         android:layout_width="0dp"
         android:layout_height="50dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/add_giftCardImage">
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout4">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/add_card_number"
@@ -40,12 +41,11 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout4"
-        android:layout_width="409dp"
+        android:layout_width="0dp"
         android:layout_height="56dp"
-        android:layout_marginTop="36dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout">
+        app:layout_constraintEnd_toEndOf="@+id/textInputLayout"
+        app:layout_constraintStart_toStartOf="@+id/textInputLayout"
+        app:layout_constraintTop_toBottomOf="@+id/add_giftCardImage">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/add_card_value"
@@ -60,10 +60,11 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout7"
-        android:layout_width="451dp"
+        android:layout_width="0dp"
         android:layout_height="50dp"
-        android:layout_marginTop="38dp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/textInputLayout8"
+        app:layout_constraintStart_toStartOf="@+id/textInputLayout6"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout6">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -82,7 +83,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="55dp"
+        android:layout_marginTop="150dp"
         android:text="Picture of your card:"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -93,10 +94,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="17dp"
-        android:layout_marginTop="43dp"
         android:src="@android:drawable/ic_menu_camera"
+        app:layout_constraintBottom_toBottomOf="@+id/textView4"
         app:layout_constraintStart_toEndOf="@+id/textView4"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout7"
+        app:layout_constraintTop_toTopOf="@+id/textView4"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <ImageView
@@ -114,27 +115,29 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="43dp"
+        android:layout_marginEnd="32dp"
         android:text="Upload"
+        app:layout_constraintBottom_toBottomOf="@+id/add_camera_bt"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/add_camera_bt"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout7" />
+        app:layout_constraintTop_toTopOf="@+id/add_camera_bt" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout6"
-        android:layout_width="116dp"
+        android:layout_width="0dp"
         android:layout_height="59dp"
-        android:layout_marginTop="20dp"
-        app:layout_constraintEnd_toStartOf="@+id/textInputLayout5"
+        android:layout_marginTop="2dp"
+        app:layout_constraintEnd_toEndOf="@+id/textView8"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout4">
+        app:layout_constraintStart_toStartOf="@+id/textView8"
+        app:layout_constraintTop_toBottomOf="@+id/textView8">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/add_card_exp_day"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:height="50dp"
-            android:hint="Exp. Day(dd):"
+            android:hint="Day(dd):"
             android:inputType="number"
             android:maxLength="2"
             android:minEms="1"
@@ -144,19 +147,20 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout5"
-        android:layout_width="150dp"
+        android:layout_width="110dp"
         android:layout_height="57dp"
-        android:layout_marginTop="22dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textInputLayout6"
         app:layout_constraintEnd_toStartOf="@+id/textInputLayout8"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/textInputLayout6"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout4">
+        app:layout_constraintTop_toTopOf="@+id/textInputLayout6">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/add_card_exp_mo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Exp. Month(mm):"
+            android:hint="Month(mm):"
             android:inputType="numberSigned"
             android:maxLength="2"
             android:minEms="1" />
@@ -165,19 +169,20 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout8"
-        android:layout_width="134dp"
+        android:layout_width="0dp"
         android:layout_height="59dp"
-        android:layout_marginTop="22dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textInputLayout5"
+        app:layout_constraintEnd_toEndOf="@+id/textInputLayout4"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/textInputLayout5"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout4">
+        app:layout_constraintTop_toTopOf="@+id/textInputLayout5">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/add_card_exp_year"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Exp. Year(yyyy):"
+            android:hint="Year(yyyy):"
             android:inputType="numberSigned"
             android:maxLength="4"
             android:minEms="4"
@@ -189,16 +194,38 @@
         style="?android:attr/progressBarStyle"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:layout_marginStart="166dp"
-        android:layout_marginTop="21dp"
-        android:layout_marginEnd="197dp"
-        android:layout_marginBottom="120dp"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.538"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4"
-        app:layout_constraintVertical_bias="0.12" />
+        app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Exp details :"
+        app:layout_constraintStart_toStartOf="@+id/textInputLayout"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/add_card_til"
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="32dp"
+            android:hint="@string/select"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout7">
+
+            <AutoCompleteTextView
+                android:id="@+id/add_card_otions_actv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="none" />
+        </com.google.android.material.textfield.TextInputLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

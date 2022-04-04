@@ -78,14 +78,15 @@ public class AddCardFragment extends Fragment {
 //        String []items = {"op 1","op 2","op 3","op 4"};
 //        textInputLayout = view.findViewById(R.id.add_card_til);
 //        autoCompleteTextView = view.findViewById(R.id.add_card_otions_actv);
-//        optionsAdapter = new ArrayAdapter<String>(AddCardFragment.this,R.layout.dropdown_item,items);
+//        optionsAdapter = new ArrayAdapter<String>(requireContext(),R.layout.dropdown_item,items);
 //        autoCompleteTextView.setAdapter(optionsAdapter);
 //        autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 //            @Override
 //            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                adapterView.getItemAtPosition(i);
+//                //adapterView.getItemAtPosition(i);
 //            }
 //        });
+        
 
         giftCardImage.setTag("");
         pb = view.findViewById(R.id.add_pb);

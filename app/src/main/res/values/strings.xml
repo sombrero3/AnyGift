@@ -14,6 +14,7 @@
         of the navigation drawer-->
     <string name="nav_open">Open</string>
     <string name="nav_close">Close</string>
+    <string name="select">Select item</string>
     <string-array name="options">
         <item>op</item>
         <item>op 1</item>
