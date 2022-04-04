@@ -16,6 +16,7 @@
     <string name="nav_close">Close</string>
     <string name="select">Select item</string>
     <string-array name="options">
+        <item>Select one item:</item>
         <item>op</item>
         <item>op 1</item>
         <item>op 2</item>

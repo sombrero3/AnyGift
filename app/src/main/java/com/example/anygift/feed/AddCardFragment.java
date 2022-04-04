@@ -29,6 +29,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 
 import com.example.anygift.R;
 import com.example.anygift.model.GiftCard;
@@ -74,19 +75,23 @@ public class AddCardFragment extends Fragment {
         uploadPicButton = view.findViewById(R.id.add_camera_bt);
         addCardButton = view.findViewById(R.id.add_upload_bt);
         giftCardImage = view.findViewById(R.id.add_giftCardImage);
+      /*  autoCompleteTextView = view.findViewById(R.id.add_card_options_actv);
+        String []items= getResources().getStringArray(R.array.options);
+       textInputLayout = view.findViewById(R.id.add_card_til);
 
-//        String []items = {"op 1","op 2","op 3","op 4"};
-//        textInputLayout = view.findViewById(R.id.add_card_til);
-//        autoCompleteTextView = view.findViewById(R.id.add_card_otions_actv);
-//        optionsAdapter = new ArrayAdapter<String>(requireContext(),R.layout.dropdown_item,items);
-//        autoCompleteTextView.setAdapter(optionsAdapter);
-//        autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                //adapterView.getItemAtPosition(i);
-//            }
-//        });
-        
+        optionsAdapter= new ArrayAdapter<String>(requireContext(),R.layout.dropdown_item,items);
+       autoCompleteTextView.setAdapter(optionsAdapter);
+       autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+          public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+               adapterView.getItemAtPosition(i);
+          }
+        });*/
+
+        Spinner spinner = (Spinner) view.findViewById(R.id.option);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.options, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
 
         giftCardImage.setTag("");
         pb = view.findViewById(R.id.add_pb);
