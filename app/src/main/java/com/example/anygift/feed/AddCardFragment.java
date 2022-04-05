@@ -22,15 +22,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 
+import com.craftman.cardform.CardForm;
 import com.example.anygift.R;
 import com.example.anygift.model.GiftCard;
 import com.example.anygift.model.Model;
@@ -38,17 +37,16 @@ import com.example.anygift.model.User;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
-import java.util.List;
 
 public class AddCardFragment extends Fragment {
     private static final int REQUEST_CAMERA = 1;//
-    TextInputEditText cardValue, cardExpDay, cardExpMonth, cardExpYear, cardAskingValue, cardNumber;
+    TextInputEditText cardValue,  cardAskingValue, cardNumber;
+    //cardExpDay, cardExpMonth, cardExpYear
     ImageButton uploadPicButton;
     Button addCardButton;
     ImageView giftCardImage;
@@ -56,9 +54,8 @@ public class AddCardFragment extends Fragment {
     ProgressBar pb;
     String latAndLong;
     UserViewModel userViewModel;
-    AutoCompleteTextView autoCompleteTextView;
-    TextInputLayout textInputLayout;
-    ArrayAdapter<String> optionsAdapter;
+    Spinner spinnerCardType,spinnerExpiryMonth,spinnerExpiryYear;
+    CardForm cardForm;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -68,34 +65,41 @@ public class AddCardFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_add_card, container, false);
         cardNumber = view.findViewById(R.id.add_card_number);
         cardValue = view.findViewById(R.id.add_card_value);
-        cardExpDay = view.findViewById(R.id.add_card_exp_day);
-        cardExpMonth = view.findViewById(R.id.add_card_exp_mo);
-        cardExpYear = view.findViewById(R.id.add_card_exp_year);
-        cardAskingValue = view.findViewById(R.id.add_card_exp_value);
+//        cardExpDay = view.findViewById(R.id.add_card_exp_day);
+//        cardExpMonth = view.findViewById(R.id.add_card_exp_mo);
+//        cardExpYear = view.findViewById(R.id.add_card_exp_year);
+        cardAskingValue = view.findViewById(R.id.add_card_asking_price);
         uploadPicButton = view.findViewById(R.id.add_camera_bt);
         addCardButton = view.findViewById(R.id.add_upload_bt);
         giftCardImage = view.findViewById(R.id.add_giftCardImage);
-      /*  autoCompleteTextView = view.findViewById(R.id.add_card_options_actv);
-        String []items= getResources().getStringArray(R.array.options);
-       textInputLayout = view.findViewById(R.id.add_card_til);
 
-        optionsAdapter= new ArrayAdapter<String>(requireContext(),R.layout.dropdown_item,items);
-       autoCompleteTextView.setAdapter(optionsAdapter);
-       autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-          public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-               adapterView.getItemAtPosition(i);
-          }
-        });*/
-
-        Spinner spinner = (Spinner) view.findViewById(R.id.option);
+        spinnerCardType = (Spinner) view.findViewById(R.id.option);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.options, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
+        spinnerCardType.setAdapter(adapter);
+        //spinnerCardType.getSelectedItem().toString();
+
+        spinnerExpiryMonth = (Spinner) view.findViewById(R.id.add_card_expiry_month);
+        ArrayAdapter<CharSequence> adapterExpiryMonth = ArrayAdapter.createFromResource(getContext(), R.array.month, android.R.layout.simple_spinner_item);
+        adapterExpiryMonth.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerExpiryMonth.setAdapter(adapterExpiryMonth);
+       // spinnerExpiryMonth.getSelectedItem().toString();
+
+        spinnerExpiryYear = (Spinner) view.findViewById(R.id.add_card_expiry_year);
+        ArrayAdapter<CharSequence> adapterExpiryYear = ArrayAdapter.createFromResource(getContext(), R.array.year, android.R.layout.simple_spinner_item);
+        adapterExpiryYear.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerExpiryYear.setAdapter(adapterExpiryYear);
+       // spinnerExpiryYear.getSelectedItem().toString();
+
 
         giftCardImage.setTag("");
         pb = view.findViewById(R.id.add_pb);
         pb.setVisibility(View.INVISIBLE);
+
+
+
+
+
 
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
         userViewModel.getUser(new UserViewModel.GetUserListener() {
@@ -213,9 +217,12 @@ public class AddCardFragment extends Fragment {
         String CardValue = cardValue.getText().toString();
         String CardAskingValue = cardAskingValue.getText().toString();
         String CardNumber = cardNumber.getText().toString();
-        String day = cardExpDay.getText().toString();
-        String mo = cardExpMonth.getText().toString();
-        String year = cardExpYear.getText().toString();
+//        String day = cardExpDay.getText().toString();
+//        String mo = cardExpMonth.getText().toString();
+//        String year = cardExpYear.getText().toString();
+        String day = "1";
+        String mo = spinnerExpiryMonth.getSelectedItem().toString();
+        String year = spinnerExpiryYear.getSelectedItem().toString();
         String dateFormatted = year + "-" + mo + "-" + day;
         if (!isLegalDate(dateFormatted)) {
             error = true;

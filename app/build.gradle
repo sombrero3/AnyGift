@@ -73,4 +73,6 @@ dependencies {
     //google map
     implementation 'com.google.android.gms:play-services-location:17.1.0'
     implementation 'com.google.android.gms:play-services-maps:18.0.2'
+
+    implementation 'com.craftman.cardform:cardform:0.0.2'
 }
