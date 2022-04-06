@@ -1,18 +1,20 @@
 package com.example.anygift.feed;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.NavHost;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Gravity;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -20,13 +22,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.anygift.R;
-import com.example.anygift.databinding.MenuHeaderBinding;
+import com.example.anygift.databinding.ActivityMainBinding;
 import com.example.anygift.login.LoginActivity;
-import com.example.anygift.model.Model;
-import com.example.anygift.model.User;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
-import com.squareup.picasso.Picasso;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -37,14 +36,29 @@ public class MainActivity extends AppCompatActivity {
     ActionBarDrawerToggle actionBarDrawerToggle;
     TextView nameTv,emailTv;
     ImageView imageIv;
+    ActivityMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
         NavHost navHost = (NavHost) getSupportFragmentManager().findFragmentById(R.id.main_navhost);
         navCtr = navHost.getNavController();
         viewModel = new ViewModelProvider(this).get(FeedViewModel.class);
+
+        binding.feedActivityViewPager.setAdapter(new PageViewAdapter(getSupportFragmentManager()));
+        binding.feedActivityTabLayout.setupWithViewPager(binding.feedActivityViewPager);
+
+
+
+        nameTv = findViewById(R.id.menu_header_name_tv);
+        emailTv = findViewById(R.id.menu_header_email_tv);
+        imageIv = findViewById(R.id.menu_header_image_iv);
+
         drawerLayout = findViewById(R.id.my_drawer_layout);
         navigationView = findViewById(R.id.Navigation_view);
 
@@ -127,5 +141,51 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
 
+    }
+}
+
+class PageViewAdapter extends FragmentPagerAdapter{
+
+    public PageViewAdapter(@NonNull FragmentManager fn){
+        super(fn);
+    }
+
+    @NonNull
+    @Override
+    public Fragment getItem(int position) {
+        switch(position){
+            case 0: return null;
+            case 1: return null;
+            case 2: return null;
+            default: return null;
+
+        }
+//        switch(position){
+//            case 0:
+//                return new FeedFragment();
+//                break;
+//            case 1:
+//                return new MyCardsFragment();
+//                break;
+//            case 2: return null;
+//            default: return null;
+//        }
+    }
+
+    @Override
+    public int getCount() {
+        return 3;
+    }
+
+    @Nullable
+    @Override
+    public CharSequence getPageTitle(int position) {
+      String title =null;
+        switch(position){
+            case 0: title="HOME";
+            case 1: title="WALLET";
+            case 2: title="SEARCH";
+        }
+      return title;
     }
 }
