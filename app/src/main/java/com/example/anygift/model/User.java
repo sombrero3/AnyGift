@@ -1,9 +1,13 @@
 package com.example.anygift.model;
 
+import android.os.health.TimerStat;
+
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.FieldValue;
 
+import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -163,7 +167,7 @@ public class User {
         this.password= (String) map.get("password");
         this.latAndLong= (String) map.get("latAndLong");
         this.imageUrl = (String) map.get("imageUrl");
-        Timestamp ts = (Timestamp) map.get("lastUpdated");
+        Timestamp ts = new Timestamp((Date)map.get("lastUpdated"));
         this.lastUpdated = ts.getSeconds();
         //this.latitude = Double.valueOf(map.get("latitude").toString());
        // this.longitude = Double.valueOf(map.get("longitude").toString());
