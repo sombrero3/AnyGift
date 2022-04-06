@@ -24,8 +24,10 @@ import android.widget.Toast;
 import com.example.anygift.R;
 import com.example.anygift.databinding.ActivityMainBinding;
 import com.example.anygift.login.LoginActivity;
+import com.example.anygift.model.Model;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.squareup.picasso.Picasso;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -43,15 +45,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+//        binding = ActivityMainBinding.inflate(getLayoutInflater());
+//        setContentView(binding.getRoot());
 
         NavHost navHost = (NavHost) getSupportFragmentManager().findFragmentById(R.id.main_navhost);
         navCtr = navHost.getNavController();
         viewModel = new ViewModelProvider(this).get(FeedViewModel.class);
 
-        binding.feedActivityViewPager.setAdapter(new PageViewAdapter(getSupportFragmentManager()));
-        binding.feedActivityTabLayout.setupWithViewPager(binding.feedActivityViewPager);
+//        binding.feedActivityViewPager.setAdapter(new PageViewAdapter(getSupportFragmentManager()));
+//        binding.feedActivityTabLayout.setupWithViewPager(binding.feedActivityViewPager);
 
 
 
@@ -143,49 +145,49 @@ public class MainActivity extends AppCompatActivity {
 
     }
 }
-
-class PageViewAdapter extends FragmentPagerAdapter{
-
-    public PageViewAdapter(@NonNull FragmentManager fn){
-        super(fn);
-    }
-
-    @NonNull
-    @Override
-    public Fragment getItem(int position) {
-        switch(position){
-            case 0: return null;
-            case 1: return null;
-            case 2: return null;
-            default: return null;
-
-        }
+//
+//class PageViewAdapter extends FragmentPagerAdapter{
+//
+//    public PageViewAdapter(@NonNull FragmentManager fn){
+//        super(fn);
+//    }
+//
+//    @NonNull
+//    @Override
+//    public Fragment getItem(int position) {
 //        switch(position){
-//            case 0:
-//                return new FeedFragment();
-//                break;
-//            case 1:
-//                return new MyCardsFragment();
-//                break;
+//            case 0: return null;
+//            case 1: return null;
 //            case 2: return null;
 //            default: return null;
+//
 //        }
-    }
-
-    @Override
-    public int getCount() {
-        return 3;
-    }
-
-    @Nullable
-    @Override
-    public CharSequence getPageTitle(int position) {
-      String title =null;
-        switch(position){
-            case 0: title="HOME";
-            case 1: title="WALLET";
-            case 2: title="SEARCH";
-        }
-      return title;
-    }
-}
+////        switch(position){
+////            case 0:
+////                return new FeedFragment();
+////                break;
+////            case 1:
+////                return new MyCardsFragment();
+////                break;
+////            case 2: return null;
+////            default: return null;
+////        }
+//    }
+//
+//    @Override
+//    public int getCount() {
+//        return 3;
+//    }
+//
+//    @Nullable
+//    @Override
+//    public CharSequence getPageTitle(int position) {
+//      String title =null;
+//        switch(position){
+//            case 0: title="HOME";
+//            case 1: title="WALLET";
+//            case 2: title="SEARCH";
+//        }
+//      return title;
+//    }
+//}

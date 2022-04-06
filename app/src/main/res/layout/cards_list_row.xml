@@ -24,39 +24,38 @@
             android:id="@+id/cards_list_row_iv"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="0dp"
-            android:layout_marginBottom="0dp"
-            android:src="@drawable/cardpicamazon"
+            android:src="@drawable/amazon_giftcard"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="1.0"
+            app:srcCompat="@drawable/amazon_giftcard" />
 
         <ImageView
             android:id="@+id/imageView3"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="-280dp"
-            android:layout_marginEnd="250dp"
-            android:layout_marginBottom="-300dp"
+            android:layout_marginStart="-120dp"
+            android:layout_marginTop="-100dp"
+            android:layout_marginEnd="-70dp"
+            android:layout_marginBottom="-100dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/giftbg" />
+            app:srcCompat="@drawable/background" />
 
         <TextView
             android:id="@+id/cards_list_row_et_value"
-            android:layout_width="0dp"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
             android:text="TextView"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="@+id/listRow_tv_value"
-            app:layout_constraintEnd_toEndOf="@+id/imageView3"
             app:layout_constraintStart_toEndOf="@+id/listRow_tv_value"
             app:layout_constraintTop_toTopOf="@+id/listRow_tv_value" />
 
@@ -83,14 +82,12 @@
 
         <TextView
             android:id="@+id/cards_list_row_et_buyAt"
-            android:layout_width="0dp"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
             android:text="125"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="@+id/listRow_tv_buyAt"
-            app:layout_constraintEnd_toEndOf="@+id/imageView3"
             app:layout_constraintStart_toEndOf="@+id/listRow_tv_buyAt"
             app:layout_constraintTop_toTopOf="@+id/listRow_tv_buyAt" />
 

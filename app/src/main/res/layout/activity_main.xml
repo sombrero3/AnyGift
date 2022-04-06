@@ -7,32 +7,6 @@
     android:id="@+id/my_drawer_layout"
     tools:context=".feed.MainActivity"
     tools:ignore="HardcodedText">
-
-    <LinearLayout
-        android:id="@+id/main_activity_linear_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/feed_activity_tab_layout"
-            android:layout_width="match_parent"
-            android:layout_height="58dp"
-            android:background="@color/red_1"
-            android:elevation="12dp"
-            app:tabGravity="fill"
-            app:tabIndicator="@color/white"
-            app:tabMaxWidth="8dp"
-            app:tabMode="fixed"
-            app:tabSelectedTextColor="@color/white"
-            app:tabTextColor="@color/white"/>
-
-            <androidx.viewpager.widget.ViewPager
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/feed_activity_view_pager"/>
-
-    </LinearLayout>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -42,7 +16,6 @@
             android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="58dp"
             app:defaultNavHost="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
