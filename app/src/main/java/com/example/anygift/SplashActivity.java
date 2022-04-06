@@ -4,12 +4,16 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.anygift.feed.MainActivity;
 import com.example.anygift.login.LoginActivity;
 import com.example.anygift.model.Model;
 import com.example.anygift.model.User;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.FirebaseApp;
+import com.squareup.picasso.Picasso;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -28,8 +32,11 @@ public class SplashActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
             if(Model.instance.isSignedIn()){
+
+
                 Model.instance.mainThread.post(()->{
-                    Model.instance.setCurrentUser(user -> toFeedActivity());
+                    Model.instance.setCurrentUser(user -> {
+                                               toFeedActivity();});
                 });
             }else{
                 Model.instance.mainThread.post(()-> {

@@ -3,7 +3,11 @@ package com.example.anygift.model;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.FieldValue;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -163,8 +167,15 @@ public class User {
         this.password= (String) map.get("password");
         this.latAndLong= (String) map.get("latAndLong");
         this.imageUrl = (String) map.get("imageUrl");
-        Timestamp ts = (Timestamp) map.get("lastUpdated");
-        this.lastUpdated = ts.getSeconds();
+        try {
+            Date date1=new SimpleDateFormat("dd/MM/yyyy").parse(String.valueOf(map.get("lastUpdated")));
+            Timestamp ts = new Timestamp(date1);
+            this.lastUpdated = ts.getSeconds();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+
         //this.latitude = Double.valueOf(map.get("latitude").toString());
        // this.longitude = Double.valueOf(map.get("longitude").toString());
     }

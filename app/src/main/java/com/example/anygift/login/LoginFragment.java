@@ -68,7 +68,7 @@ public class LoginFragment extends Fragment {
         forgotP_btn.setTypeface(Typeface.SANS_SERIF);
 
         signIn_btn.setOnClickListener(v -> {
-            login();
+            //login();
             checkUser();
         });
 

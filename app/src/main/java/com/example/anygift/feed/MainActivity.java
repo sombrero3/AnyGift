@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,13 +45,9 @@ public class MainActivity extends AppCompatActivity {
         NavHost navHost = (NavHost) getSupportFragmentManager().findFragmentById(R.id.main_navhost);
         navCtr = navHost.getNavController();
         viewModel = new ViewModelProvider(this).get(FeedViewModel.class);
-
-        nameTv = findViewById(R.id.menu_header_name_tv);
-        emailTv = findViewById(R.id.menu_header_email_tv);
-        imageIv = findViewById(R.id.menu_header_image_iv);
-
         drawerLayout = findViewById(R.id.my_drawer_layout);
         navigationView = findViewById(R.id.Navigation_view);
+
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.nav_open, R.string.nav_close);
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
@@ -58,7 +55,16 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         navigationView.setItemIconTintList(null);
         setMenuHeader();
-
+       View header= (View)navigationView.getHeaderView(0);
+        //header.findViewById(R.id.menu_header_name_tv) (Model.instance.getSignedUser().getName());
+        nameTv = header.findViewById(R.id.menu_header_name_tv);
+        emailTv = header.findViewById(R.id.menu_header_email_tv);
+        imageIv = header.findViewById(R.id.menu_header_image_iv);
+        nameTv.setText(  Model.instance.getSignedUser().getName());
+        emailTv.setText( Model.instance.getSignedUser().getEmail());
+        if( Model.instance.getSignedUser().getImageUrl().compareTo("")!=0){
+            Picasso.get().load(Model.instance.getSignedUser().getImageUrl()).into(imageIv);
+        }
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
