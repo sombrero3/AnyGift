@@ -3,6 +3,7 @@ package com.example.anygift.feed;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
@@ -10,6 +11,7 @@ import androidx.navigation.NavHost;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -43,47 +45,46 @@ public class MainActivity extends AppCompatActivity {
         navCtr = navHost.getNavController();
         viewModel = new ViewModelProvider(this).get(FeedViewModel.class);
 
-
-        // drawer layout instance to toggle the menu icon to open
-        // drawer and back button to close drawer
-        drawerLayout = findViewById(R.id.my_drawer_layout);
-        navigationView = findViewById(R.id.Navigation_view);
         nameTv = findViewById(R.id.menu_header_name_tv);
         emailTv = findViewById(R.id.menu_header_email_tv);
         imageIv = findViewById(R.id.menu_header_image_iv);
-        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.nav_open, R.string.nav_close);
 
-        // pass the Open and Close toggle for the drawer layout listener
-        // to toggle the button
+        drawerLayout = findViewById(R.id.my_drawer_layout);
+        navigationView = findViewById(R.id.Navigation_view);
+        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.nav_open, R.string.nav_close);
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
         // to make the Navigation drawer icon always appear on the action bar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        setMenuHeader();
         navigationView.setItemIconTintList(null);
-
+        setMenuHeader();
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.menu_feed: {
+                        drawerLayout.closeDrawer(GravityCompat.START);
                         navCtr.navigate(R.id.action_global_feedFragment);
                         break;
                     }
                     case R.id.menu_profile: {
+                        drawerLayout.closeDrawer(GravityCompat.START);
                         navCtr.navigate(R.id.action_global_userProfileFragment);
                         break;
                     }
                     case R.id.menu_cards: {
+                        drawerLayout.closeDrawer(GravityCompat.START);
                         navCtr.navigate(R.id.action_global_myCardsFragment);
                         break;
                     }
                     case R.id.add_card: {
+                        drawerLayout.closeDrawer(GravityCompat.START);
                         navCtr.navigate(R.id.action_global_addCardFragment);
                         break;
                     }
                     case R.id.cards_map: {
+                        drawerLayout.closeDrawer(GravityCompat.START);
                         Intent map = new Intent(MainActivity.this, MapsActivity.class);
                         startActivity(map);
                         break;
@@ -91,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.logout: {
                         Toast.makeText(getBaseContext(),"Logging Out",Toast.LENGTH_SHORT).show();
                         FirebaseAuth.getInstance().signOut();
+                        drawerLayout.closeDrawer(GravityCompat.START);
                         Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                         startActivity(intent);
                         finish();
