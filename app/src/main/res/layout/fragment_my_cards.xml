@@ -21,9 +21,9 @@
             android:layout_width="906dp"
             android:layout_height="412dp"
             android:layout_marginEnd="-170dp"
-            android:layout_marginBottom="4dp"
+            android:layout_marginBottom="-24dp"
             android:src="@drawable/giftbg2"
-            app:layout_constraintBottom_toTopOf="@+id/general_list_line4"
+            app:layout_constraintBottom_toBottomOf="@+id/textView33"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -32,11 +32,11 @@
             style="@style/line"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="2dp"
             android:background="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView33" />
+            app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
         <TextView
             android:id="@+id/my_cards_coins_tv"
@@ -262,6 +262,16 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView36" />
+
+        <ImageView
+            android:id="@+id/my_cards_add_card_iv"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/add_icon"
+            app:layout_constraintBottom_toBottomOf="@+id/textView36"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView36" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
