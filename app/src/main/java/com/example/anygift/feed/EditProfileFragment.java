@@ -49,7 +49,7 @@ public class EditProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        getActivity().setTitle("AnyGift - EditProfile");
+        //getActivity().setTitle("AnyGift - EditProfile");
         view = inflater.inflate(R.layout.fragment_edit_profile, container, false);
         saveBtn = view.findViewById(R.id.editProfile_saveBtn);
 

@@ -46,7 +46,7 @@ public class MyCardsFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_my_cards, container, false);
-        getActivity().setTitle("AnyGift - MyCards");
+        //getActivity().setTitle("AnyGift - MyCards");
         swipeRefresh = view.findViewById(R.id.MyGiftCardlist_swiperefresh);
         swipeRefresh.setOnRefreshListener(() -> Model.instance.refreshGiftCardsList());
         RecyclerView list = view.findViewById(R.id.MyCards_list_rv);

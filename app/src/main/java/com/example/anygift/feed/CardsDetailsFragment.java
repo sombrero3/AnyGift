@@ -47,7 +47,7 @@ public class CardsDetailsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_cards_details, container, false);
-        getActivity().setTitle("AnyGift - CardsDetails");
+        //getActivity().setTitle("AnyGift - CardsDetails");
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
         String giftCardId = CardsDetailsFragmentArgs.fromBundle(getArguments()).getGiftCardId();
         viewModel = new ViewModelProvider(this).get(FeedViewModel.class);
