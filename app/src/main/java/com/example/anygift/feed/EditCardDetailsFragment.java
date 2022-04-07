@@ -54,7 +54,7 @@ public class EditCardDetailsFragment extends Fragment {
         // Inflate the layout for this fragment
 
         view = inflater.inflate(R.layout.fragment_edit_card_details, container, false);
-        getActivity().setTitle("AnyGift - EditCardDetails");
+        //getActivity().setTitle("AnyGift - EditCardDetails");
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
         String giftCardId = EditCardDetailsFragmentArgs.fromBundle(getArguments()).getGiftCardId();
         viewModel = new ViewModelProvider(this).get(MyCardsViewModel.class);
