@@ -81,7 +81,7 @@
         android:layout_width="120dp"
         android:layout_height="93dp"
         android:layout_marginTop="16dp"
-        android:src="@drawable/giftcard"
+        android:src="@drawable/amazon_giftcard"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView8" />
