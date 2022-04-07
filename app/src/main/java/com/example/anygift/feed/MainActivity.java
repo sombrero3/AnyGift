@@ -22,7 +22,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.anygift.R;
-import com.example.anygift.databinding.ActivityMainBinding;
 import com.example.anygift.login.LoginActivity;
 import com.example.anygift.model.Model;
 import com.google.android.material.navigation.NavigationView;
@@ -38,23 +37,15 @@ public class MainActivity extends AppCompatActivity {
     ActionBarDrawerToggle actionBarDrawerToggle;
     TextView nameTv,emailTv;
     ImageView imageIv;
-    ActivityMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        binding = ActivityMainBinding.inflate(getLayoutInflater());
-//        setContentView(binding.getRoot());
-
         NavHost navHost = (NavHost) getSupportFragmentManager().findFragmentById(R.id.main_navhost);
         navCtr = navHost.getNavController();
         viewModel = new ViewModelProvider(this).get(FeedViewModel.class);
-
-//        binding.feedActivityViewPager.setAdapter(new PageViewAdapter(getSupportFragmentManager()));
-//        binding.feedActivityTabLayout.setupWithViewPager(binding.feedActivityViewPager);
-
 
 
         nameTv = findViewById(R.id.menu_header_name_tv);
@@ -64,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
         drawerLayout = findViewById(R.id.my_drawer_layout);
         navigationView = findViewById(R.id.Navigation_view);
 
+        //--drawer navigation menu--//
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.nav_open, R.string.nav_close);
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
@@ -71,16 +63,6 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         navigationView.setItemIconTintList(null);
         setMenuHeader();
-       View header= (View)navigationView.getHeaderView(0);
-        //header.findViewById(R.id.menu_header_name_tv) (Model.instance.getSignedUser().getName());
-        nameTv = header.findViewById(R.id.menu_header_name_tv);
-        emailTv = header.findViewById(R.id.menu_header_email_tv);
-        imageIv = header.findViewById(R.id.menu_header_image_iv);
-        nameTv.setText(  Model.instance.getSignedUser().getName());
-        emailTv.setText( Model.instance.getSignedUser().getEmail());
-        if( Model.instance.getSignedUser().getImageUrl().compareTo("")!=0){
-            Picasso.get().load(Model.instance.getSignedUser().getImageUrl()).into(imageIv);
-        }
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -127,13 +109,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setMenuHeader() {
-//        User user = Model.instance.getSignedUser();
-//        MenuHeaderBinding.bind(findViewById(R.id.header_constraint));
-//        nameTv.setText(user.getName());
-//        emailTv.setText(user.getEmail());
-//        if(user.getImageUrl()!=null) {
-//            Picasso.get().load(user.getImageUrl()).into(imageIv);
-//        }
+        View header= (View)navigationView.getHeaderView(0);
+        nameTv = header.findViewById(R.id.menu_header_name_tv);
+        emailTv = header.findViewById(R.id.menu_header_email_tv);
+        imageIv = header.findViewById(R.id.menu_header_image_iv);
+        nameTv.setText(  Model.instance.getSignedUser().getName());
+        emailTv.setText( Model.instance.getSignedUser().getEmail());
+        if( Model.instance.getSignedUser().getImageUrl().compareTo("")!=0){
+            Picasso.get().load(Model.instance.getSignedUser().getImageUrl()).into(imageIv);
+        }
     }
 
     @Override
@@ -145,49 +129,3 @@ public class MainActivity extends AppCompatActivity {
 
     }
 }
-//
-//class PageViewAdapter extends FragmentPagerAdapter{
-//
-//    public PageViewAdapter(@NonNull FragmentManager fn){
-//        super(fn);
-//    }
-//
-//    @NonNull
-//    @Override
-//    public Fragment getItem(int position) {
-//        switch(position){
-//            case 0: return null;
-//            case 1: return null;
-//            case 2: return null;
-//            default: return null;
-//
-//        }
-////        switch(position){
-////            case 0:
-////                return new FeedFragment();
-////                break;
-////            case 1:
-////                return new MyCardsFragment();
-////                break;
-////            case 2: return null;
-////            default: return null;
-////        }
-//    }
-//
-//    @Override
-//    public int getCount() {
-//        return 3;
-//    }
-//
-//    @Nullable
-//    @Override
-//    public CharSequence getPageTitle(int position) {
-//      String title =null;
-//        switch(position){
-//            case 0: title="HOME";
-//            case 1: title="WALLET";
-//            case 2: title="SEARCH";
-//        }
-//      return title;
-//    }
-//}
