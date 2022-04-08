@@ -26,6 +26,10 @@
         android:icon="@drawable/ic_baseline_map_24"
         android:title="Show all Cards" />
     <item
+        android:id="@+id/shop"
+        android:icon="@drawable/coin"
+        android:title="Shop" />
+    <item
         android:id="@+id/logout"
         android:icon="@drawable/logout"
         android:title="Logout" />

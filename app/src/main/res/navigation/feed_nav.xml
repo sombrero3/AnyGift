@@ -75,4 +75,8 @@
             android:name="userId"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/shopFragment"
+        android:name="com.example.anygift.feed.ShopFragment" />
+    <action android:id="@+id/action_global_shopFragment" app:destination="@id/shopFragment" />
 </navigation>

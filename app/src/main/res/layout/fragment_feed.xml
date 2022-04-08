@@ -46,12 +46,37 @@
         android:id="@+id/textView12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="104dp"
-        android:text="AnyGift"
+        android:layout_marginStart="2dp"
+        android:text="Any"
         android:textColor="@color/grey_1"
         android:textSize="54sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toBottomOf="@+id/textView21"
+        app:layout_constraintStart_toStartOf="@+id/textView14"
+        app:layout_constraintTop_toTopOf="@+id/textView21" />
+
+    <TextView
+        android:id="@+id/textView21"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="G"
+        android:textColor="@color/red_transparent"
+        android:textSize="54sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/textView23"
+        app:layout_constraintStart_toEndOf="@+id/textView12"
+        app:layout_constraintTop_toTopOf="@+id/textView23" />
+
+    <TextView
+        android:id="@+id/textView23"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="104dp"
+        android:text="ift"
+        android:textColor="@color/grey_1"
+        android:textStyle="italic"
+        android:textSize="54sp"
+        app:layout_constraintStart_toEndOf="@+id/textView21"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
