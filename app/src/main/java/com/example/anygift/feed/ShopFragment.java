@@ -66,7 +66,7 @@ public class ShopFragment extends Fragment {
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(View v, int position) {
-                createNewShopDialog();
+                createNewShopDialog(position);
             }
         });
 
@@ -74,7 +74,7 @@ public class ShopFragment extends Fragment {
         return view;
     }
 
-    public void createNewShopDialog(){
+    public void createNewShopDialog(int pos){
         alertDialogBuilder = new AlertDialog.Builder(getContext());
         final View shopPopUpView = getLayoutInflater().inflate(R.layout.shop_popup,null);
         popUpCoinsIcon = shopPopUpView.findViewById(R.id.shop_popup_icon_iv);
@@ -82,10 +82,13 @@ public class ShopFragment extends Fragment {
         popUpSaveBtn = shopPopUpView.findViewById(R.id.shop_popup_buy_btn);
         popUpCancel = shopPopUpView.findViewById(R.id.shop_popup_cancel_btn);
 
+        popUpCoinsIcon.setImageResource(images.get(pos));
+        popUpPrice.setText(titles.get(pos));
 
         alertDialogBuilder.setView(shopPopUpView);
         dialog = alertDialogBuilder.create();
         dialog.show();
+
 
         popUpSaveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
