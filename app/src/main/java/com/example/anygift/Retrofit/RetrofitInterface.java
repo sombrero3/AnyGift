@@ -34,9 +34,9 @@ public interface RetrofitInterface {
     @PUT("cards/{id}")
     Call<GiftCard> editGiftCard(@Body HashMap<String,String> map);
 
-//    @GET("giftcards/price/{pricemin=0}&{pricemax=1000000}")
-//    Call<GiftCard> getByPriceGiftcards(@Body HashMap<String,String> map);
-//    @GET("giftcards/store/{storeName}")
-//    Call<GiftCard> getClosetStoreGiftcards(@Body HashMap<String,String> map);
+    @GET("giftcards/price/{pricemin=0}&{pricemax=1000000}")
+    Call<GiftCard> getByPriceGiftcards(@Body HashMap<String,String> map);
+    @GET("giftcards/store/{storeName}")
+    Call<GiftCard> getClosetStoreGiftcards(@Body HashMap<String,String> map);
 
 }
