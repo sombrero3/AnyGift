@@ -89,7 +89,6 @@ public class ShopFragment extends Fragment {
         dialog = alertDialogBuilder.create();
         dialog.show();
 
-
         popUpSaveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

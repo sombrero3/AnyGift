@@ -5,6 +5,7 @@
       <map>
         <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/drawable/button_border_radious_25dp.xml" value="0.2555" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/drawable/button_border_radious_8dp.xml" value="0.2555" />
+        <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/drawable/button_border_radious_8dp_purpel_200.xml" value="0.2555" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/drawable/button_border_round.xml" value="0.2555" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/drawable/button_radious_90_long.xml" value="0.254" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/drawable/button_radius_8dp.xml" value="0.2555" />
@@ -15,17 +16,18 @@
         <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/layout/cards_list_row.xml" value="0.2433734939759036" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/layout/fragment_add_card.xml" value="0.2568306010928962" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/layout/fragment_cards_details.xml" value="0.1" />
+        <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/layout/fragment_edit_card_details.xml" value="0.25" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/layout/fragment_edit_profile.xml" value="0.264" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/layout/fragment_feed.xml" value="0.20948616600790515" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/layout/fragment_login.xml" value="0.2" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/layout/fragment_my_cards.xml" value="0.1" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/layout/fragment_shop.xml" value="0.264" />
-        <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/layout/fragment_sign_up.xml" value="0.176" />
+        <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/layout/fragment_sign_up.xml" value="0.264" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/layout/fragment_user_profile.xml" value="0.264" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/layout/menu_header.xml" value="0.264" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/layout/my_card_row.xml" value="0.2559322033898305" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/layout/shop_grid_box.xml" value="0.25" />
-        <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/layout/shop_popup.xml" value="0.2" />
+        <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/layout/shop_popup.xml" value="0.4" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/menu/base_menu.xml" value="0.264" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/menu/not_home_menu.xml" value="0.1" />
         <entry key="..\:/Users/Shir/AnyGift/app/src/main/res/layout/activity_main.xml" value="0.1" />
