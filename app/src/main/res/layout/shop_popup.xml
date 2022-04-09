@@ -37,7 +37,7 @@
         android:id="@+id/shop_popup_cancel_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/red_transparent"
+        android:background="@drawable/button_radius_8dp"
         android:text="cancel"
         app:layout_constraintBottom_toBottomOf="@+id/shop_popup_buy_btn"
         app:layout_constraintEnd_toStartOf="@+id/shop_popup_buy_btn"
