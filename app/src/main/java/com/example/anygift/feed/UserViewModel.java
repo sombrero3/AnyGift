@@ -29,7 +29,7 @@ public class UserViewModel extends ViewModel {
                     DocumentSnapshot doc = task.getResult();
                     if (doc != null) {
                         user = new User();
-                        user.fromMap(task.getResult().getData());
+                        user.fromMapObject(task.getResult().getData());
                     }
                 }
                 listener.onComplete(user);
@@ -45,7 +45,7 @@ public class UserViewModel extends ViewModel {
                     DocumentSnapshot doc = task.getResult();
                     if (doc != null) {
                         user = new User();
-                        user.fromMap(task.getResult().getData());
+                        user.fromMapObject(task.getResult().getData());
                     }
                 }
                 listener.onComplete(user);

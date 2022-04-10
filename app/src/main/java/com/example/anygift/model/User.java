@@ -157,8 +157,11 @@ public class User {
         result.put("latAndLong", this.latAndLong);
         return result;
     }
+    public String getName() {
+        return this.getFirstName()+ " "+ this.getLastName();
+    }
 
-    public void fromMap(Map<String, Object> map) {
+    public void fromMap(Map<String, String> map) {
         this.id = (String) map.get("id");
         this.firstName = (String) map.get("firstName");
         this.lastName = (String) map.get("lastName");
@@ -180,9 +183,6 @@ public class User {
        // this.longitude = Double.valueOf(map.get("longitude").toString());
     }
 
-    public String getName() {
-        return this.getFirstName()+ " "+ this.getLastName();
-    }
     public Map<String, Object> toMapObject() {
         HashMap<String, Object> result = new HashMap<>();
         result.put("id", id);

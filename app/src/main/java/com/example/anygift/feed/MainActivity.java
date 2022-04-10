@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
         imageIv = header.findViewById(R.id.menu_header_image_iv);
         nameTv.setText(  Model.instance.getSignedUser().getName());
         emailTv.setText( Model.instance.getSignedUser().getEmail());
-        if( Model.instance.getSignedUser().getImageUrl().compareTo("")!=0){
+        if( Model.instance.getSignedUser().getImageUrl()!=null){
             Picasso.get().load(Model.instance.getSignedUser().getImageUrl()).into(imageIv);
         }
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {

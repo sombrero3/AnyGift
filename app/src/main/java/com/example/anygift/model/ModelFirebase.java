@@ -208,7 +208,7 @@ public class ModelFirebase {
             if (task.isSuccessful()) {
                 for (DocumentSnapshot doc : task.getResult()) {
                     User user = new User();
-                    user.fromMap(doc.getData());
+                    user.fromMapObject(doc.getData());
                     data.add(user);
                 }
             }
@@ -219,7 +219,7 @@ public class ModelFirebase {
     public void addUser(User user, final Model.AddUserListener listener) {
        // FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection(User.COLLECTION_NAME).document(user.getEmail())
-                .set(user.toMap()).addOnSuccessListener(new OnSuccessListener<Void>() {
+                .set(user.toMapObject()).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
                 Log.d("TAG", "user added successfully");
@@ -243,7 +243,7 @@ public class ModelFirebase {
                     if (task.isSuccessful() && task.getResult() != null) {
                         //  ObjectMapper map = new ObjectMapper();
                         user = new User();
-                        user.fromMap(task.getResult().getData());
+                        user.fromMapObject(task.getResult().getData());
                     }
                     listener.onComplete(user);
                 });

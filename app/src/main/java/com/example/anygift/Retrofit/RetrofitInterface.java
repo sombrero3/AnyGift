@@ -25,7 +25,7 @@ public interface RetrofitInterface {
     Call<String> userSignout(@Body HashMap<String,String> map);
 
     //giftCards
-    @GET("giftcards")
+    @GET("cards")
     Call<String> getAllGiftcards(@Body HashMap<String,String> map);
     @POST("giftcards")
     Call<GiftCard> addGiftcard(@Body HashMap<String,String> map);
