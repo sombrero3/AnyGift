@@ -20,21 +20,20 @@
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="84dp"
+            android:layout_marginTop="40dp"
             android:fontFamily="sans-serif-medium"
             android:text="Sign In"
-            android:textColor="@color/black"
-            android:textSize="34sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            android:textColor="@color/purple_dark"
+            android:textSize="20dp"
+            app:layout_constraintStart_toStartOf="@+id/login_line"
+            app:layout_constraintTop_toBottomOf="@+id/textView34"
             tools:ignore="MissingConstraints" />
 
         <TextView
             android:id="@+id/Login_textview_Hey"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="48dp"
+            android:layout_marginTop="16dp"
             android:fontFamily="sans-serif-medium"
             android:text="Hi there! Nice to see you  again"
             android:textSize="14sp"
@@ -105,7 +104,7 @@
 
         <Button
             android:id="@+id/Login_signIn_btn"
-            android:layout_width="120dp"
+            android:layout_width="110dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:background="@drawable/button_radious_25dp_long"
@@ -121,10 +120,10 @@
             android:id="@+id/Login_btn_forgotp"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/button_border_radious_8dp_purpel_200"
+            android:background="@drawable/button_border_radious_8dp"
             android:fontFamily="sans-serif-medium"
             android:text="Forgot Password?"
-            android:textColor="@color/purple_200"
+            android:textColor="@color/red_transparent"
             app:layout_constraintBaseline_toBaselineOf="@+id/Login_btn_signUp"
             app:layout_constraintStart_toStartOf="@+id/textInputLayout3"
             tools:ignore="MissingConstraints" />
@@ -160,6 +159,41 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView31"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="56dp"
+            android:text="Any"
+            android:textSize="34dp"
+            android:textStyle="italic"
+            app:layout_constraintEnd_toStartOf="@+id/textView34"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView34"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="G"
+            android:textColor="@color/red_transparent"
+            android:textSize="34dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/textView31"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView31" />
+
+        <TextView
+            android:id="@+id/textView35"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ift"
+            android:textStyle="italic"
+            android:textSize="34dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView34"
+            app:layout_constraintStart_toEndOf="@+id/textView34"
+            app:layout_constraintTop_toTopOf="@+id/textView34" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
