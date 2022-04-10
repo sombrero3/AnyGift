@@ -81,20 +81,20 @@
         android:layout_width="120dp"
         android:layout_height="93dp"
         android:layout_marginTop="16dp"
-        android:src="@drawable/giftcard"
+        android:src="@drawable/amazon_giftcard"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
     <Button
         android:id="@+id/add_upload_bt"
-        android:layout_width="0dp"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
         android:layout_marginTop="64dp"
-        android:layout_marginEnd="32dp"
-        android:backgroundTint="@color/teal_200"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/button_radious_25dp_long"
         android:text="Confirm"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />

@@ -14,9 +14,6 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -46,12 +43,13 @@ public class FeedFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_feed, container, false);
-        getActivity().setTitle("AnyGift - Feed");
+       // getActivity().setTitle("AnyGift - Feed");
         swipeRefresh = view.findViewById(R.id.giftCardlist_swiperefresh);
         swipeRefresh.setOnRefreshListener(() -> Model.instance.refreshGiftCardsList());
         RecyclerView list = view.findViewById(R.id.cards_list_rv);
         list.setHasFixedSize(true);
-        list.setLayoutManager(new LinearLayoutManager(getContext()));
+        RecyclerView.LayoutManager horizontalLayout2 = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
+        list.setLayoutManager(horizontalLayout2);
         adapter = new MyAdapter();
         list.setAdapter(adapter);
         nameTv = view.findViewById(R.id.cards_list_user_name_tv);
@@ -92,7 +90,7 @@ public class FeedFragment extends Fragment {
 
         public MyViewHolder(View itemView) {
             super(itemView);
-            cardValue = itemView.findViewById(R.id.cards_list_row_et_value);
+            cardValue = itemView.findViewById(R.id.cards_list_row_amount_in_card_tv);
             cardImage = itemView.findViewById(R.id.cards_list_row_iv);
             cardValTag = itemView.findViewById(R.id.listRow_tv_value);
             itemView.setOnClickListener(new View.OnClickListener() {

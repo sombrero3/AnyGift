@@ -13,11 +13,11 @@ import retrofit2.http.PUT;
 
 public interface RetrofitInterface {
     //user
-    @POST("users/signin")
+    @POST("users/logon")
     Call<LoginResult> executeLogin(@Body HashMap<String,String> map);
-    @GET("users/{email}")
+    @GET("users/{id}")
     Call<User> getUser(@Body HashMap<String,String> map);
-    @PUT("users/{email}")
+    @PUT("users/{id}")
     Call<String> editUser(@Body HashMap<String,String> map);
     @POST("users/signup")
     Call<String> userSignUp(@Body HashMap<String,String> map);
@@ -27,12 +27,13 @@ public interface RetrofitInterface {
     //giftCards
     @GET("cards")
     Call<String> getAllGiftcards(@Body HashMap<String,String> map);
-    @POST("giftcards")
+    @POST("cards")
     Call<GiftCard> addGiftcard(@Body HashMap<String,String> map);
-    @GET("giftcards/{id}")
+    @GET("cards/{id}")
     Call<GiftCard> getGiftcardById(@Body HashMap<String,String> map);
-    @PUT("giftcards/{id}")
+    @PUT("cards/{id}")
     Call<GiftCard> editGiftCard(@Body HashMap<String,String> map);
+
     @GET("giftcards/price/{pricemin=0}&{pricemax=1000000}")
     Call<GiftCard> getByPriceGiftcards(@Body HashMap<String,String> map);
     @GET("giftcards/store/{storeName}")

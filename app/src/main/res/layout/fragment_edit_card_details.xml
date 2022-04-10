@@ -56,7 +56,7 @@
         android:layout_height="138dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:src="@drawable/giftcard"
+        android:src="@drawable/amazon_giftcard"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editDetails_username_tv" />
 

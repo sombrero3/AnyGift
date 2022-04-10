@@ -1,98 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".feed.CardsDetailsFragment">
+    android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/details_picture_iv"
-        android:layout_width="238dp"
-        android:layout_height="135dp"
-        android:layout_marginTop="44dp"
-        android:src="@drawable/avatar"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".feed.CardsDetailsFragment">
 
-    <TextView
-        android:id="@+id/details_username_tv"
-        android:layout_width="234dp"
-        android:layout_height="33dp"
-        android:text="name"
-        android:textColor="#039BE5"
-        android:textColorHighlight="#039BE5"
-        android:textColorHint="#039BE5"
-        android:textColorLink="#039BE5"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.255"
-        app:layout_constraintStart_toEndOf="@+id/textView10"
-        app:layout_constraintTop_toTopOf="@+id/textView10" />
+        <TextView
+            android:id="@+id/textView49"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="-16dp"
+            android:background="@color/red_transparent_2"
+            app:layout_constraintBottom_toBottomOf="@+id/cardDetails_mapBtn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/login_line" />
 
-    <TextView
-        android:id="@+id/details_giftvalue_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="36dp"
-        android:text="200$"
-        android:textColor="#43A047"
-        android:textSize="24sp"
-        app:layout_constraintStart_toEndOf="@+id/details_value_tv"
-        app:layout_constraintTop_toBottomOf="@+id/details_username_tv" />
+        <ImageView
+            android:id="@+id/details_picture_iv"
+            android:layout_width="238dp"
+            android:layout_height="135dp"
+            android:layout_marginTop="44dp"
+            android:src="@drawable/avatar"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/details_value_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="36dp"
-        android:text="Value:"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/details_username_tv" />
+        <TextView
+            android:id="@+id/card_details_username_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="16dp"
+            android:text="name"
+            android:textColor="@color/grey_1"
+            android:textColorHighlight="#039BE5"
+            android:textColorHint="#039BE5"
+            android:textColorLink="#039BE5"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView46"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.255"
+            app:layout_constraintStart_toEndOf="@+id/textView46"
+            app:layout_constraintTop_toTopOf="@+id/textView46" />
 
-    <ImageView
-        android:id="@+id/details_giftpic_iv"
-        android:layout_width="161dp"
-        android:layout_height="133dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:src="@drawable/giftcard"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/details_username_tv" />
+        <TextView
+            android:id="@+id/details_giftvalue_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:text="200$"
+            android:textColor="@color/purple_dark"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@+id/details_value_tv"
+            app:layout_constraintStart_toEndOf="@+id/details_value_tv"
+            app:layout_constraintTop_toTopOf="@+id/details_value_tv" />
 
-    <TextView
-        android:id="@+id/details_buyat_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="56dp"
-        android:text="Buy At:"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/details_value_tv" />
+        <TextView
+            android:id="@+id/details_value_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Value:"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/textView10"
+            app:layout_constraintTop_toBottomOf="@+id/textView51" />
 
-    <TextView
-        android:id="@+id/details_buyatval_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="56dp"
-        android:text="180$"
-        android:textColor="#43A047"
-        android:textSize="24sp"
-        app:layout_constraintStart_toEndOf="@+id/details_buyat_tv"
-        app:layout_constraintTop_toBottomOf="@+id/details_giftvalue_tv" /><![CDATA[
+        <ImageView
+            android:id="@+id/details_giftpic_iv"
+            android:layout_width="0dp"
+            android:layout_height="140dp"
+            android:layout_marginTop="32dp"
+            android:src="@drawable/amazon_giftcard"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/details_picture_iv" />
+
+        <TextView
+            android:id="@+id/details_buyat_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="Buy At:"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/details_value_tv" />
+
+        <TextView
+            android:id="@+id/details_buyatval_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:text="180$"
+            android:textColor="@color/purple_dark"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@+id/details_buyat_tv"
+            app:layout_constraintStart_toEndOf="@+id/details_buyat_tv"
+            app:layout_constraintTop_toTopOf="@+id/details_buyat_tv" /><![CDATA[
 
     app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.843"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardDetails_mapBtn" />
+
+
 
     ]]>
 
@@ -100,57 +119,203 @@
         android:id="@+id/details_delete_btn"
         android:layout_width="151dp"
         android:layout_height="49dp"
-        android:layout_marginEnd="12dp"
-        android:background="#FF9800"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="32dp"
+        android:background="@drawable/button_radious_8dp_pupel_dark"
+        android:textColor="@color/purple_dark"
         android:text="Delete"
         android:textSize="20sp"
         android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@+id/details_edit_btn2"
-        app:layout_constraintEnd_toStartOf="@+id/details_edit_btn2"
-        app:layout_constraintTop_toTopOf="@+id/details_edit_btn2"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <Button
-        android:id="@+id/details_edit_btn2"
-        android:layout_width="151dp"
-        android:layout_height="49dp"
-        android:layout_marginStart="224dp"
-        android:background="#FFC107"
-        android:text="Edit"
-        android:textSize="20sp"
-        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/details_edit_btn2"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/details_buyatval_tv"
-        app:layout_constraintVertical_bias="0.361" />
+        app:layout_constraintTop_toBottomOf="@+id/button" />
 
-    <TextView
-        android:id="@+id/textView10"
-        android:layout_width="117dp"
-        android:layout_height="37dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="28dp"
-        android:text="Belong to:"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/details_picture_iv" />
+        <Button
+            android:id="@+id/details_edit_btn2"
+            android:layout_width="151dp"
+            android:layout_height="49dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="32dp"
+            android:background="@drawable/button_border_radious_8dp"
+            android:text="Edit"
+            android:textColor="@color/red_transparent"
+            android:textSize="20sp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/details_delete_btn"
+            app:layout_constraintTop_toBottomOf="@+id/button" />
 
-    <Button
-        android:id="@+id/cardDetails_mapBtn"
-        android:layout_width="132dp"
-        android:layout_height="52dp"
-        android:layout_marginStart="145dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="178dp"
-        android:shadowColor="#039BE5"
-        android:text="Buyer Address"
-        android:textColor="#9F4242"
-        app:layout_constraintBottom_toTopOf="@+id/details_edit_btn2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.136"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/details_giftpic_iv"
-        app:layout_constraintVertical_bias="0.089" />
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="Belongs to:"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/textView43"
+            app:layout_constraintTop_toBottomOf="@+id/details_buyat_tv" />
+
+        <Button
+            android:id="@+id/cardDetails_mapBtn"
+            android:layout_width="200dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/button_border_radious_8dp_purpel_200"
+            android:shadowColor="#039BE5"
+            android:text="Buyer Address"
+            android:textColor="@color/purple_dark"
+            app:layout_constraintStart_toStartOf="@+id/textView48"
+            app:layout_constraintTop_toBottomOf="@+id/card_details_user_pic_iv"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <TextView
+            android:id="@+id/textView42"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="Type :"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/details_giftpic_iv" />
+
+        <TextView
+            android:id="@+id/textView43"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Stores :"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/textView42"
+            app:layout_constraintTop_toBottomOf="@+id/textView42" />
+
+        <TextView
+            android:id="@+id/card_details_type_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="16dp"
+            android:text="TextView"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView42"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textView42"
+            app:layout_constraintTop_toTopOf="@+id/textView42" />
+
+        <TextView
+            android:id="@+id/card_details_stores_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="16dp"
+            android:text="jncekjnckdcnkncksnncndskksncksncnckdsndkndkcnsncnscsbcbc kdsnncsjcnsc scnskjcnskcnkscn ckscnjskccnksnc ccnscjksc cnjcnskcn cncjsk cskcn"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textView43"
+            app:layout_constraintTop_toTopOf="@+id/textView43" />
+
+        <View
+            android:id="@+id/login_line"
+            style="@style/line"
+            android:layout_width="0dp"
+            android:layout_marginEnd="-16dp"
+            app:layout_constraintEnd_toEndOf="@+id/textView10"
+            app:layout_constraintStart_toStartOf="@+id/textView10"
+            app:layout_constraintTop_toBottomOf="@+id/textView10" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/card_details_user_pic_iv"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:src="@drawable/avatar"
+            app:layout_constraintDimensionRatio="w,1:1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView10" />
+
+        <TextView
+            android:id="@+id/textView46"
+            android:layout_width="wrap_content"
+            android:layout_height="19dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="Name :"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@+id/card_details_user_pic_iv"
+            app:layout_constraintTop_toTopOf="@+id/card_details_user_pic_iv" />
+
+        <TextView
+            android:id="@+id/textView47"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Email:"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/textView46"
+            app:layout_constraintTop_toBottomOf="@+id/textView46" />
+
+        <TextView
+            android:id="@+id/textView48"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Level :"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/textView47"
+            app:layout_constraintTop_toBottomOf="@+id/textView47" />
+
+        <TextView
+            android:id="@+id/card_details_email_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="alfredal@gmail.com"
+            android:textColor="@color/grey_1"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView47"
+            app:layout_constraintEnd_toEndOf="@+id/card_details_username_tv"
+            app:layout_constraintStart_toEndOf="@+id/textView47"
+            app:layout_constraintTop_toTopOf="@+id/textView47" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/button_radious_8dp_pupel_dark"
+            android:text="Buy "
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView49" />
+
+        <TextView
+            android:id="@+id/textView51"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Experation date :"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/textView43"
+            app:layout_constraintTop_toBottomOf="@+id/card_details_stores_tv" />
+
+        <TextView
+            android:id="@+id/card_details_exp_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="05/11/2022"
+            android:textColor="@color/purple_dark"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView51"
+            app:layout_constraintStart_toEndOf="@+id/textView51"
+            app:layout_constraintTop_toTopOf="@+id/textView51" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

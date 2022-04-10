@@ -3,30 +3,51 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="HardcodedText">
-
-    <item
-        android:id="@+id/menu_feed"
-        android:icon="@drawable/ic_baseline_home_24"
-        android:title="Home" />
-    <item
-        android:id="@+id/menu_profile"
-        android:icon="@drawable/green_face"
-        android:title="Profile"
-        app:showAsAction="withText" />
-    <item
-        android:id="@+id/menu_cards"
-        android:icon="@drawable/cards_yellow"
-        android:title="My Cards" />
-    <item
-        android:id="@+id/add_card"
-        android:icon="@drawable/add_icon"
-        android:title="Add Card" />
-    <item
-        android:id="@+id/cards_map"
-        android:icon="@drawable/ic_baseline_map_24"
-        android:title="Show all Cards" />
-    <item
-        android:id="@+id/logout"
-        android:icon="@drawable/logout"
-        android:title="Logout" />
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/menu_feed"
+            android:icon="@drawable/ic_baseline_home_24"
+            android:title="Home" />
+        <item
+            android:id="@+id/cards_map"
+            android:icon="@drawable/ic_baseline_map_24"
+            android:title="Show all Cards" />
+        <item
+            android:id="@+id/shop"
+            android:icon="@drawable/coin"
+            android:title="Shop" />
+    </group>
+    <group android:checkableBehavior="single">
+        <item android:title="Profile">
+            <menu>
+                <item
+                    android:id="@+id/menu_profile"
+                    android:icon="@drawable/green_face"
+                    android:title="Profile"
+                    app:showAsAction="withText" />
+                <item
+                    android:id="@+id/menu_cards"
+                    android:icon="@drawable/cards_yellow"
+                    android:title="My Wallet" />
+                <item
+                    android:id="@+id/add_card"
+                    android:icon="@drawable/add_icon"
+                    android:title="Add Card" />
+                <item
+                    android:id="@+id/logout"
+                    android:icon="@drawable/logout"
+                    android:title="Logout" />
+            </menu>
+        </item>
+    </group>
+    <group android:checkableBehavior="single">
+        <item android:title="Communicate">
+            <menu>
+               <item
+                    android:id="@+id/share"
+                    android:icon="@drawable/ic_share"
+                    android:title="Share" />
+            </menu>
+        </item>
+    </group>
 </menu>

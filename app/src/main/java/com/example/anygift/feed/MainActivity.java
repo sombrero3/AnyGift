@@ -1,18 +1,20 @@
 package com.example.anygift.feed;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.NavHost;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Gravity;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -20,10 +22,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.anygift.R;
-import com.example.anygift.databinding.MenuHeaderBinding;
 import com.example.anygift.login.LoginActivity;
 import com.example.anygift.model.Model;
-import com.example.anygift.model.User;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
@@ -42,12 +42,20 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         NavHost navHost = (NavHost) getSupportFragmentManager().findFragmentById(R.id.main_navhost);
         navCtr = navHost.getNavController();
         viewModel = new ViewModelProvider(this).get(FeedViewModel.class);
+
+
+        nameTv = findViewById(R.id.menu_header_name_tv);
+        emailTv = findViewById(R.id.menu_header_email_tv);
+        imageIv = findViewById(R.id.menu_header_image_iv);
+
         drawerLayout = findViewById(R.id.my_drawer_layout);
         navigationView = findViewById(R.id.Navigation_view);
 
+        //--drawer navigation menu--//
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.nav_open, R.string.nav_close);
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
@@ -55,16 +63,6 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         navigationView.setItemIconTintList(null);
         setMenuHeader();
-       View header= (View)navigationView.getHeaderView(0);
-        //header.findViewById(R.id.menu_header_name_tv) (Model.instance.getSignedUser().getName());
-        nameTv = header.findViewById(R.id.menu_header_name_tv);
-        emailTv = header.findViewById(R.id.menu_header_email_tv);
-        imageIv = header.findViewById(R.id.menu_header_image_iv);
-        nameTv.setText(  Model.instance.getSignedUser().getName());
-        emailTv.setText( Model.instance.getSignedUser().getEmail());
-        if( Model.instance.getSignedUser().getImageUrl()!=null){
-            Picasso.get().load(Model.instance.getSignedUser().getImageUrl()).into(imageIv);
-        }
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -95,6 +93,11 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(map);
                         break;
                     }
+                    case R.id.shop: {
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                        navCtr.navigate(R.id.action_global_shopFragment);
+                        break;
+                    }
                     case R.id.logout: {
                         Toast.makeText(getBaseContext(),"Logging Out",Toast.LENGTH_SHORT).show();
                         FirebaseAuth.getInstance().signOut();
@@ -111,13 +114,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setMenuHeader() {
-//        User user = Model.instance.getSignedUser();
-//        MenuHeaderBinding.bind(findViewById(R.id.header_constraint));
-//        nameTv.setText(user.getName());
-//        emailTv.setText(user.getEmail());
-//        if(user.getImageUrl()!=null) {
-//            Picasso.get().load(user.getImageUrl()).into(imageIv);
-//        }
+        View header= (View)navigationView.getHeaderView(0);
+        nameTv = header.findViewById(R.id.menu_header_name_tv);
+        emailTv = header.findViewById(R.id.menu_header_email_tv);
+        imageIv = header.findViewById(R.id.menu_header_image_iv);
+        nameTv.setText(  Model.instance.getSignedUser().getName());
+        emailTv.setText( Model.instance.getSignedUser().getEmail());
+        if( Model.instance.getSignedUser().getImageUrl().compareTo("")!=0){
+            Picasso.get().load(Model.instance.getSignedUser().getImageUrl()).into(imageIv);
+        }
     }
 
     @Override

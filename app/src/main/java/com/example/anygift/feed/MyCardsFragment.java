@@ -21,8 +21,11 @@ import android.widget.TextView;
 
 import com.example.anygift.R;
 import com.example.anygift.model.Model;
+import com.example.anygift.model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
+
+import org.w3c.dom.Text;
 
 
 public class MyCardsFragment extends Fragment {
@@ -30,6 +33,8 @@ public class MyCardsFragment extends Fragment {
     MyCardsViewModel viewModel;
     MyAdapter adapter;
     SwipeRefreshLayout swipeRefresh;
+    TextView userName,userEmail,userPhone,userAddress,numOfSold,numOfBought,soldInCoins,boughtInCoins;
+    ImageView userImage;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -41,12 +46,13 @@ public class MyCardsFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_my_cards, container, false);
-        getActivity().setTitle("AnyGift - MyCards");
+        //getActivity().setTitle("AnyGift - MyCards");
         swipeRefresh = view.findViewById(R.id.MyGiftCardlist_swiperefresh);
         swipeRefresh.setOnRefreshListener(() -> Model.instance.refreshGiftCardsList());
         RecyclerView list = view.findViewById(R.id.MyCards_list_rv);
         list.setHasFixedSize(true);
-        list.setLayoutManager(new LinearLayoutManager(getContext()));
+        RecyclerView.LayoutManager horizontalLayout2 = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
+        list.setLayoutManager(horizontalLayout2);
         adapter = new MyCardsFragment.MyAdapter();
         list.setAdapter(adapter);
 
@@ -60,6 +66,18 @@ public class MyCardsFragment extends Fragment {
 
             }
         });
+
+        userName = view.findViewById(R.id.my_cards_user_name_tv);
+        userImage = view.findViewById(R.id.my_cards_avater_iv);
+        userEmail = view.findViewById(R.id.my_cards_email_tv);
+        userPhone = view.findViewById(R.id.my_cards_phone_tv);
+        userAddress = view.findViewById(R.id.my_cards_address_tv);
+        numOfSold = view.findViewById(R.id.my_cards_sold_counter_tv);
+        numOfBought = view.findViewById(R.id.my_cards_bought_counter_tv);
+        soldInCoins = view.findViewById(R.id.my_cards_sold_in_coins_tv);
+        boughtInCoins = view.findViewById(R.id.my_cards_bought_in_coins_tv);
+
+        setUserUI();
         setHasOptionsMenu(true);
         viewModel.getList().observe(getViewLifecycleOwner(), list1 -> refresh());
         swipeRefresh.setRefreshing(Model.instance.getListLoadingState().getValue() == Model.GiftListLoadingState.loading);
@@ -72,6 +90,25 @@ public class MyCardsFragment extends Fragment {
 
         });
         return view;
+
+    }
+
+    private void setUserUI() {
+        User user = Model.instance.getSignedUser();
+
+        userName.setText(user.getName());
+        userEmail.setText(user.getEmail());
+        userPhone.setText(user.getPhone());
+        userAddress.setText(user.getAddress());
+        if (user.getImageUrl() != null) {
+            Picasso.get().load(user.getImageUrl()).into(userImage);
+            userImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            userImage.setClipToOutline(true);
+        }
+//        numOfSold.setText(user.getName());
+//        numOfBought.setText(user.getName());
+//        soldInCoins.setText(user.getName());
+//        boughtInCoins.setText(user.getName());
 
     }
 
@@ -88,9 +125,9 @@ public class MyCardsFragment extends Fragment {
 
         public MyViewHolder(View itemView) {
             super(itemView);
-            cardValue = itemView.findViewById(R.id.cards_list_row_et_value);
-            cardImage = itemView.findViewById(R.id.cards_list_row_iv);
-            cardValTag = itemView.findViewById(R.id.listRow_tv_value);
+            cardValue = itemView.findViewById(R.id.my_card_row_amount_in_card_tv);
+            cardImage = itemView.findViewById(R.id.my_card_row_iv);
+            cardValTag = itemView.findViewById(R.id.my_card_row_price_now_tv);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -130,7 +167,7 @@ public class MyCardsFragment extends Fragment {
         @NonNull
         @Override
         public MyCardsFragment.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View view = getLayoutInflater().inflate(R.layout.cards_list_row, parent, false);
+            View view = getLayoutInflater().inflate(R.layout.my_card_row, parent, false);
             MyCardsFragment.MyViewHolder holder = new MyCardsFragment.MyViewHolder(view);
             holder.listener = listener;
             return holder;

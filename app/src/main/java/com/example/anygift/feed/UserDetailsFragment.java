@@ -37,7 +37,7 @@ public class UserDetailsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_user_details, container, false);
-        getActivity().setTitle("AnyGift - Other Profile");
+        //getActivity().setTitle("AnyGift - Other Profile");
         name = view.findViewById(R.id.UserprofileF_name);
         phone = view.findViewById(R.id.UserprofileF_phone);
         email = view.findViewById(R.id.UserprofileF_mail);
