@@ -1,9 +1,12 @@
 package com.example.anygift.Retrofit;
 
+import com.example.anygift.model.CardType;
+import com.example.anygift.model.Category;
 import com.example.anygift.model.GiftCard;
 import com.example.anygift.model.User;
 
 import java.util.HashMap;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -39,4 +42,8 @@ public interface RetrofitInterface {
     @GET("giftcards/store/{storeName}")
     Call<GiftCard> getClosetStoreGiftcards(@Body HashMap<String,String> map);
 
+    @GET("categories") //WORKS!
+    Call<List<Category>> getAllCategories();
+    @GET("cardTypes")
+    Call<List<CardType>> getAllCardTypes();
 }

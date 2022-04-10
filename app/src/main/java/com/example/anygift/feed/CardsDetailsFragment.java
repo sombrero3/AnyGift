@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.anygift.R;
+import com.example.anygift.model.CardType;
 import com.example.anygift.model.GiftCard;
 import com.example.anygift.model.Model;
 import com.example.anygift.model.User;
@@ -46,6 +47,12 @@ public class CardsDetailsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        Model.instance.modelRetrofit.getAllCardTypes(new Model.cardTypesListener() {
+            @Override
+            public void onComplete(List<CardType> cts) {
+                System.out.println(cts);
+            }
+        });
         view = inflater.inflate(R.layout.fragment_cards_details, container, false);
         //getActivity().setTitle("AnyGift - CardsDetails");
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);

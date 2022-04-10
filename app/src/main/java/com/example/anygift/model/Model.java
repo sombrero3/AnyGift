@@ -57,6 +57,10 @@ public class Model {
         void onComplete(User user);
     }
 
+    public interface cardTypesReturnListener{
+        void onComplete(List<CardType> cts);
+    }
+
     public void login(HashMap<String, String> map, StringListener listener) {
         modelRetrofit.login(map, listener);
     }
@@ -93,9 +97,12 @@ public class Model {
         modelRetrofit.editUser(map, listener);
     }
 
-
-
-
+    public void getAllCategories() {
+        modelRetrofit.getAllCategories();
+    }
+    public List<CardType> getAllCardTypes(cardTypesListener cts) {
+        return modelRetrofit.getAllCardTypes(cts);
+    }
 
 
     //Firebase
@@ -115,6 +122,10 @@ public class Model {
     }
     public interface GetUserListener{
         void onComplete(User user);
+    }
+
+    public interface cardTypesListener{
+        void onComplete(List<CardType> cts);
     }
 
     public void refreshGiftCardsList() {
