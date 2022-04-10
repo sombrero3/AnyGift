@@ -103,16 +103,15 @@ public class ModelRetrofit {
     }
 
     public void getUser(HashMap<String, String> map, Model.userReturnListener listener) {
-
         Call<User> call = retrofitInterface.getUser(map);
         call.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 if (response.code() == 200) {
                     //Toast.makeText(getContext(), "Login to app", Toast.LENGTH_LONG).show();
-                    User user = response.body();
+                    User user = new User();
+                    user.fromMap(response.body().toMapObject());
                     listener.onComplete(user);
-
 
                 } else if (response.code() == 400) {
                     // listener.onComplete("user exist");
