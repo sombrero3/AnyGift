@@ -69,7 +69,7 @@ public class CardsDetailsFragment extends Fragment {
                 }
             }
         });
-        name = view.findViewById(R.id.details_username_tv);
+        name = view.findViewById(R.id.card_details_username_tv);
         name.setText(giftCard.getOwnerEmail());
         name.setOnClickListener(new View.OnClickListener() {
             @Override
