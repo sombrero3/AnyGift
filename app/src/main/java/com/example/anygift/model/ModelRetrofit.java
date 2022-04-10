@@ -5,6 +5,7 @@ import com.example.anygift.Retrofit.RetrofitInterface;
 
 import java.util.HashMap;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -12,14 +13,16 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ModelRetrofit {
+    public Retrofit retrofit;
     public RetrofitInterface retrofitInterface;
-    public String Base_URL = "http://10.0.2.2:8000/api/v1/";
+    public String Base_URL = "http://10.0.2.2:8001";
 
     public ModelRetrofit() {
-        retrofitInterface = new Retrofit.Builder()
+        retrofit = new Retrofit.Builder()
                 .baseUrl(Base_URL)
                 .addConverterFactory(GsonConverterFactory.create())
-                .build().create(RetrofitInterface.class);
+                .build();
+        retrofitInterface = retrofit.create(RetrofitInterface.class);
     }
 
     public void login(HashMap<String, String> map, Model.StringListener listener) {
@@ -45,16 +48,20 @@ public class ModelRetrofit {
         });
     }
 
-    public void getUser(HashMap<String, String> map, Model.userReturnListener listener) {
+    public void getUser(String user_id, Model.userReturnListener listener) {
+        Call<Void> call = retrofitInterface.getUser(user_id);
 
-        Call<User> call = retrofitInterface.getUser(map);
-        call.enqueue(new Callback<User>() {
+        call.enqueue(new Callback<Void>() {
             @Override
-            public void onResponse(Call<User> call, Response<User> response) {
+            public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.code() == 200) {
+                    System.out.println("OMERTTTTTTT");
+                System.out.println(response.body());
+                    System.out.println("OMERTTTTTTT");
+//                    listener.onComplete(response.body());
                     //Toast.makeText(getContext(), "Login to app", Toast.LENGTH_LONG).show();
-                    User user = response.body();
-                    listener.onComplete(user);
+//                    User user = response.body();
+//                    listener.onComplete(user);
 
 
                 } else if (response.code() == 400) {
@@ -65,7 +72,7 @@ public class ModelRetrofit {
             }
 
             @Override
-            public void onFailure(Call<User> call, Throwable t) {
+            public void onFailure(Call<Void> call, Throwable t) {
                 listener.onComplete(null);
             }
         });

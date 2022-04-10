@@ -5,18 +5,22 @@ import com.example.anygift.model.User;
 
 import java.util.HashMap;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Path;
 
 public interface RetrofitInterface {
     //user
-    @POST("users/logon")
+    @POST("users/login")
     Call<LoginResult> executeLogin(@Body HashMap<String,String> map);
-    @GET("users/{id}")
-    Call<User> getUser(@Body HashMap<String,String> map);
+    @GET("/api/v1/users/{id}")
+    Call<Void> getUser(@Path("id") String user_id);
+    @GET("api/v1/users")
+    Call<ResponseBody> getUsers(@Path("id") String user_id);
     @PUT("users/{id}")
     Call<String> editUser(@Body HashMap<String,String> map);
     @POST("users/signup")

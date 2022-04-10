@@ -24,6 +24,8 @@ import android.widget.Toast;
 import com.example.anygift.R;
 import com.example.anygift.login.LoginActivity;
 import com.example.anygift.model.Model;
+import com.example.anygift.model.ModelRetrofit;
+import com.example.anygift.model.User;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
@@ -40,6 +42,17 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        Model.instance.modelRetrofit.getUser("624d7a9250f9b90ac5f32bd0", new Model.userReturnListener() {
+            @Override
+            public void onComplete(User user) {
+                System.out.println("DONEEEEEE");
+            }
+        });
+
+        System.out.println("BYEEEEEEEEEEEEEEEEEEEe");
+        System.exit(1);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 

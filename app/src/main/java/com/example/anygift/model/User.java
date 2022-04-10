@@ -2,6 +2,8 @@ package com.example.anygift.model;
 
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.FieldValue;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -16,18 +18,60 @@ import java.util.Map;
 public class User {
 
     final public static String COLLECTION_NAME = "users";
-
+    @SerializedName("id")
+    @Expose
     String id;
+
+    @SerializedName("username")
+    @Expose
+    String username;
+    @SerializedName("firstName")
+    @Expose
     String firstName;
+
+    @SerializedName("lastName")
+    @Expose
     String lastName;
+    @SerializedName("phone")
+    @Expose
     String phone;
+    @SerializedName("email")
+    @Expose
+
     String email;
+    @SerializedName("password")
+    @Expose
+
     String password;
+    @SerializedName("isAdmin")
+    @Expose
+
+    boolean isAdmin;
+    @SerializedName("address")
+    @Expose
+
     String address;
-    String latAndLong;
-    Long lastUpdated=new Long(0);
-    List<GiftCard> giftCards=new ArrayList<>();
-    String imageUrl;
+
+    String latAndLong=null;
+    @SerializedName("createdAt")
+    @Expose
+    String createdAt;
+    @SerializedName("lastUpdate")
+    @Expose
+    String lastUpdate;
+    @SerializedName("coins")
+    @Expose
+
+    double coins;
+    @SerializedName("rating")
+    @Expose
+
+    double rating;
+    @SerializedName("document")
+    @Expose
+    String document;
+    List<GiftCard> giftCards=null;
+    String imageUrl = null;
 
 
     public User(){}
@@ -50,7 +94,7 @@ public class User {
         this.password= other.password;
         this.address= other.address;
         this.latAndLong= other.latAndLong;
-        this.lastUpdated= other.lastUpdated;
+        this.lastUpdate= other.lastUpdate;
         this.giftCards= other.getGiftCards();
         this.imageUrl= other.imageUrl;
 
@@ -119,12 +163,12 @@ public class User {
         this.giftCards = giftCards;
     }
 
-    public Long getLastUpdated() {
-        return lastUpdated;
+    public String getLastUpdated() {
+        return lastUpdate;
     }
 
-    public void setLastUpdated(Long lastUpdated) {
-        this.lastUpdated = lastUpdated;
+    public void setLastUpdated(String lastUpdated) {
+        this.lastUpdate = lastUpdated;
     }
 
     public String getLatAndLong() {
@@ -170,7 +214,7 @@ public class User {
         try {
             Date date1=new SimpleDateFormat("dd/MM/yyyy").parse(String.valueOf(map.get("lastUpdated")));
             Timestamp ts = new Timestamp(date1);
-            this.lastUpdated = ts.getSeconds();
+//            this.lastUpdated = ts.getSeconds();
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -207,7 +251,7 @@ public class User {
         this.latAndLong= (String) map.get("latAndLong");
         this.imageUrl = (String) map.get("imageUrl");
         Timestamp ts = (Timestamp) map.get("lastUpdated");
-        this.lastUpdated = ts.getSeconds();
+//        this.lastUpdated = ts.getSeconds();
         //this.latitude = Double.valueOf(map.get("latitude").toString());
         // this.longitude = Double.valueOf(map.get("longitude").toString());
     }

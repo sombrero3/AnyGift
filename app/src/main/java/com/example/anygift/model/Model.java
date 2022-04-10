@@ -85,8 +85,8 @@ public class Model {
         modelRetrofit.getByPriceGiftCards(map, listener);
     }
 
-    public void getUserRetrofit(HashMap<String, String> map, userReturnListener listener) {
-        modelRetrofit.getUser(map, listener);
+    public void getUserRetrofit(String user_id, userReturnListener listener) {
+        modelRetrofit.getUser(user_id, listener);
     }
 
     public void editUserRetrofit(HashMap<String, String> map, StringListener listener) {
