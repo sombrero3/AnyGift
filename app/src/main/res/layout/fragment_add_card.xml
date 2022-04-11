@@ -36,7 +36,7 @@
         android:layout_width="0dp"
         android:layout_height="56dp"
         android:layout_marginTop="2dp"
-        app:layout_constraintEnd_toEndOf="@+id/add_card_expiry_year"
+        app:layout_constraintEnd_toEndOf="@+id/textInputLayout"
         app:layout_constraintStart_toStartOf="@+id/textView17"
         app:layout_constraintTop_toBottomOf="@+id/textView17">
 
@@ -68,7 +68,7 @@
         android:id="@+id/add_camera_bt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/red_1"
+        android:backgroundTint="@color/red_transparent"
         android:src="@android:drawable/ic_menu_camera"
         app:layout_constraintBottom_toBottomOf="@+id/textView4"
         app:layout_constraintEnd_toEndOf="parent"
@@ -133,7 +133,7 @@
         android:layout_marginTop="24dp"
         android:text="Enter Card Value:"
         app:layout_constraintStart_toStartOf="@+id/textView7"
-        app:layout_constraintTop_toBottomOf="@+id/add_card_expiry_month" />
+        app:layout_constraintTop_toBottomOf="@+id/add_card_date_et" />
 
     <TextView
         android:id="@+id/textView18"
@@ -158,30 +158,6 @@
         app:layout_constraintStart_toStartOf="@+id/textView9"
         app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
-    <Spinner
-        android:id="@+id/add_card_expiry_month"
-        android:layout_width="100dp"
-        android:layout_height="48dp"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/spinner_background"
-        android:contentDescription="Exp mm"
-        android:overlapAnchor="false"
-        android:spinnerMode="dropdown"
-        app:layout_constraintBottom_toBottomOf="@+id/textView7"
-        app:layout_constraintEnd_toStartOf="@+id/add_card_expiry_year"
-        app:layout_constraintTop_toTopOf="@+id/textView7" />
-
-    <Spinner
-        android:id="@+id/add_card_expiry_year"
-        android:layout_width="130dp"
-        android:layout_height="48dp"
-        android:background="@drawable/spinner_background"
-        android:contentDescription="Exp y"
-        android:overlapAnchor="false"
-        android:spinnerMode="dropdown"
-        app:layout_constraintBottom_toBottomOf="@+id/add_card_expiry_month"
-        app:layout_constraintEnd_toEndOf="@+id/textInputLayout"
-        app:layout_constraintTop_toTopOf="@+id/add_card_expiry_month" />
 
     <TextView
         android:id="@+id/textView8"
@@ -191,7 +167,7 @@
         android:layout_marginTop="24dp"
         android:layout_marginEnd="32dp"
         android:text="Add new gift card : "
-        android:textColor="@color/red_1"
+        android:textColor="@color/red_transparent"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -228,6 +204,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/add_card_date_et"
+        android:layout_width="170dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Select Date"
+        android:textAlignment="center"
+        app:layout_constraintBaseline_toBaselineOf="@+id/textView7"
+        app:layout_constraintStart_toEndOf="@+id/textView7" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

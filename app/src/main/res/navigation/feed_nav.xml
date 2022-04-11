@@ -20,6 +20,9 @@
         <action
             android:id="@+id/action_myCardsFragment_to_cardsDetailsFragment"
             app:destination="@id/cardsDetailsFragment" />
+        <action
+            android:id="@+id/action_myCardsFragment_to_editProfileFragment"
+            app:destination="@id/editProfileFragment" />
     </fragment>
     <fragment
         android:id="@+id/addCardFragment"
@@ -60,12 +63,7 @@
     <fragment
         android:id="@+id/editProfileFragment"
         android:name="com.example.anygift.feed.EditProfileFragment"
-        tools:layout="@layout/fragment_edit_profile">
-        <argument
-            android:name="userEmail"
-            app:argType="string"
-            app:nullable="true" />
-    </fragment><action android:id="@+id/action_global_userProfileFragment" app:destination="@id/userProfileFragment"/><action android:id="@+id/action_global_addCardFragment" app:destination="@id/addCardFragment"/><action android:id="@+id/action_global_feedFragment" app:destination="@id/feedFragment"/><action android:id="@+id/action_global_myCardsFragment" app:destination="@id/myCardsFragment"/>
+        tools:layout="@layout/fragment_edit_profile"/><action android:id="@+id/action_global_userProfileFragment" app:destination="@id/userProfileFragment"/><action android:id="@+id/action_global_addCardFragment" app:destination="@id/addCardFragment"/><action android:id="@+id/action_global_feedFragment" app:destination="@id/feedFragment"/><action android:id="@+id/action_global_myCardsFragment" app:destination="@id/myCardsFragment"/>
     <fragment
         android:id="@+id/userDetailsFragment"
         android:name="com.example.anygift.feed.UserDetailsFragment"

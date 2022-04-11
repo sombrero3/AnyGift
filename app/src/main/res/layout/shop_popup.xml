@@ -26,6 +26,7 @@
         android:layout_marginBottom="32dp"
         android:background="@drawable/button_radious_25dp_long"
         android:text="buy"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"

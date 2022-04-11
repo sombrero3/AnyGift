@@ -303,12 +303,7 @@ public class ModelFirebase {
     public void setCurrentUser(Model.GetUserListener listener) {
         currentUser = FirebaseAuth.getInstance();
         String userUid = currentUser.getCurrentUser().getEmail();
-        getUserById(userUid, new Model.GetUserListener() {
-            @Override
-            public void onComplete(User user) {
-                listener.onComplete(user);
-            }
-        });
+        getUserById(userUid, user -> listener.onComplete(user));
     }
     private String getSignedUserId() {
         return Model.instance.getSignedUser().getId();

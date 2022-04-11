@@ -4,6 +4,7 @@ import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -24,6 +25,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -42,11 +45,13 @@ import com.google.firebase.auth.FirebaseUser;
 
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 public class AddCardFragment extends Fragment {
     private static final int REQUEST_CAMERA = 1;//
     TextInputEditText cardValue,  cardAskingValue, cardNumber;
     //cardExpDay, cardExpMonth, cardExpYear
+    EditText dateEt;
     ImageButton uploadPicButton;
     Button addCardButton;
     ImageView giftCardImage;
@@ -54,9 +59,10 @@ public class AddCardFragment extends Fragment {
     ProgressBar pb;
     String latAndLong;
     UserViewModel userViewModel;
-    Spinner spinnerCardType,spinnerExpiryMonth,spinnerExpiryYear;
+    Spinner spinnerCardType;
+    DatePickerDialog.OnDateSetListener dateSetListener;
     CardForm cardForm;
-
+    int year,month,day;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -72,33 +78,37 @@ public class AddCardFragment extends Fragment {
         uploadPicButton = view.findViewById(R.id.add_camera_bt);
         addCardButton = view.findViewById(R.id.add_upload_bt);
         giftCardImage = view.findViewById(R.id.add_giftCardImage);
+        dateEt = view.findViewById(R.id.add_card_date_et);
 
         spinnerCardType = (Spinner) view.findViewById(R.id.option);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.options, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerCardType.setAdapter(adapter);
-        //spinnerCardType.getSelectedItem().toString();
-
-        spinnerExpiryMonth = (Spinner) view.findViewById(R.id.add_card_expiry_month);
-        ArrayAdapter<CharSequence> adapterExpiryMonth = ArrayAdapter.createFromResource(getContext(), R.array.month, android.R.layout.simple_spinner_item);
-        adapterExpiryMonth.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerExpiryMonth.setAdapter(adapterExpiryMonth);
-       // spinnerExpiryMonth.getSelectedItem().toString();
-
-        spinnerExpiryYear = (Spinner) view.findViewById(R.id.add_card_expiry_year);
-        ArrayAdapter<CharSequence> adapterExpiryYear = ArrayAdapter.createFromResource(getContext(), R.array.year, android.R.layout.simple_spinner_item);
-        adapterExpiryYear.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerExpiryYear.setAdapter(adapterExpiryYear);
-       // spinnerExpiryYear.getSelectedItem().toString();
 
 
         giftCardImage.setTag("");
         pb = view.findViewById(R.id.add_pb);
         pb.setVisibility(View.INVISIBLE);
 
-
-
-
+        //---date calendar---//
+        Calendar calendar = Calendar.getInstance();
+        year = calendar.get(Calendar.YEAR);
+        month = calendar.get(Calendar.MONTH);
+        day = calendar.get(Calendar.DAY_OF_MONTH);
+        dateEt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                        month =month+1;
+                        String date = day+"/"+month+"/"+year;
+                        dateEt.setText(date);
+                    }
+                },year,month,day);
+                datePickerDialog.show();
+            }
+        });
 
 
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
@@ -220,10 +230,10 @@ public class AddCardFragment extends Fragment {
 //        String day = cardExpDay.getText().toString();
 //        String mo = cardExpMonth.getText().toString();
 //        String year = cardExpYear.getText().toString();
-        String day = "1";
-        String mo = spinnerExpiryMonth.getSelectedItem().toString();
-        String year = spinnerExpiryYear.getSelectedItem().toString();
-        String dateFormatted = year + "-" + mo + "-" + day;
+//        String day = "1";
+//        String mo = spinnerExpiryMonth.getSelectedItem().toString();
+//        String year = spinnerExpiryYear.getSelectedItem().toString();
+        String dateFormatted = year + "-" + month + "-" + day;
         if (!isLegalDate(dateFormatted)) {
             error = true;
             errorMsg += "date: " + dateFormatted + " is Invalid!\n";
@@ -234,7 +244,7 @@ public class AddCardFragment extends Fragment {
             return;
         }
 
-        String date = day + "/" + mo + "/" + year;
+        String date = day + "/" + month + "/" + year;
         logging(CardValue, CardAskingValue, CardNumber);
         FirebaseAuth auth = FirebaseAuth.getInstance();
         FirebaseUser user = auth.getCurrentUser();
