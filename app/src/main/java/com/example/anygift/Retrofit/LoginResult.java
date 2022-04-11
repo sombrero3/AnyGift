@@ -1,5 +1,7 @@
 package com.example.anygift.Retrofit;
 
+import android.text.BoringLayout;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -31,13 +33,29 @@ public class LoginResult {
     @SerializedName("phone")
     @Expose
     private String phone;
+    @SerializedName("latAndLong")
+    @Expose
+    private String latAndLong;
+    @SerializedName("coins")
+    @Expose
+    private Double coins;
+    @SerializedName("rating")
+    @Expose
+    private Double rating;
+    @SerializedName("profilePicture")
+    @Expose
+    private String profilePicture;
+    @SerializedName("document")
+    @Expose
+    private String document;
+    @SerializedName("verified")
+    @Expose
+    private Boolean verified;
 
     public LoginResult() {
     }
 
-    ;
-
-    public LoginResult(String email, String token, String id, Boolean isAdmin, String lastName, String firstName, String address, String phone) {
+    public LoginResult(String email, String token, String id, Boolean isAdmin, String lastName, String firstName, String address, String phone, String latAndLong, Double coins, Double rating, String profilePicture, String document, Boolean verified) {
         this.email = email;
         this.token = token;
         this.id = id;
@@ -46,7 +64,14 @@ public class LoginResult {
         this.firstName = firstName;
         this.address = address;
         this.phone = phone;
+        this.latAndLong = latAndLong;
+        this.coins = coins;
+        this.rating = rating;
+        this.profilePicture = profilePicture;
+        this.document = document;
+        this.verified = verified;
     }
+
 
     public String getEmail() {
         return email;
@@ -112,10 +137,74 @@ public class LoginResult {
         this.phone = phone;
     }
 
+
+    public static HashMap<String, String> mapToLogin(String email, String password) {
+        return new HashMap<String, String>() {{
+            put("email", email);
+            put("password", password);
+        }};
+    }
+
+    public Boolean getAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(Boolean admin) {
+        isAdmin = admin;
+    }
+
+    public String getLatAndLong() {
+        return latAndLong;
+    }
+
+    public void setLatAndLong(String latAndLong) {
+        this.latAndLong = latAndLong;
+    }
+
+    public Double getCoins() {
+        return coins;
+    }
+
+    public void setCoins(Double coins) {
+        this.coins = coins;
+    }
+
+    public Double getRating() {
+        return rating;
+    }
+
+    public void setRating(Double rating) {
+        this.rating = rating;
+    }
+
+    public String getProfilePicture() {
+        return profilePicture;
+    }
+
+    public void setProfilePicture(String profilePicture) {
+        this.profilePicture = profilePicture;
+    }
+
+    public String getDocument() {
+        return document;
+    }
+
+    public void setDocument(String document) {
+        this.document = document;
+    }
+
+    public Boolean getVerified() {
+        return verified;
+    }
+
+    public void setVerified(Boolean verified) {
+        this.verified = verified;
+    }
+
     @Override
     public String toString() {
         return "LoginResult{" +
-                 "email='" + email + '\'' +
+                "email='" + email + '\'' +
                 ", token='" + token + '\'' +
                 ", id='" + id + '\'' +
                 ", isAdmin=" + isAdmin +
@@ -123,13 +212,12 @@ public class LoginResult {
                 ", firstName='" + firstName + '\'' +
                 ", address='" + address + '\'' +
                 ", phone='" + phone + '\'' +
+                ", latAndLong='" + latAndLong + '\'' +
+                ", coins=" + coins +
+                ", rating=" + rating +
+                ", profilePicture='" + profilePicture + '\'' +
+                ", document='" + document + '\'' +
+                ", verified=" + verified +
                 '}';
-    }
-
-    public static HashMap<String, String> mapToLogin(String email, String password) {
-        return new HashMap<String, String>() {{
-            put("email", email);
-            put("password", password);
-        }};
     }
 }

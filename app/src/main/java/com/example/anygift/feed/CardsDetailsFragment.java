@@ -54,53 +54,7 @@ public class CardsDetailsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-//        Model.instance.getAllCategories(new Model.categoriesReturnListener() {
-//            @Override
-//            public void onComplete(List<Category> cts)
-//            {
-//                categoryList = new ArrayList<>(cts);
-//                System.out.println(categoryList);
-//            }
-//        });
-//
-//        Model.instance.getUserRetrofit("6252d5c4075b499f9d50bd8f", new Model.userReturnListener() {
-//            @Override
-//            public void onComplete(com.example.anygift.Retrofit.User user)
-//            {
-//                System.out.println(user);
-//            }
-//        });
-
-//        HashMap<String,Object> map = com.example.anygift.Retrofit.CoinTransaction.mapToAddCoinTransaction("625416d119c6d1dcb6a1e6b3","6252d5c4075b499f9d50bd8f",88888.0);
-//        Model.instance.addCoinTransaction(map, new Model.coinTransactionListener() {
-//            @Override
-//            public void onComplete(String message)
-//            {
-//                System.out.println(message);
-//            }
-//        });
-
-
-//        HashMap<String,Object> map= com.example.anygift.Retrofit.User.mapToAddUser("aviram321321","aloni32131",
-//                "bbbb@gmail.com","1234","jajaja","dsadsa","05050",false,"dsadsa");
-//        Model.instance.addUserRetrofit(map, new Model.userReturnListener() {
-//            @Override
-//            public void onComplete(com.example.anygift.Retrofit.User user)
-//            {
-//                System.out.println(user);
-//            }
-//        });
-
-//        HashMap<String,String> map = LoginResult.mapToLogin("bbbb@gmail.com","1234");
-//        Model.instance.login(map, new Model.userLoginListener() {
-//            @Override
-//            public void onComplete(LoginResult loginResult,String message) {
-//                //use this loginResult
-//                System.out.println(loginResult);
-//                Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
-//            }
-//        });
-//
+//        Testing testing = new Testing();
 
         view = inflater.inflate(R.layout.fragment_cards_details, container, false);
         //getActivity().setTitle("AnyGift - CardsDetails");

@@ -45,17 +45,20 @@ public class User {
     @SerializedName("document")
     @Expose
     private String document;
-    @SerializedName("verfied")
+    @SerializedName("verified")
     @Expose
     private Boolean verified;
     @SerializedName("latAndLong")
     @Expose
     private String latAndLong;
+    @SerializedName("profilePicture")
+    @Expose
+    private String profilePicture;
 
     public User() {
     }
 
-    public User(String id, String password, String email, String firstName, String lastName, String phone, String address, Boolean isAdmin, String createdAt, String lastUpdate, Integer coins, Integer rating, String document, Boolean verified, String latAndLong) {
+    public User(String id, String password, String email, String firstName, String lastName, String phone, String address, Boolean isAdmin, String createdAt, String lastUpdate, Integer coins, Integer rating, String document, Boolean verified, String latAndLong, String profilePicture) {
         this.id = id;
         this.password = password;
         this.email = email;
@@ -71,6 +74,7 @@ public class User {
         this.document = document;
         this.verified = verified;
         this.latAndLong = latAndLong;
+        this.profilePicture = profilePicture;
     }
 
     public String getId() {
@@ -185,6 +189,13 @@ public class User {
         this.latAndLong = latAndLong;
     }
 
+    public String getProfilePicture() {
+        return profilePicture;
+    }
+
+    public void setProfilePicture(String profilePicture) {
+        this.profilePicture = profilePicture;
+    }
 
     public Boolean getVerified() {
         return verified;
@@ -206,6 +217,7 @@ public class User {
                 ", address='" + address + '\'' +
                 ", latAndLong='" + latAndLong + '\'' +
                 ", isAdmin=" + isAdmin +
+                ", profilePicture=" + profilePicture +
                 ", createdAt='" + createdAt + '\'' +
                 ", lastUpdate='" + lastUpdate + '\'' +
                 ", coins=" + coins +
@@ -216,8 +228,7 @@ public class User {
     }
 
     public static HashMap<String, Object> mapToAddUser(String firstName, String lastName, String email,
-                                                       String password, String address, String latAndLong, String phone, boolean isAdmin,
-                                                       String profilePicture) {
+                                                       String password, String address, String latAndLong, String phone, boolean isAdmin) {
         return new HashMap<String, Object>() {{
             put("firstName", firstName);
             put("lastName", lastName);
@@ -227,7 +238,13 @@ public class User {
             put("latAndLong", latAndLong);
             put("phone", phone);
             put("isAdmin", isAdmin);
-            put("profilePicture", profilePicture);
         }};
     }
+
+    public static HashMap<String, Object> mapToUpdateUser(String user_id, HashMap<String, Object> hashMap) {
+        HashMap<String, Object> newMap = new HashMap<>(hashMap);
+        hashMap.put("id", user_id);
+        return hashMap;
+    }
+
 }

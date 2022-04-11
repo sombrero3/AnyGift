@@ -18,13 +18,6 @@ import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public interface RetrofitInterface {
-    //user
-    @POST("users/login")
-    Call<LoginResult> Login(@Body HashMap<String, String> map);
-
-    @PUT("users/{id}")
-    Call<String> editUser(@Body HashMap<String, String> map);
-
     @POST("users")
     Call<Void> userSignUp(@Body HashMap<String, String> map);
 
@@ -45,11 +38,20 @@ public interface RetrofitInterface {
     Call<GiftCard> editGiftCard(@Body HashMap<String, String> map);
 
 //    <----- Working ----->
+    @POST("cards")
+    Call<Card> addCard(@Body HashMap<String, Object> map);
+
+    @POST("users/login")
+    Call<LoginResult> Login(@Body HashMap<String, String> map);
+
     @GET("users/{id}")
     Call<com.example.anygift.Retrofit.User> getUser(@Path("id") String user_id);
 
     @POST("users")
     Call<com.example.anygift.Retrofit.User> addUser(@Body HashMap<String,Object> map);
+
+    @PUT("users/{id}") //can update everything besides email and password
+    Call<LoginResult> updateUser(@Path("id") String user_id, @Body HashMap<String, Object> map);
 
     @POST("coinTransactions")
     Call<Void> addCoinTransaction(@Body HashMap<String,Object> map);

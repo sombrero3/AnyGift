@@ -11,6 +11,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.anygift.MyApplication;
+import com.example.anygift.Retrofit.Card;
 import com.example.anygift.Retrofit.CardType;
 import com.example.anygift.Retrofit.Category;
 import com.example.anygift.Retrofit.CoinTransaction;
@@ -57,6 +58,9 @@ public class Model {
     public interface userReturnListener {
         void onComplete(com.example.anygift.Retrofit.User user);
     }
+    public interface cardReturnListener {
+        void onComplete(Card card);
+    }
 
     public interface cardTypesReturnListener {
         void onComplete(List<CardType> cts);
@@ -82,40 +86,8 @@ public class Model {
         modelRetrofit.login(map, listener);
     }
 
-    public void signOutRetrofit(HashMap<String, String> map, StringListener listener) {
-        modelRetrofit.signOut(map, listener);
-    }
-
-    public void signUpRetrofit(HashMap<String, String> map, StringListener listener) {
-        modelRetrofit.signUp(map, listener);
-    }
-
-    public void addGiftCardRetrofit(HashMap<String, String> map, StringListener listener) {
-        modelRetrofit.addGiftCard(map, listener);
-    }
-
-    public void getAllGiftCardsRetrofit(HashMap<String, String> map, StringListener listener) {
-        modelRetrofit.getAllGiftCards(map, listener);
-    }
-
-    public void getGiftCardByIdRetrofit(HashMap<String, String> map, StringListener listener) {
-        modelRetrofit.getGiftCardById(map, listener);
-    }
-
-    public void editGiftCardRetrofit(HashMap<String, String> map, StringListener listener) {
-        modelRetrofit.editGiftCard(map, listener);
-    }
-
-//    public void getByPriceGiftCardsRetrofit(HashMap<String, String> map, StringListener listener) {
-//        modelRetrofit.getByPriceGiftCards(map, listener);
-//    }
-
     public void getUserRetrofit(String user_id, userReturnListener listener) {
         modelRetrofit.getUser(user_id, listener);
-    }
-
-    public void editUserRetrofit(HashMap<String, String> map, StringListener listener) {
-        modelRetrofit.editUser(map, listener);
     }
 
     public void getAllCategories(categoriesReturnListener l) {
@@ -140,6 +112,16 @@ public class Model {
     public void addCoinTransaction(HashMap<String,Object> map, coinTransactionListener listener){
         modelRetrofit.addCoinTransaction(map, listener);
     }
+
+    public void updateUser(String user_id, HashMap<String,Object> map, userLoginListener listener){
+        modelRetrofit.updateUser(user_id,map, listener);
+    }
+
+    public void addCardRetrofit(HashMap<String,Object> map, cardReturnListener listener){
+        modelRetrofit.addCard(map, listener);
+    }
+
+
     //Firebase
     public enum GiftListLoadingState {
         loading,

@@ -1,7 +1,10 @@
 package com.example.anygift.model;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 
+import com.example.anygift.Retrofit.Card;
 import com.example.anygift.Retrofit.CardType;
 import com.example.anygift.Retrofit.Category;
 import com.example.anygift.Retrofit.CoinTransaction;
@@ -79,7 +82,6 @@ public class ModelRetrofit {
         });
     }
 
-
     public void getAllCardTypes(Model.cardTypesReturnListener listener) {
         Call<List<CardType>> call = retrofitInterface.getAllCardTypes();
         List<CardType> list = new ArrayList<>();
@@ -107,7 +109,6 @@ public class ModelRetrofit {
             }
         });
     }
-
 
     public List<Category> getAllCategories(Model.categoriesReturnListener listener) {
         Call<List<Category>> call = retrofitInterface.getAllCategories();
@@ -159,7 +160,6 @@ public class ModelRetrofit {
         });
     }
 
-
     public void getUserOutCome(String user_id, Model.outComeListener listener) {
 
         Call<Outcome> call = retrofitInterface.getUserOutcome(user_id);
@@ -182,7 +182,6 @@ public class ModelRetrofit {
             }
         });
     }
-
 
     public void getUser(String user_id, Model.userReturnListener listener) {
 
@@ -234,197 +233,51 @@ public class ModelRetrofit {
         });
     }
 
-    public void editUser(HashMap<String, String> map, Model.StringListener listener) {
-        Call<String> call = retrofitInterface.editUser(map);
-        call.enqueue(new Callback<String>() {
+    public void updateUser(String user_id, HashMap<String,Object> map, Model.userLoginListener listener) {
+        Call<LoginResult> call = retrofitInterface.updateUser(user_id, map);
+        call.enqueue(new Callback<LoginResult>() {
             @Override
-            public void onResponse(Call<String> call, Response<String> response) {
+            public void onResponse(Call<LoginResult> call, Response<LoginResult> response) {
                 if (response.code() == 200) {
-                    //Toast.makeText(getContext(), "Login to app", Toast.LENGTH_LONG).show();
-                    listener.onComplete("Done");
+                    LoginResult user = response.body();
+                    listener.onComplete(user, "User Updated");
 
                 } else if (response.code() == 400) {
-                    listener.onComplete("cant edit");
+                    // listener.onComplete("user exist");
                     //Toast.makeText(getContext(), "Cant Login To App Right Now....", Toast.LENGTH_LONG).show();
-
+                    listener.onComplete(null,"User Wasn't Managed to update");
                 }
             }
 
             @Override
-            public void onFailure(Call<String> call, Throwable t) {
-                listener.onComplete(t.getMessage());
+            public void onFailure(Call<LoginResult> call, Throwable t) {
+                System.out.println(t.getMessage());
+                listener.onComplete(null, "Very Bad");
             }
         });
-
     }
 
-    public void signOut(HashMap<String, String> map, Model.StringListener listener) {
-        Call<String> call = retrofitInterface.userSignout(map);
-        call.enqueue(new Callback<String>() {
+    public void addCard(HashMap<String,Object> map, Model.cardReturnListener listener){
+        Call<Card> call = retrofitInterface.addCard(map);
+        call.enqueue(new Callback<Card>() {
             @Override
-            public void onResponse(Call<String> call, Response<String> response) {
+            public void onResponse(@NonNull Call<Card> call, @NonNull Response<Card> response) {
                 if (response.code() == 200) {
-                    //Toast.makeText(getContext(), "Login to app", Toast.LENGTH_LONG).show();
-                    listener.onComplete("Done");
+                    Card card = response.body();
+                    listener.onComplete(card);
 
                 } else if (response.code() == 400) {
-                    listener.onComplete("cant exit");
-                    //Toast.makeText(getContext(), "Cant Login To App Right Now....", Toast.LENGTH_LONG).show();
-
+                    System.out.println(response.body());
+                    listener.onComplete(null);
                 }
             }
 
             @Override
-            public void onFailure(Call<String> call, Throwable t) {
-                listener.onComplete(t.getMessage());
+            public void onFailure(@NonNull Call<Card> call, @NonNull Throwable t) {
+                System.out.println(t.getMessage());
+                listener.onComplete(null);
             }
         });
-
     }
-
-    public void signUp(HashMap<String, String> map, Model.StringListener listener) {
-        Call<Void> call = retrofitInterface.userSignUp(map);
-        call.enqueue(new Callback<Void>() {
-            @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-                if (response.code() == 200) {
-                    //Toast.makeText(getContext(), "Login to app", Toast.LENGTH_LONG).show();
-                    listener.onComplete("Done");
-
-                } else if (response.code() == 400) {
-                    listener.onComplete("cant sign in");
-                    //Toast.makeText(getContext(), "Cant Login To App Right Now....", Toast.LENGTH_LONG).show();
-
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Void> call, Throwable t) {
-                listener.onComplete(t.getMessage());
-            }
-        });
-
-    }
-
-    public void getAllGiftCards(HashMap<String, String> map, Model.StringListener listener) {
-        Call<String> call = retrofitInterface.getAllGiftcards(map);
-        call.enqueue(new Callback<String>() {
-            @Override
-            public void onResponse(Call<String> call, Response<String> response) {
-                if (response.code() == 200) {
-                    //Toast.makeText(getContext(), "Login to app", Toast.LENGTH_LONG).show();
-                    listener.onComplete("Done");
-
-                } else if (response.code() == 400) {
-                    listener.onComplete("cant get the gift Cards");
-                    //Toast.makeText(getContext(), "Cant Login To App Right Now....", Toast.LENGTH_LONG).show();
-
-                }
-            }
-
-            @Override
-            public void onFailure(Call<String> call, Throwable t) {
-                listener.onComplete(t.getMessage());
-            }
-        });
-
-    }
-
-    public void addGiftCard(HashMap<String, String> map, Model.StringListener listener) {
-        Call<GiftCard> call = retrofitInterface.addGiftcard(map);
-        call.enqueue(new Callback<GiftCard>() {
-            @Override
-            public void onResponse(Call<GiftCard> call, Response<GiftCard> response) {
-                if (response.code() == 200) {
-                    //Toast.makeText(getContext(), "Login to app", Toast.LENGTH_LONG).show();
-                    listener.onComplete("Done");
-
-                } else if (response.code() == 400) {
-                    listener.onComplete("cant add gift cards");
-                    //Toast.makeText(getContext(), "Cant Login To App Right Now....", Toast.LENGTH_LONG).show();
-
-                }
-            }
-
-            @Override
-            public void onFailure(Call<GiftCard> call, Throwable t) {
-                listener.onComplete(t.getMessage());
-            }
-        });
-
-    }
-
-    public void getGiftCardById(HashMap<String, String> map, Model.StringListener listener) {
-        Call<GiftCard> call = retrofitInterface.getGiftcardById(map);
-        call.enqueue(new Callback<GiftCard>() {
-            @Override
-            public void onResponse(Call<GiftCard> call, Response<GiftCard> response) {
-                if (response.code() == 200) {
-                    //Toast.makeText(getContext(), "Login to app", Toast.LENGTH_LONG).show();
-                    listener.onComplete("Done");
-
-                } else if (response.code() == 400) {
-                    listener.onComplete("cant get the gift card");
-                    //Toast.makeText(getContext(), "Cant Login To App Right Now....", Toast.LENGTH_LONG).show();
-
-                }
-            }
-
-            @Override
-            public void onFailure(Call<GiftCard> call, Throwable t) {
-                listener.onComplete(t.getMessage());
-            }
-        });
-
-    }
-
-    public void editGiftCard(HashMap<String, String> map, Model.StringListener listener) {
-        Call<GiftCard> call = retrofitInterface.editGiftCard(map);
-        call.enqueue(new Callback<GiftCard>() {
-            @Override
-            public void onResponse(Call<GiftCard> call, Response<GiftCard> response) {
-                if (response.code() == 200) {
-                    //Toast.makeText(getContext(), "Login to app", Toast.LENGTH_LONG).show();
-                    listener.onComplete("Done");
-
-                } else if (response.code() == 400) {
-                    listener.onComplete("cant edit gift card");
-                    //Toast.makeText(getContext(), "Cant Login To App Right Now....", Toast.LENGTH_LONG).show();
-
-                }
-            }
-
-            @Override
-            public void onFailure(Call<GiftCard> call, Throwable t) {
-                listener.onComplete(t.getMessage());
-            }
-        });
-
-    }
-
-//    public void getByPriceGiftCards(HashMap<String, String> map, Model.StringListener listener) {
-//        Call<GiftCard> call = retrofitInterface.getByPriceGiftcards(map);
-//        call.enqueue(new Callback<GiftCard>() {
-//            @Override
-//            public void onResponse(Call<GiftCard> call, Response<GiftCard> response) {
-//                if (response.code() == 200) {
-//                    //Toast.makeText(getContext(), "Login to app", Toast.LENGTH_LONG).show();
-//                    listener.onComplete("Done");
-//
-//                } else if (response.code() == 400) {
-//                    listener.onComplete("cant get the gift Cards");
-//                    //Toast.makeText(getContext(), "Cant Login To App Right Now....", Toast.LENGTH_LONG).show();
-//
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<GiftCard> call, Throwable t) {
-//                listener.onComplete(t.getMessage());
-//            }
-//        });
-//
-//    }
-
 
 }
