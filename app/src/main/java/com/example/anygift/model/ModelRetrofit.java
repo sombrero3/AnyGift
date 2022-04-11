@@ -1,8 +1,11 @@
 package com.example.anygift.model;
 
+import com.example.anygift.Retrofit.CardType;
+import com.example.anygift.Retrofit.Category;
+import com.example.anygift.Retrofit.Income;
 import com.example.anygift.Retrofit.LoginResult;
+import com.example.anygift.Retrofit.Outcome;
 import com.example.anygift.Retrofit.RetrofitInterface;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -47,7 +50,7 @@ public class ModelRetrofit {
         });
     }
 
-    public List<CardType> getAllCardTypes(Model.cardTypesListener listener) {
+    public void getAllCardTypes(Model.cardTypesReturnListener listener) {
         Call<List<CardType>> call = retrofitInterface.getAllCardTypes();
         List<CardType> list = new ArrayList<>();
         call.enqueue(new Callback<List<CardType>>() {
@@ -56,13 +59,11 @@ public class ModelRetrofit {
 
                 if (response.code() == 200) {
                     if (response.body() != null) {
-                        for(int i=0; i<response.body().size(); i++){
-                            CardType ct = new CardType();
-                            ct.setId(response.body().get(i).getId());
-                            ct.setName(response.body().get(i).getName());
-                            ct.setCategory(response.body().get(i).getCategory());
+                        for (int i = 0; i < response.body().size(); i++) {
+                            CardType ct = new CardType(response.body().get(i).getName(), response.body().get(i).getCategories(), response.body().get(i).getId());
                             list.add(ct);
                         }
+                        listener.onComplete(list);
                     }
 
                 } else if (response.code() == 400) {
@@ -75,21 +76,23 @@ public class ModelRetrofit {
                 System.out.println("Very BAD");
             }
         });
-        return list;
     }
 
 
-    public void getAllCategories() {
+    public List<Category> getAllCategories(Model.categoriesReturnListener listener) {
         Call<List<Category>> call = retrofitInterface.getAllCategories();
+        List<Category> list = new ArrayList<>();
         call.enqueue(new Callback<List<Category>>() {
             @Override
             public void onResponse(Call<List<Category>> call, Response<List<Category>> response) {
-                if (response.code() == 200) {
-                    for(int i=0; i<response.body().size(); i++){
-                        System.out.println(response.body().get(i).getId());
-                        System.out.println(response.body().get(i).getName());
+                if (response.body() != null) {
+                    if (response.code() == 200) {
+                        for (int i = 0; i < response.body().size(); i++) {
+                            Category c = new Category(response.body().get(i).getName(), response.body().get(i).getId());
+                            list.add(c);
+                        }
+                        listener.onComplete(list);
                     }
-
                 } else if (response.code() == 400) {
                     System.out.println("THIS IS BAD");
                 }
@@ -100,17 +103,65 @@ public class ModelRetrofit {
                 System.out.println("Very BAD");
             }
         });
+        return list;
     }
 
-    public void getUser(HashMap<String, String> map, Model.userReturnListener listener) {
-        Call<User> call = retrofitInterface.getUser(map);
-        call.enqueue(new Callback<User>() {
+    public void getUserIncome(String user_id, Model.incomeListener listener) {
+
+        Call<Income> call = retrofitInterface.getUserIncome(user_id);
+        call.enqueue(new Callback<Income>() {
             @Override
-            public void onResponse(Call<User> call, Response<User> response) {
+            public void onResponse(Call<Income> call, Response<Income> response) {
                 if (response.code() == 200) {
-                    //Toast.makeText(getContext(), "Login to app", Toast.LENGTH_LONG).show();
-                    User user = new User();
-                    user.fromMap(response.body().toMapObject());
+                    Income income = response.body();
+                    listener.onComplete(income);
+
+                } else if (response.code() == 400) {
+                    listener.onComplete(null);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Income> call, Throwable t) {
+                System.out.println(t.getMessage());
+                listener.onComplete(null);
+            }
+        });
+    }
+
+
+    public void getUserOutCome(String user_id, Model.outComeListener listener) {
+
+        Call<Outcome> call = retrofitInterface.getUserOutcome(user_id);
+        call.enqueue(new Callback<Outcome>() {
+            @Override
+            public void onResponse(Call<Outcome> call, Response<Outcome> response) {
+                if (response.code() == 200) {
+                    Outcome outcome = response.body();
+                    listener.onComplete(outcome);
+
+                } else if (response.code() == 400) {
+                    listener.onComplete(null);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Outcome> call, Throwable t) {
+                System.out.println(t.getMessage());
+                listener.onComplete(null);
+            }
+        });
+    }
+
+
+    public void getUser(String user_id, Model.userReturnListener listener) {
+
+        Call<com.example.anygift.Retrofit.User> call = retrofitInterface.getUser(user_id);
+        call.enqueue(new Callback<com.example.anygift.Retrofit.User>() {
+            @Override
+            public void onResponse(Call<com.example.anygift.Retrofit.User> call, Response<com.example.anygift.Retrofit.User> response) {
+                if (response.code() == 200) {
+                    com.example.anygift.Retrofit.User user = response.body();
                     listener.onComplete(user);
 
                 } else if (response.code() == 400) {
@@ -121,7 +172,33 @@ public class ModelRetrofit {
             }
 
             @Override
-            public void onFailure(Call<User> call, Throwable t) {
+            public void onFailure(Call<com.example.anygift.Retrofit.User> call, Throwable t) {
+                System.out.println(t.getMessage());
+                listener.onComplete(null);
+            }
+        });
+    }
+
+    public void addUser(HashMap<String,Object> map, Model.userReturnListener listener) {
+
+        Call<com.example.anygift.Retrofit.User> call = retrofitInterface.addUser(map);
+        call.enqueue(new Callback<com.example.anygift.Retrofit.User>() {
+            @Override
+            public void onResponse(Call<com.example.anygift.Retrofit.User> call, Response<com.example.anygift.Retrofit.User> response) {
+                if (response.code() == 200) {
+                    com.example.anygift.Retrofit.User user = response.body();
+                    listener.onComplete(user);
+
+                } else if (response.code() == 400) {
+                    // listener.onComplete("user exist");
+                    //Toast.makeText(getContext(), "Cant Login To App Right Now....", Toast.LENGTH_LONG).show();
+                    listener.onComplete(null);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<com.example.anygift.Retrofit.User> call, Throwable t) {
+                System.out.println(t.getMessage());
                 listener.onComplete(null);
             }
         });
@@ -176,10 +253,10 @@ public class ModelRetrofit {
     }
 
     public void signUp(HashMap<String, String> map, Model.StringListener listener) {
-        Call<String> call = retrofitInterface.userSignUp(map);
-        call.enqueue(new Callback<String>() {
+        Call<Void> call = retrofitInterface.userSignUp(map);
+        call.enqueue(new Callback<Void>() {
             @Override
-            public void onResponse(Call<String> call, Response<String> response) {
+            public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.code() == 200) {
                     //Toast.makeText(getContext(), "Login to app", Toast.LENGTH_LONG).show();
                     listener.onComplete("Done");
@@ -192,7 +269,7 @@ public class ModelRetrofit {
             }
 
             @Override
-            public void onFailure(Call<String> call, Throwable t) {
+            public void onFailure(Call<Void> call, Throwable t) {
                 listener.onComplete(t.getMessage());
             }
         });
@@ -318,7 +395,6 @@ public class ModelRetrofit {
         });
 
     }
-
 
 
 }

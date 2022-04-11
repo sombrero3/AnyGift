@@ -16,7 +16,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.anygift.R;
-import com.example.anygift.model.CardType;
+import com.example.anygift.Retrofit.CardType;
+import com.example.anygift.Retrofit.Category;
 import com.example.anygift.model.GiftCard;
 import com.example.anygift.model.Model;
 import com.example.anygift.model.User;
@@ -25,6 +26,8 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class CardsDetailsFragment extends Fragment {
@@ -39,6 +42,7 @@ public class CardsDetailsFragment extends Fragment {
     private ImageView userImage;
     private ImageView giftCardImage;
     GiftCard giftCard = null;
+    List<Category> categoryList;
 
     public CardsDetailsFragment() {
 
@@ -47,12 +51,42 @@ public class CardsDetailsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        Model.instance.modelRetrofit.getAllCardTypes(new Model.cardTypesListener() {
+        Model.instance.getAllCategories(new Model.categoriesReturnListener() {
             @Override
-            public void onComplete(List<CardType> cts) {
+            public void onComplete(List<Category> cts)
+            {
+                categoryList = new ArrayList<>(cts);
+                System.out.println(categoryList);
+            }
+        });
+
+        Model.instance.getUserRetrofit("6252d5c4075b499f9d50bd8f", new Model.userReturnListener() {
+            @Override
+            public void onComplete(com.example.anygift.Retrofit.User user)
+            {
+                System.out.println(user);
+            }
+        });
+//        HashMap<String,Object> map = com.example.anygift.Retrofit.User.mapToAddUser("","",)
+//        Model.instance.addUserRetrofit(map, new Model.userReturnListener() {
+//            @Override
+//            public void onComplete(com.example.anygift.Retrofit.User user)
+//            {
+//                System.out.println(user);
+//            }
+//        });
+
+
+
+        Model.instance.getAllCardTypes(new Model.cardTypesReturnListener() {
+            @Override
+            public void onComplete(List<CardType> cts)
+            {
                 System.out.println(cts);
             }
         });
+
+
         view = inflater.inflate(R.layout.fragment_cards_details, container, false);
         //getActivity().setTitle("AnyGift - CardsDetails");
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);

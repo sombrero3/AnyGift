@@ -1,4 +1,4 @@
-package com.example.anygift.model;
+package com.example.anygift.Retrofit;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -10,6 +10,13 @@ public class Category {
     @SerializedName("id")
     @Expose
     private String id;
+    public Category(){
+
+    }
+    public Category(String name, String id) {
+        this.name = name;
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -27,4 +34,11 @@ public class Category {
         this.id = id;
     }
 
+    @Override
+    public String toString() {
+        return "Category{" +
+                "name='" + name + '\'' +
+                ", id='" + id + '\'' +
+                '}';
+    }
 }

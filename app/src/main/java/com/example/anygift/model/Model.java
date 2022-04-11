@@ -5,28 +5,22 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Looper;
-import android.view.Menu;
-import android.widget.Toast;
 
 import androidx.core.os.HandlerCompat;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.anygift.MyApplication;
-import com.example.anygift.Retrofit.LoginResult;
-import com.example.anygift.Retrofit.RetrofitInterface;
+import com.example.anygift.Retrofit.CardType;
+import com.example.anygift.Retrofit.Category;
+import com.example.anygift.Retrofit.Income;
+import com.example.anygift.Retrofit.Outcome;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Observable;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Model {
     public static final Model instance = new Model();
@@ -34,8 +28,9 @@ public class Model {
     public Executor executor = Executors.newFixedThreadPool(1);
     public Handler mainThread = HandlerCompat.createAsync(Looper.getMainLooper());
     public User signedUser;
-    public ModelRetrofit  modelRetrofit= new ModelRetrofit();
+    public ModelRetrofit modelRetrofit = new ModelRetrofit();
     public MutableLiveData<List<GiftCard>> giftCardsList = new MutableLiveData<>();
+    public List<Category> categories = new ArrayList<>();
 
     private Model() {
         signedUser = new User();
@@ -49,16 +44,29 @@ public class Model {
         return giftCardsList;
     }
 
-//Node- Retrofit
-    public interface StringListener{
-       void onComplete(String message);
-    }
-    public interface userReturnListener{
-        void onComplete(User user);
+    //Node- Retrofit
+    public interface StringListener {
+        void onComplete(String message);
     }
 
-    public interface cardTypesReturnListener{
+    public interface userReturnListener {
+        void onComplete(com.example.anygift.Retrofit.User user);
+    }
+
+    public interface cardTypesReturnListener {
         void onComplete(List<CardType> cts);
+    }
+
+    public interface categoriesReturnListener {
+        void onComplete(List<Category> cat);
+    }
+
+    public interface incomeListener {
+        void onComplete(Income income);
+    }
+
+    public interface outComeListener {
+        void onComplete(Outcome outcome);
     }
 
     public void login(HashMap<String, String> map, StringListener listener) {
@@ -76,35 +84,50 @@ public class Model {
     public void addGiftCardRetrofit(HashMap<String, String> map, StringListener listener) {
         modelRetrofit.addGiftCard(map, listener);
     }
+
     public void getAllGiftCardsRetrofit(HashMap<String, String> map, StringListener listener) {
         modelRetrofit.getAllGiftCards(map, listener);
     }
+
     public void getGiftCardByIdRetrofit(HashMap<String, String> map, StringListener listener) {
         modelRetrofit.getGiftCardById(map, listener);
     }
+
     public void editGiftCardRetrofit(HashMap<String, String> map, StringListener listener) {
         modelRetrofit.editGiftCard(map, listener);
     }
+
     public void getByPriceGiftCardsRetrofit(HashMap<String, String> map, StringListener listener) {
         modelRetrofit.getByPriceGiftCards(map, listener);
     }
 
-    public void getUserRetrofit(HashMap<String, String> map, userReturnListener listener) {
-        modelRetrofit.getUser(map, listener);
+    public void getUserRetrofit(String user_id, userReturnListener listener) {
+        modelRetrofit.getUser(user_id, listener);
     }
 
     public void editUserRetrofit(HashMap<String, String> map, StringListener listener) {
         modelRetrofit.editUser(map, listener);
     }
 
-    public void getAllCategories() {
-        modelRetrofit.getAllCategories();
-    }
-    public List<CardType> getAllCardTypes(cardTypesListener cts) {
-        return modelRetrofit.getAllCardTypes(cts);
+    public void getAllCategories(categoriesReturnListener l) {
+        modelRetrofit.getAllCategories(l);
     }
 
+    public void getAllCardTypes(cardTypesReturnListener l) {
+        modelRetrofit.getAllCardTypes(l);
+    }
 
+    public void getUserIncome(String user_id,incomeListener listener) {
+        modelRetrofit.getUserIncome(user_id, listener);
+    }
+
+    public void getUserOutCome(String user_id,outComeListener listener) {
+        modelRetrofit.getUserOutCome(user_id, listener);
+    }
+
+    public void addUserRetrofit(HashMap<String,Object> map, userReturnListener listener){
+        modelRetrofit.addUser(map, listener);
+    }
     //Firebase
     public enum GiftListLoadingState {
         loading,
@@ -120,12 +143,9 @@ public class Model {
     public interface GetAllGiftCardListener {
         void onComplete();
     }
-    public interface GetUserListener{
-        void onComplete(User user);
-    }
 
-    public interface cardTypesListener{
-        void onComplete(List<CardType> cts);
+    public interface GetUserListener {
+        void onComplete(User user);
     }
 
     public void refreshGiftCardsList() {
@@ -173,6 +193,7 @@ public class Model {
     public interface AddGiftCardListener {
         void onComplete();
     }
+
     public void addGiftCard(final GiftCard giftCard, final AddGiftCardListener listener) {
         modelFirebase.addGiftCard(giftCard, listener);
     }
@@ -208,7 +229,6 @@ public class Model {
     }
 
 
-
     public void uploadImage(Bitmap imageBmp, String name, final UploadImageListener listener) {
         modelFirebase.uploadImage(imageBmp, name, listener);
     }
@@ -220,7 +240,6 @@ public class Model {
     public void uploadUserImage(Bitmap imageBmp, String name, final UploadUserImageListener listener) {
         modelFirebase.uploadUserImage(imageBmp, name, listener);
     }
-
 
 
     public interface SaveImageListener {
@@ -260,9 +279,11 @@ public class Model {
     public boolean isSignedIn() {
         return modelFirebase.isSignedIn();
     }
+
     public User getSignedUser() {
         return signedUser;
     }
+
     public void setCurrentUser(GetUserListener listener) {
         modelFirebase.setCurrentUser(user -> {
             signedUser = user;
