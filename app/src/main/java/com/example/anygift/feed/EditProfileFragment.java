@@ -32,6 +32,7 @@ import android.widget.TextView;
 import com.example.anygift.R;
 import com.example.anygift.model.Model;
 import com.example.anygift.model.User;
+import com.squareup.picasso.Picasso;
 
 
 public class EditProfileFragment extends Fragment {
@@ -68,6 +69,11 @@ public class EditProfileFragment extends Fragment {
                 lastNameEt.setText((user != null) ? user.getLastName() : "null");
                 emailTv.setText((user != null) ? user.getEmail() : "null");
                 phoneEt.setText((user != null) ? user.getPhone() : "null");
+                if (user.getImageUrl() != null) {
+                    Picasso.get().load(user.getImageUrl()).into(profileImage);
+                    profileImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                    profileImage.setClipToOutline(true);
+                }
             }
         });
 
@@ -184,7 +190,7 @@ public class EditProfileFragment extends Fragment {
                 } else {
                     temp.setImageUrl(url);
                     Model.instance.addUser(temp, () -> {
-                        Navigation.findNavController(view).navigate(R.id.action_global_userProfileFragment);
+                        Model.instance.setCurrentUser(user -> Navigation.findNavController(view).navigate(R.id.action_global_myCardsFragment));
                     });
                 }
             }

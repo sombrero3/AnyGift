@@ -25,8 +25,6 @@ import com.example.anygift.model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
 
-import org.w3c.dom.Text;
-
 
 public class MyCardsFragment extends Fragment {
     View view;
@@ -34,7 +32,7 @@ public class MyCardsFragment extends Fragment {
     MyAdapter adapter;
     SwipeRefreshLayout swipeRefresh;
     TextView userName,userEmail,userPhone,userAddress,numOfSold,numOfBought,soldInCoins,boughtInCoins;
-    ImageView userImage;
+    ImageView userImage,editIv,addCardIv;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -47,7 +45,7 @@ public class MyCardsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_my_cards, container, false);
         //getActivity().setTitle("AnyGift - MyCards");
-        swipeRefresh = view.findViewById(R.id.MyGiftCardlist_swiperefresh);
+        swipeRefresh = view.findViewById(R.id.my_cards_swiperefresh);
         swipeRefresh.setOnRefreshListener(() -> Model.instance.refreshGiftCardsList());
         RecyclerView list = view.findViewById(R.id.MyCards_list_rv);
         list.setHasFixedSize(true);
@@ -76,6 +74,11 @@ public class MyCardsFragment extends Fragment {
         numOfBought = view.findViewById(R.id.my_cards_bought_counter_tv);
         soldInCoins = view.findViewById(R.id.my_cards_sold_in_coins_tv);
         boughtInCoins = view.findViewById(R.id.my_cards_bought_in_coins_tv);
+        editIv = view.findViewById(R.id.my_cards_edit_iv);
+        addCardIv = view.findViewById(R.id.my_cards_add_card_iv);
+
+        editIv.setOnClickListener(v -> Navigation.findNavController(v).navigate(MyCardsFragmentDirections.actionMyCardsFragmentToEditProfileFragment()));
+        addCardIv.setOnClickListener(v-> Navigation.findNavController(v).navigate(MyCardsFragmentDirections.actionGlobalAddCardFragment()));
 
         setUserUI();
         setHasOptionsMenu(true);
