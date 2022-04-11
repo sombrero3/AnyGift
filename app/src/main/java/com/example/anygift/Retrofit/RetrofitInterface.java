@@ -20,7 +20,7 @@ import retrofit2.http.Path;
 public interface RetrofitInterface {
     //user
     @POST("users/login")
-    Call<LoginResult> executeLogin(@Body HashMap<String, String> map);
+    Call<LoginResult> Login(@Body HashMap<String, String> map);
 
     @PUT("users/{id}")
     Call<String> editUser(@Body HashMap<String, String> map);
@@ -44,18 +44,15 @@ public interface RetrofitInterface {
     @PUT("cards/{id}")
     Call<GiftCard> editGiftCard(@Body HashMap<String, String> map);
 
-    @GET("giftcards/price/{pricemin=0}&{pricemax=1000000}")
-    Call<GiftCard> getByPriceGiftcards(@Body HashMap<String, String> map);
-
-    @GET("giftcards/store/{storeName}")
-    Call<GiftCard> getClosetStoreGiftcards(@Body HashMap<String, String> map);
-
 //    <----- Working ----->
     @GET("users/{id}")
     Call<com.example.anygift.Retrofit.User> getUser(@Path("id") String user_id);
 
-    @POST("users/")
+    @POST("users")
     Call<com.example.anygift.Retrofit.User> addUser(@Body HashMap<String,Object> map);
+
+    @POST("coinTransactions")
+    Call<Void> addCoinTransaction(@Body HashMap<String,Object> map);
 
     @GET("categories")
     Call<List<Category>> getAllCategories();
@@ -68,8 +65,5 @@ public interface RetrofitInterface {
     @GET("coinTransactions/outcome/{id}") // WORKS!
     Call<Outcome> getUserOutcome(@Path("id") String user_id);
 
-
-    //    @GET("users/{id}") // WORKS!
-//    Call<com.example.anygift.Retrofit.User> getUser(@Path("id") String user_id);}
 
 }

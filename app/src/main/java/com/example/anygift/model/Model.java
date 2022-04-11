@@ -13,7 +13,9 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.anygift.MyApplication;
 import com.example.anygift.Retrofit.CardType;
 import com.example.anygift.Retrofit.Category;
+import com.example.anygift.Retrofit.CoinTransaction;
 import com.example.anygift.Retrofit.Income;
+import com.example.anygift.Retrofit.LoginResult;
 import com.example.anygift.Retrofit.Outcome;
 
 import java.util.ArrayList;
@@ -49,6 +51,9 @@ public class Model {
         void onComplete(String message);
     }
 
+    public interface userLoginListener{
+        void onComplete(LoginResult loginResult,String message);
+    }
     public interface userReturnListener {
         void onComplete(com.example.anygift.Retrofit.User user);
     }
@@ -68,8 +73,12 @@ public class Model {
     public interface outComeListener {
         void onComplete(Outcome outcome);
     }
+    public interface coinTransactionListener {
+        void onComplete(String message);
+    }
 
-    public void login(HashMap<String, String> map, StringListener listener) {
+
+    public void login(HashMap<String, String> map, userLoginListener listener) {
         modelRetrofit.login(map, listener);
     }
 
@@ -97,9 +106,9 @@ public class Model {
         modelRetrofit.editGiftCard(map, listener);
     }
 
-    public void getByPriceGiftCardsRetrofit(HashMap<String, String> map, StringListener listener) {
-        modelRetrofit.getByPriceGiftCards(map, listener);
-    }
+//    public void getByPriceGiftCardsRetrofit(HashMap<String, String> map, StringListener listener) {
+//        modelRetrofit.getByPriceGiftCards(map, listener);
+//    }
 
     public void getUserRetrofit(String user_id, userReturnListener listener) {
         modelRetrofit.getUser(user_id, listener);
@@ -127,6 +136,9 @@ public class Model {
 
     public void addUserRetrofit(HashMap<String,Object> map, userReturnListener listener){
         modelRetrofit.addUser(map, listener);
+    }
+    public void addCoinTransaction(HashMap<String,Object> map, coinTransactionListener listener){
+        modelRetrofit.addCoinTransaction(map, listener);
     }
     //Firebase
     public enum GiftListLoadingState {

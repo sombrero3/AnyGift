@@ -84,12 +84,11 @@ public class LoginFragment extends Fragment {
 
     public void login(){
         //TODO Login using Retrofit
-        HashMap<String,String> map=new HashMap<>();
-        map.put("email",email.getText().toString());
-        map.put("password",password.getText().toString());
-        Model.instance.login(map, new Model.StringListener() {
+        HashMap<String,String> map = LoginResult.mapToLogin(email.getText().toString(),password.getText().toString());
+        Model.instance.login(map, new Model.userLoginListener() {
             @Override
-            public void onComplete(String message) {
+            public void onComplete(LoginResult loginResult,String message) {
+                //use this loginResult
                 Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
             }
         });
@@ -99,7 +98,7 @@ public class LoginFragment extends Fragment {
         email_user = email.getText().toString();
         password_user = password.getText().toString();
         if (TextUtils.isEmpty(email_user) && email_user.matches(emailPattern)) {
-            email.setError("please enter  correct   email");
+            email.setError("please enter correct email");
             return;
         }
         if (TextUtils.isEmpty(password_user)) {

@@ -1,7 +1,10 @@
 package com.example.anygift.model;
 
+import androidx.annotation.NonNull;
+
 import com.example.anygift.Retrofit.CardType;
 import com.example.anygift.Retrofit.Category;
+import com.example.anygift.Retrofit.CoinTransaction;
 import com.example.anygift.Retrofit.Income;
 import com.example.anygift.Retrofit.LoginResult;
 import com.example.anygift.Retrofit.Outcome;
@@ -27,17 +30,18 @@ public class ModelRetrofit {
                 .build().create(RetrofitInterface.class);
     }
 
-    public void login(HashMap<String, String> map, Model.StringListener listener) {
-        Call<LoginResult> call = retrofitInterface.executeLogin(map);
+    public void login(HashMap<String, String> map, Model.userLoginListener listener) {
+        Call<LoginResult> call = retrofitInterface.Login(map);
         call.enqueue(new Callback<LoginResult>() {
             @Override
             public void onResponse(Call<LoginResult> call, Response<LoginResult> response) {
                 if (response.code() == 200) {
+                    LoginResult loginResult = response.body();
                     //Toast.makeText(getContext(), "Login to app", Toast.LENGTH_LONG).show();
-                    listener.onComplete("Sign in complete");
+                    listener.onComplete(loginResult, "Logging Succeeded");
 
                 } else if (response.code() == 400) {
-                    listener.onComplete("user exist");
+                    listener.onComplete(null,"Login Failed");
                     //Toast.makeText(getContext(), "Cant Login To App Right Now....", Toast.LENGTH_LONG).show();
 
                 }
@@ -45,10 +49,36 @@ public class ModelRetrofit {
 
             @Override
             public void onFailure(Call<LoginResult> call, Throwable t) {
-                listener.onComplete(t.getMessage());
+                listener.onComplete(null,t.getMessage());
             }
         });
     }
+
+    public void addCoinTransaction(HashMap<String,Object> map, Model.coinTransactionListener listener) {
+
+        Call<Void> call = retrofitInterface.addCoinTransaction(map);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(@NonNull Call<Void> call, Response<Void> response) {
+                if (response.code() == 200) {
+                    listener.onComplete("coinTransaction Added");
+
+                } else if (response.code() == 400) {
+                    System.out.println(response.message());
+                    // listener.onComplete("user exist");
+                    //Toast.makeText(getContext(), "Cant Login To App Right Now....", Toast.LENGTH_LONG).show();
+                    listener.onComplete(null);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                System.out.println(t.getMessage());
+                listener.onComplete(null);
+            }
+        });
+    }
+
 
     public void getAllCardTypes(Model.cardTypesReturnListener listener) {
         Call<List<CardType>> call = retrofitInterface.getAllCardTypes();
@@ -372,29 +402,29 @@ public class ModelRetrofit {
 
     }
 
-    public void getByPriceGiftCards(HashMap<String, String> map, Model.StringListener listener) {
-        Call<GiftCard> call = retrofitInterface.getByPriceGiftcards(map);
-        call.enqueue(new Callback<GiftCard>() {
-            @Override
-            public void onResponse(Call<GiftCard> call, Response<GiftCard> response) {
-                if (response.code() == 200) {
-                    //Toast.makeText(getContext(), "Login to app", Toast.LENGTH_LONG).show();
-                    listener.onComplete("Done");
-
-                } else if (response.code() == 400) {
-                    listener.onComplete("cant get the gift Cards");
-                    //Toast.makeText(getContext(), "Cant Login To App Right Now....", Toast.LENGTH_LONG).show();
-
-                }
-            }
-
-            @Override
-            public void onFailure(Call<GiftCard> call, Throwable t) {
-                listener.onComplete(t.getMessage());
-            }
-        });
-
-    }
+//    public void getByPriceGiftCards(HashMap<String, String> map, Model.StringListener listener) {
+//        Call<GiftCard> call = retrofitInterface.getByPriceGiftcards(map);
+//        call.enqueue(new Callback<GiftCard>() {
+//            @Override
+//            public void onResponse(Call<GiftCard> call, Response<GiftCard> response) {
+//                if (response.code() == 200) {
+//                    //Toast.makeText(getContext(), "Login to app", Toast.LENGTH_LONG).show();
+//                    listener.onComplete("Done");
+//
+//                } else if (response.code() == 400) {
+//                    listener.onComplete("cant get the gift Cards");
+//                    //Toast.makeText(getContext(), "Cant Login To App Right Now....", Toast.LENGTH_LONG).show();
+//
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<GiftCard> call, Throwable t) {
+//                listener.onComplete(t.getMessage());
+//            }
+//        });
+//
+//    }
 
 
 }
