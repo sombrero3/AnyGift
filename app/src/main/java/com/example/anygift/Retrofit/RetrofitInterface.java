@@ -18,31 +18,15 @@ import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public interface RetrofitInterface {
-//    @POST("users")
-//    Call<Void> userSignUp(@Body HashMap<String, String> map);
-//
-//    @POST("users/signout")
-//    Call<String> userSignout(@Body HashMap<String, String> map);
-//
-//    //giftCards
-//    @GET("cards")
-//    Call<String> getAllGiftcards(@Body HashMap<String, String> map);
-//
-//    @POST("cards")
-//    Call<GiftCard> addGiftcard(@Body HashMap<String, String> map);
-//
-//    @GET("cards/{id}")
-//    Call<GiftCard> getGiftcardById(@Body HashMap<String, String> map);
-//
-//    @PUT("cards/{id}")
-//    Call<GiftCard> editGiftCard(@Body HashMap<String, String> map);
-
-//    <----- Working ----->
+    //    <----- Working ----->
     @POST("cards")
     Call<Card> addCard(@Body HashMap<String, Object> map);
 
     @GET("cards")
     Call<List<Card>> getAllCards();
+
+    @PUT("cards/{id}")
+    Call<Card> updateCard(@Path("id") String card_id, @Body HashMap<String, Object> map);
 
     @GET("cards/owner/{id}")
     Call<List<Card>> getAllUserCards(@Path("id") String user_id);

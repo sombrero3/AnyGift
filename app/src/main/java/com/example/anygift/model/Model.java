@@ -59,7 +59,7 @@ public class Model {
         void onComplete(com.example.anygift.Retrofit.User user);
     }
     public interface cardReturnListener {
-        void onComplete(Card card);
+        void onComplete(Card card, String message);
     }
 
     public interface cardsReturnListener {
@@ -132,6 +132,16 @@ public class Model {
         modelRetrofit.getAllUserCards(user_id, listener);
     }
 
+    public void updateCardRetrofit(String card_id,HashMap<String,Object> map, cardReturnListener listener){
+        modelRetrofit.updateCard(card_id, map, listener);
+    }
+
+    public void deleteCardRetrofit(String card_id, cardReturnListener listener){
+        HashMap<String,Object>map = new HashMap<>();
+        map.put("isDeleted",true);
+        HashMap<String,Object> m = Card.mapToUpdateCard(card_id,map);
+        updateCardRetrofit(card_id,m,listener);
+    }
 
     //Firebase
     public enum GiftListLoadingState {

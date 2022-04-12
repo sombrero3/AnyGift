@@ -6,6 +6,7 @@ import com.example.anygift.Retrofit.Card;
 import com.example.anygift.Retrofit.Category;
 import com.example.anygift.Retrofit.LoginResult;
 import com.example.anygift.model.Model;
+import com.example.anygift.model.Utils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -63,25 +64,31 @@ public class Testing {
 //        });
 
 
-    HashMap<String,String> map = LoginResult.mapToLogin("guy@gmail.com","1234");
-        Model.instance.login(map, new Model.userLoginListener() {
-            @Override
-            public void onComplete(LoginResult loginResult,String message) {
-                System.out.println(loginResult);
-            }
-        });
-
-//        HashMap<String,Object> map = Card.mapToAddCard(192.3,250.4,"123",
-//                "6228b3339269dcd5a1de4f8e","625479cfbb9153f74e6b2cfc",true,(long) 1681242321);
-//        Model.instance.addCardRetrofit(map, new Model.cardReturnListener() {
+//    HashMap<String,String> map = LoginResult.mapToLogin("guy@gmail.com","1234");
+//        Model.instance.login(map, new Model.userLoginListener() {
 //            @Override
-//            public void onComplete(Card card) {
-//                //use this loginResult
-//                System.out.println(card);
+//            public void onComplete(LoginResult loginResult,String message) {
+//                System.out.println(loginResult);
 //            }
 //        });
 
-//        Model.instance.getAllCards(new Model.cardsReturnListener() {
+//        HashMap<String,Object> m = new HashMap<>();
+//        m.put("cardNumber","4444");
+//        String card_id = "62548a8eb25ae8a7e9d2459d";
+//        HashMap<String,Object> map = Card.mapToUpdateCard(card_id,m);
+//
+//        Model.instance.updateCardRetrofit(card_id,map, new Model.cardReturnListener() {
+//            @Override
+//            public void onComplete(Card card,String message) {
+//                //use this loginResult
+//                System.out.println(card);
+//                System.out.println(message);
+//            }
+//        });
+        System.out.println(Utils.convertDateToLong("1","1","2023"));
+        System.out.println(Utils.ConvertLongToDate(1672531200000L));
+
+        //        Model.instance.getAllCards(new Model.cardsReturnListener() {
 //            @Override
 //            public void onComplete(List<Card> cards,String message) {
 //                System.out.println(message);
@@ -89,5 +96,19 @@ public class Testing {
 //            }
 //        });
 //
+
+//        HashMap<String,Object> m = new HashMap<>();
+//        m.put("cardNumber","4444");
+        String card_id = "62548a8eb25ae8a7e9d2459d";
+//        HashMap<String,Object> map = Card.mapToUpdateCard(card_id,m);
+
+        Model.instance.deleteCardRetrofit(card_id, new Model.cardReturnListener() {
+            @Override
+            public void onComplete(Card card,String message) {
+                System.out.println(card);
+                System.out.println(message);
+            }
+        });
+
     }
 }

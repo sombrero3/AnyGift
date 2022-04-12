@@ -262,18 +262,17 @@ public class ModelRetrofit {
             public void onResponse(@NonNull Call<Card> call, @NonNull Response<Card> response) {
                 if (response.code() == 200) {
                     Card card = response.body();
-                    listener.onComplete(card);
+                    listener.onComplete(card, "Add Card succeeded");
 
                 } else if (response.code() == 400) {
-                    System.out.println(response.body());
-                    listener.onComplete(null);
+                    listener.onComplete(null, "Add Card Failed");
                 }
             }
 
             @Override
             public void onFailure(@NonNull Call<Card> call, @NonNull Throwable t) {
                 System.out.println(t.getMessage());
-                listener.onComplete(null);
+                listener.onComplete(null, "Add Card Failed");
             }
         });
     }
@@ -332,5 +331,26 @@ public class ModelRetrofit {
         });
     }
 
+    public void updateCard(String card_id, HashMap<String,Object> map, Model.cardReturnListener listener){
+        Call<Card> call = retrofitInterface.updateCard(card_id,map);
+        call.enqueue(new Callback<Card>() {
+            @Override
+            public void onResponse(@NonNull Call<Card> call, @NonNull Response<Card> response) {
+                if (response.code() == 200) {
+                    Card card = response.body();
+                    listener.onComplete(card, "Update Card Succeeded");
+
+                } else if (response.code() == 400) {
+                    listener.onComplete(null, "Update Card Failed");
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<Card> call, @NonNull Throwable t) {
+                System.out.println(t.getMessage());
+                listener.onComplete(null, "Update Card Failed");
+            }
+        });
+    }
 
 }

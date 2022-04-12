@@ -243,8 +243,8 @@ public class User {
 
     public static HashMap<String, Object> mapToUpdateUser(String user_id, HashMap<String, Object> hashMap) {
         HashMap<String, Object> newMap = new HashMap<>(hashMap);
-        hashMap.put("id", user_id);
-        return hashMap;
+        newMap.put("id", user_id);
+        return newMap;
     }
 
 }
