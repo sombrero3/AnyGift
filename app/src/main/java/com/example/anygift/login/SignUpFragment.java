@@ -27,6 +27,7 @@ import androidx.room.PrimaryKey;
 
 import android.provider.Settings;
 import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -36,6 +37,7 @@ import android.widget.CheckBox;
 import android.widget.Toast;
 
 import com.example.anygift.R;
+import com.example.anygift.Retrofit.LoginResult;
 import com.example.anygift.feed.MainActivity;
 import com.example.anygift.model.Model;
 import com.example.anygift.model.User;
@@ -54,8 +56,12 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 
 import java.io.IOException;
+import java.time.Clock;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+
+import retrofit2.Retrofit;
 
 public class SignUpFragment extends Fragment {
 
@@ -110,10 +116,7 @@ public class SignUpFragment extends Fragment {
         terms = view.findViewById(R.id.SignUp_check_box);
         signIn_btn.setTypeface(Typeface.SANS_SERIF);
         continue_btn.setTypeface(Typeface.SANS_SERIF);
-        continue_btn.setOnClickListener(v -> {
-            save();
-            ///
-        });
+        continue_btn.setOnClickListener(v -> { addUser();});
         client = LocationServices.getFusedLocationProviderClient(getActivity());
         find_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -185,7 +188,7 @@ public class SignUpFragment extends Fragment {
     }
 
 
-    public void save() {
+    public void addUser() {
         continue_btn.setEnabled(false);
         signIn_btn.setEnabled(false);
         Fname = firstName.getText().toString();
@@ -217,7 +220,24 @@ public class SignUpFragment extends Fragment {
             return;
         }
 
-        mAuth.createUserWithEmailAndPassword(email_usr, password_usr).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        Snackbar mySnackbar = Snackbar.make(view, "signUp succeed, Nice to meet you :)", BaseTransientBottomBar.LENGTH_LONG);
+        mySnackbar.show();
+
+        HashMap<String,Object> map =LoginResult.mapToAddUser(Fname,Lname,email_usr,password_usr,address_usr,latAndLong,phone_usr,false);
+        Model.instance.addUserRetrofit(map, new Model.userReturnListener() {
+            @Override
+            public void onComplete(com.example.anygift.Retrofit.User user) {
+                if(user!=null) {
+                    Log.d("TAG",user.toString());
+                    Navigation.findNavController(view).navigate(R.id.action_signUpFragment_to_loginFragment);
+                }
+                if(user==null)
+                    Log.d("TAG", "error signing");
+            }
+        });
+
+
+       /* mAuth.createUserWithEmailAndPassword(email_usr, password_usr).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
@@ -226,11 +246,10 @@ public class SignUpFragment extends Fragment {
             }
         });
         user = new User(Fname, Lname, phone_usr, email_usr, address_usr, password_usr, latAndLong);
-        Snackbar mySnackbar = Snackbar.make(view, "signUp succeed, Nice to meet you :)", BaseTransientBottomBar.LENGTH_LONG);
-        mySnackbar.show();
         Model.instance.addUser(user, () -> {
+            Log.d("TAG", "signUp successful");
            goToFeedActivity();
-        });
+        });*/
     }
 
 

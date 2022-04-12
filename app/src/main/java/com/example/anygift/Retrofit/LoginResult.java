@@ -145,6 +145,20 @@ public class LoginResult {
         }};
     }
 
+    public static HashMap<String, Object> mapToAddUser(String firstName, String lastName, String email,
+                                                       String password, String address, String latAndLong, String phone, boolean isAdmin) {
+        return new HashMap<String, Object>() {{
+            put("firstName", firstName);
+            put("lastName", lastName);
+            put("email", email);
+            put("password", password);
+            put("address", address);
+            put("latAndLong", latAndLong);
+            put("phone", phone);
+            put("isAdmin", isAdmin);
+        }};
+    }
+
     public Boolean getAdmin() {
         return isAdmin;
     }
