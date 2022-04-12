@@ -112,6 +112,7 @@ public class SignUpFragment extends Fragment {
         continue_btn.setTypeface(Typeface.SANS_SERIF);
         continue_btn.setOnClickListener(v -> {
             save();
+            ///
         });
         client = LocationServices.getFusedLocationProviderClient(getActivity());
         find_btn.setOnClickListener(new View.OnClickListener() {
