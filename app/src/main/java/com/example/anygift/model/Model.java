@@ -62,6 +62,9 @@ public class Model {
         void onComplete(Card card);
     }
 
+    public interface cardsReturnListener {
+        void onComplete(List<Card> cards,String message);
+    }
     public interface cardTypesReturnListener {
         void onComplete(List<CardType> cts);
     }
@@ -119,6 +122,14 @@ public class Model {
 
     public void addCardRetrofit(HashMap<String,Object> map, cardReturnListener listener){
         modelRetrofit.addCard(map, listener);
+    }
+
+    public void getAllCards(cardsReturnListener listener){
+        modelRetrofit.getAllCards(listener);
+    }
+
+    public void getAllUserCards(String user_id, cardsReturnListener listener){
+        modelRetrofit.getAllUserCards(user_id, listener);
     }
 
 

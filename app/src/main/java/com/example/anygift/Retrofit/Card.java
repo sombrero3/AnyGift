@@ -139,17 +139,18 @@ public class Card {
     public void setIsDeleted(Boolean isDeleted) {
         this.isDeleted = isDeleted;
     }
-    public static HashMap<String,Object> mapToAddCard(Double price, Double value, String cardNumber,
-                                                      String cardType, String owner, boolean isForSale,
-                                                      Long expirationDate){
-        return new HashMap<String,Object>(){{
-            put("price",price);
-            put("value",value);
-            put("cardNumber",cardNumber);
-            put("cardType",cardType);
-            put("owner",owner);
-            put("isForSale",isForSale);
-            put("expirationDate",expirationDate);
+
+    public static HashMap<String, Object> mapToAddCard(Double price, Double value, String cardNumber,
+                                                       String cardType, String owner, boolean isForSale,
+                                                       Long expirationDate) {
+        return new HashMap<String, Object>() {{
+            put("price", price);
+            put("value", value);
+            put("cardNumber", cardNumber);
+            put("cardType", cardType);
+            put("owner", owner);
+            put("isForSale", isForSale);
+            put("expirationDate", expirationDate);
         }};
     }
 

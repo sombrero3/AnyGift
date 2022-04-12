@@ -1,7 +1,10 @@
 package com.example.anygift.feed;
 
+import android.view.Display;
+
 import com.example.anygift.Retrofit.Card;
 import com.example.anygift.Retrofit.Category;
+import com.example.anygift.Retrofit.LoginResult;
 import com.example.anygift.model.Model;
 
 import java.util.ArrayList;
@@ -60,26 +63,31 @@ public class Testing {
 //        });
 
 
-//    HashMap<String,String> map = LoginResult.mapToLogin("bbbb@gmail.com","1234");
-//        Model.instance.login(map, new Model.userLoginListener() {
-//            @Override
-//            public void onComplete(LoginResult loginResult,String message) {
-//                //use this loginResult
-//                System.out.println(loginResult);
-//                Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
-//            }
-//        });
-
-        HashMap<String,Object> map = Card.mapToAddCard(192.3,250.4,"123",
-                "6228b3339269dcd5a1de4f8e","625479cfbb9153f74e6b2cfc",true,(long) 1681242321);
-        Model.instance.addCardRetrofit(map, new Model.cardReturnListener() {
+    HashMap<String,String> map = LoginResult.mapToLogin("guy@gmail.com","1234");
+        Model.instance.login(map, new Model.userLoginListener() {
             @Override
-            public void onComplete(Card card) {
-                //use this loginResult
-                System.out.println(card);
+            public void onComplete(LoginResult loginResult,String message) {
+                System.out.println(loginResult);
             }
         });
 
+//        HashMap<String,Object> map = Card.mapToAddCard(192.3,250.4,"123",
+//                "6228b3339269dcd5a1de4f8e","625479cfbb9153f74e6b2cfc",true,(long) 1681242321);
+//        Model.instance.addCardRetrofit(map, new Model.cardReturnListener() {
+//            @Override
+//            public void onComplete(Card card) {
+//                //use this loginResult
+//                System.out.println(card);
+//            }
+//        });
 
+//        Model.instance.getAllCards(new Model.cardsReturnListener() {
+//            @Override
+//            public void onComplete(List<Card> cards,String message) {
+//                System.out.println(message);
+//                System.out.println(cards);
+//            }
+//        });
+//
     }
 }

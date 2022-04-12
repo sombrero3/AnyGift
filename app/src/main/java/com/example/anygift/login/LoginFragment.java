@@ -68,7 +68,7 @@ public class LoginFragment extends Fragment {
         forgotP_btn.setTypeface(Typeface.SANS_SERIF);
 
         signIn_btn.setOnClickListener(v -> {
-            //login();
+//            login();
             checkUser();
         });
 
@@ -89,7 +89,8 @@ public class LoginFragment extends Fragment {
             @Override
             public void onComplete(LoginResult loginResult,String message) {
                 //use this loginResult
-                Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+                if (loginResult == null)
+                    Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
             }
         });
     }

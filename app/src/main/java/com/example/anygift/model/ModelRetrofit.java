@@ -40,12 +40,10 @@ public class ModelRetrofit {
             public void onResponse(Call<LoginResult> call, Response<LoginResult> response) {
                 if (response.code() == 200) {
                     LoginResult loginResult = response.body();
-                    //Toast.makeText(getContext(), "Login to app", Toast.LENGTH_LONG).show();
                     listener.onComplete(loginResult, "Logging Succeeded");
 
                 } else if (response.code() == 400) {
                     listener.onComplete(null,"Login Failed");
-                    //Toast.makeText(getContext(), "Cant Login To App Right Now....", Toast.LENGTH_LONG).show();
 
                 }
             }
@@ -279,5 +277,60 @@ public class ModelRetrofit {
             }
         });
     }
+
+    public void getAllCards(Model.cardsReturnListener listener) {
+        Call<List<Card>> call = retrofitInterface.getAllCards();
+        List<Card> list = new ArrayList<>();
+        call.enqueue(new Callback<List<Card>>() {
+            @Override
+            public void onResponse(Call<List<Card>> call, Response<List<Card>> response) {
+
+                if (response.code() == 200) {
+                    if (response.body() != null) {
+                        list.addAll(response.body());
+                        listener.onComplete(list, "All Good");
+                    }
+
+                } else if (response.code() == 400) {
+                    listener.onComplete(null,"this is bad");
+                    System.out.println("THIS IS BAD");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Card>> call, Throwable t) {
+                listener.onComplete(null,t.getMessage());
+                System.out.println("Very BAD");
+            }
+        });
+    }
+
+    public void getAllUserCards(String user_id, Model.cardsReturnListener listener) {
+        Call<List<Card>> call = retrofitInterface.getAllUserCards(user_id);
+        List<Card> list = new ArrayList<>();
+        call.enqueue(new Callback<List<Card>>() {
+            @Override
+            public void onResponse(Call<List<Card>> call, Response<List<Card>> response) {
+
+                if (response.code() == 200) {
+                    if (response.body() != null) {
+                        list.addAll(response.body());
+                        listener.onComplete(list, "All Good");
+                    }
+
+                } else if (response.code() == 400) {
+                    listener.onComplete(null,"this is bad");
+                    System.out.println("THIS IS BAD");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Card>> call, Throwable t) {
+                listener.onComplete(null,t.getMessage());
+                System.out.println("Very BAD");
+            }
+        });
+    }
+
 
 }
