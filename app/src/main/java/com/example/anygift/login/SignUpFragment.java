@@ -87,7 +87,6 @@ public class SignUpFragment extends Fragment {
     Button signIn_btn;
     Button continue_btn, find_btn;
     CheckBox terms;
-
     String Fname;
     String Lname;
     String phone_usr;
