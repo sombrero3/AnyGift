@@ -39,23 +39,21 @@ import java.util.List;
 
 public class EditCardDetailsFragment extends Fragment {
     View view;
-    EditText value, buyAt;
-    TextView name;
-    Button save;
-    ImageView giftCardImage, userImage;
-    ImageButton uploadPicbtn;
-    UserViewModel userViewModel;
+    EditText  buyAt;
+    TextView nametv,valuetv;
+    Button save, mapBtn, editBtn,deleteBtn;
+    ImageView giftCardImage,uploadPicbtn;
     MyCardsViewModel viewModel;
     GiftCard giftCard = null;
+    /*
+    List<Category> categoryList;*/
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
         view = inflater.inflate(R.layout.fragment_edit_card_details, container, false);
         //getActivity().setTitle("AnyGift - EditCardDetails");
-        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
         String giftCardId = EditCardDetailsFragmentArgs.fromBundle(getArguments()).getGiftCardId();
         viewModel = new ViewModelProvider(this).get(MyCardsViewModel.class);
         List<GiftCard> list = viewModel.getList().getValue();
@@ -64,30 +62,18 @@ public class EditCardDetailsFragment extends Fragment {
             if (gc.getId().equals(giftCardId))
                 giftCard = gc;
         }
-        name = view.findViewById(R.id.editDetails_username_tv);
-        name.setText(String.valueOf("Belong to: " + giftCard.getOwnerEmail()));
+        nametv = view.findViewById(R.id.card_details_username_tv);
+        valuetv = view.findViewById(R.id.edit_card_card_value);
+        buyAt = view.findViewById(R.id.edit_card_card_asking_price);
+        uploadPicbtn = view.findViewById(R.id.edit_card_camera_bt);
+        save = view.findViewById(R.id.edit_card_upload_bt);
+        giftCardImage = view.findViewById(R.id.edit_card_giftCardImage);
 
-        value = view.findViewById(R.id.editDetails_giftvalue_tv);
-        value.setText(String.valueOf(giftCard.getValue()));
-
-        buyAt = view.findViewById(R.id.editDetails_buyatval_tv);
+        nametv.setText(String.valueOf("Belong to: " + giftCard.getOwnerEmail()));
+        valuetv.setText(String.valueOf(giftCard.getValue()));
         buyAt.setText(String.valueOf(giftCard.getWantedPrice()));
-
-        uploadPicbtn = view.findViewById(R.id.take_pic_IB);
-        save = view.findViewById(R.id.editDetails_save_btn);
-        giftCardImage = view.findViewById(R.id.editDetails_giftpic_iv);
         Picasso.get().load(giftCard.getGiftCardImageUrl()).into(giftCardImage);
-        userImage = view.findViewById(R.id.editDetails_picture_iv);
-        userViewModel.getUserById(giftCard.getOwnerEmail(), new UserViewModel.GetUserListener() {
-            @Override
-            public void onComplete(User user) {
-                if (user.getImageUrl() != null) {
-                    Picasso.get().load(user.getImageUrl()).into(userImage);
-                    userImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                    userImage.setClipToOutline(true);
-                }
-            }
-        });
+
         uploadPicbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -169,7 +155,7 @@ public class EditCardDetailsFragment extends Fragment {
                     displayFailedError();
                 } else {
                     giftCard.setGiftCardImageUrl(url);
-                    giftCard.setValue(Double.parseDouble(value.getText().toString()));
+                    giftCard.setValue(Double.parseDouble(valuetv.getText().toString()));
                     giftCard.setWantedPrice(Double.parseDouble(buyAt.getText().toString()));
                     Model.instance.addGiftCard(giftCard, () -> {
                         Navigation.findNavController(view).navigate(R.id.action_global_feedFragment);
