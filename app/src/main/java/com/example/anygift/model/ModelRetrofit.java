@@ -1,15 +1,17 @@
 package com.example.anygift.model;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.example.anygift.MyApplication;
 import com.example.anygift.Retrofit.Card;
 import com.example.anygift.Retrofit.CardType;
 import com.example.anygift.Retrofit.Category;
 import com.example.anygift.Retrofit.CoinTransaction;
 import com.example.anygift.Retrofit.Income;
-import com.example.anygift.Retrofit.LoginResult;
 import com.example.anygift.Retrofit.Outcome;
 import com.example.anygift.Retrofit.RetrofitInterface;
 import java.util.ArrayList;
@@ -32,32 +34,97 @@ public class ModelRetrofit {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build().create(RetrofitInterface.class);
     }
+    public String getUserId(){
+        return MyApplication.getContext().getSharedPreferences("userDetails", Context.MODE_PRIVATE).getString("id","");
+    }
+    public String getRefreshedToken(){
+        return MyApplication.getContext().getSharedPreferences("userDetails", Context.MODE_PRIVATE).getString("refreshToken","");
+    }
 
-    public void login(HashMap<String, String> map, Model.userLoginListener listener) {
-        Call<LoginResult> call = retrofitInterface.Login(map);
-        call.enqueue(new Callback<LoginResult>() {
+    public void refreshToken(Model.StringListener listener){
+        String token = getRefreshedToken();
+        String user_id = getUserId();
+        Call<com.example.anygift.Retrofit.User> call = retrofitInterface.refreshToken(user_id,token);
+        call.enqueue(new Callback<com.example.anygift.Retrofit.User>() {
             @Override
-            public void onResponse(Call<LoginResult> call, Response<LoginResult> response) {
+            public void onResponse(Call<com.example.anygift.Retrofit.User> call, Response<com.example.anygift.Retrofit.User> response) {
                 if (response.code() == 200) {
-                    LoginResult loginResult = response.body();
-                    listener.onComplete(loginResult, "Logging Succeeded");
+                    com.example.anygift.Retrofit.User user = response.body();
+                    SharedPreferences userDetails = MyApplication.getContext().getSharedPreferences("userDetails", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor edit = userDetails.edit();
+                    assert user != null;
+                    edit.putString("refreshToken","bearer " + user.getRefreshToken());
+                    edit.putString("id", user.getId());
+                    edit.apply();
+                    listener.onComplete("refreshToken Succeeded");
 
                 } else if (response.code() == 400) {
-                    listener.onComplete(null,"Login Failed");
-
+                    listener.onComplete("refreshToken Failed");
                 }
             }
 
             @Override
-            public void onFailure(Call<LoginResult> call, Throwable t) {
+            public void onFailure(Call<com.example.anygift.Retrofit.User> call, Throwable t) {
+                listener.onComplete(t.getMessage());
+            }
+        });
+    }
+
+    public void login(HashMap<String, Object> map, Model.userLoginListener listener) {
+        Call<com.example.anygift.Retrofit.User> call = retrofitInterface.Login(map);
+        call.enqueue(new Callback<com.example.anygift.Retrofit.User>() {
+            @Override
+            public void onResponse(Call<com.example.anygift.Retrofit.User> call, Response<com.example.anygift.Retrofit.User> response) {
+                if (response.code() == 200) {
+                    com.example.anygift.Retrofit.User user = response.body();
+                    SharedPreferences userDetails = MyApplication.getContext().getSharedPreferences("userDetails", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor edit = userDetails.edit();
+                    assert user != null;
+                    edit.putString("refreshToken","bearer " + user.getRefreshToken());
+                    edit.putString("id", user.getId());
+                    edit.apply();
+                    listener.onComplete(user, "Logging Succeeded");
+
+                } else if (response.code() == 400) {
+                    listener.onComplete(null,"Login Failed");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<com.example.anygift.Retrofit.User> call, Throwable t) {
                 listener.onComplete(null,t.getMessage());
             }
         });
     }
 
-    public void addCoinTransaction(HashMap<String,Object> map, Model.coinTransactionListener listener) {
+    public void logout(Model.StringListener listener) {
+        String token = getRefreshedToken();
+        String user_id = getUserId();
+        Call<Void> call = retrofitInterface.Logout(user_id, token);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.code() == 200) {
+                    listener.onComplete("Logout Succeeded");
 
-        Call<Void> call = retrofitInterface.addCoinTransaction(map);
+                } else if (response.code() == 400) {
+                    listener.onComplete("Logout Failed");
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                listener.onComplete(t.getMessage());
+            }
+        });
+    }
+
+
+
+    public void addCoinTransaction(HashMap<String,Object> map, Model.coinTransactionListener listener) {
+        String token = getRefreshedToken();
+        Call<Void> call = retrofitInterface.addCoinTransaction(map,token);
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(@NonNull Call<Void> call, Response<Void> response) {
@@ -80,8 +147,9 @@ public class ModelRetrofit {
         });
     }
 
-    public void getAllCardTypes(Model.cardTypesReturnListener listener) {
-        Call<List<CardType>> call = retrofitInterface.getAllCardTypes();
+    public void getAllCardTypes(Model.cardTypesReturnListener listener) { // done
+        String token = getRefreshedToken();
+        Call<List<CardType>> call = retrofitInterface.getAllCardTypes(token);
         List<CardType> list = new ArrayList<>();
         call.enqueue(new Callback<List<CardType>>() {
             @Override
@@ -97,19 +165,22 @@ public class ModelRetrofit {
                     }
 
                 } else if (response.code() == 400) {
+                    listener.onComplete(null);
                     System.out.println("THIS IS BAD");
                 }
             }
 
             @Override
             public void onFailure(Call<List<CardType>> call, Throwable t) {
+                listener.onComplete(null);
                 System.out.println("Very BAD");
             }
         });
     }
 
     public List<Category> getAllCategories(Model.categoriesReturnListener listener) {
-        Call<List<Category>> call = retrofitInterface.getAllCategories();
+        String token = getRefreshedToken();
+        Call<List<Category>> call = retrofitInterface.getAllCategories(token);
         List<Category> list = new ArrayList<>();
         call.enqueue(new Callback<List<Category>>() {
             @Override
@@ -135,9 +206,10 @@ public class ModelRetrofit {
         return list;
     }
 
-    public void getUserIncome(String user_id, Model.incomeListener listener) {
-
-        Call<Income> call = retrofitInterface.getUserIncome(user_id);
+    public void getUserIncome(Model.incomeListener listener) {
+        String token = getRefreshedToken();
+        String user_id = getUserId();
+        Call<Income> call = retrofitInterface.getUserIncome(user_id,token);
         call.enqueue(new Callback<Income>() {
             @Override
             public void onResponse(Call<Income> call, Response<Income> response) {
@@ -158,9 +230,10 @@ public class ModelRetrofit {
         });
     }
 
-    public void getUserOutCome(String user_id, Model.outComeListener listener) {
-
-        Call<Outcome> call = retrofitInterface.getUserOutcome(user_id);
+    public void getUserOutCome(Model.outComeListener listener) {
+        String token = getRefreshedToken();
+        String user_id = getUserId();
+        Call<Outcome> call = retrofitInterface.getUserOutcome(user_id,token);
         call.enqueue(new Callback<Outcome>() {
             @Override
             public void onResponse(Call<Outcome> call, Response<Outcome> response) {
@@ -182,8 +255,8 @@ public class ModelRetrofit {
     }
 
     public void getUser(String user_id, Model.userReturnListener listener) {
-
-        Call<com.example.anygift.Retrofit.User> call = retrofitInterface.getUser(user_id);
+        String token = getRefreshedToken();
+        Call<com.example.anygift.Retrofit.User> call = retrofitInterface.getUser(user_id,token);
         call.enqueue(new Callback<com.example.anygift.Retrofit.User>() {
             @Override
             public void onResponse(Call<com.example.anygift.Retrofit.User> call, Response<com.example.anygift.Retrofit.User> response) {
@@ -192,8 +265,6 @@ public class ModelRetrofit {
                     listener.onComplete(user);
 
                 } else if (response.code() == 400) {
-                    // listener.onComplete("user exist");
-                    //Toast.makeText(getContext(), "Cant Login To App Right Now....", Toast.LENGTH_LONG).show();
                     listener.onComplete(null);
                 }
             }
@@ -217,8 +288,6 @@ public class ModelRetrofit {
                     listener.onComplete(user);
 
                 } else if (response.code() == 400) {
-                    // listener.onComplete("user exist");
-                    //Toast.makeText(getContext(), "Cant Login To App Right Now....", Toast.LENGTH_LONG).show();
                     listener.onComplete(null);
                 }
             }
@@ -231,24 +300,24 @@ public class ModelRetrofit {
         });
     }
 
-    public void updateUser(String user_id, HashMap<String,Object> map, Model.userLoginListener listener) {
-        Call<LoginResult> call = retrofitInterface.updateUser(user_id, map);
-        call.enqueue(new Callback<LoginResult>() {
+    public void updateUser(HashMap<String,Object> map, Model.userLoginListener listener) {
+        String user_id = getUserId();
+        String token = getRefreshedToken();
+        Call<com.example.anygift.Retrofit.User> call = retrofitInterface.updateUser(user_id,map,token);
+        call.enqueue(new Callback<com.example.anygift.Retrofit.User>() {
             @Override
-            public void onResponse(Call<LoginResult> call, Response<LoginResult> response) {
+            public void onResponse(Call<com.example.anygift.Retrofit.User> call, Response<com.example.anygift.Retrofit.User> response) {
                 if (response.code() == 200) {
-                    LoginResult user = response.body();
+                    com.example.anygift.Retrofit.User user = response.body();
                     listener.onComplete(user, "User Updated");
 
                 } else if (response.code() == 400) {
-                    // listener.onComplete("user exist");
-                    //Toast.makeText(getContext(), "Cant Login To App Right Now....", Toast.LENGTH_LONG).show();
                     listener.onComplete(null,"User Wasn't Managed to update");
                 }
             }
 
             @Override
-            public void onFailure(Call<LoginResult> call, Throwable t) {
+            public void onFailure(Call<com.example.anygift.Retrofit.User> call, Throwable t) {
                 System.out.println(t.getMessage());
                 listener.onComplete(null, "Very Bad");
             }
@@ -256,7 +325,8 @@ public class ModelRetrofit {
     }
 
     public void addCard(HashMap<String,Object> map, Model.cardReturnListener listener){
-        Call<Card> call = retrofitInterface.addCard(map);
+        String token = getRefreshedToken();
+        Call<Card> call = retrofitInterface.addCard(map,token);
         call.enqueue(new Callback<Card>() {
             @Override
             public void onResponse(@NonNull Call<Card> call, @NonNull Response<Card> response) {
@@ -277,8 +347,9 @@ public class ModelRetrofit {
         });
     }
 
-    public void getAllCards(Model.cardsReturnListener listener) {
-        Call<List<Card>> call = retrofitInterface.getAllCards();
+    public void getAllCards(Model.cardsReturnListener listener) { //done
+        String token = MyApplication.getContext().getSharedPreferences("userDetails", Context.MODE_PRIVATE).getString("refreshToken","");
+        Call<List<Card>> call = retrofitInterface.getAllCards(token);
         List<Card> list = new ArrayList<>();
         call.enqueue(new Callback<List<Card>>() {
             @Override
@@ -294,6 +365,10 @@ public class ModelRetrofit {
                     listener.onComplete(null,"this is bad");
                     System.out.println("THIS IS BAD");
                 }
+                else if (response.code() == 401) {
+                    listener.onComplete(null,"invalid token");
+                    System.out.println("THIS IS BAD");
+                }
             }
 
             @Override
@@ -304,8 +379,10 @@ public class ModelRetrofit {
         });
     }
 
-    public void getAllUserCards(String user_id, Model.cardsReturnListener listener) {
-        Call<List<Card>> call = retrofitInterface.getAllUserCards(user_id);
+    public void getAllUserCards(Model.cardsReturnListener listener) { //done
+        String user_id = getUserId();
+        String token = getRefreshedToken();
+        Call<List<Card>> call = retrofitInterface.getAllUserCards(user_id,token);
         List<Card> list = new ArrayList<>();
         call.enqueue(new Callback<List<Card>>() {
             @Override
@@ -332,7 +409,8 @@ public class ModelRetrofit {
     }
 
     public void updateCard(String card_id, HashMap<String,Object> map, Model.cardReturnListener listener){
-        Call<Card> call = retrofitInterface.updateCard(card_id,map);
+        String token = getRefreshedToken();
+        Call<Card> call = retrofitInterface.updateCard(card_id,map,token);
         call.enqueue(new Callback<Card>() {
             @Override
             public void onResponse(@NonNull Call<Card> call, @NonNull Response<Card> response) {

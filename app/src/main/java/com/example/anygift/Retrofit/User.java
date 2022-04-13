@@ -6,6 +6,12 @@ import com.google.gson.annotations.SerializedName;
 import java.util.HashMap;
 
 public class User {
+    @SerializedName("accessToken")
+    @Expose
+    private String accessToken;
+    @SerializedName("refreshToken")
+    @Expose
+    private String refreshToken;
     @SerializedName("id")
     @Expose
     private String id;
@@ -75,6 +81,22 @@ public class User {
         this.verified = verified;
         this.latAndLong = latAndLong;
         this.profilePicture = profilePicture;
+    }
+
+    public String getRefreshToken() {
+        return refreshToken;
+    }
+
+    public void setRefreshToken(String refreshToken) {
+        this.refreshToken = refreshToken;
+    }
+
+    public String getAccessToken() {
+        return accessToken;
+    }
+
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
     }
 
     public String getId() {
@@ -205,28 +227,6 @@ public class User {
         this.verified = verified;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id='" + id + '\'' +
-                ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", phone='" + phone + '\'' +
-                ", address='" + address + '\'' +
-                ", latAndLong='" + latAndLong + '\'' +
-                ", isAdmin=" + isAdmin +
-                ", profilePicture=" + profilePicture +
-                ", createdAt='" + createdAt + '\'' +
-                ", lastUpdate='" + lastUpdate + '\'' +
-                ", coins=" + coins +
-                ", rating=" + rating +
-                ", document='" + document + '\'' +
-                ", verified=" + verified +
-                '}';
-    }
-
     public static HashMap<String, Object> mapToAddUser(String firstName, String lastName, String email,
                                                        String password, String address, String latAndLong, String phone, boolean isAdmin) {
         return new HashMap<String, Object>() {{
@@ -241,10 +241,41 @@ public class User {
         }};
     }
 
+    public static HashMap<String, Object> mapToLogin(String email, String password) {
+        return new HashMap<String, Object>() {{
+            put("email", email);
+            put("password", password);
+        }};
+    }
+
+
     public static HashMap<String, Object> mapToUpdateUser(String user_id, HashMap<String, Object> hashMap) {
         HashMap<String, Object> newMap = new HashMap<>(hashMap);
         newMap.put("id", user_id);
         return newMap;
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "accessToken='" + accessToken + '\'' +
+                ", refreshToken='" + refreshToken + '\'' +
+                ", id='" + id + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", phone='" + phone + '\'' +
+                ", address='" + address + '\'' +
+                ", isAdmin=" + isAdmin +
+                ", createdAt='" + createdAt + '\'' +
+                ", lastUpdate='" + lastUpdate + '\'' +
+                ", coins=" + coins +
+                ", rating=" + rating +
+                ", document='" + document + '\'' +
+                ", verified=" + verified +
+                ", latAndLong='" + latAndLong + '\'' +
+                ", profilePicture='" + profilePicture + '\'' +
+                '}';
+    }
 }

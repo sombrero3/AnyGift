@@ -16,7 +16,6 @@ import com.example.anygift.Retrofit.CardType;
 import com.example.anygift.Retrofit.Category;
 import com.example.anygift.Retrofit.CoinTransaction;
 import com.example.anygift.Retrofit.Income;
-import com.example.anygift.Retrofit.LoginResult;
 import com.example.anygift.Retrofit.Outcome;
 
 import java.util.ArrayList;
@@ -52,19 +51,22 @@ public class Model {
         void onComplete(String message);
     }
 
-    public interface userLoginListener{
-        void onComplete(LoginResult loginResult,String message);
+    public interface userLoginListener {
+        void onComplete(com.example.anygift.Retrofit.User user, String message);
     }
+
     public interface userReturnListener {
         void onComplete(com.example.anygift.Retrofit.User user);
     }
+
     public interface cardReturnListener {
         void onComplete(Card card, String message);
     }
 
     public interface cardsReturnListener {
-        void onComplete(List<Card> cards,String message);
+        void onComplete(List<Card> cards, String message);
     }
+
     public interface cardTypesReturnListener {
         void onComplete(List<CardType> cts);
     }
@@ -80,68 +82,121 @@ public class Model {
     public interface outComeListener {
         void onComplete(Outcome outcome);
     }
+
     public interface coinTransactionListener {
         void onComplete(String message);
     }
 
 
-    public void login(HashMap<String, String> map, userLoginListener listener) {
+    //NO AUTHENTICAION
+    public void login(HashMap<String, Object> map, userLoginListener listener) {
         modelRetrofit.login(map, listener);
     }
 
+    public void logout(StringListener listener) {
+        modelRetrofit.refreshToken(message -> {
+            System.out.println(message);
+            modelRetrofit.logout(listener);
+        });
+    }
+
     public void getUserRetrofit(String user_id, userReturnListener listener) {
-        modelRetrofit.getUser(user_id, listener);
+        modelRetrofit.refreshToken(message -> {
+            System.out.println(message);
+            modelRetrofit.getUser(user_id, listener);
+        });
     }
 
     public void getAllCategories(categoriesReturnListener l) {
-        modelRetrofit.getAllCategories(l);
+        modelRetrofit.refreshToken(message -> {
+            System.out.println(message);
+            modelRetrofit.getAllCategories(l);
+        });
     }
 
     public void getAllCardTypes(cardTypesReturnListener l) {
-        modelRetrofit.getAllCardTypes(l);
+        modelRetrofit.refreshToken(message -> {
+            System.out.println(message);
+            modelRetrofit.getAllCardTypes(l);
+        });
     }
 
-    public void getUserIncome(String user_id,incomeListener listener) {
-        modelRetrofit.getUserIncome(user_id, listener);
+    public void getUserIncome(incomeListener listener) {
+        modelRetrofit.refreshToken(message -> {
+            System.out.println(message);
+            modelRetrofit.getUserIncome(listener);
+        });
     }
 
-    public void getUserOutCome(String user_id,outComeListener listener) {
-        modelRetrofit.getUserOutCome(user_id, listener);
+    public void getUserOutCome(outComeListener listener) {
+        modelRetrofit.refreshToken(message -> {
+            System.out.println(message);
+
+            modelRetrofit.getUserOutCome(listener);
+        });
     }
 
-    public void addUserRetrofit(HashMap<String,Object> map, userReturnListener listener){
+    //NO AUTHENTICAION
+    public void addUserRetrofit(HashMap<String, Object> map, userReturnListener listener) {
         modelRetrofit.addUser(map, listener);
     }
-    public void addCoinTransaction(HashMap<String,Object> map, coinTransactionListener listener){
-        modelRetrofit.addCoinTransaction(map, listener);
+
+    public void addCoinTransaction(HashMap<String, Object> map, coinTransactionListener listener) {
+        modelRetrofit.refreshToken(message -> {
+            System.out.println(message);
+            modelRetrofit.addCoinTransaction(map, listener);
+        });
     }
 
-    public void updateUser(String user_id, HashMap<String,Object> map, userLoginListener listener){
-        modelRetrofit.updateUser(user_id,map, listener);
+    public void updateUser(HashMap<String, Object> map, userLoginListener listener) {
+        modelRetrofit.refreshToken(message -> {
+            System.out.println(message);
+            modelRetrofit.updateUser(map, listener);
+        });
     }
 
-    public void addCardRetrofit(HashMap<String,Object> map, cardReturnListener listener){
-        modelRetrofit.addCard(map, listener);
+    public void addCardRetrofit(HashMap<String, Object> map, cardReturnListener listener) {
+        modelRetrofit.refreshToken(message -> {
+            System.out.println(message);
+            modelRetrofit.addCard(map, listener);
+        });
     }
 
-    public void getAllCards(cardsReturnListener listener){
-        modelRetrofit.getAllCards(listener);
+    public void getAllCards(cardsReturnListener listener) {
+        modelRetrofit.refreshToken(message -> {
+            System.out.println(message);
+            modelRetrofit.getAllCards(listener);
+        });
     }
 
-    public void getAllUserCards(String user_id, cardsReturnListener listener){
-        modelRetrofit.getAllUserCards(user_id, listener);
+    public void getAllUserCards(cardsReturnListener listener) {
+        modelRetrofit.refreshToken(message -> {
+            System.out.println(message);
+            modelRetrofit.getAllUserCards(listener);
+        });
     }
 
-    public void updateCardRetrofit(String card_id,HashMap<String,Object> map, cardReturnListener listener){
-        modelRetrofit.updateCard(card_id, map, listener);
+    public void updateCardRetrofit(String card_id, HashMap<String, Object> map, cardReturnListener listener) {
+        modelRetrofit.refreshToken(message -> {
+            System.out.println(message);
+            modelRetrofit.updateCard(card_id, map, listener);
+        });
     }
 
-    public void deleteCardRetrofit(String card_id, cardReturnListener listener){
-        HashMap<String,Object>map = new HashMap<>();
-        map.put("isDeleted",true);
-        HashMap<String,Object> m = Card.mapToUpdateCard(card_id,map);
-        updateCardRetrofit(card_id,m,listener);
+    public void deleteCardRetrofit(String card_id, cardReturnListener listener) {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("isDeleted", true);
+        HashMap<String, Object> m = Card.mapToUpdateCard(card_id, map);
+        modelRetrofit.refreshToken(message -> {
+            System.out.println(message);
+            updateCardRetrofit(card_id, m, listener);
+        });
     }
+
+//    public void addCoinsToUser(String user_id, double coinsToAdd, userReturnListener listener) {
+//        HashMap<String, Object> map = new HashMap<>();
+//        map.put("isDeleted", true);
+//    }
 
     //Firebase
     public enum GiftListLoadingState {

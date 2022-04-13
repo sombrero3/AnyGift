@@ -23,7 +23,6 @@ import android.widget.Toast;
 
 import com.example.anygift.R;
 import com.example.anygift.feed.MainActivity;
-import com.example.anygift.Retrofit.LoginResult;
 import com.example.anygift.Retrofit.RetrofitInterface;
 import com.example.anygift.model.Model;
 import com.example.anygift.model.ModelFirebase;
@@ -84,12 +83,12 @@ public class LoginFragment extends Fragment {
 
     public void login(){
         //TODO Login using Retrofit
-        HashMap<String,String> map = LoginResult.mapToLogin(email.getText().toString(),password.getText().toString());
+        HashMap<String,Object> map = com.example.anygift.Retrofit.User.mapToLogin(email.getText().toString(),password.getText().toString());
         Model.instance.login(map, new Model.userLoginListener() {
             @Override
-            public void onComplete(LoginResult loginResult,String message) {
+            public void onComplete(com.example.anygift.Retrofit.User user,String message) {
                 //use this loginResult
-                if (loginResult == null)
+                if (user == null)
                     Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
             }
         });

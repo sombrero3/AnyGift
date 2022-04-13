@@ -20,7 +20,6 @@ import com.example.anygift.R;
 import com.example.anygift.Retrofit.CardType;
 import com.example.anygift.Retrofit.Category;
 import com.example.anygift.Retrofit.CoinTransaction;
-import com.example.anygift.Retrofit.LoginResult;
 import com.example.anygift.model.GiftCard;
 import com.example.anygift.model.Model;
 import com.example.anygift.model.User;
