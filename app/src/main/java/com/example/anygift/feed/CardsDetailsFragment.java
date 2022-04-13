@@ -53,7 +53,7 @@ public class CardsDetailsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-//        Testing testing = new Testing();
+        Testing testing = new Testing();
 
         view = inflater.inflate(R.layout.fragment_cards_details, container, false);
         //getActivity().setTitle("AnyGift - CardsDetails");

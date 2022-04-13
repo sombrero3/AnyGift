@@ -2,7 +2,6 @@ package com.example.anygift.model;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -10,7 +9,6 @@ import com.example.anygift.MyApplication;
 import com.example.anygift.Retrofit.Card;
 import com.example.anygift.Retrofit.CardType;
 import com.example.anygift.Retrofit.Category;
-import com.example.anygift.Retrofit.CoinTransaction;
 import com.example.anygift.Retrofit.Income;
 import com.example.anygift.Retrofit.Outcome;
 import com.example.anygift.Retrofit.RetrofitInterface;
@@ -37,12 +35,18 @@ public class ModelRetrofit {
     public String getUserId(){
         return MyApplication.getContext().getSharedPreferences("userDetails", Context.MODE_PRIVATE).getString("id","");
     }
-    public String getRefreshedToken(){
+
+    public String getAccessToken(){
+        return MyApplication.getContext().getSharedPreferences("userDetails", Context.MODE_PRIVATE).getString("accessToken","");
+    }
+
+    public String getRefreshToken(){
         return MyApplication.getContext().getSharedPreferences("userDetails", Context.MODE_PRIVATE).getString("refreshToken","");
     }
 
+
     public void refreshToken(Model.StringListener listener){
-        String token = getRefreshedToken();
+        String token = getRefreshToken();
         String user_id = getUserId();
         Call<com.example.anygift.Retrofit.User> call = retrofitInterface.refreshToken(user_id,token);
         call.enqueue(new Callback<com.example.anygift.Retrofit.User>() {
@@ -54,6 +58,7 @@ public class ModelRetrofit {
                     SharedPreferences.Editor edit = userDetails.edit();
                     assert user != null;
                     edit.putString("refreshToken","bearer " + user.getRefreshToken());
+                    edit.putString("accessToken","bearer " + user.getAccessToken());
                     edit.putString("id", user.getId());
                     edit.apply();
                     listener.onComplete("refreshToken Succeeded");
@@ -80,6 +85,7 @@ public class ModelRetrofit {
                     SharedPreferences userDetails = MyApplication.getContext().getSharedPreferences("userDetails", Context.MODE_PRIVATE);
                     SharedPreferences.Editor edit = userDetails.edit();
                     assert user != null;
+                    edit.putString("accessToken","bearer " + user.getAccessToken());
                     edit.putString("refreshToken","bearer " + user.getRefreshToken());
                     edit.putString("id", user.getId());
                     edit.apply();
@@ -98,7 +104,7 @@ public class ModelRetrofit {
     }
 
     public void logout(Model.StringListener listener) {
-        String token = getRefreshedToken();
+        String token = getRefreshToken();
         String user_id = getUserId();
         Call<Void> call = retrofitInterface.Logout(user_id, token);
         call.enqueue(new Callback<Void>() {
@@ -123,7 +129,7 @@ public class ModelRetrofit {
 
 
     public void addCoinTransaction(HashMap<String,Object> map, Model.coinTransactionListener listener) {
-        String token = getRefreshedToken();
+        String token = getAccessToken();
         Call<Void> call = retrofitInterface.addCoinTransaction(map,token);
         call.enqueue(new Callback<Void>() {
             @Override
@@ -148,7 +154,7 @@ public class ModelRetrofit {
     }
 
     public void getAllCardTypes(Model.cardTypesReturnListener listener) { // done
-        String token = getRefreshedToken();
+        String token = getAccessToken();
         Call<List<CardType>> call = retrofitInterface.getAllCardTypes(token);
         List<CardType> list = new ArrayList<>();
         call.enqueue(new Callback<List<CardType>>() {
@@ -179,7 +185,7 @@ public class ModelRetrofit {
     }
 
     public List<Category> getAllCategories(Model.categoriesReturnListener listener) {
-        String token = getRefreshedToken();
+        String token = getAccessToken();
         Call<List<Category>> call = retrofitInterface.getAllCategories(token);
         List<Category> list = new ArrayList<>();
         call.enqueue(new Callback<List<Category>>() {
@@ -207,7 +213,7 @@ public class ModelRetrofit {
     }
 
     public void getUserIncome(Model.incomeListener listener) {
-        String token = getRefreshedToken();
+        String token = getAccessToken();
         String user_id = getUserId();
         Call<Income> call = retrofitInterface.getUserIncome(user_id,token);
         call.enqueue(new Callback<Income>() {
@@ -231,7 +237,7 @@ public class ModelRetrofit {
     }
 
     public void getUserOutCome(Model.outComeListener listener) {
-        String token = getRefreshedToken();
+        String token = getAccessToken();
         String user_id = getUserId();
         Call<Outcome> call = retrofitInterface.getUserOutcome(user_id,token);
         call.enqueue(new Callback<Outcome>() {
@@ -255,7 +261,7 @@ public class ModelRetrofit {
     }
 
     public void getUser(String user_id, Model.userReturnListener listener) {
-        String token = getRefreshedToken();
+        String token = getAccessToken();
         Call<com.example.anygift.Retrofit.User> call = retrofitInterface.getUser(user_id,token);
         call.enqueue(new Callback<com.example.anygift.Retrofit.User>() {
             @Override
@@ -302,7 +308,7 @@ public class ModelRetrofit {
 
     public void updateUser(HashMap<String,Object> map, Model.userLoginListener listener) {
         String user_id = getUserId();
-        String token = getRefreshedToken();
+        String token = getAccessToken();
         Call<com.example.anygift.Retrofit.User> call = retrofitInterface.updateUser(user_id,map,token);
         call.enqueue(new Callback<com.example.anygift.Retrofit.User>() {
             @Override
@@ -325,7 +331,7 @@ public class ModelRetrofit {
     }
 
     public void addCard(HashMap<String,Object> map, Model.cardReturnListener listener){
-        String token = getRefreshedToken();
+        String token = getAccessToken();
         Call<Card> call = retrofitInterface.addCard(map,token);
         call.enqueue(new Callback<Card>() {
             @Override
@@ -348,7 +354,7 @@ public class ModelRetrofit {
     }
 
     public void getAllCards(Model.cardsReturnListener listener) { //done
-        String token = MyApplication.getContext().getSharedPreferences("userDetails", Context.MODE_PRIVATE).getString("refreshToken","");
+        String token = getAccessToken();
         Call<List<Card>> call = retrofitInterface.getAllCards(token);
         List<Card> list = new ArrayList<>();
         call.enqueue(new Callback<List<Card>>() {
@@ -381,7 +387,7 @@ public class ModelRetrofit {
 
     public void getAllUserCards(Model.cardsReturnListener listener) { //done
         String user_id = getUserId();
-        String token = getRefreshedToken();
+        String token = getAccessToken();
         Call<List<Card>> call = retrofitInterface.getAllUserCards(user_id,token);
         List<Card> list = new ArrayList<>();
         call.enqueue(new Callback<List<Card>>() {
@@ -409,7 +415,7 @@ public class ModelRetrofit {
     }
 
     public void updateCard(String card_id, HashMap<String,Object> map, Model.cardReturnListener listener){
-        String token = getRefreshedToken();
+        String token = getAccessToken();
         Call<Card> call = retrofitInterface.updateCard(card_id,map,token);
         call.enqueue(new Callback<Card>() {
             @Override

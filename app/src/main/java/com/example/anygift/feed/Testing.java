@@ -38,8 +38,8 @@ public class Testing {
 
 
     Testing() {
-        SharedPreferences userDetails = MyApplication.getContext().getSharedPreferences("userDetails", Context.MODE_PRIVATE);
-        SharedPreferences.Editor edit = userDetails.edit();
+//        SharedPreferences userDetails = MyApplication.getContext().getSharedPreferences("userDetails", Context.MODE_PRIVATE);
+//        SharedPreferences.Editor edit = userDetails.edit();
 //                Model.instance.getAllCategories(new Model.categoriesReturnListener() {
 //            @Override
 //            public void onComplete(List<Category> cts)
