@@ -7,6 +7,7 @@ import android.view.Display;
 import com.example.anygift.MyApplication;
 import com.example.anygift.Retrofit.Card;
 import com.example.anygift.Retrofit.Category;
+import com.example.anygift.Retrofit.User;
 import com.example.anygift.model.Model;
 import com.example.anygift.model.Utils;
 
@@ -30,13 +31,20 @@ public class Testing {
             public void onComplete(List<Card> cards, String message) {
                 System.out.println(message);
                 System.out.println(cards);
-                logout();
-
+                getUser();
             }
         });
     }
 
-
+    public void getUser(){
+        Model.instance.getUserRetrofit("6256a44c1e29497041970877", new Model.userReturnListener(){
+            @Override
+            public void onComplete(User user) {
+                System.out.println(user);
+                logout();
+            }
+        } );
+    }
     Testing() {
 //        SharedPreferences userDetails = MyApplication.getContext().getSharedPreferences("userDetails", Context.MODE_PRIVATE);
 //        SharedPreferences.Editor edit = userDetails.edit();
@@ -96,6 +104,7 @@ public class Testing {
             public void onComplete(com.example.anygift.Retrofit.User loginResult, String message) {
                 System.out.println(message);
                 getallcards();
+
             }
         });
 
