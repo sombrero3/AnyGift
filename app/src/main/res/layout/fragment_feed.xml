@@ -130,6 +130,40 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/plain_coin" />
 
+    <ImageView
+        android:id="@+id/imageView9"
+        android:layout_width="wrap_content"
+        android:layout_height="280dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="600dp"
+        app:layout_constraintBaseline_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cards_list_rv"
+        app:srcCompat="@drawable/giftbg2" />
+
+    <TextView
+        android:id="@+id/textView44"
+        android:layout_width="260dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:text="Buy gift cards at affordable prices and enjoy an abundance of different and varied discounts."
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView9"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageView9" />
+
+    <TextView
+        android:id="@+id/giftbgcoover"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#28F87171"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView9"
+        app:layout_constraintEnd_toEndOf="@+id/imageView9"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageView9" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
