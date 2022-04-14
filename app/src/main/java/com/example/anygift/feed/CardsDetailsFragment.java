@@ -1,5 +1,6 @@
 package com.example.anygift.feed;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -14,12 +15,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.anygift.R;
-import com.example.anygift.Retrofit.CardType;
 import com.example.anygift.Retrofit.Category;
-import com.example.anygift.Retrofit.CoinTransaction;
 import com.example.anygift.model.GiftCard;
 import com.example.anygift.model.Model;
 import com.example.anygift.model.User;
@@ -28,27 +26,20 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class CardsDetailsFragment extends Fragment {
     View view;
     FeedViewModel viewModel;
     UserViewModel userViewModel;
-    private TextView name;
-    private TextView value;
-    private TextView buyAt;
-    private Button deleteBtn;
-    private Button mapBtn, editBtn;
-    private ImageView userImage;
-    private ImageView giftCardImage;
+    private TextView name, value,buyAt,popUpTypeTv,popUpExpTv,popupValueTv, popUpPriceTv;
+    private Button mapBtn, editBtn,deleteBtn,buyBtn,popUpSaveBtn,popUpCancel;
+    private ImageView userImage,giftCardImage, popUpCcardImage;
     GiftCard giftCard = null;
     List<Category> categoryList;
+    AlertDialog.Builder alertDialogBuilder;
+    AlertDialog dialog;
 
-    public CardsDetailsFragment() {
-
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -106,6 +97,14 @@ public class CardsDetailsFragment extends Fragment {
         }
 
 
+        buyBtn = view.findViewById(R.id.card_details_buy_btn);
+        buyBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                createNewBuyCardDialog();
+            }
+        });
+
         deleteBtn.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -141,6 +140,43 @@ public class CardsDetailsFragment extends Fragment {
                 Navigation.findNavController(view).navigate(CardsDetailsFragmentDirections.actionCardsDetailsFragmentToEditCardsDetailsFragment(giftCard.getId()));
             }
         });
+
+
         return view;
+    }
+
+    public void createNewBuyCardDialog(){
+        alertDialogBuilder = new AlertDialog.Builder(getContext());
+        final View buyCardpopUpView = getLayoutInflater().inflate(R.layout.buy_card_popup,null);
+        popUpCcardImage = buyCardpopUpView.findViewById(R.id.buy_card_popup_icon_iv);
+        popUpPriceTv = buyCardpopUpView.findViewById(R.id.buy_card_popup_price_tv);
+        popUpSaveBtn = buyCardpopUpView.findViewById(R.id.buy_card_popup_buy_btn);
+        popUpCancel = buyCardpopUpView.findViewById(R.id.buy_card_popup_cancel_btn);
+        popupValueTv =     buyCardpopUpView.findViewById(R.id.buy_card_popup_value_tv);
+        popUpExpTv = buyCardpopUpView.findViewById(R.id.buy_card_popup_exp_tv);
+
+        Picasso.get().load(giftCard.getGiftCardImageUrl()).into(popUpCcardImage);
+        popUpPriceTv.setText(Double.toString(giftCard.getWantedPrice()));
+        popupValueTv.setText(Double.toString(giftCard.getValue()));
+        popUpExpTv.setText(giftCard.getExpirationDate());
+
+        alertDialogBuilder.setView(buyCardpopUpView);
+        dialog = alertDialogBuilder.create();
+        dialog.show();
+
+        popUpSaveBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        popUpCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
     }
 }
