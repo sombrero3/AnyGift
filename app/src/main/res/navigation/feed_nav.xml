@@ -77,4 +77,9 @@
         android:id="@+id/shopFragment"
         android:name="com.example.anygift.feed.ShopFragment" />
     <action android:id="@+id/action_global_shopFragment" app:destination="@id/shopFragment" />
+    <fragment
+        android:id="@+id/searchGiftCardFragment"
+        android:name="com.example.anygift.SearchGiftCardFragment"
+        android:label="fragment_search_gift_card"
+        tools:layout="@layout/fragment_search_gift_card" /><action android:id="@+id/action_global_searchGiftCardFragment" app:destination="@id/searchGiftCardFragment"/>
 </navigation>

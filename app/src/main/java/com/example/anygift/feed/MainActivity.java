@@ -98,6 +98,11 @@ public class MainActivity extends AppCompatActivity {
                         navCtr.navigate(R.id.action_global_shopFragment);
                         break;
                     }
+                    case R.id.menu_search: {
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                        navCtr.navigate(R.id.action_global_searchGiftCardFragment);
+                        break;
+                    }
                     case R.id.logout: {
                         Toast.makeText(getBaseContext(),"Logging Out",Toast.LENGTH_SHORT).show();
                         FirebaseAuth.getInstance().signOut();
