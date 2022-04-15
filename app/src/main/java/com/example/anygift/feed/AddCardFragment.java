@@ -51,7 +51,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class AddCardFragment extends Fragment {
-    private static final int REQUEST_CAMERA = 1;//
+    private static final int REQUEST_CAMERA = 1;
     TextInputEditText cardValue,  cardAskingValue, cardNumber;
     ImageButton uploadPicButton;
     Button addCardButton;
@@ -64,6 +64,7 @@ public class AddCardFragment extends Fragment {
     TextView dateTv;
     DatePickerDialog.OnDateSetListener dateListener;
     int year,month,day;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -82,7 +83,6 @@ public class AddCardFragment extends Fragment {
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.options, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerCardType.setAdapter(adapter);
-
 
         giftCardImage.setTag("");
         pb = view.findViewById(R.id.add_pb);
@@ -108,7 +108,6 @@ public class AddCardFragment extends Fragment {
                 dateTv.setText(day+"/"+month+"/"+year);
             }
         };
-
 
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
         userViewModel.getUser(new UserViewModel.GetUserListener() {
