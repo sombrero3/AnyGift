@@ -10,7 +10,9 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -31,6 +33,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.craftman.cardform.CardForm;
 import com.example.anygift.R;
@@ -50,8 +53,6 @@ import java.util.Calendar;
 public class AddCardFragment extends Fragment {
     private static final int REQUEST_CAMERA = 1;//
     TextInputEditText cardValue,  cardAskingValue, cardNumber;
-    //cardExpDay, cardExpMonth, cardExpYear
-    EditText dateEt;
     ImageButton uploadPicButton;
     Button addCardButton;
     ImageView giftCardImage;
@@ -60,8 +61,8 @@ public class AddCardFragment extends Fragment {
     String latAndLong;
     UserViewModel userViewModel;
     Spinner spinnerCardType;
-    DatePickerDialog.OnDateSetListener dateSetListener;
-    CardForm cardForm;
+    TextView dateTv;
+    DatePickerDialog.OnDateSetListener dateListener;
     int year,month,day;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -71,14 +72,11 @@ public class AddCardFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_add_card, container, false);
         cardNumber = view.findViewById(R.id.add_card_number);
         cardValue = view.findViewById(R.id.add_card_value);
-//        cardExpDay = view.findViewById(R.id.add_card_exp_day);
-//        cardExpMonth = view.findViewById(R.id.add_card_exp_mo);
-//        cardExpYear = view.findViewById(R.id.add_card_exp_year);
         cardAskingValue = view.findViewById(R.id.add_card_asking_price);
         uploadPicButton = view.findViewById(R.id.add_camera_bt);
         addCardButton = view.findViewById(R.id.add_upload_bt);
         giftCardImage = view.findViewById(R.id.add_giftCardImage);
-        dateEt = view.findViewById(R.id.add_card_date_et);
+        dateTv = view.findViewById(R.id.add_card_date_tv);
 
         spinnerCardType = (Spinner) view.findViewById(R.id.option);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.options, android.R.layout.simple_spinner_item);
@@ -92,23 +90,24 @@ public class AddCardFragment extends Fragment {
 
         //---date calendar---//
         Calendar calendar = Calendar.getInstance();
-        year = calendar.get(Calendar.YEAR);
-        month = calendar.get(Calendar.MONTH);
-        day = calendar.get(Calendar.DAY_OF_MONTH);
-        dateEt.setOnClickListener(new View.OnClickListener() {
+        year=calendar.get(Calendar.YEAR);
+        month=calendar.get(Calendar.MONTH);
+        day=calendar.get(Calendar.DAY_OF_MONTH);
+        dateTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                        month =month+1;
-                        String date = day+"/"+month+"/"+year;
-                        dateEt.setText(date);
-                    }
-                },year,month,day);
+                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), android.R.style.Theme_Holo_Light_Dialog_MinWidth, dateListener, year, month, day);
+                datePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 datePickerDialog.show();
             }
         });
+        dateListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                month = month+1;
+                dateTv.setText(day+"/"+month+"/"+year);
+            }
+        };
 
 
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
