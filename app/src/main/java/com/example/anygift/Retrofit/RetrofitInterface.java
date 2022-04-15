@@ -45,6 +45,9 @@ public interface RetrofitInterface {
     @GET("users/{id}")
     Call<com.example.anygift.Retrofit.User> getUser(@Path("id") String user_id, @Header("Authorization") String token);
 
+    @POST("users/authenticate")
+    Call<Boolean> authenticateToken(@Header("Authorization") String token);
+
     @POST("users")
     Call<com.example.anygift.Retrofit.User> addUser(@Body HashMap<String,Object> map);
 

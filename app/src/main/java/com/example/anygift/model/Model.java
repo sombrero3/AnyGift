@@ -29,13 +29,13 @@ public class Model {
     public ModelFirebase modelFirebase = new ModelFirebase();
     public Executor executor = Executors.newFixedThreadPool(1);
     public Handler mainThread = HandlerCompat.createAsync(Looper.getMainLooper());
-    public User signedUser;
+    public com.example.anygift.Retrofit.User signedUser;
     public ModelRetrofit modelRetrofit = new ModelRetrofit();
     public MutableLiveData<List<GiftCard>> giftCardsList = new MutableLiveData<>();
     public List<Category> categories = new ArrayList<>();
 
     private Model() {
-        signedUser = new User();
+        signedUser = new com.example.anygift.Retrofit.User();
         ListLoadingState.setValue(GiftListLoadingState.loaded);
     }
 
@@ -86,7 +86,9 @@ public class Model {
     public interface coinTransactionListener {
         void onComplete(String message);
     }
-
+    public interface booleanReturnListener{
+        void onComplete(Boolean result,String message);
+    }
 
     //NO AUTHENTICAION
     public void login(HashMap<String, Object> map, userLoginListener listener) {
@@ -175,6 +177,21 @@ public class Model {
             modelRetrofit.getAllUserCards(listener);
         });
     }
+
+    public void getAllFeedCardsForSale(cardsReturnListener listener) {
+        modelRetrofit.refreshToken(message -> {
+            System.out.println(message);
+            modelRetrofit.getAllCards(new cardsReturnListener() {
+                @Override
+                public void onComplete(List<Card> cards, String message) {
+                    String user_id = modelRetrofit.getUserId();;
+                    cards.stream().filter(c->c.getIsForSale() && !c.getOwner().equals(user_id));
+                    listener.onComplete(cards,"Cards filtered");
+                }
+            });
+        });
+    }
+
 
     public void updateCardRetrofit(String card_id, HashMap<String, Object> map, cardReturnListener listener) {
         modelRetrofit.refreshToken(message -> {
@@ -346,18 +363,18 @@ public class Model {
     /**
      * Authentication
      */
-    public boolean isSignedIn() {
-        return modelFirebase.isSignedIn();
+    public void isTokenValid(booleanReturnListener listener) {
+        if (modelRetrofit.getAccessToken().isEmpty())
+            listener.onComplete(false,"Empty Token");
+        else
+        modelRetrofit.authenticateToken(listener);
     }
 
-    public User getSignedUser() {
+    public com.example.anygift.Retrofit.User getSignedUser() {
         return signedUser;
     }
 
-    public void setCurrentUser(GetUserListener listener) {
-        modelFirebase.setCurrentUser(user -> {
-            signedUser = user;
-            listener.onComplete(user);
-        });
+    public void setCurrentUser(com.example.anygift.Retrofit.User user) {
+        signedUser = user;
     }
 }

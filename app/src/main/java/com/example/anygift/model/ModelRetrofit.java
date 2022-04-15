@@ -66,6 +66,9 @@ public class ModelRetrofit {
                 } else if (response.code() == 400) {
                     listener.onComplete("refreshToken Failed");
                 }
+                else if (response.code() == 403){
+                    listener.onComplete("refresh token Failed " + response.body());
+                }
             }
 
             @Override
@@ -111,6 +114,12 @@ public class ModelRetrofit {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.code() == 200) {
+                    SharedPreferences userDetails = MyApplication.getContext().getSharedPreferences("userDetails", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor edit = userDetails.edit();
+                    edit.putString("refreshToken","");
+                    edit.putString("accessToken","");
+                    edit.putString("id", "");
+                    edit.apply();
                     listener.onComplete("Logout Succeeded");
 
                 } else if (response.code() == 400) {
@@ -436,5 +445,31 @@ public class ModelRetrofit {
             }
         });
     }
+
+
+    public void authenticateToken(Model.booleanReturnListener listener){
+        String token = getAccessToken();
+        System.out.println(token);
+        Call<Boolean> call = retrofitInterface.authenticateToken(token);
+        call.enqueue(new Callback<Boolean>() {
+            @Override
+            public void onResponse(@NonNull Call<Boolean> call, @NonNull Response<Boolean> response) {
+                if (response.code() == 200) {
+                    Boolean card = response.body();
+                    listener.onComplete(card, "Token is Valid");
+
+                } else if (response.code() == 403) {
+                    listener.onComplete(false, "Token is invalid");
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<Boolean> call, @NonNull Throwable t) {
+                System.out.println(t.getMessage());
+                listener.onComplete(null, "Token authentication Failed");
+            }
+        });
+    }
+
 
 }

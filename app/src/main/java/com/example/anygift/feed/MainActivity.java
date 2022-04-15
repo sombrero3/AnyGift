@@ -104,12 +104,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     }
                     case R.id.logout: {
-                        Toast.makeText(getBaseContext(),"Logging Out",Toast.LENGTH_SHORT).show();
-                        FirebaseAuth.getInstance().signOut();
-                        drawerLayout.closeDrawer(GravityCompat.START);
-                        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                        startActivity(intent);
-                        finish();
+                        logout();
                         break;
                     }
                 }
@@ -118,15 +113,30 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    public void logout() {
+        Model.instance.logout(new Model.StringListener() {
+            @Override
+            public void onComplete(String message) {
+                Toast.makeText(getBaseContext(),"Logging Out",Toast.LENGTH_SHORT).show();
+                drawerLayout.closeDrawer(GravityCompat.START);
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
+
+            }
+        });
+    }
+
     private void setMenuHeader() {
+        System.out.println(Model.instance.getSignedUser());
         View header= (View)navigationView.getHeaderView(0);
         nameTv = header.findViewById(R.id.menu_header_name_tv);
         emailTv = header.findViewById(R.id.menu_header_email_tv);
         imageIv = header.findViewById(R.id.menu_header_image_iv);
-        nameTv.setText(  Model.instance.getSignedUser().getName());
+        nameTv.setText(  Model.instance.getSignedUser().getFirstName() + " " + Model.instance.getSignedUser().getLastName());
         emailTv.setText( Model.instance.getSignedUser().getEmail());
-        if( Model.instance.getSignedUser().getImageUrl().compareTo("")!=0){
-            Picasso.get().load(Model.instance.getSignedUser().getImageUrl()).into(imageIv);
+        if( Model.instance.getSignedUser().getProfilePicture().compareTo("")!=0){
+            Picasso.get().load(Model.instance.getSignedUser().getProfilePicture()).into(imageIv);
         }
     }
 

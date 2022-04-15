@@ -97,14 +97,14 @@ public class MyCardsFragment extends Fragment {
     }
 
     private void setUserUI() {
-        User user = Model.instance.getSignedUser();
+        com.example.anygift.Retrofit.User user = Model.instance.getSignedUser();
 
-        userName.setText(user.getName());
+        userName.setText(  user.getFirstName() + " " + user.getLastName());
         userEmail.setText(user.getEmail());
         userPhone.setText(user.getPhone());
         userAddress.setText(user.getAddress());
-        if (user.getImageUrl() != null) {
-            Picasso.get().load(user.getImageUrl()).into(userImage);
+        if (user.getProfilePicture() != null) {
+            Picasso.get().load(user.getProfilePicture()).into(userImage);
             userImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
             userImage.setClipToOutline(true);
         }

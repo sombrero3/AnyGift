@@ -61,6 +61,7 @@ public class EditProfileFragment extends Fragment {
         profileImage.setTag("");
         emailTv = view.findViewById(R.id.editProfile_email_tv);
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
+
         userViewModel.getUser(new UserViewModel.GetUserListener() {
             @Override
             public void onComplete(User user) {
@@ -188,10 +189,10 @@ public class EditProfileFragment extends Fragment {
                 if (url == null) {
                     displayFailedError();
                 } else {
-                    temp.setImageUrl(url);
-                    Model.instance.addUser(temp, () -> {
-                        Model.instance.setCurrentUser(user -> Navigation.findNavController(view).navigate(R.id.action_global_myCardsFragment));
-                    });
+//                    temp.setImageUrl(url);
+//                    Model.instance.addUser(temp, () -> {
+//                        Model.instance.setCurrentUser(null) -> Navigation.findNavController(view).navigate(R.id.action_global_myCardsFragment));
+//                    });
                 }
             }
         });

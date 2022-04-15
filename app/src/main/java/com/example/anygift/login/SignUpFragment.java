@@ -54,6 +54,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -216,20 +217,19 @@ public class SignUpFragment extends Fragment {
             return;
         }
 
-        mAuth.createUserWithEmailAndPassword(email_usr, password_usr).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+
+        HashMap<String, Object> map = com.example.anygift.Retrofit.User.mapToAddUser(Fname, Lname,
+                email_usr, password_usr, address_usr, latAndLong, phone_usr, false);
+        Model.instance.addUserRetrofit(map, new Model.userReturnListener() {
             @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    updateProfile();
-                }
+            public void onComplete(com.example.anygift.Retrofit.User user) {
+                System.out.println(user);
+                Snackbar mySnackbar = Snackbar.make(view, "signUp succeed, Nice to meet you " + Fname + " :)", BaseTransientBottomBar.LENGTH_LONG);
+                mySnackbar.show();
+                Navigation.findNavController(view).navigate(SignUpFragmentDirections.actionSignUpFragmentToLoginFragment());
             }
         });
-        user = new User(Fname, Lname, phone_usr, email_usr, address_usr, password_usr, latAndLong);
-        Snackbar mySnackbar = Snackbar.make(view, "signUp succeed, Nice to meet you :)", BaseTransientBottomBar.LENGTH_LONG);
-        mySnackbar.show();
-        Model.instance.addUser(user, () -> {
-           goToFeedActivity();
-        });
+
     }
 
 
@@ -245,15 +245,4 @@ public class SignUpFragment extends Fragment {
         menu.clear();
     }
 
-    public void goToFeedActivity(){
-        Model.instance.setCurrentUser(new Model.GetUserListener() {
-            @Override
-            public void onComplete(User user) {
-                //progressBar.setVisibility(View.INVISIBLE);
-                Intent intent = new Intent(getContext(), MainActivity.class);
-                startActivity(intent);
-                getActivity().finish();
-            }
-        });
-    }
 }
