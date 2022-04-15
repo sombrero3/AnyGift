@@ -15,9 +15,9 @@
         android:hint="Enter Max Price"
         android:textColorHint="@color/grey_1"
         app:errorTextColor="@color/error"
-        app:layout_constraintEnd_toEndOf="@+id/search_card_date_et"
+        app:layout_constraintEnd_toEndOf="@+id/search_card_date_tv"
         app:layout_constraintStart_toEndOf="@+id/textView54"
-        app:layout_constraintTop_toBottomOf="@+id/search_card_date_et">
+        app:layout_constraintTop_toBottomOf="@+id/search_card_date_tv">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/search_max_price_et"
@@ -58,18 +58,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/textView45"
         app:layout_constraintTop_toBottomOf="@+id/textView45" />
-
-    <EditText
-        android:id="@+id/search_card_date_et"
-        android:layout_width="170dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Select Date"
-        android:textAlignment="center"
-        app:layout_constraintBaseline_toBaselineOf="@+id/textView52"
-        app:layout_constraintEnd_toEndOf="@+id/search_card_type_spinner"
-        app:layout_constraintStart_toEndOf="@+id/textView52" />
 
     <TextView
         android:id="@+id/textView52"
@@ -128,4 +116,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView57" />
+
+    <TextView
+        android:id="@+id/search_card_date_tv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="Select date"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/textView52"
+        app:layout_constraintEnd_toEndOf="@+id/search_card_type_spinner"
+        app:layout_constraintStart_toEndOf="@+id/textView52"
+        app:layout_constraintTop_toTopOf="@+id/textView52" />
 </androidx.constraintlayout.widget.ConstraintLayout>
