@@ -54,8 +54,8 @@ public interface RetrofitInterface {
     @PUT("users/{id}") //can update everything besides email and password
     Call<com.example.anygift.Retrofit.User> updateUser(@Path("id") String user_id, @Body HashMap<String, Object> map, @Header("Authorization") String token);
 
-//    @PUT("users/addCoins/{id}") //can update everything besides email and password
-//    Call<com.example.anygift.Retrofit.User> addCoinsToUser(@Path("id") String user_id, @Body Double coins);
+    @POST("users/coins/{id}") //can update everything besides email and password
+    Call<com.example.anygift.Retrofit.User> addCoinsToUser(@Path("id") String user_id, @Body HashMap<String,Double> coins, @Header("Authorization") String token);
 
     @POST("coinTransactions")
     Call<Void> addCoinTransaction(@Body HashMap<String,Object> map, @Header("Authorization") String token);

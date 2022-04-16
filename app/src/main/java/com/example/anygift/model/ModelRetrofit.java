@@ -149,8 +149,6 @@ public class ModelRetrofit {
 
                 } else if (response.code() == 400) {
                     System.out.println(response.message());
-                    // listener.onComplete("user exist");
-                    //Toast.makeText(getContext(), "Cant Login To App Right Now....", Toast.LENGTH_LONG).show();
                     listener.onComplete(null);
                 }
             }
@@ -177,15 +175,11 @@ public class ModelRetrofit {
                             CardType ct = new CardType(response.body().get(i).getName(), response.body().get(i).getCategories(), response.body().get(i).getId());
                             list.add(ct);
                         }
-                        System.out.println("#@!#@!#!");
-                        System.out.println(list);
-                        System.out.println("#@!#@!#!");
                         listener.onComplete(list);
                     }
 
                 } else if (response.code() == 400) {
                     listener.onComplete(null);
-                    System.out.println("THIS IS BAD");
                 }
             }
 
@@ -382,18 +376,15 @@ public class ModelRetrofit {
 
                 } else if (response.code() == 400) {
                     listener.onComplete(null,"this is bad");
-                    System.out.println("THIS IS BAD");
                 }
                 else if (response.code() == 401) {
                     listener.onComplete(null,"invalid token");
-                    System.out.println("THIS IS BAD");
                 }
             }
 
             @Override
             public void onFailure(Call<List<Card>> call, Throwable t) {
                 listener.onComplete(null,t.getMessage());
-                System.out.println("Very BAD");
             }
         });
     }
@@ -475,5 +466,26 @@ public class ModelRetrofit {
         });
     }
 
+    public void addCoinsToUser(String user_id,HashMap<String,Double> map, Model.userReturnListener listener) {
+        String token = getAccessToken();
+        Call<com.example.anygift.Retrofit.User> call = retrofitInterface.addCoinsToUser(user_id,map,token);
+        call.enqueue(new Callback<com.example.anygift.Retrofit.User>() {
+            @Override
+            public void onResponse(Call<com.example.anygift.Retrofit.User> call, Response<com.example.anygift.Retrofit.User> response) {
+                if (response.code() == 200) {
+                    com.example.anygift.Retrofit.User user = response.body();
+                    listener.onComplete(user, "User coins Updated");
 
+                } else if (response.code() == 400) {
+                    listener.onComplete(null,"User coins Wasn't Managed to update");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<com.example.anygift.Retrofit.User> call, Throwable t) {
+                System.out.println(t.getMessage());
+                listener.onComplete(null, "Very Bad");
+            }
+        });
+    }
 }

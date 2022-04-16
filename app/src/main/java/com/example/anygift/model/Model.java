@@ -210,10 +210,16 @@ public class Model {
         });
     }
 
-//    public void addCoinsToUser(String user_id, double coinsToAdd, userReturnListener listener) {
-//        HashMap<String, Object> map = new HashMap<>();
-//        map.put("isDeleted", true);
-//    }
+    public void addCoinsToUser(String user_id, double coinsToAdd, userReturnListener listener) {
+        HashMap<String,Double>map = new  HashMap<String,Double>();
+        map.put("coins",coinsToAdd);
+        modelRetrofit.refreshToken(message -> {
+            System.out.println(message);
+            modelRetrofit.addCoinsToUser(user_id, map, listener);
+        });
+
+    }
+
 
     //Firebase
     public enum GiftListLoadingState {

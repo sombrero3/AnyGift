@@ -1,5 +1,7 @@
 package com.example.anygift.feed;
 
+import android.view.Display;
+
 import com.example.anygift.Retrofit.Card;
 import com.example.anygift.Retrofit.CardType;
 import com.example.anygift.Retrofit.User;
@@ -16,6 +18,20 @@ public class Testing {
             @Override
             public void onComplete(String message) {
                 System.out.println(message);
+            }
+        });
+    }
+
+    public void getMostRec() {
+        Model.instance.getAllFeedCardsForSale(new Model.cardsReturnListener() {
+            @Override
+            public void onComplete(List<Card> cards, String message) {
+                cards.sort((c1, c2) -> {
+                    double c1value = Double.parseDouble(c1.getPrecentageSaved().replace("%", ""));
+                    double c2value = Double.parseDouble(c2.getPrecentageSaved().replace("%", ""));
+                    return Double.compare(c1value, c2value);
+                });
+                System.out.println(cards);
             }
         });
     }
@@ -61,6 +77,40 @@ public class Testing {
             }
         });
     }
+
+    public void takeCoinsFromBuyer(String user_id,Double coins){
+        Model.instance.addCoinsToUser(user_id, -coins, new Model.userReturnListener() {
+            @Override
+            public void onComplete(User user, String message) {
+                System.out.println(user);
+            }
+        });
+
+    }
+
+    public void passCoinsToSeller(String user_id, Double coins){
+        Model.instance.addCoinsToUser(user_id, coins, new Model.userReturnListener() {
+            @Override
+            public void onComplete(User user, String message) {
+                System.out.println(user);
+            }
+        });
+    }
+
+    public void TransactCard(String fromID,String toID,String cardID,Double coins){
+        HashMap<String,Object> map = new HashMap<>();
+        map.put("owner",toID);
+        HashMap<String,Object> updateMap = Card.mapToUpdateCard(cardID,map); //update card owner.
+        Model.instance.updateCardRetrofit(cardID,updateMap, new Model.cardReturnListener() {
+            @Override
+            public void onComplete(Card card,String message) {
+                passCoinsToSeller(fromID,coins);
+                takeCoinsFromBuyer(toID,coins);
+            }
+        });
+
+    }
+
 
     public Testing() {
 //        SharedPreferences userDetails = MyApplication.getContext().getSharedPreferences("userDetails", Context.MODE_PRIVATE);
@@ -114,7 +164,7 @@ public class Testing {
 //            }
 //        });
 
-        getallcardsByCardType();
+        TransactCard("6256a44c1e29497041970877","6259459ca6c5391503860fa5","62548a8eb25ae8a7e9d2459d",150.0);
 
 //        HashMap<String, Object> map = com.example.anygift.Retrofit.User.mapToLogin("omer@gmail.com", "1234");
 //        Model.instance.login(map, new Model.userLoginListener() {
