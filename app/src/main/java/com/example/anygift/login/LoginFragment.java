@@ -24,6 +24,7 @@ import android.widget.Toast;
 import com.example.anygift.R;
 import com.example.anygift.feed.MainActivity;
 import com.example.anygift.Retrofit.RetrofitInterface;
+import com.example.anygift.feed.Testing;
 import com.example.anygift.model.Model;
 import com.example.anygift.model.ModelFirebase;
 import com.example.anygift.model.User;
@@ -76,9 +77,12 @@ public class LoginFragment extends Fragment {
             Navigation.findNavController(v).navigate(LoginFragmentDirections.actionLoginFragmentToSignUpFragment());
         });
 
+        //TODO implement forgot password
         forgotP_btn.setOnClickListener(v -> {
-            forgotPassword();
+            mySnackbar = Snackbar.make(view, "in development", BaseTransientBottomBar.LENGTH_LONG);
+            mySnackbar.show();
         });
+
         return view;
     }
     public void setButtons(Boolean b){
@@ -103,6 +107,7 @@ public class LoginFragment extends Fragment {
                 } else {
                     mySnackbar = Snackbar.make(view, "Login successful :)", BaseTransientBottomBar.LENGTH_LONG);
                     mySnackbar.show();
+                    Testing testing = new Testing();
                     goToFeedActivity(user);
                 }
             }

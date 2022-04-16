@@ -1,15 +1,9 @@
 package com.example.anygift.feed;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.view.Display;
-
-import com.example.anygift.MyApplication;
 import com.example.anygift.Retrofit.Card;
-import com.example.anygift.Retrofit.Category;
+import com.example.anygift.Retrofit.CardType;
 import com.example.anygift.Retrofit.User;
 import com.example.anygift.model.Model;
-import com.example.anygift.model.Utils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,27 +19,50 @@ public class Testing {
             }
         });
     }
-    public void getallcards(){
-        Model.instance.getAllCards(new Model.cardsReturnListener() {
+
+    //TODO MAHTEL
+    public void getallcardsByCardType() {
+        Model.instance.getAllFeedCardsForSale(new Model.cardsReturnListener() {
             @Override
             public void onComplete(List<Card> cards, String message) {
                 System.out.println(message);
                 System.out.println(cards);
-                getUser();
+                Model.instance.modelRetrofit.getAllCardTypes(new Model.cardTypesReturnListener() {
+                    @Override
+                    public void onComplete(List<CardType> cts) {
+                        if (cts != null) {
+                            HashMap<String, ArrayList<Card>> map = new HashMap<>();
+                            for (CardType c : cts) {
+                                map.put(c.getId(), new ArrayList<>());
+                            }
+                            for (Card c : cards) {
+                                ArrayList<Card> arrayList = map.get(c.getCardType());
+                                arrayList.add(c);
+                                map.put(c.getCardType(), arrayList);
+                            }
+                            for (CardType c : cts) {
+                                map.put(c.getName(), map.get(c.getId()));
+                                map.remove(c.getId());
+                            }
+                            System.out.println(map);
+                        }
+                    }
+                });
             }
         });
     }
 
-    public void getUser(){
-        Model.instance.getUserRetrofit("6256a44c1e29497041970877", new Model.userReturnListener(){
+    public void getUser() {
+        Model.instance.getUserRetrofit("6256a44c1e29497041970877", new Model.userReturnListener() {
             @Override
-            public void onComplete(User user,String message) {
+            public void onComplete(User user, String message) {
                 System.out.println(user);
                 logout();
             }
-        } );
+        });
     }
-    Testing() {
+
+    public Testing() {
 //        SharedPreferences userDetails = MyApplication.getContext().getSharedPreferences("userDetails", Context.MODE_PRIVATE);
 //        SharedPreferences.Editor edit = userDetails.edit();
 //                Model.instance.getAllCategories(new Model.categoriesReturnListener() {
@@ -97,16 +114,16 @@ public class Testing {
 //            }
 //        });
 
+        getallcardsByCardType();
 
-        HashMap<String, Object> map = com.example.anygift.Retrofit.User.mapToLogin("omer@gmail.com", "1234");
-        Model.instance.login(map, new Model.userLoginListener() {
-            @Override
-            public void onComplete(com.example.anygift.Retrofit.User loginResult, String message) {
-                System.out.println(message);
-                getallcards();
-
-            }
-        });
+//        HashMap<String, Object> map = com.example.anygift.Retrofit.User.mapToLogin("omer@gmail.com", "1234");
+//        Model.instance.login(map, new Model.userLoginListener() {
+//            @Override
+//            public void onComplete(com.example.anygift.Retrofit.User loginResult, String message) {
+//                System.out.println(message);
+//
+//            }
+//        });
 
 
         ;

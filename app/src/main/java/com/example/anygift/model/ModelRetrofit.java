@@ -47,6 +47,7 @@ public class ModelRetrofit {
 
     public void refreshToken(Model.StringListener listener){
         String token = getRefreshToken();
+        System.out.println(token);
         String user_id = getUserId();
         Call<com.example.anygift.Retrofit.User> call = retrofitInterface.refreshToken(user_id,token);
         call.enqueue(new Callback<com.example.anygift.Retrofit.User>() {
@@ -176,6 +177,9 @@ public class ModelRetrofit {
                             CardType ct = new CardType(response.body().get(i).getName(), response.body().get(i).getCategories(), response.body().get(i).getId());
                             list.add(ct);
                         }
+                        System.out.println("#@!#@!#!");
+                        System.out.println(list);
+                        System.out.println("#@!#@!#!");
                         listener.onComplete(list);
                     }
 
