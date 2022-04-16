@@ -350,12 +350,15 @@ public class ModelRetrofit {
                 } else if (response.code() == 400) {
                     listener.onComplete(null, "Add Card Failed");
                 }
+                else if (response.code() == 500) {
+                    listener.onComplete(null, "Add Card Failed");
+                }
             }
 
             @Override
             public void onFailure(@NonNull Call<Card> call, @NonNull Throwable t) {
                 System.out.println(t.getMessage());
-                listener.onComplete(null, "Add Card Failed");
+                listener.onComplete(null, t.getMessage());
             }
         });
     }
