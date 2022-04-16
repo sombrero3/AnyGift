@@ -222,22 +222,21 @@ public class SignUpFragment extends Fragment {
                 email_usr, password_usr, address_usr, latAndLong, phone_usr, false);
         Model.instance.addUserRetrofit(map, new Model.userReturnListener() {
             @Override
-            public void onComplete(com.example.anygift.Retrofit.User user) {
+            public void onComplete(com.example.anygift.Retrofit.User user, String message) {
                 System.out.println(user);
-                Snackbar mySnackbar = Snackbar.make(view, "signUp succeed, Nice to meet you " + Fname + " :)", BaseTransientBottomBar.LENGTH_LONG);
-                mySnackbar.show();
-                Navigation.findNavController(view).navigate(SignUpFragmentDirections.actionSignUpFragmentToLoginFragment());
+                if (user == null) {
+                    Snackbar mySnackbar = Snackbar.make(view, message, BaseTransientBottomBar.LENGTH_LONG);
+                    mySnackbar.show();
+                    continue_btn.setEnabled(true);
+
+                } else {
+                    Snackbar mySnackbar = Snackbar.make(view, "signUp succeed, Nice to meet you " + Fname + " :)", BaseTransientBottomBar.LENGTH_LONG);
+                    mySnackbar.show();
+                    Navigation.findNavController(view).navigate(SignUpFragmentDirections.actionSignUpFragmentToLoginFragment());
+                }
             }
         });
 
-    }
-
-
-    public void updateProfile() {
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                .setDisplayName(Fname)
-                .build();
     }
 
     @Override

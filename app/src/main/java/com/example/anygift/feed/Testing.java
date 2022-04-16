@@ -39,7 +39,7 @@ public class Testing {
     public void getUser(){
         Model.instance.getUserRetrofit("6256a44c1e29497041970877", new Model.userReturnListener(){
             @Override
-            public void onComplete(User user) {
+            public void onComplete(User user,String message) {
                 System.out.println(user);
                 logout();
             }

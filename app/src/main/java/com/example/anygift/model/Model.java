@@ -56,7 +56,7 @@ public class Model {
     }
 
     public interface userReturnListener {
-        void onComplete(com.example.anygift.Retrofit.User user);
+        void onComplete(com.example.anygift.Retrofit.User user,String message);
     }
 
     public interface cardReturnListener {

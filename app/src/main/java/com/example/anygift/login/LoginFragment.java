@@ -34,6 +34,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+
 import java.util.HashMap;
 
 public class LoginFragment extends Fragment {
@@ -80,22 +81,28 @@ public class LoginFragment extends Fragment {
         });
         return view;
     }
+    public void setButtons(Boolean b){
+        signIn_btn.setEnabled(b);
+        signUp_btn.setEnabled(b);
+        forgotP_btn.setEnabled(b);
+    }
 
-    public void login(){
+    public void login() {
         //TODO Login using Retrofit
-        HashMap<String,Object> map = com.example.anygift.Retrofit.User.mapToLogin(email.getText().toString(),password.getText().toString());
+        setButtons(false);
+        HashMap<String, Object> map = com.example.anygift.Retrofit.User.mapToLogin(email.getText().toString(), password.getText().toString());
         Model.instance.login(map, new Model.userLoginListener() {
             @Override
-            public void onComplete(com.example.anygift.Retrofit.User user,String message) {
-                signIn_btn.setEnabled(false);
-                signUp_btn.setEnabled(false);
-                forgotP_btn.setEnabled(false);
+            public void onComplete(com.example.anygift.Retrofit.User user, String message) {
                 pb.setVisibility(View.INVISIBLE);
-                mySnackbar = Snackbar.make(view, "Login successful :)", BaseTransientBottomBar.LENGTH_LONG);
-                mySnackbar.show();
-                if (user == null)
-                    Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
-                else{
+                if (user == null) {
+                    setButtons(true);
+                    mySnackbar = Snackbar.make(view, message, BaseTransientBottomBar.LENGTH_LONG);
+                    mySnackbar.show();
+
+                } else {
+                    mySnackbar = Snackbar.make(view, "Login successful :)", BaseTransientBottomBar.LENGTH_LONG);
+                    mySnackbar.show();
                     goToFeedActivity(user);
                 }
             }
@@ -116,27 +123,6 @@ public class LoginFragment extends Fragment {
         //connect via http request
         pb.setVisibility(View.VISIBLE);
         login();
-
-//        mAuth.signInWithEmailAndPassword(email_user, password_user).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-//            @Override
-//            public void onComplete(@NonNull Task<AuthResult> task) {
-//                if (task.isSuccessful()) {
-//                    signIn_btn.setEnabled(false);
-//                    signUp_btn.setEnabled(false);
-//                    forgotP_btn.setEnabled(false);
-//                    pb.setVisibility(View.INVISIBLE);
-//                    mySnackbar = Snackbar.make(view, "Login successful :)", BaseTransientBottomBar.LENGTH_LONG);
-//                    mySnackbar.show();
-//                    Log.d("TAG", "login successful");
-////                    goToFeedActivity();
-//                   // Navigation.findNavController(view).navigate(R.id.action_global_feedFragment);
-//                } else
-//                    //Log.d("TAG","Login failed");
-//                    Toast.makeText(getContext(), "Error! " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
-//                pb.setVisibility(View.INVISIBLE);
-//            }
-//        });
-
 
     }
 

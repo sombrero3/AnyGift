@@ -94,8 +94,8 @@ public class ModelRetrofit {
                     edit.apply();
                     listener.onComplete(user, "Logging Succeeded");
 
-                } else if (response.code() == 400) {
-                    listener.onComplete(null,"Login Failed");
+                } else if (response.code() == 401) {
+                    listener.onComplete(null, "Invalid Email or Password");
                 }
             }
 
@@ -277,17 +277,17 @@ public class ModelRetrofit {
             public void onResponse(Call<com.example.anygift.Retrofit.User> call, Response<com.example.anygift.Retrofit.User> response) {
                 if (response.code() == 200) {
                     com.example.anygift.Retrofit.User user = response.body();
-                    listener.onComplete(user);
+                    listener.onComplete(user,"getUser succeeded");
 
                 } else if (response.code() == 400) {
-                    listener.onComplete(null);
+                    listener.onComplete(null,"getUser Failed");
                 }
             }
 
             @Override
             public void onFailure(Call<com.example.anygift.Retrofit.User> call, Throwable t) {
                 System.out.println(t.getMessage());
-                listener.onComplete(null);
+                listener.onComplete(null,t.getMessage());
             }
         });
     }
@@ -300,17 +300,17 @@ public class ModelRetrofit {
             public void onResponse(Call<com.example.anygift.Retrofit.User> call, Response<com.example.anygift.Retrofit.User> response) {
                 if (response.code() == 200) {
                     com.example.anygift.Retrofit.User user = response.body();
-                    listener.onComplete(user);
+                    listener.onComplete(user, "signup succeeded");
 
-                } else if (response.code() == 400) {
-                    listener.onComplete(null);
+                } else if (response.code() == 401) {
+                    listener.onComplete(null, "Signup Failed - Email already exists");
                 }
             }
 
             @Override
             public void onFailure(Call<com.example.anygift.Retrofit.User> call, Throwable t) {
                 System.out.println(t.getMessage());
-                listener.onComplete(null);
+                listener.onComplete(null,t.getMessage());
             }
         });
     }
@@ -466,7 +466,7 @@ public class ModelRetrofit {
             @Override
             public void onFailure(@NonNull Call<Boolean> call, @NonNull Throwable t) {
                 System.out.println(t.getMessage());
-                listener.onComplete(null, "Token authentication Failed");
+                listener.onComplete(false, "Token authentication Failed");
             }
         });
     }

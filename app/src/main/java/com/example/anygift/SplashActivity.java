@@ -19,9 +19,6 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         String user_id = MyApplication.getContext().getSharedPreferences("userDetails", Context.MODE_PRIVATE).getString("id", "");
         String token = MyApplication.getContext().getSharedPreferences("userDetails", Context.MODE_PRIVATE).getString("accessToken", "");
-        System.out.println("TATTTTTTTTTTTTTTTTTTTTTTTTTTTTtt");
-        System.out.println(user_id + " " + token);
-        System.out.println("TATTTTTTTTTTTTTTTTTTTTTTTTTTTTtt");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
@@ -42,7 +39,7 @@ public class SplashActivity extends AppCompatActivity {
                         Model.instance.mainThread.post(() -> {
                             Model.instance.getUserRetrofit(user_id, new Model.userReturnListener() {
                                 @Override
-                                public void onComplete(User user) {
+                                public void onComplete(User user,String message) {
                                     user.setAccessToken(Model.instance.modelRetrofit.getAccessToken());
                                     user.setRefreshToken(Model.instance.modelRetrofit.getRefreshToken());
                                     Model.instance.setCurrentUser(user);
