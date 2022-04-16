@@ -21,6 +21,7 @@ import android.widget.TextView;
 
 import com.example.anygift.R;
 import com.example.anygift.model.Model;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.squareup.picasso.Picasso;
 
 import java.util.Objects;
@@ -28,11 +29,10 @@ import java.util.Objects;
 
 public class FeedFragment extends Fragment {
     FeedViewModel viewModel;
-    MyAdapter adapter;
+    MyAdapter adapter,fashionAdapter,kidsAdapter;
     SwipeRefreshLayout swipeRefresh;
     TextView nameTv;
-
-
+    FloatingActionButton searchFab;
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
@@ -46,14 +46,19 @@ public class FeedFragment extends Fragment {
        // getActivity().setTitle("AnyGift - Feed");
         swipeRefresh = view.findViewById(R.id.giftCardlist_swiperefresh);
         swipeRefresh.setOnRefreshListener(() -> Model.instance.refreshGiftCardsList());
+
+        nameTv = view.findViewById(R.id.cards_list_user_name_tv);
+        nameTv.setText("Hello " + Model.instance.getSignedUser().getFirstName() +" and welcome to the gift card trading platform. Find every gift card buy or trade with your own cards.");
+        searchFab = view.findViewById(R.id.feed_search_fab);
+
+        //--Most Recommended RV------//
         RecyclerView list = view.findViewById(R.id.cards_list_rv);
         list.setHasFixedSize(true);
         RecyclerView.LayoutManager horizontalLayout2 = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
         list.setLayoutManager(horizontalLayout2);
         adapter = new MyAdapter();
         list.setAdapter(adapter);
-        nameTv = view.findViewById(R.id.cards_list_user_name_tv);
-        nameTv.setText("Hello " + Model.instance.getSignedUser().getFirstName() +" and welcome to the gift card trading platform. Find evry gift card buy or trade with your own cards.");
+
         adapter.setOnItemClickListener(new FeedFragment.OnItemClickListener() {
             @Override
             public void onItemClick(View v, int position) {
@@ -63,6 +68,43 @@ public class FeedFragment extends Fragment {
                 Navigation.findNavController(v).navigate(FeedFragmentDirections.actionFeedFragmentToCardsDetailsFragment(id));
             }
         });
+
+        //--Fashion RV--//
+        RecyclerView fashionList = view.findViewById(R.id.feed_fashion_rv);
+        fashionList.setHasFixedSize(true);
+        RecyclerView.LayoutManager horizontalLayout3 = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
+        fashionList.setLayoutManager(horizontalLayout3);
+        fashionAdapter = new MyAdapter();
+        fashionList.setAdapter(fashionAdapter);
+
+        fashionAdapter.setOnItemClickListener(new FeedFragment.OnItemClickListener() {
+            @Override
+            public void onItemClick(View v, int position) {
+                double val = viewModel.getList().getValue().get(position).getValue();
+                String id = viewModel.getList().getValue().get(position).getId();
+                Log.d("TAG", "Gift card in value of: " + val);
+                Navigation.findNavController(v).navigate(FeedFragmentDirections.actionFeedFragmentToCardsDetailsFragment(id));
+            }
+        });
+
+        //---Kids RV---//
+        RecyclerView kidsList = view.findViewById(R.id.feed_kids_rv);
+        kidsList.setHasFixedSize(true);
+        RecyclerView.LayoutManager horizontalLayout4 = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
+        kidsList.setLayoutManager(horizontalLayout4);
+        kidsAdapter = new MyAdapter();
+        kidsList.setAdapter(kidsAdapter);
+
+        kidsAdapter.setOnItemClickListener(new FeedFragment.OnItemClickListener() {
+            @Override
+            public void onItemClick(View v, int position) {
+                double val = viewModel.getList().getValue().get(position).getValue();
+                String id = viewModel.getList().getValue().get(position).getId();
+                Log.d("TAG", "Gift card in value of: " + val);
+                Navigation.findNavController(v).navigate(FeedFragmentDirections.actionFeedFragmentToCardsDetailsFragment(id));
+            }
+        });
+
         setHasOptionsMenu(true);
         viewModel.getList().observe(getViewLifecycleOwner(), list1 -> refresh());
         swipeRefresh.setRefreshing(Model.instance.getListLoadingState().getValue() == Model.GiftListLoadingState.loading);
@@ -74,6 +116,12 @@ public class FeedFragment extends Fragment {
             }
 
         });
+
+
+
+        searchFab.setOnClickListener((v)-> Navigation.findNavController(v).navigate(R.id.action_global_searchGiftCardFragment));
+
+
         return view;
 
     }

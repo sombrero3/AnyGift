@@ -6,14 +6,6 @@
     app:startDestination="@id/feedFragment">
 
     <fragment
-        android:id="@+id/userProfileFragment"
-        android:name="com.example.anygift.feed.UserProfileFragment"
-        tools:layout="@layout/fragment_user_profile">
-        <action
-            android:id="@+id/action_userProfileFragment_to_editProfileFragment"
-            app:destination="@id/editProfileFragment" />
-    </fragment>
-    <fragment
         android:id="@+id/myCardsFragment"
         android:name="com.example.anygift.feed.MyCardsFragment"
         tools:layout="@layout/fragment_my_cards">
@@ -46,9 +38,6 @@
         <action
             android:id="@+id/action_cardsDetailsFragment_to_editCardsDetailsFragment"
             app:destination="@id/editCardDetailsFragment" />
-        <action
-            android:id="@+id/action_cardsDetailsFragment_to_userDetailsFragment"
-            app:destination="@id/userDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/editCardDetailsFragment"
@@ -63,16 +52,8 @@
     <fragment
         android:id="@+id/editProfileFragment"
         android:name="com.example.anygift.feed.EditProfileFragment"
-        tools:layout="@layout/fragment_edit_profile"/><action android:id="@+id/action_global_userProfileFragment" app:destination="@id/userProfileFragment"/><action android:id="@+id/action_global_addCardFragment" app:destination="@id/addCardFragment"/><action android:id="@+id/action_global_feedFragment" app:destination="@id/feedFragment"/><action android:id="@+id/action_global_myCardsFragment" app:destination="@id/myCardsFragment"/>
-    <fragment
-        android:id="@+id/userDetailsFragment"
-        android:name="com.example.anygift.feed.UserDetailsFragment"
-        android:label="AG"
-        tools:layout="@layout/fragment_user_details">
-        <argument
-            android:name="userId"
-            app:argType="string" />
-    </fragment>
+        tools:layout="@layout/fragment_edit_profile"/>
+    <action android:id="@+id/action_global_addCardFragment" app:destination="@id/addCardFragment"/><action android:id="@+id/action_global_feedFragment" app:destination="@id/feedFragment"/><action android:id="@+id/action_global_myCardsFragment" app:destination="@id/myCardsFragment"/>
     <fragment
         android:id="@+id/shopFragment"
         android:name="com.example.anygift.feed.ShopFragment" />

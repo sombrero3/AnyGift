@@ -62,21 +62,18 @@ public class EditProfileFragment extends Fragment {
         emailTv = view.findViewById(R.id.editProfile_email_tv);
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
 
-        userViewModel.getUser(new UserViewModel.GetUserListener() {
-            @Override
-            public void onComplete(User user) {
-                temp = user;
-                firstNameEt.setText((user != null) ? user.getFirstName() : "null");
-                lastNameEt.setText((user != null) ? user.getLastName() : "null");
-                emailTv.setText((user != null) ? user.getEmail() : "null");
-                phoneEt.setText((user != null) ? user.getPhone() : "null");
-                if (user.getImageUrl() != null) {
-                    Picasso.get().load(user.getImageUrl()).into(profileImage);
-                    profileImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                    profileImage.setClipToOutline(true);
-                }
-            }
-        });
+        temp = new User();
+        temp.fromMap(Model.instance.getSignedUser().mapToCreateOriginalUser());
+        firstNameEt.setText((temp != null) ? temp.getFirstName() : "null");
+        lastNameEt.setText((temp != null) ? temp.getLastName() : "null");
+        emailTv.setText((temp != null) ? temp.getEmail() : "null");
+        phoneEt.setText((temp != null) ? temp.getPhone() : "null");
+        if (temp.getImageUrl() != null && !temp.getImageUrl().isEmpty()) {
+            Picasso.get().load(temp.getImageUrl()).into(profileImage);
+            profileImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            profileImage.setClipToOutline(true);
+        }
+
 
         cameraBtn = view.findViewById(R.id.editProfile_imageButton);
         cameraBtn.setOnClickListener(new View.OnClickListener() {
