@@ -88,7 +88,7 @@ public class UserProfileFragment extends Fragment {
         });
 
         editBtn.setOnClickListener((v) -> {
-            Navigation.findNavController(v).navigate(R.id.action_userProfileFragment_to_editProfileFragment);
+           // Navigation.findNavController(v).navigate(R.id.action_userProfileFragment_to_editProfileFragment);
         });
         cardBtn.setOnClickListener((v) -> {
             Navigation.findNavController(v).navigate(R.id.action_global_myCardsFragment);

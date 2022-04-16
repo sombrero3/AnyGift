@@ -72,11 +72,11 @@ public class MainActivity extends AppCompatActivity {
                         navCtr.navigate(R.id.action_global_feedFragment);
                         break;
                     }
-                    case R.id.menu_profile: {
-                        drawerLayout.closeDrawer(GravityCompat.START);
-                        navCtr.navigate(R.id.action_global_userProfileFragment);
-                        break;
-                    }
+//                    case R.id.menu_profile: {
+//                        drawerLayout.closeDrawer(GravityCompat.START);
+//                        navCtr.navigate(R.id.action_global_userProfileFragment);
+//                        break;
+//                    }
                     case R.id.menu_cards: {
                         drawerLayout.closeDrawer(GravityCompat.START);
                         navCtr.navigate(R.id.action_global_myCardsFragment);

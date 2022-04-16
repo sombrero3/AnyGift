@@ -241,6 +241,19 @@ public class User {
         }};
     }
 
+    public HashMap<String,Object> mapToCreateOriginalUser(){
+        return new HashMap<String, Object>() {{
+            put("firstName", firstName);
+            put("lastName", lastName);
+            put("email", email);
+            put("password", password);
+            put("address", address);
+            put("latAndLong", latAndLong);
+            put("phone", phone);
+            put("isAdmin", isAdmin);
+        }};
+    }
+
     public static HashMap<String, Object> mapToLogin(String email, String password) {
         return new HashMap<String, Object>() {{
             put("email", email);

@@ -43,7 +43,7 @@ public class UserDetailsFragment extends Fragment {
         email = view.findViewById(R.id.UserprofileF_mail);
         MapBtn=view.findViewById(R.id.UserprofileF_mapBtn);;
         profileImage=view.findViewById(R.id.UserprofileF_imageView);
-        String userId = UserDetailsFragmentArgs.fromBundle(getArguments()).getUserId();
+        String userId = "";//UserDetailsFragmentArgs.fromBundle(getArguments()).getUserId();
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
         userViewModel.getUserById(userId, new UserViewModel.GetUserListener() {
             @Override
@@ -69,7 +69,7 @@ public class UserDetailsFragment extends Fragment {
         MapBtn = view.findViewById(R.id.UserprofileF_mapBtn);
         ;
         profileImage = view.findViewById(R.id.UserprofileF_imageView);
-        String userIdFrag = UserDetailsFragmentArgs.fromBundle(getArguments()).getUserId().toString();
+        String userIdFrag = "";//UserDetailsFragmentArgs.fromBundle(getArguments()).getUserId().toString();
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
         userViewModel.getUserById(userIdFrag, new UserViewModel.GetUserListener() {
             @Override
