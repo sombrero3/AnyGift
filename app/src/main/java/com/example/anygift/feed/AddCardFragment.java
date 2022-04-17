@@ -147,6 +147,12 @@ public class AddCardFragment extends Fragment {
                     @Override
                     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                         //setGiftCardImage
+                        String cardTypeName = cts.get(i).getName();
+                        if(cardTypeName.equals("dreamCard")){
+                            giftCardImage.setImageResource(R.drawable.dream_card);
+                        }else if(cardTypeName.equals("Shufersal")){
+                            giftCardImage.setImageResource(R.drawable.shufersal_card);
+                        }
                         cardType = cts.get(i).getId();
                     }
 
