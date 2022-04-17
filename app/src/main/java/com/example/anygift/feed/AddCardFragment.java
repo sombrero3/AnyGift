@@ -25,8 +25,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -38,6 +40,7 @@ import android.widget.TextView;
 import com.craftman.cardform.CardForm;
 import com.example.anygift.R;
 import com.example.anygift.Retrofit.Card;
+import com.example.anygift.Retrofit.CardType;
 import com.example.anygift.model.GiftCard;
 import com.example.anygift.model.Model;
 import com.example.anygift.model.User;
@@ -50,52 +53,60 @@ import com.google.firebase.auth.FirebaseUser;
 
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 
 public class AddCardFragment extends Fragment {
-    private static final int REQUEST_CAMERA = 1;
     TextInputEditText cardValue, cardAskingValue, cardNumber;
-    ImageButton uploadPicButton;
     Button addCardButton;
     ImageView giftCardImage;
     View view;
     ProgressBar pb;
-    String latAndLong;
+    String latAndLong,cardType;
     UserViewModel userViewModel;
     Spinner spinnerCardType;
     TextView dateTv;
+    CheckBox forSaleCb;
     DatePickerDialog.OnDateSetListener dateListener;
+    List<String> cardTypes;
     int year, month, day;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // remove upload picture button
-        // add "for Sale?" button that is true/false
-        // check why date selection not working good
-
         // Inflate the layout for this fragment
         //getActivity().setTitle("AnyGift - AddCard");
         view = inflater.inflate(R.layout.fragment_add_card, container, false);
         cardNumber = view.findViewById(R.id.add_card_number);
         cardValue = view.findViewById(R.id.add_card_value);
         cardAskingValue = view.findViewById(R.id.add_card_asking_price);
-        uploadPicButton = view.findViewById(R.id.add_camera_bt);
         addCardButton = view.findViewById(R.id.add_upload_bt);
         giftCardImage = view.findViewById(R.id.add_giftCardImage);
         dateTv = view.findViewById(R.id.add_card_date_tv);
-
-        spinnerCardType = (Spinner) view.findViewById(R.id.option);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.options, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerCardType.setAdapter(adapter);
-
-        giftCardImage.setTag("");
+        forSaleCb = view.findViewById(R.id.add_card_for_sale_cb);
         pb = view.findViewById(R.id.add_pb);
-        pb.setVisibility(View.INVISIBLE);
 
-        //---date calendar---//
+        pb.setVisibility(View.VISIBLE);
+        giftCardImage.setTag("");
+
+        setCardtypesSpinner();
+        setDateSelector();
+
+
+        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
+        addCardButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                upload();
+            }
+        });
+
+        return view;
+    }
+
+    private void setDateSelector() {
         Calendar calendar = Calendar.getInstance();
         year = calendar.get(Calendar.YEAR);
         month = calendar.get(Calendar.MONTH);
@@ -110,21 +121,44 @@ public class AddCardFragment extends Fragment {
         });
         dateListener = new DatePickerDialog.OnDateSetListener() {
             @Override
-            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                month = month + 1;
+            public void onDateSet(DatePicker datePicker, int y, int m, int d) {
+                m += 1;
+                year = y;
+                month = m;
+                day = d;
                 dateTv.setText(day + "/" + month + "/" + year);
             }
         };
+    }
 
-        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
-        addCardButton.setOnClickListener(new View.OnClickListener() {
+    private void setCardtypesSpinner() {
+        Model.instance.getAllCardTypes(new Model.cardTypesReturnListener() {
             @Override
-            public void onClick(View v) {
-                upload();
+            public void onComplete(List<CardType> cts) {
+                cardTypes = new ArrayList<>();
+                for(CardType ct:cts){
+                    cardTypes.add(ct.getName());
+                }
+                spinnerCardType = (Spinner) view.findViewById(R.id.option);
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),android.R.layout.simple_spinner_dropdown_item,cardTypes);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spinnerCardType.setAdapter(adapter);
+                spinnerCardType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                        //setGiftCardImage
+                        cardType = cts.get(i).getId();
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> adapterView) {
+                        cardType = cts.get(0).getId();
+                    }
+                });
+                pb.setVisibility(View.INVISIBLE);
             }
         });
 
-        return view;
     }
 
 
@@ -136,13 +170,10 @@ public class AddCardFragment extends Fragment {
 
     void enableButtons() {
         addCardButton.setEnabled(true);
-        uploadPicButton.setEnabled(true);
     }
 
     void disableButtons() {
         addCardButton.setEnabled(false);
-        uploadPicButton.setEnabled(false);
-
     }
 
     static boolean isLegalDate(String s) {
@@ -170,16 +201,23 @@ public class AddCardFragment extends Fragment {
             return;
         }
 
+        Log.d("TAG","date = " +day+"/"+month+"/"+year);
+        Log.d("TAG","card type id = "+cardType );
+
         HashMap<String, Object> map = Card.mapToAddCard(Double.parseDouble(cardAskingValue.getText().toString()),
-                Double.parseDouble(cardValue.getText().toString()), cardNumber.getText().toString(), "62532859427c06ccbf55d31e",
-                Model.instance.modelRetrofit.getUserId(), true,
+                Double.parseDouble(cardValue.getText().toString()), cardNumber.getText().toString(), cardType,
+                Model.instance.modelRetrofit.getUserId(), forSaleCb.isChecked(),
                 Utils.convertDateToLong(Integer.toString(day), Integer.toString(month), Integer.toString(year)));
 
+        //"62532859427c06ccbf55d31e" <--> this is card type id
+
         Model.instance.addCardRetrofit(map, new Model.cardReturnListener() {
+
             @Override
             public void onComplete(Card card, String message) {
                 if (card != null) {
                     popMsg("GiftCard successfully uploaded");
+                    Navigation.findNavController(dateTv).navigate(AddCardFragmentDirections.actionGlobalMyCardsFragment());
                 } else {
                     popMsg("GiftCard uploading Failed!");
                 }
