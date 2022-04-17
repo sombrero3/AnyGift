@@ -175,7 +175,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="42dp"
-        android:text="Fashion :"
+        android:text="Dream Cards :"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/general_list_line"
         app:layout_constraintTop_toBottomOf="@+id/giftbgcoover" />
@@ -191,7 +191,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView55" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/feed_fashion_rv"
+        android:id="@+id/feed_dream_cards_rv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -203,10 +203,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="42dp"
-        android:text="Kids :"
+        android:text="Shufersal Cards :"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/textView55"
-        app:layout_constraintTop_toBottomOf="@+id/feed_fashion_rv" />
+        app:layout_constraintTop_toBottomOf="@+id/feed_dream_cards_rv" />
 
     <View
         android:id="@+id/feed_kids_line"
@@ -219,7 +219,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView58" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/feed_kids_rv"
+        android:id="@+id/feed_shufersal_cards_rv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintEnd_toEndOf="parent"
