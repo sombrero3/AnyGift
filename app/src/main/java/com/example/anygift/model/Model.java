@@ -184,11 +184,46 @@ public class Model {
             modelRetrofit.getAllCards(new cardsReturnListener() {
                 @Override
                 public void onComplete(List<Card> cards, String message) {
-                    String user_id = modelRetrofit.getUserId();;
+                    String user_id = modelRetrofit.getUserId();
                     cards.stream().filter(c->c.getIsForSale() && !c.getOwner().equals(user_id));
                     listener.onComplete(cards,"Cards filtered");
                 }
             });
+        });
+    }
+
+    public interface mapStringToCardsArrayListener{
+        void onComplete(HashMap<String,ArrayList<Card>> map);
+    }
+    public void getallcardsByCardType(mapStringToCardsArrayListener listener) {
+        getAllFeedCardsForSale(new Model.cardsReturnListener() {
+            @Override
+            public void onComplete(List<Card> cards, String message) {
+                System.out.println(message);
+                System.out.println(cards);
+                Model.instance.modelRetrofit.getAllCardTypes(new Model.cardTypesReturnListener() {
+                    @Override
+                    public void onComplete(List<CardType> cts) {
+                        if (cts != null) {
+                            HashMap<String, ArrayList<Card>> map = new HashMap<>();
+                            for (CardType c : cts) {
+                                map.put(c.getId(), new ArrayList<>());
+                            }
+                            for (Card c : cards) {
+                                ArrayList<Card> arrayList = map.get(c.getCardType());
+                                arrayList.add(c);
+                                map.put(c.getCardType(), arrayList);
+                            }
+                            for (CardType c : cts) {
+                                map.put(c.getName(), map.get(c.getId()));
+                                map.remove(c.getId());
+                            }
+                            System.out.println(map);
+                            listener.onComplete(map);
+                        }
+                    }
+                });
+            }
         });
     }
 
@@ -233,7 +268,7 @@ public class Model {
         return ListLoadingState;
     }
 
-    public interface GetAllGiftCardListener {
+    public interface VoidListener {
         void onComplete();
     }
 

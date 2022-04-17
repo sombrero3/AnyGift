@@ -19,8 +19,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.anygift.OnItemClickListener;
 import com.example.anygift.R;
+import com.example.anygift.adapters.CardsListAdapter;
 import com.example.anygift.model.Model;
+import com.example.anygift.view_holders.CardsListViewHolder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.squareup.picasso.Picasso;
 
@@ -29,10 +32,13 @@ import java.util.Objects;
 
 public class FeedFragment extends Fragment {
     FeedViewModel viewModel;
-    MyAdapter adapter,fashionAdapter,kidsAdapter;
+    CardsListAdapter  dreamCardAdapter, shufersalAdapter;
+    MyAdapter mostRecAdapter;
     SwipeRefreshLayout swipeRefresh;
     TextView nameTv;
     FloatingActionButton searchFab;
+    RecyclerView dreamCardList,mostRecList,shufersalList;
+    View v;
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
@@ -44,6 +50,7 @@ public class FeedFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_feed, container, false);
        // getActivity().setTitle("AnyGift - Feed");
+        v= view;
         swipeRefresh = view.findViewById(R.id.giftCardlist_swiperefresh);
         swipeRefresh.setOnRefreshListener(() -> Model.instance.refreshGiftCardsList());
 
@@ -51,59 +58,7 @@ public class FeedFragment extends Fragment {
         nameTv.setText("Hello " + Model.instance.getSignedUser().getFirstName() +" and welcome to the gift card trading platform. Find every gift card buy or trade with your own cards.");
         searchFab = view.findViewById(R.id.feed_search_fab);
 
-        //--Most Recommended RV------//
-        RecyclerView list = view.findViewById(R.id.cards_list_rv);
-        list.setHasFixedSize(true);
-        RecyclerView.LayoutManager horizontalLayout2 = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
-        list.setLayoutManager(horizontalLayout2);
-        adapter = new MyAdapter();
-        list.setAdapter(adapter);
-
-        adapter.setOnItemClickListener(new FeedFragment.OnItemClickListener() {
-            @Override
-            public void onItemClick(View v, int position) {
-                double val = viewModel.getList().getValue().get(position).getValue();
-                String id = viewModel.getList().getValue().get(position).getId();
-                Log.d("TAG", "Gift card in value of: " + val);
-                Navigation.findNavController(v).navigate(FeedFragmentDirections.actionFeedFragmentToCardsDetailsFragment(id));
-            }
-        });
-
-        //--Fashion RV--//
-        RecyclerView fashionList = view.findViewById(R.id.feed_fashion_rv);
-        fashionList.setHasFixedSize(true);
-        RecyclerView.LayoutManager horizontalLayout3 = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
-        fashionList.setLayoutManager(horizontalLayout3);
-        fashionAdapter = new MyAdapter();
-        fashionList.setAdapter(fashionAdapter);
-
-        fashionAdapter.setOnItemClickListener(new FeedFragment.OnItemClickListener() {
-            @Override
-            public void onItemClick(View v, int position) {
-                double val = viewModel.getList().getValue().get(position).getValue();
-                String id = viewModel.getList().getValue().get(position).getId();
-                Log.d("TAG", "Gift card in value of: " + val);
-                Navigation.findNavController(v).navigate(FeedFragmentDirections.actionFeedFragmentToCardsDetailsFragment(id));
-            }
-        });
-
-        //---Kids RV---//
-        RecyclerView kidsList = view.findViewById(R.id.feed_kids_rv);
-        kidsList.setHasFixedSize(true);
-        RecyclerView.LayoutManager horizontalLayout4 = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
-        kidsList.setLayoutManager(horizontalLayout4);
-        kidsAdapter = new MyAdapter();
-        kidsList.setAdapter(kidsAdapter);
-
-        kidsAdapter.setOnItemClickListener(new FeedFragment.OnItemClickListener() {
-            @Override
-            public void onItemClick(View v, int position) {
-                double val = viewModel.getList().getValue().get(position).getValue();
-                String id = viewModel.getList().getValue().get(position).getId();
-                Log.d("TAG", "Gift card in value of: " + val);
-                Navigation.findNavController(v).navigate(FeedFragmentDirections.actionFeedFragmentToCardsDetailsFragment(id));
-            }
-        });
+        setRvs();
 
         setHasOptionsMenu(true);
         viewModel.getList().observe(getViewLifecycleOwner(), list1 -> refresh());
@@ -126,8 +81,75 @@ public class FeedFragment extends Fragment {
 
     }
 
+    private void setRvs() {
+        //--Most Recommended RV------//
+        mostRecList = v.findViewById(R.id.cards_list_rv);
+        mostRecList.setHasFixedSize(true);
+        RecyclerView.LayoutManager mostRecLayout = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
+        mostRecList.setLayoutManager(mostRecLayout);
+        mostRecAdapter = new MyAdapter();
+        mostRecList.setAdapter(mostRecAdapter);
+
+        mostRecAdapter.setOnItemClickListener(new FeedFragment.OnItemClickListener() {
+            @Override
+            public void onItemClick(View v, int position) {
+                double val = viewModel.getList().getValue().get(position).getValue();
+                String id = viewModel.getList().getValue().get(position).getId();
+                Log.d("TAG", "Gift card in value of: " + val);
+                Navigation.findNavController(v).navigate(FeedFragmentDirections.actionFeedFragmentToCardsDetailsFragment(id));
+            }
+        });
+        setDynamicRvs();
+
+
+
+    }
+
+    private void setDynamicRvs() {
+        viewModel.refreshMap(new Model.VoidListener() {
+            @Override
+            public void onComplete() {
+                //--dreamCard RV--//
+                dreamCardList = v.findViewById(R.id.feed_dream_cards_rv);
+                dreamCardList.setHasFixedSize(true);
+                RecyclerView.LayoutManager dreamCardLayout = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
+                dreamCardList.setLayoutManager(dreamCardLayout);
+                dreamCardAdapter = new CardsListAdapter(viewModel.getDreamCardsList());
+                dreamCardList.setAdapter(dreamCardAdapter);
+
+                dreamCardAdapter.setOnItemClickListener(new com.example.anygift.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View v, int position) {
+                        double val = viewModel.getDreamCardsList().get(position).getValue();
+                        String id = viewModel.getDreamCardsList().get(position).getId();
+                        Log.d("TAG", "Gift card in value of: " + val);
+                        Navigation.findNavController(v).navigate(FeedFragmentDirections.actionFeedFragmentToCardsDetailsFragment(id));
+                    }
+                });
+
+                //---Shufersal RV---//
+                shufersalList = v.findViewById(R.id.feed_shufersal_cards_rv);
+                shufersalList.setHasFixedSize(true);
+                RecyclerView.LayoutManager shufersalLayout = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
+                shufersalList.setLayoutManager(shufersalLayout);
+                shufersalAdapter = new CardsListAdapter(viewModel.getShufersalList());
+                shufersalList.setAdapter(shufersalAdapter);
+
+                shufersalAdapter.setOnItemClickListener(new com.example.anygift.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View v, int position) {
+                        double val = viewModel.getShufersalList().get(position).getValue();
+                        String id = viewModel.getShufersalList().get(position).getId();
+                        Log.d("TAG", "Gift card in value of: " + val);
+                        Navigation.findNavController(v).navigate(FeedFragmentDirections.actionFeedFragmentToCardsDetailsFragment(id));
+                    }
+                });
+            }
+        });
+    }
+
     private void refresh() {
-        adapter.notifyDataSetChanged();
+        mostRecAdapter.notifyDataSetChanged();
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {
