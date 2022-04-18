@@ -23,6 +23,15 @@
     android:layout_height="match_parent"
     tools:context=".feed.FeedFragment">
 
+    <ImageView
+        android:id="@+id/imageView10"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/anygift_01" />
+
     <View
         android:id="@+id/general_list_line"
         style="@style/line"
@@ -55,7 +64,8 @@
         android:textStyle="italic"
         app:layout_constraintBottom_toBottomOf="@+id/textView21"
         app:layout_constraintStart_toStartOf="@+id/textView14"
-        app:layout_constraintTop_toTopOf="@+id/textView21" />
+        app:layout_constraintTop_toTopOf="@+id/textView21"
+        android:visibility="invisible"/>
 
     <TextView
         android:id="@+id/textView21"
@@ -65,6 +75,7 @@
         android:textColor="@color/red_transparent"
         android:textSize="54sp"
         android:textStyle="bold"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/textView23"
         app:layout_constraintStart_toEndOf="@+id/textView12"
         app:layout_constraintTop_toTopOf="@+id/textView23" />
@@ -73,11 +84,12 @@
         android:id="@+id/textView23"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="88dp"
+        android:layout_marginTop="78dp"
         android:text="ift"
         android:textColor="@color/grey_1"
         android:textSize="54sp"
         android:textStyle="italic"
+        android:visibility="invisible"
         app:layout_constraintStart_toEndOf="@+id/textView21"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -127,13 +139,13 @@
 
     <ImageView
         android:id="@+id/imageView7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/plain_coin" />
+        app:srcCompat="@drawable/coin_0" />
 
     <ImageView
         android:id="@+id/imageView9"
@@ -164,7 +176,7 @@
         android:id="@+id/giftbgcoover"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="#16F87171"
+        android:background="#0CF87171"
         app:layout_constraintBottom_toBottomOf="@+id/imageView9"
         app:layout_constraintEnd_toEndOf="@+id/imageView9"
         app:layout_constraintStart_toStartOf="parent"
@@ -225,6 +237,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/feed_kids_line" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
