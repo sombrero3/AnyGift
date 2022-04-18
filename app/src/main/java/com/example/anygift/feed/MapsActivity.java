@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import com.example.anygift.R;
 import com.example.anygift.model.GiftCard;
+import com.example.anygift.model.Model;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -15,14 +16,14 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
     private ArrayList<LatLng> locationArrayList;
-    FeedViewModel viewModel;
     private ArrayList<String> gcNames;
-
+    private List<GiftCard> cards;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,11 +32,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-        viewModel = new ViewModelProvider(this).get(FeedViewModel.class);
         mapFragment.getMapAsync(this);
         locationArrayList = new ArrayList<>();
+        cards = Model.instance.getAll().getValue();
         gcNames = new ArrayList<>();
-        for (GiftCard gc : viewModel.getList().getValue()) {
+        for (GiftCard gc : cards) {
             String[] cordinates = gc.getLatAndLong().split(",");
             locationArrayList.add(new LatLng(Double.parseDouble(cordinates[0]), Double.parseDouble(cordinates[1])));
             gcNames.add("belong to:" + gc.getOwnerEmail());

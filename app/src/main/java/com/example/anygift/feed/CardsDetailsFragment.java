@@ -30,7 +30,6 @@ import java.util.List;
 
 public class CardsDetailsFragment extends Fragment {
     View view;
-    FeedViewModel viewModel;
     UserViewModel userViewModel;
     private TextView name, value,buyAt,popUpTypeTv,popUpExpTv,popupValueTv, popUpPriceTv;
     private Button mapBtn, editBtn,deleteBtn,buyBtn,popUpSaveBtn,popUpCancel;
@@ -50,9 +49,8 @@ public class CardsDetailsFragment extends Fragment {
         //getActivity().setTitle("AnyGift - CardsDetails");
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
         String giftCardId = CardsDetailsFragmentArgs.fromBundle(getArguments()).getGiftCardId();
-        viewModel = new ViewModelProvider(this).get(FeedViewModel.class);
 
-        List<GiftCard> list = viewModel.getList().getValue();
+        List<GiftCard> list = Model.instance.getAll().getValue();
 
         for (GiftCard gc : list) {
             if (gc.getId().equals(giftCardId))

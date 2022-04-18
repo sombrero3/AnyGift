@@ -16,24 +16,17 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.anygift.OnItemClickListener;
 import com.example.anygift.R;
 import com.example.anygift.adapters.CardsListAdapter;
 import com.example.anygift.model.Model;
-import com.example.anygift.view_holders.CardsListViewHolder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.squareup.picasso.Picasso;
-
-import java.util.Objects;
 
 
 public class FeedFragment extends Fragment {
     FeedViewModel viewModel;
-    CardsListAdapter  dreamCardAdapter, shufersalAdapter;
-    MyAdapter mostRecAdapter;
+    CardsListAdapter  dreamCardAdapter, shufersalAdapter,mostRecAdapter;
     SwipeRefreshLayout swipeRefresh;
     TextView nameTv;
     FloatingActionButton searchFab;
@@ -58,10 +51,10 @@ public class FeedFragment extends Fragment {
         nameTv.setText("Hello " + Model.instance.getSignedUser().getFirstName() +" and welcome to the gift card trading platform. Find every gift card buy or trade with your own cards.");
         searchFab = view.findViewById(R.id.feed_search_fab);
 
-        setRvs();
+        setDynamicRvs();
 
         setHasOptionsMenu(true);
-        viewModel.getList().observe(getViewLifecycleOwner(), list1 -> refresh());
+        //viewModel.getList().observe(getViewLifecycleOwner(), list1 -> refresh());
         swipeRefresh.setRefreshing(Model.instance.getListLoadingState().getValue() == Model.GiftListLoadingState.loading);
         Model.instance.getListLoadingState().observe(getViewLifecycleOwner(), ListLoadingState -> {
             if (ListLoadingState == Model.GiftListLoadingState.loading) {
@@ -81,27 +74,24 @@ public class FeedFragment extends Fragment {
 
     }
 
-    private void setRvs() {
+    private void setMostRecRv() {
         //--Most Recommended RV------//
         mostRecList = v.findViewById(R.id.cards_list_rv);
         mostRecList.setHasFixedSize(true);
         RecyclerView.LayoutManager mostRecLayout = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
         mostRecList.setLayoutManager(mostRecLayout);
-        mostRecAdapter = new MyAdapter();
+        mostRecAdapter = new CardsListAdapter(viewModel.getMostRecList());
         mostRecList.setAdapter(mostRecAdapter);
 
-        mostRecAdapter.setOnItemClickListener(new FeedFragment.OnItemClickListener() {
+        mostRecAdapter.setOnItemClickListener(new com.example.anygift.OnItemClickListener() {
             @Override
             public void onItemClick(View v, int position) {
-                double val = viewModel.getList().getValue().get(position).getValue();
-                String id = viewModel.getList().getValue().get(position).getId();
+                double val = viewModel.getMostRecList().get(position).getValue();
+                String id = viewModel.getMostRecList().get(position).getId();
                 Log.d("TAG", "Gift card in value of: " + val);
                 Navigation.findNavController(v).navigate(FeedFragmentDirections.actionFeedFragmentToCardsDetailsFragment(id));
             }
         });
-        setDynamicRvs();
-
-
 
     }
 
@@ -109,6 +99,7 @@ public class FeedFragment extends Fragment {
         viewModel.refreshMap(new Model.VoidListener() {
             @Override
             public void onComplete() {
+                setMostRecRv();
                 //--dreamCard RV--//
                 dreamCardList = v.findViewById(R.id.feed_dream_cards_rv);
                 dreamCardList.setHasFixedSize(true);
@@ -152,82 +143,4 @@ public class FeedFragment extends Fragment {
         mostRecAdapter.notifyDataSetChanged();
     }
 
-    class MyViewHolder extends RecyclerView.ViewHolder {
-        public OnItemClickListener listener;
-        TextView cardValue, cardValTag;
-        ImageView cardImage;
-        int position;
-
-        public MyViewHolder(View itemView) {
-            super(itemView);
-            cardValue = itemView.findViewById(R.id.cards_list_row_amount_in_card_tv);
-            cardImage = itemView.findViewById(R.id.cards_list_row_iv);
-            cardValTag = itemView.findViewById(R.id.listRow_tv_value);
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    listener.onItemClick(v, position);
-                }
-            });
-        }
-
-        public void bindView(int position) {
-            if (!Objects.requireNonNull(viewModel.getList().getValue()).get(position).getDeleted()) {
-                cardValue.setText(String.valueOf(viewModel.getList().getValue().get(position).getValue()));
-                Picasso.get().load(viewModel.getList().getValue().get(position).getGiftCardImageUrl()).into(cardImage);
-                this.position = position;
-            } else {
-                cardValue.setVisibility(View.GONE);
-                cardImage.setVisibility(View.GONE);
-                cardValTag.setVisibility(View.GONE);
-            }
-        }
-    }
-
-    interface OnItemClickListener {
-
-        void onItemClick(View v, int position);
-    }
-
-    class MyAdapter extends RecyclerView.Adapter<FeedFragment.MyViewHolder> {
-        OnItemClickListener listener;
-
-        public void setOnItemClickListener(FeedFragment.OnItemClickListener listener) {
-            this.listener = listener;
-        }
-
-        @NonNull
-        @Override
-        public FeedFragment.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View view = getLayoutInflater().inflate(R.layout.cards_list_row, parent, false);
-            MyViewHolder holder = new MyViewHolder(view);
-            holder.listener = listener;
-
-            /* use progress bar
-            Timer t = new Timer();
-            t.schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    pb.setVisibility(View.INVISIBLE);
-                }
-            }, 2500);*/
-
-            return holder;
-        }
-
-        @Override
-        public void onBindViewHolder(@NonNull FeedFragment.MyViewHolder holder, int position) {
-
-            ((MyViewHolder) holder).bindView(position);
-
-        }
-
-        @Override
-        public int getItemCount() {
-            if (viewModel.getList().getValue() == null)
-                return 0;
-            return viewModel.getList().getValue().size();
-        }
-    }
 }
