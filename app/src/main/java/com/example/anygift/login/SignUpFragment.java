@@ -114,6 +114,14 @@ public class SignUpFragment extends Fragment {
         continue_btn.setOnClickListener(v -> {
             save();
         });
+        //add details from Facebook user in the signin fragment
+        if(getArguments()!=null){
+            String s=getArguments().getString("first_name");
+            firstName.setText(getArguments().getString("first_name"));
+            lastName.setText(getArguments().getString("last_name"));
+            email.setText(getArguments().getString("email"));
+
+        }
         client = LocationServices.getFusedLocationProviderClient(getActivity());
         find_btn.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -11,6 +11,8 @@ import com.example.anygift.feed.MainActivity;
 import com.example.anygift.login.LoginActivity;
 import com.example.anygift.model.Model;
 import com.example.anygift.model.ModelRetrofit;
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
 import com.google.firebase.FirebaseApp;
 
 public class SplashActivity extends AppCompatActivity {
@@ -24,6 +26,9 @@ public class SplashActivity extends AppCompatActivity {
 
         getSupportActionBar().hide();
         FirebaseApp.initializeApp(this);
+        //Facebook
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        AppEventsLogger.activateApp(getApplication());
 
         Model.instance.executor.execute(() -> {
             try {

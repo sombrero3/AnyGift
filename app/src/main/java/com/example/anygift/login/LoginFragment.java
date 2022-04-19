@@ -28,6 +28,14 @@ import com.example.anygift.feed.Testing;
 import com.example.anygift.model.Model;
 import com.example.anygift.model.ModelFirebase;
 import com.example.anygift.model.User;
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
@@ -36,6 +44,11 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class LoginFragment extends Fragment {
@@ -48,9 +61,10 @@ public class LoginFragment extends Fragment {
     ProgressBar pb;
 
     Button signIn_btn, signUp_btn, forgotP_btn;
+    LoginButton facebook_btn;
     TextInputEditText email, password;
     String email_user, password_user;
-
+CallbackManager callbackManager;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         setHasOptionsMenu(true);
@@ -63,7 +77,6 @@ public class LoginFragment extends Fragment {
         password = view.findViewById(R.id.Login_password_input);
         pb = view.findViewById(R.id.login_prob);
         pb.setVisibility(View.INVISIBLE);
-
         signIn_btn.setTypeface(Typeface.SANS_SERIF);
         signUp_btn.setTypeface(Typeface.SANS_SERIF);
         forgotP_btn.setTypeface(Typeface.SANS_SERIF);
@@ -82,7 +95,33 @@ public class LoginFragment extends Fragment {
             mySnackbar = Snackbar.make(view, "in development", BaseTransientBottomBar.LENGTH_LONG);
             mySnackbar.show();
         });
+//Facebook
+        callbackManager = CallbackManager.Factory.create();
+        facebook_btn=view.findViewById(R.id.signin_facebook_btn);
+        //facebook_btn.registerCallback(callbackManager,this);
+        facebook_btn.setReadPermissions(Arrays.asList(
+                "public_profile", "email", "user_birthday", "user_friends"));
+        facebook_btn.registerCallback(callbackManager, new FacebookCallback<LoginResult>(){
+            @Override
+            public void onSuccess(LoginResult loginResult){
 
+                // Calling method to access User Data After successfully login.
+                GraphLoginRequest(loginResult.getAccessToken());
+            }
+
+            @Override
+            public void onCancel(){
+
+                Toast.makeText(getContext(),"Login Canceled",Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onError(FacebookException exception){
+
+                Toast.makeText(getContext(),"Login Failed",Toast.LENGTH_SHORT).show();
+            }
+
+        });
         return view;
     }
     public void setButtons(Boolean b){
@@ -158,6 +197,26 @@ public class LoginFragment extends Fragment {
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
         menu.clear();
+    }
+
+    protected void GraphLoginRequest(AccessToken accessToken){
+        GraphRequest graphRequest = GraphRequest.newMeRequest(accessToken,
+                new GraphRequest.GraphJSONObjectCallback() {
+                    @Override
+                    public void onCompleted(JSONObject jsonObject, GraphResponse graphResponse) {
+                    }
+
+                });
+
+        Bundle bundle = new Bundle();
+        bundle.putString(
+                "fields",
+                "id,name,link,email,gender,last_name,first_name,locale,timezone,updated_time,verified"
+        );
+        graphRequest.setParameters(bundle);
+        graphRequest.executeAsync();
+        Navigation.findNavController(view).navigate(R.id.signUpFragment, bundle);
+
     }
 }
 
