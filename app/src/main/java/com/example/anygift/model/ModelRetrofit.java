@@ -280,6 +280,9 @@ public class ModelRetrofit {
                 } else if (response.code() == 400) {
                     listener.onComplete(null,"getUser Failed");
                 }
+                else if (response.code() == 403){
+                    listener.onComplete(null, "getUser failed");
+                }
             }
 
             @Override

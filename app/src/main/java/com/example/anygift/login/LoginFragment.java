@@ -107,7 +107,6 @@ public class LoginFragment extends Fragment {
                 } else {
                     mySnackbar = Snackbar.make(view, "Login successful :)", BaseTransientBottomBar.LENGTH_LONG);
                     mySnackbar.show();
-                    Testing testing = new Testing();
                     goToFeedActivity(user);
                 }
             }
@@ -127,6 +126,7 @@ public class LoginFragment extends Fragment {
         }
         //connect via http request
         pb.setVisibility(View.VISIBLE);
+
         login();
 
     }

@@ -50,9 +50,9 @@ public class FeedFragment extends Fragment {
         nameTv = view.findViewById(R.id.cards_list_user_name_tv);
         nameTv.setText("Hello " + Model.instance.getSignedUser().getFirstName() +" and welcome to the gift card trading platform. Find every gift card buy or trade with your own cards.");
         searchFab = view.findViewById(R.id.feed_search_fab);
-
-        setDynamicRvs();
-
+        Model.instance.modelRetrofit.refreshToken(message -> {
+                    setDynamicRvs();
+                });
         setHasOptionsMenu(true);
         //viewModel.getList().observe(getViewLifecycleOwner(), list1 -> refresh());
         swipeRefresh.setRefreshing(Model.instance.getListLoadingState().getValue() == Model.GiftListLoadingState.loading);

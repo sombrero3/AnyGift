@@ -179,8 +179,6 @@ public class Model {
     }
 
     public void getAllFeedCardsForSale(cardsReturnListener listener) {
-        modelRetrofit.refreshToken(message -> {
-            System.out.println(message);
             modelRetrofit.getAllCards(new cardsReturnListener() {
                 @Override
                 public void onComplete(List<Card> cards, String message) {
@@ -189,7 +187,6 @@ public class Model {
                     listener.onComplete(cards,"Cards filtered");
                 }
             });
-        });
     }
 
     public interface mapStringToCardsArrayListener{
@@ -405,10 +402,15 @@ public class Model {
      * Authentication
      */
     public void isTokenValid(booleanReturnListener listener) {
+
         if (modelRetrofit.getAccessToken().isEmpty())
             listener.onComplete(false,"Empty Token");
         else
-        modelRetrofit.authenticateToken(listener);
+            modelRetrofit.refreshToken(message -> {
+                System.out.println(message);
+                modelRetrofit.authenticateToken(listener);
+            });
+
     }
 
     public com.example.anygift.Retrofit.User getSignedUser() {
