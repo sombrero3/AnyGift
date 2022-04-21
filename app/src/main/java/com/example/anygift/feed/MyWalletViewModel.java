@@ -10,10 +10,10 @@ import com.example.anygift.model.Model;
 
 import java.util.List;
 
-public class MyCardsViewModel extends ViewModel {
+public class MyWalletViewModel extends ViewModel {
     private LiveData<List<GiftCard>> gfList;
 
-    public MyCardsViewModel() {
+    public MyWalletViewModel() {
         Log.d("TAG", "FeedViewModel");
         gfList = Model.instance.getAll();
     }

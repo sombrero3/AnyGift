@@ -24,14 +24,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.anygift.R;
 import com.example.anygift.model.GiftCard;
 import com.example.anygift.model.Model;
-import com.example.anygift.model.User;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -43,7 +41,7 @@ public class EditCardDetailsFragment extends Fragment {
     TextView nametv,valuetv;
     Button save, mapBtn, editBtn,deleteBtn;
     ImageView giftCardImage,uploadPicbtn;
-    MyCardsViewModel viewModel;
+    MyWalletViewModel viewModel;
     GiftCard giftCard = null;
     /*
     List<Category> categoryList;*/
@@ -55,7 +53,7 @@ public class EditCardDetailsFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_edit_card_details, container, false);
         //getActivity().setTitle("AnyGift - EditCardDetails");
         String giftCardId = EditCardDetailsFragmentArgs.fromBundle(getArguments()).getGiftCardId();
-        viewModel = new ViewModelProvider(this).get(MyCardsViewModel.class);
+        viewModel = new ViewModelProvider(this).get(MyWalletViewModel.class);
         List<GiftCard> list = viewModel.getList().getValue();
 
         for (GiftCard gc : list) {

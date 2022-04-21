@@ -1,5 +1,6 @@
 package com.example.anygift.feed;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 
@@ -20,24 +21,24 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.anygift.R;
+import com.example.anygift.Retrofit.Income;
+import com.example.anygift.Retrofit.Outcome;
 import com.example.anygift.model.Model;
-import com.example.anygift.model.User;
-import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
 
 
-public class MyCardsFragment extends Fragment {
+public class MyWalletFragment extends Fragment {
     View view;
-    MyCardsViewModel viewModel;
+    MyWalletViewModel viewModel;
     MyAdapter adapter;
     SwipeRefreshLayout swipeRefresh;
-    TextView userName,userEmail,userPhone,userAddress,numOfSold,numOfBought,soldInCoins,boughtInCoins;
-    ImageView userImage,editIv,addCardIv;
+    TextView userName, userEmail, userPhone,coins, userAddress, numOfSold, numOfBought, soldInCoins, boughtInCoins;
+    ImageView userImage, editIv, addCardIv;
 
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        viewModel = new ViewModelProvider(this).get(MyCardsViewModel.class);
+        viewModel = new ViewModelProvider(this).get(MyWalletViewModel.class);
     }
 
     @Nullable
@@ -49,18 +50,18 @@ public class MyCardsFragment extends Fragment {
         swipeRefresh.setOnRefreshListener(() -> Model.instance.refreshGiftCardsList());
         RecyclerView list = view.findViewById(R.id.MyCards_list_rv);
         list.setHasFixedSize(true);
-        RecyclerView.LayoutManager horizontalLayout2 = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
+        RecyclerView.LayoutManager horizontalLayout2 = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         list.setLayoutManager(horizontalLayout2);
-        adapter = new MyCardsFragment.MyAdapter();
+        adapter = new MyWalletFragment.MyAdapter();
         list.setAdapter(adapter);
 
-        adapter.setOnItemClickListener(new MyCardsFragment.OnItemClickListener() {
+        adapter.setOnItemClickListener(new MyWalletFragment.OnItemClickListener() {
             @Override
             public void onItemClick(View v, int position) {
                 double val = viewModel.getList().getValue().get(position).getValue();
                 String id = viewModel.getList().getValue().get(position).getId();
                 Log.d("TAG", "Gift card in value of: " + val);
-                Navigation.findNavController(v).navigate(MyCardsFragmentDirections.actionMyCardsFragmentToCardsDetailsFragment(id));
+                Navigation.findNavController(v).navigate(MyWalletFragmentDirections.actionMyCardsFragmentToCardsDetailsFragment(id));
 
             }
         });
@@ -69,6 +70,7 @@ public class MyCardsFragment extends Fragment {
         userImage = view.findViewById(R.id.my_cards_avater_iv);
         userEmail = view.findViewById(R.id.my_cards_email_tv);
         userPhone = view.findViewById(R.id.my_cards_phone_tv);
+        coins = view.findViewById(R.id.my_cards_coins_tv);
         userAddress = view.findViewById(R.id.my_cards_address_tv);
         numOfSold = view.findViewById(R.id.my_cards_sold_counter_tv);
         numOfBought = view.findViewById(R.id.my_cards_bought_counter_tv);
@@ -77,8 +79,8 @@ public class MyCardsFragment extends Fragment {
         editIv = view.findViewById(R.id.my_cards_edit_iv);
         addCardIv = view.findViewById(R.id.my_cards_add_card_iv);
 
-        editIv.setOnClickListener(v -> Navigation.findNavController(v).navigate(MyCardsFragmentDirections.actionMyCardsFragmentToEditProfileFragment()));
-        addCardIv.setOnClickListener(v-> Navigation.findNavController(v).navigate(MyCardsFragmentDirections.actionGlobalAddCardFragment()));
+        editIv.setOnClickListener(v -> Navigation.findNavController(v).navigate(MyWalletFragmentDirections.actionMyCardsFragmentToEditProfileFragment()));
+        addCardIv.setOnClickListener(v -> Navigation.findNavController(v).navigate(MyWalletFragmentDirections.actionGlobalAddCardFragment()));
 
         setUserUI();
         setHasOptionsMenu(true);
@@ -99,20 +101,47 @@ public class MyCardsFragment extends Fragment {
     private void setUserUI() {
         com.example.anygift.Retrofit.User user = Model.instance.getSignedUser();
 
-        userName.setText(  user.getFirstName() + " " + user.getLastName());
+        userName.setText(user.getFirstName() + " " + user.getLastName());
         userEmail.setText(user.getEmail());
         userPhone.setText(user.getPhone());
         userAddress.setText(user.getAddress());
+        coins.setText(user.getCoins().toString());
         if (user.getProfilePicture() != null && !user.getProfilePicture().isEmpty()) {
             Picasso.get().load(user.getProfilePicture()).into(userImage);
             userImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
             userImage.setClipToOutline(true);
         }
-//        numOfSold.setText(user.getName());
-//        numOfBought.setText(user.getName());
-//        soldInCoins.setText(user.getName());
-//        boughtInCoins.setText(user.getName());
+        Model.instance.modelRetrofit.refreshToken(message -> {
+            getIncomeStats();
+            getOutComeStats();
+        });
 
+    }
+
+    private void getIncomeStats() {
+        Model.instance.getUserIncome(new Model.incomeListener() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onComplete(Income income) {
+                if (income != null) {
+                    numOfSold.setText(income.getTransactions().toString());
+                    soldInCoins.setText(income.getIncome().toString());
+                }
+            }
+        });
+    }
+
+    private void getOutComeStats() {
+        Model.instance.getUserOutCome(new Model.outComeListener() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onComplete(Outcome outcome) {
+                if (outcome != null) {
+                    numOfBought.setText(outcome.getTransactions().toString());
+                    boughtInCoins.setText(outcome.getoutcome().toString());
+                }
+            }
+        });
     }
 
     private void refresh() {
@@ -121,7 +150,7 @@ public class MyCardsFragment extends Fragment {
 
 
     class MyViewHolder extends RecyclerView.ViewHolder {
-        public MyCardsFragment.OnItemClickListener listener;
+        public MyWalletFragment.OnItemClickListener listener;
         TextView cardValue, cardValTag;
         ImageView cardImage;
         int position;
@@ -160,24 +189,24 @@ public class MyCardsFragment extends Fragment {
         void onItemClick(View v, int position);
     }
 
-    class MyAdapter extends RecyclerView.Adapter<MyCardsFragment.MyViewHolder> {
-        MyCardsFragment.OnItemClickListener listener;
+    class MyAdapter extends RecyclerView.Adapter<MyWalletFragment.MyViewHolder> {
+        MyWalletFragment.OnItemClickListener listener;
 
-        public void setOnItemClickListener(MyCardsFragment.OnItemClickListener listener) {
+        public void setOnItemClickListener(MyWalletFragment.OnItemClickListener listener) {
             this.listener = listener;
         }
 
         @NonNull
         @Override
-        public MyCardsFragment.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        public MyWalletFragment.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             View view = getLayoutInflater().inflate(R.layout.my_card_row, parent, false);
-            MyCardsFragment.MyViewHolder holder = new MyCardsFragment.MyViewHolder(view);
+            MyWalletFragment.MyViewHolder holder = new MyWalletFragment.MyViewHolder(view);
             holder.listener = listener;
             return holder;
         }
 
         @Override
-        public void onBindViewHolder(@NonNull MyCardsFragment.MyViewHolder holder, int position) {
+        public void onBindViewHolder(@NonNull MyWalletFragment.MyViewHolder holder, int position) {
             holder.bindView(position);
         }
 

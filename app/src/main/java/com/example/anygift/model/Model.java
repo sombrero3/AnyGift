@@ -124,18 +124,11 @@ public class Model {
     }
 
     public void getUserIncome(incomeListener listener) {
-        modelRetrofit.refreshToken(message -> {
-            System.out.println(message);
             modelRetrofit.getUserIncome(listener);
-        });
     }
 
     public void getUserOutCome(outComeListener listener) {
-        modelRetrofit.refreshToken(message -> {
-            System.out.println(message);
-
             modelRetrofit.getUserOutCome(listener);
-        });
     }
 
     //NO AUTHENTICAION
