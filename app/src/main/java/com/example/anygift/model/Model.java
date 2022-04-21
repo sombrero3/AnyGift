@@ -225,6 +225,14 @@ public class Model {
         });
     }
 
+    public void getCardRetrofit(String card_id, cardReturnListener listener) {
+        modelRetrofit.refreshToken(message -> {
+            System.out.println(message);
+            modelRetrofit.getCard(card_id, listener);
+        });
+    }
+
+
     public void deleteCardRetrofit(String card_id, cardReturnListener listener) {
         HashMap<String, Object> map = new HashMap<>();
         map.put("isDeleted", true);

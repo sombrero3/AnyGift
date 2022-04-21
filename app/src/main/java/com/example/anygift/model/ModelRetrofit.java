@@ -448,6 +448,30 @@ public class ModelRetrofit {
     }
 
 
+    public void getCard(String card_id, Model.cardReturnListener listener){
+        String token = getAccessToken();
+        Call<Card> call = retrofitInterface.getCard(card_id,token);
+        call.enqueue(new Callback<Card>() {
+            @Override
+            public void onResponse(@NonNull Call<Card> call, @NonNull Response<Card> response) {
+                if (response.code() == 200) {
+                    Card card = response.body();
+                    listener.onComplete(card, "get Card Succeeded");
+
+                } else if (response.code() == 400) {
+                    listener.onComplete(null, "get Card Failed");
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<Card> call, @NonNull Throwable t) {
+                System.out.println(t.getMessage());
+                listener.onComplete(null, "get Card Failed");
+            }
+        });
+    }
+
+
     public void authenticateToken(Model.booleanReturnListener listener){
         String token = getAccessToken();
         System.out.println(token);

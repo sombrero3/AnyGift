@@ -30,6 +30,9 @@ public interface RetrofitInterface {
     @PUT("cards/{id}")
     Call<Card> updateCard(@Path("id") String card_id, @Body HashMap<String, Object> map, @Header("Authorization") String token);
 
+    @GET("cards/{id}")
+    Call<Card> getCard(@Path("id") String card_id, @Header("Authorization") String token);
+
     @GET("cards/owner/{id}")
     Call<List<Card>> getAllUserCards(@Path("id") String user_id, @Header("Authorization") String token);
 

@@ -66,10 +66,10 @@ public class CardsDetailsFragment extends Fragment {
         giftCardImage = view.findViewById(R.id.details_giftpic_iv);
         buyBtn = view.findViewById(R.id.card_details_buy_btn);
         ////////////////////////////////////////
-        Model.instance.getAllCards(new Model.cardsReturnListener() {
+        Model.instance.getCardRetrofit(cardId,new Model.cardReturnListener() {
             @Override
-            public void onComplete(List<Card> cards, String message) {
-                card = cards.get(0);
+            public void onComplete(Card c, String message) {
+                card = c;
                 setCardImage(giftCardImage);
                 String userId = card.getOwner();
                 Model.instance.getUserRetrofit(userId, new Model.userReturnListener() {
