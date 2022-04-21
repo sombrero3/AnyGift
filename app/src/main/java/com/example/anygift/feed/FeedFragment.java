@@ -46,7 +46,9 @@ public class FeedFragment extends Fragment {
         v= view;
         swipeRefresh = view.findViewById(R.id.giftCardlist_swiperefresh);
         swipeRefresh.setOnRefreshListener(() -> Model.instance.refreshGiftCardsList());
-
+        dreamCardList = v.findViewById(R.id.feed_dream_cards_rv);
+        mostRecList = v.findViewById(R.id.cards_list_rv);
+        shufersalList = v.findViewById(R.id.feed_shufersal_cards_rv);
         nameTv = view.findViewById(R.id.cards_list_user_name_tv);
         nameTv.setText("Hello " + Model.instance.getSignedUser().getFirstName() +" and welcome to the gift card trading platform. Find every gift card buy or trade with your own cards.");
         searchFab = view.findViewById(R.id.feed_search_fab);
@@ -76,7 +78,7 @@ public class FeedFragment extends Fragment {
 
     private void setMostRecRv() {
         //--Most Recommended RV------//
-        mostRecList = v.findViewById(R.id.cards_list_rv);
+
         mostRecList.setHasFixedSize(true);
         RecyclerView.LayoutManager mostRecLayout = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
         mostRecList.setLayoutManager(mostRecLayout);
@@ -101,7 +103,7 @@ public class FeedFragment extends Fragment {
             public void onComplete() {
                 setMostRecRv();
                 //--dreamCard RV--//
-                dreamCardList = v.findViewById(R.id.feed_dream_cards_rv);
+
                 dreamCardList.setHasFixedSize(true);
                 RecyclerView.LayoutManager dreamCardLayout = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
                 dreamCardList.setLayoutManager(dreamCardLayout);
@@ -119,7 +121,7 @@ public class FeedFragment extends Fragment {
                 });
 
                 //---Shufersal RV---//
-                shufersalList = v.findViewById(R.id.feed_shufersal_cards_rv);
+
                 shufersalList.setHasFixedSize(true);
                 RecyclerView.LayoutManager shufersalLayout = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
                 shufersalList.setLayoutManager(shufersalLayout);
