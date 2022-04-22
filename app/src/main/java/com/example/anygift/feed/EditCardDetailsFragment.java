@@ -146,21 +146,21 @@ public class EditCardDetailsFragment extends Fragment {
         BitmapDrawable drawable = (BitmapDrawable) giftCardImage.getDrawable();
         Log.d("BITAG", drawable.toString());
         Bitmap bitmap = drawable.getBitmap();
-        Model.instance.uploadImage(bitmap, giftCard.getId(), new Model.UploadImageListener() {
-            @Override
-            public void onComplete(String url) {
-                if (url == null) {
-                    displayFailedError();
-                } else {
-                    giftCard.setGiftCardImageUrl(url);
-                    giftCard.setValue(Double.parseDouble(valuetv.getText().toString()));
-                    giftCard.setWantedPrice(Double.parseDouble(buyAt.getText().toString()));
-                    Model.instance.addGiftCard(giftCard, () -> {
-                        Navigation.findNavController(view).navigate(R.id.action_global_feedFragment);
-                    });
-                }
-            }
-        });
+//        Model.instance.uploadImage(bitmap, giftCard.getId(), new Model.UploadImageListener() {
+//            @Override
+//            public void onComplete(String url) {
+//                if (url == null) {
+//                    displayFailedError();
+//                } else {
+//                    giftCard.setGiftCardImageUrl(url);
+//                    giftCard.setValue(Double.parseDouble(valuetv.getText().toString()));
+//                    giftCard.setWantedPrice(Double.parseDouble(buyAt.getText().toString()));
+//                    Model.instance.addGiftCard(giftCard, () -> {
+//                        Navigation.findNavController(view).navigate(R.id.action_global_feedFragment);
+//                    });
+//                }
+//            }
+//        });
 
 
     }

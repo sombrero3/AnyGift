@@ -30,9 +30,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.anygift.R;
+import com.example.anygift.Retrofit.UploadImageResult;
+import com.example.anygift.Retrofit.User;
 import com.example.anygift.model.Model;
-import com.example.anygift.model.User;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
+import com.squareup.picasso.OkHttp3Downloader;
 import com.squareup.picasso.Picasso;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.HashMap;
 
 
 public class EditProfileFragment extends Fragment {
@@ -42,7 +52,7 @@ public class EditProfileFragment extends Fragment {
     UserViewModel userViewModel;
     EditText firstNameEt, lastNameEt, phoneEt;
     Button saveBtn;
-    User temp;
+    com.example.anygift.Retrofit.User temp;
     ImageButton cameraBtn;
     ImageView profileImage;
 
@@ -62,16 +72,14 @@ public class EditProfileFragment extends Fragment {
         emailTv = view.findViewById(R.id.editProfile_email_tv);
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
 
-        temp = new User();
-        temp.fromMap(Model.instance.getSignedUser().mapToCreateOriginalUser());
+        temp = Model.instance.getSignedUser();
         firstNameEt.setText((temp != null) ? temp.getFirstName() : "null");
         lastNameEt.setText((temp != null) ? temp.getLastName() : "null");
         emailTv.setText((temp != null) ? temp.getEmail() : "null");
         phoneEt.setText((temp != null) ? temp.getPhone() : "null");
-        if (temp.getImageUrl() != null && !temp.getImageUrl().isEmpty()) {
-            Picasso.get().load(temp.getImageUrl()).into(profileImage);
-            profileImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            profileImage.setClipToOutline(true);
+
+        if (temp.getProfilePicture() != null && !temp.getProfilePicture().isEmpty()) {
+            showProfilePic();
         }
 
 
@@ -86,7 +94,7 @@ public class EditProfileFragment extends Fragment {
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(validation(firstNameEt.getText().toString().trim(),lastNameEt.getText().toString().trim(),phoneEt.getText().toString().trim())) {
+                if (validation(firstNameEt.getText().toString().trim(), lastNameEt.getText().toString().trim(), phoneEt.getText().toString().trim())) {
                     if (temp.getFirstName().compareTo(firstNameEt.getText().toString()) != 0) {
                         temp.setFirstName(firstNameEt.getText().toString());
                     }
@@ -96,25 +104,46 @@ public class EditProfileFragment extends Fragment {
                     if (temp.getPhone().compareTo(phoneEt.getText().toString()) != 0) {
                         temp.setPhone(phoneEt.getText().toString());
                     }
-                    updateImage();
+                    try {
+                        updateImage();
+                    } catch (Exception exception) {
+
+                    }
                 }
             }
         });
         return view;
     }
 
-    private boolean validation(String firstName, String lastName,String phone) {
-        if(firstName.isEmpty()){
+
+    public void showProfilePic() {
+        Model.instance.downloadImage(temp.getProfilePicture().replace("/image/", ""),
+                new Model.byteArrayReturnListener() {
+                    @Override
+                    public void onComplete(Bitmap bitmap) {
+                        if (bitmap == null) {
+                            return;
+                        }
+                        profileImage.setImageBitmap(bitmap);
+                        profileImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                        profileImage.setClipToOutline(true);
+                    }
+                });
+
+    }
+
+    private boolean validation(String firstName, String lastName, String phone) {
+        if (firstName.isEmpty()) {
             firstNameEt.setError("First name is required");
             firstNameEt.requestFocus();
             return false;
         }
-        if(lastName.isEmpty()){
+        if (lastName.isEmpty()) {
             lastNameEt.setError("Last name is required");
             lastNameEt.requestFocus();
             return false;
         }
-        if(phone.isEmpty()){
+        if (phone.isEmpty()) {
             phoneEt.setError("Email address is required");
             phoneEt.requestFocus();
             return false;
@@ -176,26 +205,70 @@ public class EditProfileFragment extends Fragment {
         }
     }
 
-    private void updateImage() {
+    public static InputStream bitmap2InputStream(Bitmap bm) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bm.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        return new ByteArrayInputStream(baos.toByteArray());
+    }
+
+    public byte[] getBytes(InputStream is) throws IOException {
+        ByteArrayOutputStream byteBuff = new ByteArrayOutputStream();
+
+        int buffSize = 1024;
+        byte[] buff = new byte[buffSize];
+
+        int len = 0;
+        while ((len = is.read(buff)) != -1) {
+            byteBuff.write(buff, 0, len);
+        }
+
+        return byteBuff.toByteArray();
+    }
+
+
+    private void updateImage() throws IOException {
         BitmapDrawable drawable = (BitmapDrawable) profileImage.getDrawable();
         Log.d("BITAG", drawable.toString());
         Bitmap bitmap = drawable.getBitmap();
-        Model.instance.uploadUserImage(bitmap, temp.getId(), new Model.UploadUserImageListener() {
+        InputStream is = bitmap2InputStream(bitmap);
+
+        Model.instance.uploadImage(getBytes(is), new Model.uploadImageListener() {
             @Override
-            public void onComplete(String url) {
-                if (url == null) {
+            public void onComplete(UploadImageResult uploadImageResult) {
+                System.out.println(uploadImageResult);
+                String profilePicFile = uploadImageResult.getPath().replace("/images/", "");
+                temp.setProfilePicture(profilePicFile);
+                if (uploadImageResult == null)
                     displayFailedError();
-                } else {
-//                    temp.setImageUrl(url);
-//                    Model.instance.addUser(temp, () -> {
-//                        Model.instance.setCurrentUser(null) -> Navigation.findNavController(view).navigate(R.id.action_global_myCardsFragment));
-//                    });
+                else {
+                    HashMap<String, Object> newmap = new HashMap<String, Object>() {{
+                        put("firstName", temp.getFirstName());
+                        put("lastName", temp.getLastName());
+                        put("phone", temp.getPhone());
+                        put("profilePicture", temp.getProfilePicture());
+                    }};
+
+                    com.example.anygift.Retrofit.User.mapToUpdateUser(temp.getId(), newmap);
+                    Model.instance.updateUser(newmap, new Model.userLoginListener() {
+                        @Override
+                        public void onComplete(User user, String message) {
+                            if (user != null) {
+                                Snackbar mySnackbar = Snackbar.make(view, "User updated successfully :)", BaseTransientBottomBar.LENGTH_LONG);
+                                mySnackbar.show();
+                                Navigation.findNavController(view).navigate(R.id.action_global_myCardsFragment);
+                            } else {
+                                Snackbar mySnackbar = Snackbar.make(view, "User update Failed :(", BaseTransientBottomBar.LENGTH_LONG);
+                                mySnackbar.show();
+
+                            }
+                        }
+                    });
                 }
             }
         });
 
-
     }
+
 
     private void displayFailedError() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
