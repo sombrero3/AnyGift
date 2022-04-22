@@ -18,19 +18,26 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.example.anygift.OnItemClickListener;
 import com.example.anygift.R;
+import com.example.anygift.Retrofit.Card;
 import com.example.anygift.Retrofit.Income;
 import com.example.anygift.Retrofit.Outcome;
+import com.example.anygift.adapters.CardsListAdapter;
 import com.example.anygift.model.Model;
 import com.squareup.picasso.Picasso;
+
+import java.util.List;
 
 
 public class MyWalletFragment extends Fragment {
     View view;
+    ProgressBar pb;
     MyWalletViewModel viewModel;
-    MyAdapter adapter;
+    CardsListAdapter adapter;
     SwipeRefreshLayout swipeRefresh;
     TextView userName, userEmail, userPhone,coins, userAddress, numOfSold, numOfBought, soldInCoins, boughtInCoins;
     ImageView userImage, editIv, addCardIv;
@@ -47,24 +54,33 @@ public class MyWalletFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_my_cards, container, false);
         //getActivity().setTitle("AnyGift - MyCards");
         swipeRefresh = view.findViewById(R.id.my_cards_swiperefresh);
+        pb = view.findViewById(R.id.my_cards_progressbar);
+        pb.setVisibility(View.VISIBLE);
         swipeRefresh.setOnRefreshListener(() -> Model.instance.refreshGiftCardsList());
         RecyclerView list = view.findViewById(R.id.MyCards_list_rv);
         list.setHasFixedSize(true);
-        RecyclerView.LayoutManager horizontalLayout2 = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-        list.setLayoutManager(horizontalLayout2);
-        adapter = new MyWalletFragment.MyAdapter();
-        list.setAdapter(adapter);
-
-        adapter.setOnItemClickListener(new MyWalletFragment.OnItemClickListener() {
+        RecyclerView.LayoutManager horizontalLayout = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        list.setLayoutManager(horizontalLayout);
+        viewModel.getListWithListener(new Model.CardsListListener() {
             @Override
-            public void onItemClick(View v, int position) {
-                double val = viewModel.getList().getValue().get(position).getValue();
-                String id = viewModel.getList().getValue().get(position).getId();
-                Log.d("TAG", "Gift card in value of: " + val);
-                Navigation.findNavController(v).navigate(MyWalletFragmentDirections.actionMyCardsFragmentToCardsDetailsFragment(id));
-
+            public void onComplete(List<Card> cards) {
+                adapter = new CardsListAdapter(cards);
+                list.setAdapter(adapter);
+                pb.setVisibility(View.GONE);
+                adapter.setOnItemClickListener(new OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View v, int position) {
+                        double val = viewModel.getList().get(position).getValue();
+                        String id = viewModel.getList().get(position).getId();
+                        Log.d("TAG", "Gift card in value of: " + val);
+                        Navigation.findNavController(v).navigate(MyWalletFragmentDirections.actionMyCardsFragmentToCardsDetailsFragment(id));
+                    }
+                });
             }
         });
+
+
+
 
         userName = view.findViewById(R.id.my_cards_user_name_tv);
         userImage = view.findViewById(R.id.my_cards_avater_iv);
@@ -84,7 +100,7 @@ public class MyWalletFragment extends Fragment {
 
         setUserUI();
         setHasOptionsMenu(true);
-        viewModel.getList().observe(getViewLifecycleOwner(), list1 -> refresh());
+
         swipeRefresh.setRefreshing(Model.instance.getListLoadingState().getValue() == Model.GiftListLoadingState.loading);
         Model.instance.getListLoadingState().observe(getViewLifecycleOwner(), ListLoadingState -> {
             if (ListLoadingState == Model.GiftListLoadingState.loading) {
@@ -149,72 +165,72 @@ public class MyWalletFragment extends Fragment {
     }
 
 
-    class MyViewHolder extends RecyclerView.ViewHolder {
-        public MyWalletFragment.OnItemClickListener listener;
-        TextView cardValue, cardValTag;
-        ImageView cardImage;
-        int position;
+//    class MyViewHolder extends RecyclerView.ViewHolder {
+//        public MyWalletFragment.OnItemClickListener listener;
+//        TextView cardValue, cardValTag;
+//        ImageView cardImage;
+//        int position;
+//
+//        public MyViewHolder(View itemView) {
+//            super(itemView);
+//            cardValue = itemView.findViewById(R.id.my_card_row_amount_in_card_tv);
+//            cardImage = itemView.findViewById(R.id.my_card_row_iv);
+//            cardValTag = itemView.findViewById(R.id.my_card_row_price_now_tv);
+//            itemView.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//
+//                    listener.onItemClick(v, position);
+//                }
+//            });
+//        }
+//
+//        public void bindView(int position) {
+//            String gfEmail = viewModel.getList().getValue().get(position).getOwnerEmail();
+//            String userEmail = Model.instance.getSignedUser().getEmail();
+//            if (!viewModel.getList().getValue().get(position).getDeleted() && gfEmail.equals(userEmail)) {
+//                cardValue.setText(String.valueOf(viewModel.getList().getValue().get(position).getValue()));
+//                Picasso.get().load(viewModel.getList().getValue().get(position).getGiftCardImageUrl()).into(cardImage);
+//                this.position = position;
+//            } else {
+//                cardValue.setVisibility(View.GONE);
+//                cardImage.setVisibility(View.GONE);
+//                cardValTag.setVisibility(View.GONE);
+//            }
+//        }
+//    }
 
-        public MyViewHolder(View itemView) {
-            super(itemView);
-            cardValue = itemView.findViewById(R.id.my_card_row_amount_in_card_tv);
-            cardImage = itemView.findViewById(R.id.my_card_row_iv);
-            cardValTag = itemView.findViewById(R.id.my_card_row_price_now_tv);
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    listener.onItemClick(v, position);
-                }
-            });
-        }
-
-        public void bindView(int position) {
-            String gfEmail = viewModel.getList().getValue().get(position).getOwnerEmail();
-            String userEmail = Model.instance.getSignedUser().getEmail();
-            if (!viewModel.getList().getValue().get(position).getDeleted() && gfEmail.equals(userEmail)) {
-                cardValue.setText(String.valueOf(viewModel.getList().getValue().get(position).getValue()));
-                Picasso.get().load(viewModel.getList().getValue().get(position).getGiftCardImageUrl()).into(cardImage);
-                this.position = position;
-            } else {
-                cardValue.setVisibility(View.GONE);
-                cardImage.setVisibility(View.GONE);
-                cardValTag.setVisibility(View.GONE);
-            }
-        }
-    }
-
-    interface OnItemClickListener {
-
-        void onItemClick(View v, int position);
-    }
-
-    class MyAdapter extends RecyclerView.Adapter<MyWalletFragment.MyViewHolder> {
-        MyWalletFragment.OnItemClickListener listener;
-
-        public void setOnItemClickListener(MyWalletFragment.OnItemClickListener listener) {
-            this.listener = listener;
-        }
-
-        @NonNull
-        @Override
-        public MyWalletFragment.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View view = getLayoutInflater().inflate(R.layout.my_card_row, parent, false);
-            MyWalletFragment.MyViewHolder holder = new MyWalletFragment.MyViewHolder(view);
-            holder.listener = listener;
-            return holder;
-        }
-
-        @Override
-        public void onBindViewHolder(@NonNull MyWalletFragment.MyViewHolder holder, int position) {
-            holder.bindView(position);
-        }
-
-        @Override
-        public int getItemCount() {
-            if (viewModel.getList().getValue() == null)
-                return 0;
-            return viewModel.getList().getValue().size();
-        }
-    }
+//    interface OnItemClickListener {
+//
+//        void onItemClick(View v, int position);
+//    }
+//
+//    class MyAdapter extends RecyclerView.Adapter<MyWalletFragment.MyViewHolder> {
+//        MyWalletFragment.OnItemClickListener listener;
+//
+//        public void setOnItemClickListener(MyWalletFragment.OnItemClickListener listener) {
+//            this.listener = listener;
+//        }
+//
+//        @NonNull
+//        @Override
+//        public MyWalletFragment.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+//            View view = getLayoutInflater().inflate(R.layout.my_card_row, parent, false);
+//            MyWalletFragment.MyViewHolder holder = new MyWalletFragment.MyViewHolder(view);
+//            holder.listener = listener;
+//            return holder;
+//        }
+//
+//        @Override
+//        public void onBindViewHolder(@NonNull MyWalletFragment.MyViewHolder holder, int position) {
+//            holder.bindView(position);
+//        }
+//
+//        @Override
+//        public int getItemCount() {
+//            if (viewModel.getList().getValue() == null)
+//                return 0;
+//            return viewModel.getList().getValue().size();
+//        }
+//    }
 }

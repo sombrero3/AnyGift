@@ -216,7 +216,9 @@ public class Model {
             }
         });
     }
-
+    public interface CardsListListener{
+        void onComplete(List<Card> cards);
+    }
 
     public void updateCardRetrofit(String card_id, HashMap<String, Object> map, cardReturnListener listener) {
         modelRetrofit.refreshToken(message -> {
