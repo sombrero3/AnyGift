@@ -72,8 +72,8 @@ public interface RetrofitInterface {
     Call<Outcome> getUserOutcome(@Path("id") String user_id, @Header("Authorization") String token);
 
     @Multipart
-    @POST("images/upload")
-    Call<UploadImageResult> uploadImage(@Part MultipartBody.Part image);
+    @POST("images/upload/{id}")
+    Call<UploadImageResult> uploadImage(@Part MultipartBody.Part image,@Path("id") String user_id, @Header("Authorization") String token);
 
     @GET("images/{imageName}")
     Call<ResponseBody> downloadImage(@Path("imageName") String image_name);

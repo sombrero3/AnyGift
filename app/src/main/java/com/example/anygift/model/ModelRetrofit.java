@@ -531,7 +531,7 @@ public class ModelRetrofit {
         MediaType  md = MediaType.parse("image/jpeg");
         okhttp3.RequestBody requestFile = okhttp3.RequestBody.create(md,imageBytes);
         MultipartBody.Part body = MultipartBody.Part.createFormData("image", "image.jpg", requestFile);
-        Call<UploadImageResult> call = retrofitInterface.uploadImage(body);
+        Call<UploadImageResult> call = retrofitInterface.uploadImage(body,getUserId(),getAccessToken());
         call.enqueue(new Callback<UploadImageResult>() {
             @Override
             public void onResponse(Call<UploadImageResult> call, retrofit2.Response<UploadImageResult> response) {

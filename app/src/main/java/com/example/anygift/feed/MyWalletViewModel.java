@@ -18,7 +18,7 @@ public class MyWalletViewModel extends ViewModel {
         gfList = Model.instance.getAll();
     }
 
-    LiveData<List<GiftCard>> getList() {
+    LiveData<List<Card>> getList() {
         return gfList;
     }
 }
