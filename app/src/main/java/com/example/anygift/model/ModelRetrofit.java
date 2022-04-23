@@ -482,7 +482,6 @@ public class ModelRetrofit {
 
     public void authenticateToken(Model.booleanReturnListener listener){
         String token = getAccessToken();
-//        System.out.println(token);
         Call<Boolean> call = retrofitInterface.authenticateToken(token);
         call.enqueue(new Callback<Boolean>() {
             @Override

@@ -19,23 +19,14 @@ import android.widget.Toast;
 
 import com.example.anygift.R;
 import com.example.anygift.Retrofit.Card;
-import com.example.anygift.Retrofit.CardType;
-import com.example.anygift.Retrofit.Category;
-import com.example.anygift.model.GiftCard;
 import com.example.anygift.model.Model;
-import com.example.anygift.model.User;
-import com.example.anygift.model.Utils;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
-
-import java.util.HashMap;
-import java.util.List;
 
 public class CardsDetailsFragment extends Fragment {
     View view;
-    UserViewModel userViewModel;
+//    UserViewModel userViewModel;
     private TextView name, value,buyAt,popUpTypeTv,popUpExpTv,popupValueTv, popUpPriceTv;
     private Button mapBtn, editBtn,deleteBtn,buyBtn,popUpSaveBtn,popUpCancel;
     private ImageView userImage,giftCardImage, popUpCcardImage;
@@ -51,7 +42,7 @@ public class CardsDetailsFragment extends Fragment {
 
         view = inflater.inflate(R.layout.fragment_cards_details, container, false);
         //getActivity().setTitle("AnyGift - CardsDetails");
-        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
+//        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
         String cardId = CardsDetailsFragmentArgs.fromBundle(getArguments()).getGiftCardId();
         userImage = view.findViewById(R.id.details_picture_iv);
 

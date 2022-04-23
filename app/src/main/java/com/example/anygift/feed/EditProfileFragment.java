@@ -53,7 +53,7 @@ public class EditProfileFragment extends Fragment {
     TextView emailTv,headerEmailTv,headerNameTv;
     View view;
     NavigationView navigationView;
-    UserViewModel userViewModel;
+//    UserViewModel userViewModel;
     EditText firstNameEt, lastNameEt, phoneEt;
     Button saveBtn;
     com.example.anygift.Retrofit.User temp;
@@ -76,7 +76,7 @@ public class EditProfileFragment extends Fragment {
         profileImage = view.findViewById(R.id.editProfileF_image);
         profileImage.setTag("");
         emailTv = view.findViewById(R.id.editProfile_email_tv);
-        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
+//        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
 
         temp = Model.instance.getSignedUser();
         firstNameEt.setText((temp != null) ? temp.getFirstName() : "null");

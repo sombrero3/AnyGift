@@ -44,8 +44,8 @@ public class Model {
         getAllCardTypes(new cardTypesReturnListener() {
             @Override
             public void onComplete(List<CardType> cts) {
-                for(CardType ct :cts){
-                    downloadImage(ct.getId()+".jpeg", new byteArrayReturnListener() {
+                for (CardType ct : cts) {
+                    downloadImage(ct.getId() + ".jpeg", new byteArrayReturnListener() {
                         @Override
                         public void onComplete(Bitmap bitmap) {
                             ct.setPicture(bitmap);
@@ -67,7 +67,7 @@ public class Model {
     }
 
     public interface userReturnListener {
-        void onComplete(com.example.anygift.Retrofit.User user,String message);
+        void onComplete(com.example.anygift.Retrofit.User user, String message);
     }
 
     public interface cardReturnListener {
@@ -101,11 +101,12 @@ public class Model {
     public interface coinTransactionListener {
         void onComplete(String message);
     }
-    public interface booleanReturnListener{
-        void onComplete(Boolean result,String message);
+
+    public interface booleanReturnListener {
+        void onComplete(Boolean result, String message);
     }
 
-    public interface byteArrayReturnListener{
+    public interface byteArrayReturnListener {
         void onComplete(Bitmap bitmap);
     }
 
@@ -115,46 +116,35 @@ public class Model {
     }
 
     public void logout(StringListener listener) {
-        modelRetrofit.refreshToken(message -> {
-            System.out.println(message);
-            modelRetrofit.logout(listener);
-        });
+        modelRetrofit.logout(listener);
     }
 
-    public void downloadImage(String image,byteArrayReturnListener l){
+    public void downloadImage(String image, byteArrayReturnListener l) {
         modelRetrofit.downloadImage(image, l);
     }
 
     public void getUserRetrofit(String user_id, userReturnListener listener) {
-        modelRetrofit.refreshToken(message -> {
-            System.out.println(message);
-            modelRetrofit.getUser(user_id, listener);
-        });
+        modelRetrofit.getUser(user_id, listener);
     }
 
-    public void uploadImage(byte[] imageBytes, uploadImageListener listener){
-        modelRetrofit.uploadImage(imageBytes,listener);
+    public void uploadImage(byte[] imageBytes, uploadImageListener listener) {
+        modelRetrofit.uploadImage(imageBytes, listener);
     }
+
     public void getAllCategories(categoriesReturnListener l) {
-        modelRetrofit.refreshToken(message -> {
-            System.out.println(message);
-            modelRetrofit.getAllCategories(l);
-        });
+        modelRetrofit.getAllCategories(l);
     }
 
     public void getAllCardTypes(cardTypesReturnListener l) {
-        modelRetrofit.refreshToken(message -> {
-            System.out.println(message);
-            modelRetrofit.getAllCardTypes(l);
-        });
+        modelRetrofit.getAllCardTypes(l);
     }
 
     public void getUserIncome(incomeListener listener) {
-            modelRetrofit.getUserIncome(listener);
+        modelRetrofit.getUserIncome(listener);
     }
 
     public void getUserOutCome(outComeListener listener) {
-            modelRetrofit.getUserOutCome(listener);
+        modelRetrofit.getUserOutCome(listener);
     }
 
     //NO AUTHENTICAION
@@ -163,54 +153,40 @@ public class Model {
     }
 
     public void addCoinTransaction(HashMap<String, Object> map, coinTransactionListener listener) {
-        modelRetrofit.refreshToken(message -> {
-            System.out.println(message);
-            modelRetrofit.addCoinTransaction(map, listener);
-        });
+        modelRetrofit.addCoinTransaction(map, listener);
     }
 
     public void updateUser(HashMap<String, Object> map, userLoginListener listener) {
-        modelRetrofit.refreshToken(message -> {
-            System.out.println(message);
-            modelRetrofit.updateUser(map, listener);
-        });
+        modelRetrofit.updateUser(map, listener);
     }
 
     public void addCardRetrofit(HashMap<String, Object> map, cardReturnListener listener) {
-        modelRetrofit.refreshToken(message -> {
-            System.out.println(message);
-            modelRetrofit.addCard(map, listener);
-        });
+        modelRetrofit.addCard(map, listener);
     }
 
     public void getAllCards(cardsReturnListener listener) {
-        modelRetrofit.refreshToken(message -> {
-            System.out.println(message);
-            modelRetrofit.getAllCards(listener);
-        });
+        modelRetrofit.getAllCards(listener);
     }
 
     public void getAllUserCards(cardsReturnListener listener) {
-        modelRetrofit.refreshToken(message -> {
-            System.out.println(message);
-            modelRetrofit.getAllUserCards(listener);
-        });
+        modelRetrofit.getAllUserCards(listener);
     }
 
     public void getAllFeedCardsForSale(cardsReturnListener listener) {
-            modelRetrofit.getAllCards(new cardsReturnListener() {
-                @Override
-                public void onComplete(List<Card> cards, String message) {
-                    String user_id = modelRetrofit.getUserId();
-                    cards.stream().filter(c->c.getIsForSale() && !c.getOwner().equals(user_id));
-                    listener.onComplete(cards,"Cards filtered");
-                }
-            });
+        modelRetrofit.getAllCards(new cardsReturnListener() {
+            @Override
+            public void onComplete(List<Card> cards, String message) {
+                String user_id = modelRetrofit.getUserId();
+                cards.stream().filter(c -> c.getIsForSale() && !c.getOwner().equals(user_id));
+                listener.onComplete(cards, "Cards filtered");
+            }
+        });
     }
 
-    public interface mapStringToCardsArrayListener{
-        void onComplete(HashMap<String,ArrayList<Card>> map);
+    public interface mapStringToCardsArrayListener {
+        void onComplete(HashMap<String, ArrayList<Card>> map);
     }
+
     public void getallcardsByCardType(mapStringToCardsArrayListener listener) {
         getAllFeedCardsForSale(new Model.cardsReturnListener() {
             @Override
@@ -242,22 +218,17 @@ public class Model {
             }
         });
     }
-    public interface CardsListListener{
+
+    public interface CardsListListener {
         void onComplete(List<Card> cards);
     }
 
     public void updateCardRetrofit(String card_id, HashMap<String, Object> map, cardReturnListener listener) {
-        modelRetrofit.refreshToken(message -> {
-            System.out.println(message);
-            modelRetrofit.updateCard(card_id, map, listener);
-        });
+        modelRetrofit.updateCard(card_id, map, listener);
     }
 
     public void getCardRetrofit(String card_id, cardReturnListener listener) {
-        modelRetrofit.refreshToken(message -> {
-            System.out.println(message);
-            modelRetrofit.getCard(card_id, listener);
-        });
+        modelRetrofit.getCard(card_id, listener);
     }
 
 
@@ -265,19 +236,13 @@ public class Model {
         HashMap<String, Object> map = new HashMap<>();
         map.put("isDeleted", true);
         HashMap<String, Object> m = Card.mapToUpdateCard(card_id, map);
-        modelRetrofit.refreshToken(message -> {
-            System.out.println(message);
-            updateCardRetrofit(card_id, m, listener);
-        });
+        updateCardRetrofit(card_id, m, listener);
     }
 
     public void addCoinsToUser(String user_id, double coinsToAdd, userReturnListener listener) {
-        HashMap<String,Double>map = new  HashMap<String,Double>();
-        map.put("coins",coinsToAdd);
-        modelRetrofit.refreshToken(message -> {
-            System.out.println(message);
-            modelRetrofit.addCoinsToUser(user_id, map, listener);
-        });
+        HashMap<String, Double> map = new HashMap<String, Double>();
+        map.put("coins", coinsToAdd);
+        modelRetrofit.addCoinsToUser(user_id, map, listener);
 
     }
 
@@ -298,27 +263,8 @@ public class Model {
         void onComplete();
     }
 
-    public interface GetUserListener {
-        void onComplete(User user);
-    }
-
 
     public interface AddGiftCardListener {
-        void onComplete();
-    }
-
-
-    public interface GetGiftCardListener {
-        void onComplete(GiftCard giftCard);
-    }
-
-
-    public interface SaveImageListener {
-        void onComplete(String url);
-    }
-
-    //user
-    public interface AddUserListener {
         void onComplete();
     }
 
@@ -328,7 +274,7 @@ public class Model {
     public void isTokenValid(booleanReturnListener listener) {
 
         if (modelRetrofit.getAccessToken().isEmpty())
-            listener.onComplete(false,"Empty Token");
+            listener.onComplete(false, "Empty Token");
         else
             modelRetrofit.refreshToken(message -> {
                 System.out.println(message);

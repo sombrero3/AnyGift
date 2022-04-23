@@ -23,17 +23,10 @@ import android.widget.Toast;
 
 import com.example.anygift.R;
 import com.example.anygift.feed.MainActivity;
-import com.example.anygift.Retrofit.RetrofitInterface;
-import com.example.anygift.feed.Testing;
 import com.example.anygift.model.Model;
-import com.example.anygift.model.User;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.HashMap;
 

@@ -37,19 +37,14 @@ import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.craftman.cardform.CardForm;
 import com.example.anygift.R;
 import com.example.anygift.Retrofit.Card;
 import com.example.anygift.Retrofit.CardType;
-import com.example.anygift.model.GiftCard;
 import com.example.anygift.model.Model;
-import com.example.anygift.model.User;
 import com.example.anygift.model.Utils;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
@@ -65,7 +60,7 @@ public class AddCardFragment extends Fragment {
     View view;
     ProgressBar pb;
     String latAndLong, cardType;
-    UserViewModel userViewModel;
+//    UserViewModel userViewModel;
     Spinner spinnerCardType;
     TextView dateTv;
     CheckBox forSaleCb;
@@ -95,7 +90,7 @@ public class AddCardFragment extends Fragment {
         setDateSelector();
 
 
-        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
+//        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
         addCardButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -137,6 +132,7 @@ public class AddCardFragment extends Fragment {
         for (CardType ct : cts) {
             cardTypes.add(ct.getName());
         }
+
         spinnerCardType = (Spinner) view.findViewById(R.id.option);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, cardTypes);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

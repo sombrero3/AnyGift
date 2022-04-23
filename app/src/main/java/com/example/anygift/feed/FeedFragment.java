@@ -56,9 +56,7 @@ public class FeedFragment extends Fragment {
 
         coinsTv.setText(Model.instance.getSignedUser().getCoins().toString());
         searchFab = view.findViewById(R.id.feed_search_fab);
-        Model.instance.modelRetrofit.refreshToken(message -> {
-                    setDynamicRvs();
-                });
+        setDynamicRvs();
         setHasOptionsMenu(true);
         //viewModel.getList().observe(getViewLifecycleOwner(), list1 -> refresh());
         swipeRefresh.setRefreshing(Model.instance.getListLoadingState().getValue() == Model.GiftListLoadingState.loading);
