@@ -64,7 +64,7 @@ public class AddCardFragment extends Fragment {
     ImageView giftCardImage;
     View view;
     ProgressBar pb;
-    String latAndLong,cardType;
+    String latAndLong, cardType;
     UserViewModel userViewModel;
     Spinner spinnerCardType;
     TextView dateTv;
@@ -132,39 +132,28 @@ public class AddCardFragment extends Fragment {
     }
 
     private void setCardtypesSpinner() {
-        Model.instance.getAllCardTypes(new Model.cardTypesReturnListener() {
+        List<CardType> cts = Model.instance.cardTypes;
+        cardTypes = new ArrayList<>();
+        for (CardType ct : cts) {
+            cardTypes.add(ct.getName());
+        }
+        spinnerCardType = (Spinner) view.findViewById(R.id.option);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, cardTypes);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerCardType.setAdapter(adapter);
+        spinnerCardType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onComplete(List<CardType> cts) {
-                cardTypes = new ArrayList<>();
-                for(CardType ct:cts){
-                    cardTypes.add(ct.getName());
-                }
-                spinnerCardType = (Spinner) view.findViewById(R.id.option);
-                ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),android.R.layout.simple_spinner_dropdown_item,cardTypes);
-                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                spinnerCardType.setAdapter(adapter);
-                spinnerCardType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                        //setGiftCardImage
-                        String cardTypeName = cts.get(i).getName();
-                        if(cardTypeName.equals("dreamCard")){
-                            giftCardImage.setImageResource(R.drawable.dream_card);
-                        }else if(cardTypeName.equals("Shufersal")){
-                            giftCardImage.setImageResource(R.drawable.shufersal_card);
-                        }
-                        cardType = cts.get(i).getId();
-                    }
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                giftCardImage.setImageBitmap(cts.get(i).getPicture());
+                cardType = cts.get(i).getId();
+            }
 
-                    @Override
-                    public void onNothingSelected(AdapterView<?> adapterView) {
-                        cardType = cts.get(0).getId();
-                    }
-                });
-                pb.setVisibility(View.INVISIBLE);
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                cardType = cts.get(0).getId();
             }
         });
-
+        pb.setVisibility(View.INVISIBLE);
     }
 
 
@@ -207,8 +196,8 @@ public class AddCardFragment extends Fragment {
             return;
         }
 
-        Log.d("TAG","date = " +day+"/"+month+"/"+year);
-        Log.d("TAG","card type id = "+cardType );
+        Log.d("TAG", "date = " + day + "/" + month + "/" + year);
+        Log.d("TAG", "card type id = " + cardType);
 
         HashMap<String, Object> map = Card.mapToAddCard(Double.parseDouble(cardAskingValue.getText().toString()),
                 Double.parseDouble(cardValue.getText().toString()), cardNumber.getText().toString(), cardType,
