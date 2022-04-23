@@ -45,7 +45,7 @@ public class FeedFragment extends Fragment {
        // getActivity().setTitle("AnyGift - Feed");
         v= view;
         swipeRefresh = view.findViewById(R.id.giftCardlist_swiperefresh);
-        swipeRefresh.setOnRefreshListener(() -> Model.instance.refreshGiftCardsList());
+//        swipeRefresh.setOnRefreshListener(() -> Model.instance.refreshGiftCardsList());
         dreamCardList = v.findViewById(R.id.feed_dream_cards_rv);
         mostRecList = v.findViewById(R.id.cards_list_rv);
         shufersalList = v.findViewById(R.id.feed_shufersal_cards_rv);

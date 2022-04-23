@@ -34,7 +34,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
         mapFragment.getMapAsync(this);
         locationArrayList = new ArrayList<>();
-        cards = Model.instance.getAll().getValue();
+//        cards = Model.instance.getAll().getValue();
+        cards = new ArrayList<>(); //need to fix this to get all cards
         gcNames = new ArrayList<>();
         for (GiftCard gc : cards) {
             String[] cordinates = gc.getLatAndLong().split(",");

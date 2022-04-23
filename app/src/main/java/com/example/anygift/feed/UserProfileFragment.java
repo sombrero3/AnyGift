@@ -73,14 +73,14 @@ public class UserProfileFragment extends Fragment {
                 }
                 latAndLong = user.getLatAndLong();
                 int count = 0;
-                List<GiftCard> giftCardList = Model.instance.getAll().getValue();
+//                List<GiftCard> giftCardList = Model.instance.getAll().getValue();
                 String userEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
-                for (GiftCard gc : giftCardList
-                ) {
-                    if (gc.getOwnerEmail().compareTo(userEmail) == 0 && !gc.getDeleted()) {
-                        count++;
-                    }
-                }
+//                for (GiftCard gc : giftCardList
+//                ) {
+//                    if (gc.getOwnerEmail().compareTo(userEmail) == 0 && !gc.getDeleted()) {
+//                        count++;
+//                    }
+//                }
 
                 cardCounter.setText(String.valueOf(count));
                 coinCounter.setText("0");

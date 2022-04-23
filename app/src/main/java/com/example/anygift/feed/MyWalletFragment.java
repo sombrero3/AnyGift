@@ -62,7 +62,7 @@ public class MyWalletFragment extends Fragment {
         pb = view.findViewById(R.id.my_cards_progressbar);
         pb.setVisibility(View.VISIBLE);
       
-        swipeRefresh.setOnRefreshListener(() -> Model.instance.refreshGiftCardsList());
+//        swipeRefresh.setOnRefreshListener(() -> Model.instance.refreshGiftCardsList());
         RecyclerView list = view.findViewById(R.id.MyCards_list_rv);
         list.setHasFixedSize(true);
         RecyclerView.LayoutManager horizontalLayout = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
