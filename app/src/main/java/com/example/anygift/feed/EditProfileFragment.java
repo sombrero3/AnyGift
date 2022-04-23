@@ -27,12 +27,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.anygift.R;
 import com.example.anygift.Retrofit.UploadImageResult;
 import com.example.anygift.Retrofit.User;
 import com.example.anygift.model.Model;
+import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.squareup.picasso.OkHttp3Downloader;
@@ -47,14 +49,17 @@ import java.util.HashMap;
 
 public class EditProfileFragment extends Fragment {
 
-    TextView emailTv;
+
+    TextView emailTv,headerEmailTv,headerNameTv;
     View view;
+    NavigationView navigationView;
     UserViewModel userViewModel;
     EditText firstNameEt, lastNameEt, phoneEt;
     Button saveBtn;
     com.example.anygift.Retrofit.User temp;
     ImageButton cameraBtn;
-    ImageView profileImage;
+    ImageView profileImage,headerImageIv;
+    ProgressBar pb;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -63,6 +68,7 @@ public class EditProfileFragment extends Fragment {
         //getActivity().setTitle("AnyGift - EditProfile");
         view = inflater.inflate(R.layout.fragment_edit_profile, container, false);
         saveBtn = view.findViewById(R.id.editProfile_saveBtn);
+        pb = view.findViewById(R.id.editProfile_progress_bar);
 
         firstNameEt = view.findViewById(R.id.editProfileF_firstName);
         lastNameEt = view.findViewById(R.id.editProfileF_LastName);
@@ -77,7 +83,7 @@ public class EditProfileFragment extends Fragment {
         lastNameEt.setText((temp != null) ? temp.getLastName() : "null");
         emailTv.setText((temp != null) ? temp.getEmail() : "null");
         phoneEt.setText((temp != null) ? temp.getPhone() : "null");
-
+        pb.setVisibility(View.GONE);
         if (temp.getProfilePicture() != null && !temp.getProfilePicture().isEmpty()) {
             showProfilePic();
         }
@@ -105,6 +111,7 @@ public class EditProfileFragment extends Fragment {
                         temp.setPhone(phoneEt.getText().toString());
                     }
                     try {
+
                         updateImage();
                     } catch (Exception exception) {
 
@@ -227,6 +234,7 @@ public class EditProfileFragment extends Fragment {
 
 
     private void updateImage() throws IOException {
+        pb.setVisibility(View.VISIBLE);
         BitmapDrawable drawable = (BitmapDrawable) profileImage.getDrawable();
         Log.d("BITAG", drawable.toString());
         Bitmap bitmap = drawable.getBitmap();
@@ -255,8 +263,10 @@ public class EditProfileFragment extends Fragment {
                             if (user != null) {
                                 Snackbar mySnackbar = Snackbar.make(view, "User updated successfully :)", BaseTransientBottomBar.LENGTH_LONG);
                                 mySnackbar.show();
-                                Navigation.findNavController(view).navigate(R.id.action_global_myCardsFragment);
+                                setMenuHeader();
+
                             } else {
+                                pb.setVisibility(View.GONE);
                                 Snackbar mySnackbar = Snackbar.make(view, "User update Failed :(", BaseTransientBottomBar.LENGTH_LONG);
                                 mySnackbar.show();
 
@@ -281,6 +291,34 @@ public class EditProfileFragment extends Fragment {
             }
         });
         builder.show();
+    }
+
+    private void setMenuHeader() {
+        System.out.println(Model.instance.getSignedUser());
+        navigationView = getActivity().findViewById(R.id.Navigation_view);
+        View header= (View)navigationView.getHeaderView(0);
+        headerNameTv = header.findViewById(R.id.menu_header_name_tv);
+        headerEmailTv = header.findViewById(R.id.menu_header_email_tv);
+        headerImageIv = header.findViewById(R.id.menu_header_image_iv);
+        headerNameTv.setText(  Model.instance.getSignedUser().getFirstName() + " " + Model.instance.getSignedUser().getLastName());
+        headerEmailTv.setText( Model.instance.getSignedUser().getEmail());
+
+        if( Model.instance.getSignedUser().getProfilePicture().compareTo("")!=0){
+            Model.instance.downloadImage(Model.instance.getSignedUser().getProfilePicture().replace("/image/", ""),
+                    new Model.byteArrayReturnListener() {
+                        @Override
+                        public void onComplete(Bitmap bitmap) {
+                            if (bitmap == null) {
+                                return;
+                            }
+                            headerImageIv.setImageBitmap(bitmap);
+                            headerImageIv.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                            headerImageIv.setClipToOutline(true);
+                            pb.setVisibility(View.GONE);
+                            Navigation.findNavController(view).navigate(R.id.action_global_myCardsFragment);
+                        }
+                    });
+        }
     }
 
 }

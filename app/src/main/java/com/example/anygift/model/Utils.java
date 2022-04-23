@@ -40,6 +40,6 @@ public class Utils {
         Date date = new Date(l);
         DateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         format.setTimeZone(TimeZone.getTimeZone("Etc/GMT"));
-        return format.format(date);
+        return format.format(date).split(" ")[0];
     }
 }
