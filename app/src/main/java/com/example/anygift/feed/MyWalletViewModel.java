@@ -42,9 +42,8 @@ public class MyWalletViewModel extends ViewModel {
                 listener.onComplete(cards);
             }
         });
-
-
     }
+
     List<Card> getList() {
         return gfList;
     }

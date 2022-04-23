@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.anygift.R;
 import com.example.anygift.Retrofit.Card;
@@ -39,9 +40,6 @@ public class CardsDetailsFragment extends Fragment {
     private Button mapBtn, editBtn,deleteBtn,buyBtn,popUpSaveBtn,popUpCancel;
     private ImageView userImage,giftCardImage, popUpCcardImage;
     Card card;
-    User user;
-    CardType cardType;
-    List<Category> categoryList;
     AlertDialog.Builder alertDialogBuilder;
     AlertDialog dialog;
     String imageUrl;
@@ -65,7 +63,7 @@ public class CardsDetailsFragment extends Fragment {
         editBtn = view.findViewById(R.id.details_edit_btn2);
         giftCardImage = view.findViewById(R.id.details_giftpic_iv);
         buyBtn = view.findViewById(R.id.card_details_buy_btn);
-        ////////////////////////////////////////
+
         Model.instance.getCardRetrofit(cardId,new Model.cardReturnListener() {
             @Override
             public void onComplete(Card c, String message) {
@@ -94,9 +92,6 @@ public class CardsDetailsFragment extends Fragment {
                 });
             }
         });
-
-        ///////////////////////////////////////
-
 
         buyBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -175,10 +170,16 @@ public class CardsDetailsFragment extends Fragment {
         dialog = alertDialogBuilder.create();
         dialog.show();
 
+        //buy
         popUpSaveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(Model.instance.getSignedUser().getCoins()<card.getCalculatedPrice()){
+                    Toast.makeText(getContext(), "You do not have enough coins!", Toast.LENGTH_SHORT).show();
+                }else{
 
+                    //buy
+                }
             }
         });
 

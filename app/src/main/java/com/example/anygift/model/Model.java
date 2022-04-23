@@ -33,9 +33,11 @@ public class Model {
     public ModelRetrofit modelRetrofit = new ModelRetrofit();
     public MutableLiveData<List<GiftCard>> giftCardsList = new MutableLiveData<>();
     public List<Category> categories = new ArrayList<>();
+    public List<CardType> cardTypes = new ArrayList<>();
 
     private Model() {
         signedUser = new com.example.anygift.Retrofit.User();
+
         ListLoadingState.setValue(GiftListLoadingState.loaded);
     }
 
@@ -46,6 +48,22 @@ public class Model {
         return giftCardsList;
     }
 
+    public void setCardTypes() {
+        getAllCardTypes(new cardTypesReturnListener() {
+            @Override
+            public void onComplete(List<CardType> cts) {
+                for(CardType ct :cts){
+                    downloadImage(ct.getId()+".jpeg", new byteArrayReturnListener() {
+                        @Override
+                        public void onComplete(Bitmap bitmap) {
+                            ct.setPicture(bitmap);
+                            cardTypes.add(ct);
+                        }
+                    });
+                }
+            }
+        });
+    }
 
 
     //Node- Retrofit

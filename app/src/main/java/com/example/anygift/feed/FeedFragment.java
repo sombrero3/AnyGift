@@ -28,7 +28,7 @@ public class FeedFragment extends Fragment {
     FeedViewModel viewModel;
     CardsListAdapter  dreamCardAdapter, shufersalAdapter,mostRecAdapter;
     SwipeRefreshLayout swipeRefresh;
-    TextView nameTv;
+    TextView nameTv,coinsTv;
     FloatingActionButton searchFab;
     RecyclerView dreamCardList,mostRecList,shufersalList;
     View v;
@@ -50,7 +50,11 @@ public class FeedFragment extends Fragment {
         mostRecList = v.findViewById(R.id.cards_list_rv);
         shufersalList = v.findViewById(R.id.feed_shufersal_cards_rv);
         nameTv = view.findViewById(R.id.cards_list_user_name_tv);
+        coinsTv = view.findViewById(R.id.feed_coins_tv);
         nameTv.setText("Hello " + Model.instance.getSignedUser().getFirstName() +" and welcome to the gift card trading platform. Find every gift card buy or trade with your own cards.");
+
+
+        coinsTv.setText(Model.instance.getSignedUser().getCoins().toString());
         searchFab = view.findViewById(R.id.feed_search_fab);
         Model.instance.modelRetrofit.refreshToken(message -> {
                     setDynamicRvs();
@@ -66,8 +70,6 @@ public class FeedFragment extends Fragment {
             }
 
         });
-
-
 
         searchFab.setOnClickListener((v)-> Navigation.findNavController(v).navigate(R.id.action_global_searchGiftCardFragment));
 
