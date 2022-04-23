@@ -2,6 +2,8 @@ package com.example.anygift.model;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 
 import androidx.annotation.NonNull;
 
@@ -12,15 +14,21 @@ import com.example.anygift.Retrofit.Category;
 import com.example.anygift.Retrofit.Income;
 import com.example.anygift.Retrofit.Outcome;
 import com.example.anygift.Retrofit.RetrofitInterface;
+import com.example.anygift.Retrofit.UploadImageResult;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import okhttp3.MediaType;
+import okhttp3.ResponseBody;
 
 public class ModelRetrofit {
     public RetrofitInterface retrofitInterface;
@@ -474,7 +482,7 @@ public class ModelRetrofit {
 
     public void authenticateToken(Model.booleanReturnListener listener){
         String token = getAccessToken();
-        System.out.println(token);
+//        System.out.println(token);
         Call<Boolean> call = retrofitInterface.authenticateToken(token);
         call.enqueue(new Callback<Boolean>() {
             @Override
@@ -518,4 +526,68 @@ public class ModelRetrofit {
             }
         });
     }
+
+    public void uploadImage(byte[] imageBytes, Model.uploadImageListener listener){
+        MediaType  md = MediaType.parse("image/jpeg");
+        okhttp3.RequestBody requestFile = okhttp3.RequestBody.create(md,imageBytes);
+        MultipartBody.Part body = MultipartBody.Part.createFormData("image", "image.jpg", requestFile);
+        Call<UploadImageResult> call = retrofitInterface.uploadImage(body,getUserId(),getAccessToken());
+        call.enqueue(new Callback<UploadImageResult>() {
+            @Override
+            public void onResponse(Call<UploadImageResult> call, retrofit2.Response<UploadImageResult> response) {
+
+                if (response.isSuccessful()) {
+
+                    UploadImageResult responseBody = response.body();
+                    listener.onComplete(responseBody);
+
+                } else {
+                    ResponseBody errorBody = response.errorBody();
+                    System.out.println(errorBody.toString());
+                    listener.onComplete(null);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UploadImageResult> call, Throwable t) {
+                System.out.println(t.getMessage());
+                listener.onComplete(null);
+            }
+        });
+    }
+    public static Bitmap convertCompressedByteArrayToBitmap(byte[] src){
+        return BitmapFactory.decodeByteArray(src, 0, src.length);
+    }
+
+    public void downloadImage(String image,Model.byteArrayReturnListener listener){
+        Call<ResponseBody> call = retrofitInterface.downloadImage(image);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> response) {
+
+                if (response.isSuccessful()) {
+                    Bitmap bitmap = null;
+                    try {
+                        bitmap = convertCompressedByteArrayToBitmap(response.body().bytes());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    listener.onComplete(bitmap);
+
+                } else {
+                    ResponseBody errorBody = response.errorBody();
+                    System.out.println(errorBody.toString());
+                    listener.onComplete(null);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                System.out.println(t.getMessage());
+                listener.onComplete(null);
+            }
+        });
+    }
+
+
 }

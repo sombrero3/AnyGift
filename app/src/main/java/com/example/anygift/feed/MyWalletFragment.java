@@ -2,6 +2,8 @@ package com.example.anygift.feed;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -31,7 +33,9 @@ import com.example.anygift.model.Model;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
-
+import java.io.InputStream;
+import java.net.URL;
+import java.util.Arrays;
 
 public class MyWalletFragment extends Fragment {
     View view;
@@ -39,7 +43,7 @@ public class MyWalletFragment extends Fragment {
     MyWalletViewModel viewModel;
     CardsListAdapter adapter;
     SwipeRefreshLayout swipeRefresh;
-    TextView userName, userEmail, userPhone,coins, userAddress, numOfSold, numOfBought, soldInCoins, boughtInCoins;
+    TextView userName, userEmail, userPhone, coins, userAddress, numOfSold, numOfBought, soldInCoins, boughtInCoins;
     ImageView userImage, editIv, addCardIv;
 
     @Override
@@ -54,13 +58,16 @@ public class MyWalletFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_my_cards, container, false);
         //getActivity().setTitle("AnyGift - MyCards");
         swipeRefresh = view.findViewById(R.id.my_cards_swiperefresh);
+
         pb = view.findViewById(R.id.my_cards_progressbar);
         pb.setVisibility(View.VISIBLE);
+      
         swipeRefresh.setOnRefreshListener(() -> Model.instance.refreshGiftCardsList());
         RecyclerView list = view.findViewById(R.id.MyCards_list_rv);
         list.setHasFixedSize(true);
         RecyclerView.LayoutManager horizontalLayout = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         list.setLayoutManager(horizontalLayout);
+
         viewModel.getListWithListener(new Model.CardsListListener() {
             @Override
             public void onComplete(List<Card> cards) {
@@ -78,9 +85,6 @@ public class MyWalletFragment extends Fragment {
                 });
             }
         });
-
-
-
 
         userName = view.findViewById(R.id.my_cards_user_name_tv);
         userImage = view.findViewById(R.id.my_cards_avater_iv);
@@ -116,17 +120,29 @@ public class MyWalletFragment extends Fragment {
 
     private void setUserUI() {
         com.example.anygift.Retrofit.User user = Model.instance.getSignedUser();
-
+        System.out.println(user);
         userName.setText(user.getFirstName() + " " + user.getLastName());
         userEmail.setText(user.getEmail());
         userPhone.setText(user.getPhone());
         userAddress.setText(user.getAddress());
         coins.setText(user.getCoins().toString());
+
         if (user.getProfilePicture() != null && !user.getProfilePicture().isEmpty()) {
-            Picasso.get().load(user.getProfilePicture()).into(userImage);
-            userImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            userImage.setClipToOutline(true);
+            Model.instance.downloadImage(user.getProfilePicture().replace("/image/", ""),
+                    new Model.byteArrayReturnListener() {
+                        @Override
+                        public void onComplete(Bitmap bitmap) {
+                            if (bitmap == null) {
+                                return;
+                            }
+                            userImage.setImageBitmap(bitmap);
+                            userImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                            userImage.setClipToOutline(true);
+
+                        }
+                    });
         }
+
         Model.instance.modelRetrofit.refreshToken(message -> {
             getIncomeStats();
             getOutComeStats();

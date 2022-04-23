@@ -14,9 +14,9 @@ import com.example.anygift.MyApplication;
 import com.example.anygift.Retrofit.Card;
 import com.example.anygift.Retrofit.CardType;
 import com.example.anygift.Retrofit.Category;
-import com.example.anygift.Retrofit.CoinTransaction;
 import com.example.anygift.Retrofit.Income;
 import com.example.anygift.Retrofit.Outcome;
+import com.example.anygift.Retrofit.UploadImageResult;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -46,6 +46,8 @@ public class Model {
         return giftCardsList;
     }
 
+
+
     //Node- Retrofit
     public interface StringListener {
         void onComplete(String message);
@@ -65,6 +67,10 @@ public class Model {
 
     public interface cardsReturnListener {
         void onComplete(List<Card> cards, String message);
+    }
+
+    public interface uploadImageListener {
+        void onComplete(UploadImageResult uploadImageResult);
     }
 
     public interface cardTypesReturnListener {
@@ -90,6 +96,10 @@ public class Model {
         void onComplete(Boolean result,String message);
     }
 
+    public interface byteArrayReturnListener{
+        void onComplete(Bitmap bitmap);
+    }
+
     //NO AUTHENTICAION
     public void login(HashMap<String, Object> map, userLoginListener listener) {
         modelRetrofit.login(map, listener);
@@ -102,6 +112,10 @@ public class Model {
         });
     }
 
+    public void downloadImage(String image,byteArrayReturnListener l){
+        modelRetrofit.downloadImage(image, l);
+    }
+
     public void getUserRetrofit(String user_id, userReturnListener listener) {
         modelRetrofit.refreshToken(message -> {
             System.out.println(message);
@@ -109,6 +123,9 @@ public class Model {
         });
     }
 
+    public void uploadImage(byte[] imageBytes, uploadImageListener listener){
+        modelRetrofit.uploadImage(imageBytes,listener);
+    }
     public void getAllCategories(categoriesReturnListener l) {
         modelRetrofit.refreshToken(message -> {
             System.out.println(message);
@@ -352,24 +369,6 @@ public class Model {
       */
 
 
-    public interface UploadImageListener {
-        void onComplete(String url);
-    }
-
-
-    public void uploadImage(Bitmap imageBmp, String name, final UploadImageListener listener) {
-        modelFirebase.uploadImage(imageBmp, name, listener);
-    }
-
-    public interface UploadUserImageListener {
-        void onComplete(String url);
-    }
-
-    public void uploadUserImage(Bitmap imageBmp, String name, final UploadUserImageListener listener) {
-        modelFirebase.uploadUserImage(imageBmp, name, listener);
-    }
-
-
     public interface SaveImageListener {
         void onComplete(String url);
     }
@@ -392,9 +391,9 @@ public class Model {
         });
     }
 
-    public void updateUser(final User user, final AddUserListener listener) {
-        modelFirebase.updateUser(user, listener);
-    }
+//    public void updateUser(final User user, final AddUserListener listener) {
+//        modelFirebase.updateUser(user, listener);
+//    }
 
 
     public ModelFirebase getModelFirebase() {
