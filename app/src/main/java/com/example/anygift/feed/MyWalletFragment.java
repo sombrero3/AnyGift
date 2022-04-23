@@ -37,7 +37,6 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.Arrays;
 
-
 public class MyWalletFragment extends Fragment {
     View view;
     ProgressBar pb;
@@ -59,31 +58,33 @@ public class MyWalletFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_my_cards, container, false);
         //getActivity().setTitle("AnyGift - MyCards");
         swipeRefresh = view.findViewById(R.id.my_cards_swiperefresh);
-//        pb = view.findViewById(R.id.my_cards_);
-//        pb.setVisibility(View.VISIBLE);
+
+        pb = view.findViewById(R.id.my_cards_progressbar);
+        pb.setVisibility(View.VISIBLE);
+      
         swipeRefresh.setOnRefreshListener(() -> Model.instance.refreshGiftCardsList());
         RecyclerView list = view.findViewById(R.id.MyCards_list_rv);
         list.setHasFixedSize(true);
         RecyclerView.LayoutManager horizontalLayout = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         list.setLayoutManager(horizontalLayout);
-//        viewModel.getListWithListener(new Model.CardsListListener() {
-//            @Override
-//            public void onComplete(List<Card> cards) {
-//                adapter = new CardsListAdapter(cards);
-//                list.setAdapter(adapter);
-//                pb.setVisibility(View.GONE);
-//                adapter.setOnItemClickListener(new OnItemClickListener() {
-//                    @Override
-//                    public void onItemClick(View v, int position) {
-//                        double val = viewModel.getList().get(position).getValue();
-//                        String id = viewModel.getList().get(position).getId();
-//                        Log.d("TAG", "Gift card in value of: " + val);
-//                        Navigation.findNavController(v).navigate(MyWalletFragmentDirections.actionMyCardsFragmentToCardsDetailsFragment(id));
-//                    }
-//                });
-//            }
-//        });
 
+        viewModel.getListWithListener(new Model.CardsListListener() {
+            @Override
+            public void onComplete(List<Card> cards) {
+                adapter = new CardsListAdapter(cards);
+                list.setAdapter(adapter);
+                pb.setVisibility(View.GONE);
+                adapter.setOnItemClickListener(new OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View v, int position) {
+                        double val = viewModel.getList().get(position).getValue();
+                        String id = viewModel.getList().get(position).getId();
+                        Log.d("TAG", "Gift card in value of: " + val);
+                        Navigation.findNavController(v).navigate(MyWalletFragmentDirections.actionMyCardsFragmentToCardsDetailsFragment(id));
+                    }
+                });
+            }
+        });
 
         userName = view.findViewById(R.id.my_cards_user_name_tv);
         userImage = view.findViewById(R.id.my_cards_avater_iv);

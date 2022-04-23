@@ -14,6 +14,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.example.anygift.R;
 import com.example.anygift.Retrofit.Card;
+import com.example.anygift.Retrofit.User;
+import com.example.anygift.model.GiftCard;
 import com.example.anygift.model.Model;
 
 
