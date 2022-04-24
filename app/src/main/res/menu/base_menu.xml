@@ -18,6 +18,10 @@
                     android:id="@+id/shop"
                     android:icon="@drawable/shop_new"
                     android:title="Coins" />
+                <item
+                    android:id="@+id/anyGiftCards"
+                    android:icon="@drawable/anygift_01"
+                    android:title="anyGift Cards (soon..)" />
             </menu>
         </item>
     </group>
