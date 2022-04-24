@@ -10,11 +10,11 @@
             android:title="Search Card" />
         <item
             android:id="@+id/menu_feed"
-            android:icon="@drawable/anygift_01"
+            android:icon="@drawable/cards_icon_1"
             android:title="Home" />
         <item
             android:id="@+id/shop"
-            android:icon="@drawable/coin"
+            android:icon="@drawable/shop_icon_2"
             android:title="Shop" />
     </group>
     <group android:checkableBehavior="single">
@@ -27,7 +27,7 @@
 <!--                    app:showAsAction="withText" />-->
                 <item
                     android:id="@+id/menu_cards"
-                    android:icon="@drawable/cards_yellow"
+                    android:icon="@drawable/wallet_icon_2"
                     android:title="My Wallet" />
                 <item
                     android:id="@+id/add_card"
