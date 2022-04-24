@@ -15,10 +15,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.anygift.OnItemClickListener;
 import com.example.anygift.R;
+import com.example.anygift.Retrofit.User;
 import com.example.anygift.adapters.ShopGridAdapter;
+import com.example.anygift.model.Model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -92,6 +95,24 @@ public class ShopFragment extends Fragment {
         popUpSaveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                double num;
+                switch (pos) {
+                    case  0:
+                       num = 1000;
+                       break;
+                    default: num = 0;
+                }
+
+
+                Model.instance.addCoinsToUser(Model.instance.getSignedUser().getId(),
+                        num, new Model.userReturnListener() {
+                            @Override
+                            public void onComplete(User user, String message) {
+                                Model.instance.getSignedUser().setCoins(user.getCoins());
+                                Toast.makeText(getContext(), "Thank You !! Spend your Gcoins wisely :)", Toast.LENGTH_SHORT).show();
+                                dialog.dismiss();
+                            }
+                        });
 
             }
         });

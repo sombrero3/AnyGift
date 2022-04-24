@@ -54,17 +54,19 @@
     </com.google.android.material.textfield.TextInputLayout>
 
 
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/add_giftCardImage"
-        android:layout_width="0dp"
-        android:layout_height="220dp"
-        android:layout_marginStart="32dp"
+        android:layout_width="wrap_content"
+        android:layout_height="140dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="32dp"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
         android:src="@drawable/amazon_giftcard"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+        app:layout_constraintTop_toBottomOf="@+id/textView8"
+        app:shapeAppearanceOverlay="@style/roundedCornersImageView"/>
+
 
     <Button
         android:id="@+id/add_upload_bt"

@@ -1,45 +1,30 @@
 package com.example.anygift.feed;
 
-import static android.app.Activity.RESULT_CANCELED;
-import static android.app.Activity.RESULT_OK;
-
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
-import android.provider.MediaStore;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.anygift.R;
 import com.example.anygift.Retrofit.Card;
-import com.example.anygift.Retrofit.User;
-import com.example.anygift.model.GiftCard;
 import com.example.anygift.model.Model;
-import com.squareup.picasso.Picasso;
-
-import java.util.List;
 
 
 public class EditCardDetailsFragment extends Fragment {
     View view;
-    EditText typeEt,numberEt,priceEt,expEt;
+    EditText numberEt,priceEt,expEt;
+    Spinner typeSp;
     TextView  valueTv;
     Button save, mapBtn, deleteBtn;
     ImageView giftCardImage;
@@ -53,7 +38,7 @@ public class EditCardDetailsFragment extends Fragment {
         //getActivity().setTitle("AnyGift - EditCardDetails");
         String giftCardId = EditCardDetailsFragmentArgs.fromBundle(getArguments()).getGiftCardId();
 
-        typeEt = view.findViewById(R.id.edit_card_type_spinner);
+        typeSp = view.findViewById(R.id.edit_card_type_spinner);
         numberEt = view.findViewById(R.id.edit_card_card_number);
         priceEt = view.findViewById(R.id.edit_card_card_asking_price);
         expEt = view.findViewById(R.id.edit_card_card_date_et);
@@ -66,7 +51,7 @@ public class EditCardDetailsFragment extends Fragment {
             @Override
             public void onComplete(Card card, String message) {
                 giftCard = card;
-                typeEt.setText(card.getCardType());
+                //typeSp.setText(card.getCardType());
                 numberEt.setText(card.getCardNumber());
                 priceEt.setText(card.getPrice().toString());
                 expEt.setText(card.getExpirationDate().toString().split(" ")[0]);
@@ -86,7 +71,7 @@ public class EditCardDetailsFragment extends Fragment {
 
     private void saveChanges() {
         giftCard.setCardNumber(numberEt.getText().toString());
-        giftCard.setCardType(typeEt.getText().toString());
+        //giftCard.setCardType(typeSp.getText().toString());
         giftCard.setPrice(Double.parseDouble(priceEt.getText().toString()));
         //giftCard.setExpirationDate();
         giftCard.setValue(Double.parseDouble(valueTv.getText().toString()));

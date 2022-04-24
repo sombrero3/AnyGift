@@ -79,7 +79,7 @@
             android:text="Buy now :"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="@+id/tv111"
-            app:layout_constraintTop_toBottomOf="@+id/textView60" />
+            app:layout_constraintTop_toBottomOf="@+id/my_card_row_first_price_text_tv" />
 
         <TextView
             android:id="@+id/my_card_row_calculated_price_tv"
@@ -143,14 +143,14 @@
             android:layout_marginStart="8dp"
             android:text="00 %"
             android:textStyle="bold"
-            android:textColor="#10F119"
+            android:textColor="@color/green_saving"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="@+id/textView20"
             app:layout_constraintStart_toEndOf="@+id/textView20"
             app:layout_constraintTop_toTopOf="@+id/textView20" />
 
         <TextView
-            android:id="@+id/textView60"
+            android:id="@+id/my_card_row_first_price_text_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -161,7 +161,7 @@
             app:layout_constraintTop_toBottomOf="@+id/tv111" />
 
         <View
-            android:id="@+id/general_list_line"
+            android:id="@+id/my_card_row_line"
             style="@style/line"
             android:layout_width="0dp"
             android:layout_marginBottom="8dp"
@@ -178,9 +178,9 @@
             android:layout_marginStart="8dp"
             android:text="00.00"
             android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="@+id/textView60"
-            app:layout_constraintStart_toEndOf="@+id/textView60"
-            app:layout_constraintTop_toTopOf="@+id/textView60" />
+            app:layout_constraintBottom_toBottomOf="@+id/my_card_row_first_price_text_tv"
+            app:layout_constraintStart_toEndOf="@+id/my_card_row_first_price_text_tv"
+            app:layout_constraintTop_toTopOf="@+id/my_card_row_first_price_text_tv" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>
