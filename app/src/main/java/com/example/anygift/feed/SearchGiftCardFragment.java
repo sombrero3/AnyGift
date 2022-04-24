@@ -1,4 +1,4 @@
-package com.example.anygift;
+package com.example.anygift.feed;
 
 import android.app.DatePickerDialog;
 import android.graphics.Color;
@@ -12,6 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.TextView;
+
+import com.example.anygift.R;
 
 import java.util.Calendar;
 
