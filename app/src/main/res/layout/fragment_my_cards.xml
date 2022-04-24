@@ -15,6 +15,16 @@
         tools:context=".feed.MyWalletFragment">
 
         <ImageView
+            android:id="@+id/wallet_pic"
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageView6"
+            app:layout_constraintTop_toBottomOf="@+id/MyCards_list_rv"
+            app:srcCompat="@drawable/wallet_icon_1" />
+
+        <ImageView
             android:id="@+id/imageView"
             android:layout_width="906dp"
             android:layout_height="412dp"
@@ -93,9 +103,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="100dp"
             android:text="Cards bought :"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView22" />
 
@@ -246,7 +254,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="54dp"
+            android:layout_marginTop="84dp"
             android:text="Cards in Wallet :"
             android:textColor="@color/grey_1"
             app:layout_constraintStart_toStartOf="parent"
