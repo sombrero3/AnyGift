@@ -27,6 +27,7 @@
         android:id="@+id/imageView10"
         android:layout_width="200dp"
         android:layout_height="200dp"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -64,8 +65,7 @@
         android:textStyle="italic"
         app:layout_constraintBottom_toBottomOf="@+id/textView21"
         app:layout_constraintStart_toStartOf="@+id/textView14"
-        app:layout_constraintTop_toTopOf="@+id/textView21"
-        android:visibility="invisible"/>
+        app:layout_constraintTop_toTopOf="@+id/textView21" />
 
     <TextView
         android:id="@+id/textView21"
@@ -75,7 +75,6 @@
         android:textColor="@color/red_transparent"
         android:textSize="54sp"
         android:textStyle="bold"
-        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/textView23"
         app:layout_constraintStart_toEndOf="@+id/textView12"
         app:layout_constraintTop_toTopOf="@+id/textView23" />
@@ -89,17 +88,14 @@
         android:textColor="@color/grey_1"
         android:textSize="54sp"
         android:textStyle="italic"
-        android:visibility="invisible"
         app:layout_constraintStart_toEndOf="@+id/textView21"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/cards_list_user_name_tv"
-        android:layout_width="0dp"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="58dp"
         android:layout_marginTop="32dp"
-        android:layout_marginEnd="58dp"
         android:text="Hello User Name and welcome to the gift card trading platform. Find evry gift card buy or trade with your own cards."
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -120,10 +116,10 @@
         android:id="@+id/textView16"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="42dp"
-        android:textStyle="bold"
         android:text="Most recommended :"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cards_list_user_name_tv" />
 

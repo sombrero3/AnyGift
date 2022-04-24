@@ -30,6 +30,7 @@ import com.example.anygift.Retrofit.Income;
 import com.example.anygift.Retrofit.Outcome;
 import com.example.anygift.adapters.CardsListAdapter;
 import com.example.anygift.model.Model;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -45,6 +46,7 @@ public class MyWalletFragment extends Fragment {
     SwipeRefreshLayout swipeRefresh;
     TextView userName, userEmail, userPhone, coins, userAddress, numOfSold, numOfBought, soldInCoins, boughtInCoins;
     ImageView userImage, editIv, addCardIv;
+    FloatingActionButton searchFab;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -61,7 +63,7 @@ public class MyWalletFragment extends Fragment {
 
         pb = view.findViewById(R.id.my_cards_progressbar);
         pb.setVisibility(View.VISIBLE);
-      
+
 //        swipeRefresh.setOnRefreshListener(() -> Model.instance.refreshGiftCardsList());
         RecyclerView list = view.findViewById(R.id.MyCards_list_rv);
         list.setHasFixedSize(true);
@@ -98,12 +100,15 @@ public class MyWalletFragment extends Fragment {
         boughtInCoins = view.findViewById(R.id.my_cards_bought_in_coins_tv);
         editIv = view.findViewById(R.id.my_cards_edit_iv);
         addCardIv = view.findViewById(R.id.my_cards_add_card_iv);
+        searchFab = view.findViewById(R.id.my_cards_search_fab);
 
         editIv.setOnClickListener(v -> Navigation.findNavController(v).navigate(MyWalletFragmentDirections.actionMyCardsFragmentToEditProfileFragment()));
         addCardIv.setOnClickListener(v -> Navigation.findNavController(v).navigate(MyWalletFragmentDirections.actionGlobalAddCardFragment()));
 
         setUserUI();
         setHasOptionsMenu(true);
+
+        searchFab.setOnClickListener((v)-> Navigation.findNavController(v).navigate(R.id.action_global_searchGiftCardFragment));
 
         swipeRefresh.setRefreshing(Model.instance.getListLoadingState().getValue() == Model.GiftListLoadingState.loading);
         Model.instance.getListLoadingState().observe(getViewLifecycleOwner(), ListLoadingState -> {
