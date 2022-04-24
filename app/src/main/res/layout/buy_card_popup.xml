@@ -23,7 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="32dp"
         android:text="Type :"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buy_card_popup_icon_iv" />
@@ -67,17 +67,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/buy_card_popup_buy_btn" />
 
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/buy_card_popup_icon_iv"
-        android:layout_width="0dp"
-        android:layout_height="220dp"
-        android:layout_marginStart="32dp"
+        android:layout_width="wrap_content"
+        android:layout_height="140dp"
         android:layout_marginTop="32dp"
-        android:layout_marginEnd="32dp"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+        android:src="@drawable/amazon_giftcard"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/cardpicamazon" />
+        app:shapeAppearanceOverlay="@style/roundedCornersImageView" />
 
     <TextView
         android:id="@+id/textView291"
@@ -149,6 +150,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Value $"
+        android:textStyle="bold"
         android:textSize="34sp"
         app:layout_constraintBottom_toBottomOf="@+id/textView53"
         app:layout_constraintEnd_toEndOf="parent"
@@ -160,6 +162,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Price"
+        android:textStyle="bold"
         android:textSize="34sp"
         app:layout_constraintBottom_toBottomOf="@+id/textview222"
         app:layout_constraintEnd_toEndOf="parent"

@@ -2,6 +2,7 @@ package com.example.anygift.feed;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -14,11 +15,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.anygift.R;
 import com.example.anygift.Retrofit.Card;
+import com.example.anygift.Retrofit.CardType;
 import com.example.anygift.model.Model;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
@@ -27,25 +30,27 @@ import com.squareup.picasso.Picasso;
 public class CardsDetailsFragment extends Fragment {
     View view;
 //    UserViewModel userViewModel;
-    private TextView name, value,buyAt,popUpTypeTv,popUpExpTv,popupValueTv, popUpPriceTv;
+    private TextView name, value,buyAt,popUpTypeTv,popUpExpTv,popupValueTv, popUpPriceTv,emailTv,savingTv;
     private Button mapBtn, editBtn,deleteBtn,buyBtn,popUpSaveBtn,popUpCancel;
     private ImageView userImage,giftCardImage, popUpCcardImage;
     Card card;
     AlertDialog.Builder alertDialogBuilder;
     AlertDialog dialog;
-    String imageUrl;
+    String imageUrl,cardId,userId;
+    ProgressBar pb;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 //        Testing testing = new Testing();
-
-        view = inflater.inflate(R.layout.fragment_cards_details, container, false);
         //getActivity().setTitle("AnyGift - CardsDetails");
-//        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
-        String cardId = CardsDetailsFragmentArgs.fromBundle(getArguments()).getGiftCardId();
-        userImage = view.findViewById(R.id.details_picture_iv);
+        view = inflater.inflate(R.layout.fragment_cards_details, container, false);
+        cardId = CardsDetailsFragmentArgs.fromBundle(getArguments()).getGiftCardId();
 
+        pb = view.findViewById(R.id.details_pb);
+        pb.setVisibility(View.VISIBLE);
+
+        userImage = view.findViewById(R.id.card_details_user_pic_iv);
         name = view.findViewById(R.id.card_details_username_tv);
         value = view.findViewById(R.id.details_giftvalue_tv);
         mapBtn = view.findViewById(R.id.cardDetails_mapBtn);
@@ -54,61 +59,87 @@ public class CardsDetailsFragment extends Fragment {
         editBtn = view.findViewById(R.id.details_edit_btn2);
         giftCardImage = view.findViewById(R.id.details_giftpic_iv);
         buyBtn = view.findViewById(R.id.card_details_buy_btn);
+        emailTv = view.findViewById(R.id.card_details_email_tv);
+        savingTv = view.findViewById(R.id.details_saving_tv);
 
         Model.instance.getCardRetrofit(cardId,new Model.cardReturnListener() {
             @Override
             public void onComplete(Card c, String message) {
                 card = c;
-                setCardImage(giftCardImage);
-                String userId = card.getOwner();
-                Model.instance.getUserRetrofit(userId, new Model.userReturnListener() {
+                Model.instance.getUserRetrofit(card.getOwner(), new Model.userReturnListener() {
                     @Override
                     public void onComplete(com.example.anygift.Retrofit.User user, String message) {
-                        if (user.getProfilePicture() != null  && !user.getProfilePicture().isEmpty()) {
-                            Picasso.get().load(user.getProfilePicture()).into(userImage);
-                            userImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                            userImage.setClipToOutline(true);
-                        }
-                        String val = Double.toString(card.getValue());
-                        value.setText(val);
-                        name.setText(user.getEmail());
-                        String price = Double.toString(card.getPrice());
-                        buyAt.setText(price);
-                        editBtn.setEnabled(true);
-                        if (user.getEmail().equals(Model.instance.getSignedUser().getEmail())) {
-                            deleteBtn.setVisibility(View.VISIBLE);
-                            editBtn.setVisibility(View.VISIBLE);
-                        }
+                        userId = user.getId();
+                        value.setText(Double.toString(card.getValue()));
+                        name.setText(user.getFirstName() + " " + user.getLastName());
+                        emailTv.setText(user.getEmail());
+                        buyAt.setText(Double.toString(card.getPrice()));
+                        savingTv.setText(card.getPrecentageSaved()+"%");
+                        Model.instance.downloadImage(user.getProfilePicture().replace("/image/", ""),
+                                new Model.byteArrayReturnListener() {
+                                    @Override
+                                    public void onComplete(Bitmap bitmap) {
+                                        if(bitmap != null) {
+                                            userImage.setImageBitmap(bitmap);
+                                            userImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                                            userImage.setClipToOutline(true);
+                                        }
+                                        setUI();
+                                    }
+                                });
+
                     }
                 });
             }
         });
 
-        buyBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                createNewBuyCardDialog();
-            }
-        });
 
-        deleteBtn.setOnClickListener(new View.OnClickListener() {
 
-            @Override
-            public void onClick(View v) {
-                deleteBtn.setEnabled(false);
-                card.setIsDeleted(true);
-                Model.instance.updateCardRetrofit(card.getId(), card.toMap(), new Model.cardReturnListener() {
-                    @Override
-                    public void onComplete(Card card, String message) {
-                        Navigation.findNavController(view).navigateUp();
-                        Snackbar mySnackbar = Snackbar.make(view, "GiftCard Deleted!", BaseTransientBottomBar.LENGTH_LONG);
-                        mySnackbar.show();
-                    }
-                });
+        return view;
+    }
 
-            }
-        });
+    private void setUI() {
+        if(userId.equals(Model.instance.getSignedUser().getId())){
+            deleteBtn.setEnabled(true);
+            deleteBtn.setVisibility(View.VISIBLE);
+            editBtn.setEnabled(true);
+            editBtn.setVisibility(View.VISIBLE);
 
+            editBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Navigation.findNavController(view).navigate(CardsDetailsFragmentDirections.actionCardsDetailsFragmentToEditCardsDetailsFragment(card.getId()));
+                }
+            });
+
+            deleteBtn.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    deleteBtn.setEnabled(false);
+                    card.setIsDeleted(true);
+                    Model.instance.updateCardRetrofit(card.getId(), card.toMap(), new Model.cardReturnListener() {
+                        @Override
+                        public void onComplete(Card card, String message) {
+                            Navigation.findNavController(view).navigateUp();
+                            Snackbar mySnackbar = Snackbar.make(view, "GiftCard Deleted!", BaseTransientBottomBar.LENGTH_LONG);
+                            mySnackbar.show();
+                        }
+                    });
+
+                }
+            });
+        }else{
+            buyBtn.setEnabled(true);
+            buyBtn.setVisibility(View.VISIBLE);
+
+            buyBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    createNewBuyCardDialog();
+                }
+            });
+        }
 //        mapBtn.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
@@ -120,25 +151,16 @@ public class CardsDetailsFragment extends Fragment {
 //            }
 //        });
 
-        editBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Navigation.findNavController(view).navigate(CardsDetailsFragmentDirections.actionCardsDetailsFragmentToEditCardsDetailsFragment(card.getId()));
-            }
-        });
-
-
-        return view;
+        setCardImage(giftCardImage);
+        pb.setVisibility(View.GONE);
     }
 
     private void setCardImage(ImageView image) {
-        imageUrl = null;
-        if (imageUrl != null) {
-            Picasso.get().load(imageUrl).into(image);
-            image.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            image.setClipToOutline(true);
+        for(CardType ct:Model.instance.cardTypes){
+            if(ct.getId().equals(card.getCardType())){
+                image.setImageBitmap(ct.getPicture());
+            }
         }
-        //Picasso.get().load(card.getCardType()).into(giftCardImage);
     }
 
     public void createNewBuyCardDialog(){

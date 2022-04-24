@@ -66,6 +66,7 @@
         <TextView
             android:id="@+id/details_value_tv"
             android:layout_width="wrap_content"
+
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="Value:"
@@ -73,15 +74,20 @@
             app:layout_constraintStart_toStartOf="@+id/textView10"
             app:layout_constraintTop_toBottomOf="@+id/textView51" />
 
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/details_giftpic_iv"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="140dp"
-            android:layout_marginTop="32dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
             android:src="@drawable/amazon_giftcard"
+            app:shapeAppearanceOverlay="@style/roundedCornersImageView"
+            android:layout_marginTop="32dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/details_picture_iv" />
+            app:layout_constraintTop_toTopOf="parent"/>
+
+
 
         <TextView
             android:id="@+id/details_buyat_tv"
@@ -95,6 +101,17 @@
             app:layout_constraintTop_toBottomOf="@+id/details_value_tv" />
 
         <TextView
+            android:id="@+id/details_buyat_tv2"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="Saving :"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/details_buyat_tv" />
+
+        <TextView
             android:id="@+id/details_buyatval_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -104,50 +121,50 @@
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="@+id/details_buyat_tv"
             app:layout_constraintStart_toEndOf="@+id/details_buyat_tv"
-            app:layout_constraintTop_toTopOf="@+id/details_buyat_tv" /><![CDATA[
+            app:layout_constraintTop_toTopOf="@+id/details_buyat_tv" />
 
-    app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.843"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardDetails_mapBtn" />
+        <TextView
+            android:id="@+id/details_saving_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:text="180$"
+            android:textColor="@color/green_saving"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/details_buyat_tv2"
+            app:layout_constraintStart_toEndOf="@+id/details_buyat_tv"
+            app:layout_constraintTop_toTopOf="@+id/details_buyat_tv2" />
 
-
-
-    ]]>
-
-    <Button
-        android:id="@+id/details_delete_btn"
-        android:layout_width="151dp"
-        android:layout_height="49dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginBottom="32dp"
-        android:background="@drawable/button_radious_8dp_pupel_dark"
-        android:textColor="@color/purple_dark"
-        android:text="Delete"
-        android:textSize="20sp"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/details_edit_btn2"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/card_details_buy_btn" />
+        <Button
+            android:id="@+id/details_delete_btn"
+            android:layout_width="151dp"
+            android:layout_height="49dp"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/button_border_radious_8dp"
+            android:text="Delete"
+            android:textColor="@color/red_transparent"
+            android:textSize="20sp"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toStartOf="@+id/details_edit_btn2"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/details_buyat_tv2" />
 
         <Button
             android:id="@+id/details_edit_btn2"
             android:layout_width="151dp"
             android:layout_height="49dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginBottom="32dp"
-            android:background="@drawable/button_border_radious_8dp"
+            android:background="@drawable/button_radious_8dp_pupel_dark"
             android:text="Edit"
-            android:textColor="@color/red_transparent"
-            android:textSize="20sp"
             android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@+id/details_delete_btn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/details_delete_btn"
-            app:layout_constraintTop_toBottomOf="@+id/card_details_buy_btn" />
+            app:layout_constraintTop_toTopOf="@+id/details_delete_btn" />
 
         <TextView
             android:id="@+id/textView10"
@@ -157,17 +174,18 @@
             android:text="Belongs to:"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="@+id/textView43"
-            app:layout_constraintTop_toBottomOf="@+id/details_buyat_tv" />
+            app:layout_constraintTop_toBottomOf="@+id/card_details_buy_btn" />
 
         <Button
             android:id="@+id/cardDetails_mapBtn"
-            android:layout_width="200dp"
+            android:layout_width="0dp"
             android:layout_height="20dp"
             android:layout_marginTop="8dp"
             android:background="@drawable/button_border_radious_8dp_purpel_200"
             android:shadowColor="#039BE5"
-            android:text="Buyer Address"
+            android:text="Seller Address"
             android:textColor="@color/purple_dark"
+            app:layout_constraintEnd_toEndOf="@+id/card_details_email_tv"
             app:layout_constraintStart_toStartOf="@+id/textView48"
             app:layout_constraintTop_toBottomOf="@+id/card_details_user_pic_iv"
             tools:ignore="TouchTargetSizeCheck" />
@@ -254,7 +272,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Email:"
+            android:text="Email :"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="@+id/textView46"
             app:layout_constraintTop_toBottomOf="@+id/textView46" />
@@ -289,10 +307,11 @@
             android:layout_marginTop="32dp"
             android:background="@drawable/button_radious_8dp_pupel_dark"
             android:text="Buy "
+            android:visibility="invisible"
             android:textColor="@color/white"
-            app:layout_constraintEnd_toEndOf="@+id/cardDetails_mapBtn"
-            app:layout_constraintStart_toStartOf="@+id/cardDetails_mapBtn"
-            app:layout_constraintTop_toBottomOf="@+id/textView49" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/details_buyat_tv2" />
 
         <TextView
             android:id="@+id/textView51"
@@ -315,6 +334,16 @@
             app:layout_constraintBottom_toBottomOf="@+id/textView51"
             app:layout_constraintStart_toEndOf="@+id/textView51"
             app:layout_constraintTop_toTopOf="@+id/textView51" />
+
+        <ProgressBar
+            android:id="@+id/details_pb"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="250dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

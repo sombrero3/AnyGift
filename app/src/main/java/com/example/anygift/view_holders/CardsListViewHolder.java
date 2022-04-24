@@ -16,8 +16,9 @@ import com.example.anygift.model.Utils;
 
 
 public class CardsListViewHolder extends RecyclerView.ViewHolder{
-    TextView typeNameTv,expTv,valueTv, calculatedPriceTv,firstPriceTv,savingTv;
+    TextView typeNameTv,expTv,valueTv, calculatedPriceTv,firstPriceTv,savingTv,firstPriceTextTv;
     ImageView picIv;
+    View line;
     public CardsListViewHolder(@NonNull View itemView, OnItemClickListener listener) {
         super(itemView);
         typeNameTv = itemView.findViewById(R.id.my_card_row_type_tv);
@@ -25,8 +26,10 @@ public class CardsListViewHolder extends RecyclerView.ViewHolder{
         valueTv = itemView.findViewById(R.id.my_card_row_amount_in_card_tv);
         calculatedPriceTv = itemView.findViewById(R.id.my_card_row_calculated_price_tv);
         firstPriceTv = itemView.findViewById(R.id.my_card_row_first_price_tv);
+        firstPriceTextTv = itemView.findViewById(R.id.my_card_row_first_price_text_tv);
         savingTv = itemView.findViewById(R.id.my_card_row_saving_tv);
         picIv = itemView.findViewById(R.id.my_card_row_iv);
+        line = itemView.findViewById(R.id.my_card_row_line);
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -36,13 +39,19 @@ public class CardsListViewHolder extends RecyclerView.ViewHolder{
         });
     }
     public void bind(Card card){
-
         expTv.setText(Utils.ConvertLongToDate(card.getExpirationDate()));
         valueTv.setText(card.getValue().toString());
-        firstPriceTv.setText(card.getPrice().toString());
         calculatedPriceTv.setText(card.getCalculatedPrice().toString());
         savingTv.setText(card.getPrecentageSaved());
         picIv.setImageResource(R.drawable.amazon_giftcard);
+
+        if(card.getPrice().equals(card.getCalculatedPrice())){
+                    firstPriceTextTv.setVisibility(View.INVISIBLE);
+                    firstPriceTv.setVisibility(View.INVISIBLE);
+                    line.setVisibility(View.INVISIBLE);
+        }else{
+            firstPriceTv.setText(card.getPrice().toString());
+        }
 
         for(CardType ct: Model.instance.cardTypes) {
             if (card.getCardType().equals(ct.getId())) {
