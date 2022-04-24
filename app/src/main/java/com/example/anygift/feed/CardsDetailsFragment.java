@@ -23,6 +23,7 @@ import com.example.anygift.R;
 import com.example.anygift.Retrofit.Card;
 import com.example.anygift.Retrofit.CardType;
 import com.example.anygift.model.Model;
+import com.example.anygift.model.Utils;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.squareup.picasso.Picasso;
@@ -30,7 +31,7 @@ import com.squareup.picasso.Picasso;
 public class CardsDetailsFragment extends Fragment {
     View view;
 //    UserViewModel userViewModel;
-    private TextView name, value,buyAt,popUpTypeTv,popUpExpTv,popupValueTv, popUpPriceTv,emailTv,savingTv;
+    private TextView name, value,expTv,buyAt,typeTv,popUpTypeTv,popUpExpTv,popupValueTv, popUpPriceTv,emailTv,savingTv;
     private Button mapBtn, editBtn,deleteBtn,buyBtn,popUpSaveBtn,popUpCancel;
     private ImageView userImage,giftCardImage, popUpCcardImage;
     Card card;
@@ -61,7 +62,8 @@ public class CardsDetailsFragment extends Fragment {
         buyBtn = view.findViewById(R.id.card_details_buy_btn);
         emailTv = view.findViewById(R.id.card_details_email_tv);
         savingTv = view.findViewById(R.id.details_saving_tv);
-
+        typeTv = view.findViewById(R.id.card_details_type_tv);
+        expTv = view.findViewById(R.id.card_details_exp_tv);
         Model.instance.getCardRetrofit(cardId,new Model.cardReturnListener() {
             @Override
             public void onComplete(Card c, String message) {
@@ -73,8 +75,14 @@ public class CardsDetailsFragment extends Fragment {
                         value.setText(Double.toString(card.getValue()));
                         name.setText(user.getFirstName() + " " + user.getLastName());
                         emailTv.setText(user.getEmail());
+                        expTv.setText(Utils.ConvertLongToDate(card.getExpirationDate()));
                         buyAt.setText(Double.toString(card.getPrice()));
                         savingTv.setText(card.getPrecentageSaved()+"%");
+                        for(CardType ct:Model.instance.cardTypes){
+                            if(ct.getId().equals(card.getCardType())){
+                                typeTv.setText(ct.getName());
+                            }
+                        }
                         Model.instance.downloadImage(user.getProfilePicture().replace("/image/", ""),
                                 new Model.byteArrayReturnListener() {
                                     @Override
@@ -172,13 +180,19 @@ public class CardsDetailsFragment extends Fragment {
         popUpCancel = buyCardpopUpView.findViewById(R.id.buy_card_popup_cancel_btn);
         popupValueTv =     buyCardpopUpView.findViewById(R.id.buy_card_popup_value_tv);
         popUpExpTv = buyCardpopUpView.findViewById(R.id.buy_card_popup_exp_tv);
+        popUpTypeTv = buyCardpopUpView.findViewById(R.id.buy_card_popup_card_type_tv);
 
         //Picasso.get().load(giftCard.getGiftCardImageUrl()).into(popUpCcardImage);
         setCardImage(popUpCcardImage);
         popUpPriceTv.setText(Double.toString(card.getPrice()));
         popupValueTv.setText(Double.toString(card.getValue()));
-        popUpExpTv.setText(card.getExpirationDate().toString());
+        popUpExpTv.setText(Utils.ConvertLongToDate(card.getExpirationDate()));
 
+        for(CardType ct:Model.instance.cardTypes){
+            if(ct.getId().equals(card.getCardType())){
+                popUpTypeTv.setText(ct.getName());
+            }
+        }
         alertDialogBuilder.setView(buyCardpopUpView);
         dialog = alertDialogBuilder.create();
         dialog.show();
