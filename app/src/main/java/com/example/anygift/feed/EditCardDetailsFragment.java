@@ -10,26 +10,35 @@ import androidx.navigation.Navigation;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.anygift.R;
 import com.example.anygift.Retrofit.Card;
+import com.example.anygift.Retrofit.CardType;
 import com.example.anygift.model.Model;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class EditCardDetailsFragment extends Fragment {
     View view;
     EditText numberEt,priceEt,expEt;
     Spinner typeSp;
+    String cardType;
     TextView  valueTv;
     Button save, mapBtn, deleteBtn;
     ImageView giftCardImage;
     Card giftCard = null;
-
+    List<String> cardTypes;
+    ProgressBar pb;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -37,7 +46,8 @@ public class EditCardDetailsFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_edit_card_details, container, false);
         //getActivity().setTitle("AnyGift - EditCardDetails");
         String giftCardId = EditCardDetailsFragmentArgs.fromBundle(getArguments()).getGiftCardId();
-
+        pb = view.findViewById(R.id.edit_card_pb);
+        pb.setVisibility(View.VISIBLE);
         typeSp = view.findViewById(R.id.edit_card_type_spinner);
         numberEt = view.findViewById(R.id.edit_card_card_number);
         priceEt = view.findViewById(R.id.edit_card_card_asking_price);
@@ -56,6 +66,7 @@ public class EditCardDetailsFragment extends Fragment {
                 priceEt.setText(card.getPrice().toString());
                 expEt.setText(card.getExpirationDate().toString().split(" ")[0]);
                 valueTv.setText(card.getValue().toString());
+                setCardTypesSpinner();
             }
         });
 
@@ -66,6 +77,40 @@ public class EditCardDetailsFragment extends Fragment {
             }
         });
         return view;
+    }
+    private void setCardTypesSpinner() {
+        List<CardType> cts = Model.instance.cardTypes;
+        cardTypes = new ArrayList<>();
+        int pos=0;
+        for (int i=0;i<cts.size();i++) {
+            cardTypes.add(cts.get(i).getName());
+            if(cts.get(i).getId().equals(giftCard.getCardType())){
+                pos=i;
+            }
+
+        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, cardTypes);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        typeSp.setAdapter(adapter);
+        int finalPos = pos;
+        typeSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                giftCardImage.setImageBitmap(cts.get(i).getPicture());
+                cardType = cts.get(i).getId();
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                giftCardImage.setImageBitmap(cts.get(finalPos).getPicture());
+                cardType = cts.get(finalPos).getId();
+            }
+        });
+
+        typeSp.setSelection(finalPos);
+        pb.setVisibility(View.GONE);
+
     }
 
 
