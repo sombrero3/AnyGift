@@ -138,66 +138,16 @@ public class SearchGiftCardFragment extends Fragment {
                 pb.setVisibility(View.GONE);
             }
         });
-
-//        Model.instance.getAllCards(new Model.cardsReturnListener() {
-//            @Override
-//            public void onComplete(List<Card> cards, String message) {
-//                Log.d("TAG", "maxPrice: "+maxPriceEt.getText().toString());
-//                Log.d("TAG", "onDateSet: "+day+"/"+month+"/"+year);
-//                searchResult.clear();
-//                String price = maxPriceEt.getText().toString();
-//
-//                if(price.isEmpty()){
-//                    if(day==0){
-//                        //filter by spinner only
-//                        cards.stream().filter(c->c.getCardType().equals(cardTypeId));
-//                        Log.d("TAG", "filter by date only");
-//                    }else{
-//                        if(true) {//spinner is empty, filter by date only
-//                            cards.stream().filter(c->c.getExpirationDate() <= Utils.convertDateToLong(Integer.toString(day),Integer.toString(month),Integer.toString(year)).longValue());
-//                            Log.d("TAG", "filter by date only");
-//                        }else {
-//                            //filter by date & typeSpinner
-//                            cards.stream().filter(c->c.getExpirationDate() <= Utils.convertDateToLong(Integer.toString(day),Integer.toString(month),Integer.toString(year)).longValue()
-//                                                        && c.getCardType().equals(cardTypeId));
-//                            Log.d("TAG", "filter by type spinner and date only");
-//                        }
-//                    }
-//                }else{
-//                    if(day==0){
-//                        if(true){//spinner  and date are empty, filter by price only
-//                            cards.stream().filter(c->c.getCalculatedPrice()<=Double.valueOf(price));
-//                            Log.d("TAG", "filter by price only");
-//                        }else{
-//                            //filter by maxPrice & typeSpinner
-//                            cards.stream().filter(c->c.getCardType().equals(cardTypeId) && c.getCalculatedPrice()<=Double.valueOf(price));
-//                            Log.d("TAG", "filter by maxPrice & typeSpinner");
-//                        }
-//                    }else{
-//                        if(true){//spinner is empty, filter by price & date
-//                            cards.stream().filter(c->c.getExpirationDate() <= Utils.convertDateToLong(Integer.toString(day),Integer.toString(month),Integer.toString(year)).longValue()
-//                                    && c.getCalculatedPrice()<=Double.valueOf(price));
-//                            Log.d("TAG", "filter by date and price");
-//                        }else {
-//                            //filter by maxPrice & typeSpinner & date
-//                            cards.stream().filter(c->c.getCardType().equals(cardTypeId) && c.getCalculatedPrice()<=Double.valueOf(price)
-//                                                            && c.getExpirationDate() <= Utils.convertDateToLong(Integer.toString(day),Integer.toString(month),Integer.toString(year)).longValue());
-//                            Log.d("TAG", "filter by date, type and price");
-//                        }
-//                    }
-//                }
-//                searchResult.addAll(cards);
-//                adapter.notifyDataSetChanged();
-//            }
-//        });
     }
 
     private void setCardtypesSpinner() {
         List<CardType> cts = Model.instance.cardTypes;
         cardTypes = new ArrayList<>();
+
         for (CardType ct : cts) {
             cardTypes.add(ct.getName());
         }
+        cardTypes.add("Any");
 
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, cardTypes);
@@ -206,14 +156,19 @@ public class SearchGiftCardFragment extends Fragment {
         spinnerCardType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                cardTypeId = cts.get(i).getId();
+                if(i<cts.size()) {
+                    cardTypeId = cts.get(i).getId();
+                }else{
+                    cardTypeId = "Any";
+                }
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-                cardTypeId = cts.get(0).getId();
+                cardTypeId = "Any";
             }
         });
+        spinnerCardType.setSelection(cts.size());
         pb.setVisibility(View.INVISIBLE);
     }
 
