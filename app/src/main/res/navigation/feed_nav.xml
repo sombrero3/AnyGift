@@ -60,7 +60,7 @@
     <action android:id="@+id/action_global_shopFragment" app:destination="@id/shopFragment" />
     <fragment
         android:id="@+id/searchGiftCardFragment"
-        android:name="com.example.anygift.SearchGiftCardFragment"
+        android:name="com.example.anygift.feed.SearchGiftCardFragment"
         android:label="fragment_search_gift_card"
         tools:layout="@layout/fragment_search_gift_card" /><action android:id="@+id/action_global_searchGiftCardFragment" app:destination="@id/searchGiftCardFragment"/>
 </navigation>

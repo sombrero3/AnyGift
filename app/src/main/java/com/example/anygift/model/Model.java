@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 
 import androidx.core.os.HandlerCompat;
 import androidx.lifecycle.LiveData;
@@ -23,6 +24,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
+import java.util.stream.Collectors;
 
 public class Model {
     public static final Model instance = new Model();
@@ -76,6 +78,9 @@ public class Model {
 
     public interface cardsReturnListener {
         void onComplete(List<Card> cards, String message);
+    }
+    public interface cardsListener{
+        void onComplete(List<Card> cards);
     }
 
     public interface uploadImageListener {
@@ -289,5 +294,60 @@ public class Model {
 
     public void setCurrentUser(com.example.anygift.Retrofit.User user) {
         signedUser = user;
+    }
+
+
+    /**
+     * search cards
+     */
+    public void searchCards(int day,int month,int year,String price,String cardTypeId,cardsListener listener){
+        List<Card> result = new ArrayList<>();
+        getAllCards(new Model.cardsReturnListener() {
+            @Override
+            public void onComplete(List<Card> cards, String message) {
+                Log.d("TAG", "maxPrice: "+price);
+                Log.d("TAG", "onDateSet: "+day+"/"+month+"/"+year);
+                if(price.isEmpty()){
+                    if(day==0){//filter by spinner only
+                        result.addAll(cards.stream().filter(c->c.getCardType().equals(cardTypeId)).collect(Collectors.toList()));
+                        Log.d("TAG", "filter by type only");
+                    }else{
+                        if(false) {//spinner is empty, filter by date only
+                            result.addAll(cards.stream().filter(c->c.getExpirationDate() <= Utils.convertDateToLong(Integer.toString(day),Integer.toString(month),Integer.toString(year)).longValue()).collect(Collectors.toList()));
+                            Log.d("TAG", "filter by date only");
+                        }else {
+                            //filter by date & typeSpinner
+                            result.addAll(cards.stream().filter(c->c.getExpirationDate() <= Utils.convertDateToLong(Integer.toString(day),Integer.toString(month),Integer.toString(year)).longValue()
+                                    && c.getCardType().equals(cardTypeId)).collect(Collectors.toList()));
+                            Log.d("TAG", "filter by type spinner and date only");
+                        }
+                    }
+                }else{
+                    if(day==0){
+                        if(false){//spinner  and date are empty, filter by price only
+                            result.addAll(cards.stream().filter(c->c.getCalculatedPrice()<=Double.valueOf(price)).collect(Collectors.toList()));
+                            Log.d("TAG", "filter by price only");
+                        }else{
+                            //filter by maxPrice & typeSpinner
+                            result.addAll(cards.stream().filter(c->c.getCardType().equals(cardTypeId) && c.getCalculatedPrice()<=Double.valueOf(price)).collect(Collectors.toList()));
+                            Log.d("TAG", "filter by maxPrice & typeSpinner");
+                        }
+                    }else{
+                        if(false){//spinner is empty, filter by price & date
+                            result.addAll(cards.stream().filter(c->c.getExpirationDate() <= Utils.convertDateToLong(Integer.toString(day),Integer.toString(month),Integer.toString(year)).longValue()
+                                    && c.getCalculatedPrice()<=Double.valueOf(price)).collect(Collectors.toList()));
+                            Log.d("TAG", "filter by date and price");
+                        }else {
+                            //filter by maxPrice & typeSpinner & date
+                            result.addAll(cards.stream().filter(c->c.getCardType().equals(cardTypeId) && c.getCalculatedPrice()<=Double.valueOf(price)
+                                    && c.getExpirationDate() <= Utils.convertDateToLong(Integer.toString(day),Integer.toString(month),Integer.toString(year)).longValue()).collect(Collectors.toList()));
+                            Log.d("TAG", "filter by date, type and price");
+                        }
+                    }
+                }
+                listener.onComplete(result);
+            }
+        });
+
     }
 }

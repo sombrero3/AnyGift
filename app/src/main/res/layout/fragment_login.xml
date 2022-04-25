@@ -75,7 +75,7 @@
                 android:fontFamily="sans-serif-medium"
                 android:inputType="textEmailAddress"
                 android:maxLines="1"
-                android:textColor="@color/red_transparent" />
+                android:textColor="@color/purple_dark" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -99,7 +99,8 @@
                 android:backgroundTint="@color/black"
                 android:fontFamily="sans-serif-medium"
                 android:inputType="textPassword"
-                android:maxLines="1" />
+                android:maxLines="1"
+                android:textColor="@color/purple_dark" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
