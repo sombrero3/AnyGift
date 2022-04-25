@@ -1,18 +1,25 @@
 package com.example.anygift.feed;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
+import android.text.Layout;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -42,6 +49,7 @@ public class CardsDetailsFragment extends Fragment {
     AlertDialog dialog;
     String imageUrl, cardId, userId;
     ProgressBar pb;
+    Dialog tryDialog;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -80,9 +88,9 @@ public class CardsDetailsFragment extends Fragment {
                         emailTv.setText(user.getEmail());
                         expTv.setText(Utils.ConvertLongToDate(card.getExpirationDate()));
                         buyAt.setText(Double.toString(card.getPrice()));
-                        savingTv.setText(card.getPrecentageSaved() + "%");
-                        for (CardType ct : Model.instance.cardTypes) {
-                            if (ct.getId().equals(card.getCardType())) {
+                        savingTv.setText(card.getPrecentageSaved()+"%");
+                        for(CardType ct:Model.instance.cardTypes){
+                            if(ct.getId().equals(card.getCardType())){
                                 typeTv.setText(ct.getName());
                             }
                         }
@@ -109,7 +117,7 @@ public class CardsDetailsFragment extends Fragment {
     }
 
     private void setUI() {
-        if (userId.equals(Model.instance.getSignedUser().getId())) {
+        if(userId.equals(Model.instance.getSignedUser().getId())){
             deleteBtn.setEnabled(true);
             deleteBtn.setVisibility(View.VISIBLE);
             editBtn.setEnabled(true);
@@ -146,7 +154,8 @@ public class CardsDetailsFragment extends Fragment {
             buyBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    createNewBuyCardDialog();
+                    createNewBottomDialog();
+                    //createNewBuyCardDialog();
                 }
             });
         }
@@ -171,6 +180,66 @@ public class CardsDetailsFragment extends Fragment {
                 image.setImageBitmap(ct.getPicture());
             }
         }
+    }
+
+    public void createNewBottomDialog(){
+
+//        bottomSheetDialog = new BottomSheetDialog(getActivity(),R.style.BottomSheetDialogTheme);
+//
+//        final View bottomSheetView = LayoutInflater.from(getContext()).inflate(
+//           R.layout.buy_card_popup,null
+//        );
+
+        tryDialog = new Dialog(getActivity());
+        tryDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        tryDialog.setContentView(R.layout.buy_card_popup);
+
+
+                //getLayoutInflater().inflate(R.layout.buy_card_popup,null);
+        popUpCcardImage = tryDialog.findViewById(R.id.buy_card_popup_icon_iv);
+        popUpPriceTv = tryDialog.findViewById(R.id.buy_card_popup_price_tv);
+        popUpSaveBtn = tryDialog.findViewById(R.id.buy_card_popup_buy_btn);
+        popUpCancel = tryDialog.findViewById(R.id.buy_card_popup_cancel_btn);
+        popupValueTv = tryDialog.findViewById(R.id.buy_card_popup_value_tv);
+        popUpExpTv = tryDialog.findViewById(R.id.buy_card_popup_exp_tv);
+        popUpTypeTv = tryDialog.findViewById(R.id.buy_card_popup_card_type_tv);
+
+        setCardImage(popUpCcardImage);
+        popUpPriceTv.setText(Double.toString(card.getPrice()));
+        popupValueTv.setText(Double.toString(card.getValue()));
+        popUpExpTv.setText(Utils.ConvertLongToDate(card.getExpirationDate()));
+
+        for(CardType ct:Model.instance.cardTypes){
+            if(ct.getId().equals(card.getCardType())){
+                popUpTypeTv.setText(ct.getName());
+            }
+        }
+
+        //buy
+        popUpSaveBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(Model.instance.getSignedUser().getCoins()<card.getCalculatedPrice()){
+                    Toast.makeText(getContext(), "You do not have enough coins!", Toast.LENGTH_SHORT).show();
+                }else{
+
+                    //buy
+                }
+            }
+        });
+
+        popUpCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                tryDialog.dismiss();
+            }
+        });
+        tryDialog.show();
+        tryDialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        tryDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        tryDialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+        tryDialog.getWindow().setGravity(Gravity.BOTTOM);
+
     }
 
     public void createNewBuyCardDialog() {
