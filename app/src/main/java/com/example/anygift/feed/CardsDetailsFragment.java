@@ -183,19 +183,10 @@ public class CardsDetailsFragment extends Fragment {
     }
 
     public void createNewBottomDialog(){
-
-//        bottomSheetDialog = new BottomSheetDialog(getActivity(),R.style.BottomSheetDialogTheme);
-//
-//        final View bottomSheetView = LayoutInflater.from(getContext()).inflate(
-//           R.layout.buy_card_popup,null
-//        );
-
         tryDialog = new Dialog(getActivity());
         tryDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         tryDialog.setContentView(R.layout.buy_card_popup);
 
-
-                //getLayoutInflater().inflate(R.layout.buy_card_popup,null);
         popUpCcardImage = tryDialog.findViewById(R.id.buy_card_popup_icon_iv);
         popUpPriceTv = tryDialog.findViewById(R.id.buy_card_popup_price_tv);
         popUpSaveBtn = tryDialog.findViewById(R.id.buy_card_popup_buy_btn);
@@ -222,8 +213,11 @@ public class CardsDetailsFragment extends Fragment {
                 if(Model.instance.getSignedUser().getCoins()<card.getCalculatedPrice()){
                     Toast.makeText(getContext(), "You do not have enough coins!", Toast.LENGTH_SHORT).show();
                 }else{
-
-                    //buy
+                    String buyer = Model.instance.getSignedUser().getId();
+                    String seller = card.getOwner();
+                    double coins = card.getCalculatedPrice();
+                    transacteCard(seller, buyer, card.getId(), coins);
+                    tryDialog.dismiss();
                 }
             }
         });
