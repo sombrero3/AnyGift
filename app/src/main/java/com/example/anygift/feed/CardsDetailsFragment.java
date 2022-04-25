@@ -155,7 +155,6 @@ public class CardsDetailsFragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                     createNewBottomDialog();
-                    //createNewBuyCardDialog();
                 }
             });
         }
@@ -233,57 +232,6 @@ public class CardsDetailsFragment extends Fragment {
         tryDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         tryDialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
         tryDialog.getWindow().setGravity(Gravity.BOTTOM);
-
-    }
-
-    public void createNewBuyCardDialog() {
-        alertDialogBuilder = new AlertDialog.Builder(getContext());
-        final View buyCardpopUpView = getLayoutInflater().inflate(R.layout.buy_card_popup, null);
-        popUpCcardImage = buyCardpopUpView.findViewById(R.id.buy_card_popup_icon_iv);
-        popUpPriceTv = buyCardpopUpView.findViewById(R.id.buy_card_popup_price_tv);
-        popUpSaveBtn = buyCardpopUpView.findViewById(R.id.buy_card_popup_buy_btn);
-        popUpCancel = buyCardpopUpView.findViewById(R.id.buy_card_popup_cancel_btn);
-        popupValueTv = buyCardpopUpView.findViewById(R.id.buy_card_popup_value_tv);
-        popUpExpTv = buyCardpopUpView.findViewById(R.id.buy_card_popup_exp_tv);
-        popUpTypeTv = buyCardpopUpView.findViewById(R.id.buy_card_popup_card_type_tv);
-
-        //Picasso.get().load(giftCard.getGiftCardImageUrl()).into(popUpCcardImage);
-        setCardImage(popUpCcardImage);
-        popUpPriceTv.setText(Double.toString(card.getPrice()));
-        popupValueTv.setText(Double.toString(card.getValue()));
-        popUpExpTv.setText(Utils.ConvertLongToDate(card.getExpirationDate()));
-
-        for (CardType ct : Model.instance.cardTypes) {
-            if (ct.getId().equals(card.getCardType())) {
-                popUpTypeTv.setText(ct.getName());
-            }
-        }
-        alertDialogBuilder.setView(buyCardpopUpView);
-        dialog = alertDialogBuilder.create();
-        dialog.show();
-
-        //buy
-        popUpSaveBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (Model.instance.getSignedUser().getCoins() < card.getCalculatedPrice()) {
-                    Toast.makeText(getContext(), "You do not have enough coins!", Toast.LENGTH_SHORT).show();
-                } else {
-                    String buyer = Model.instance.getSignedUser().getId();
-                    String seller = card.getOwner();
-                    double coins = card.getCalculatedPrice();
-                    transacteCard(seller, buyer, card.getId(), coins);
-                }
-            }
-        });
-
-
-        popUpCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-            }
-        });
 
     }
 
