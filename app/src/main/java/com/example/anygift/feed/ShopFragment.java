@@ -1,6 +1,9 @@
 package com.example.anygift.feed;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -9,9 +12,11 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -34,6 +39,7 @@ public class ShopFragment extends Fragment {
     List<String> titles;
     AlertDialog.Builder alertDialogBuilder;
     AlertDialog dialog;
+    Dialog tryDialog;
     TextView popUpPrice;
     ImageView popUpCoinsIcon;
     Button popUpCancel, popUpSaveBtn;
@@ -47,19 +53,19 @@ public class ShopFragment extends Fragment {
         titles = new ArrayList<>();
         images = new ArrayList<>();
 
-        titles.add("Cost : 10$");
+
         titles.add("Cost : 45$");
         titles.add("Cost : 90$");
         titles.add("Cost : 220$");
         titles.add("Cost : 435$");
         titles.add("Cost : 860$");
-
+        titles.add("Cost : 1$");
         images.add(R.drawable.fifty);
         images.add(R.drawable.handred);
         images.add(R.drawable.twofifty);
         images.add(R.drawable.fivehandred);
         images.add(R.drawable.taulsend);
-        images.add(R.drawable.shop_icon_2);
+        images.add(R.drawable.coin_0);
 
         gridRV = view.findViewById(R.id.shop_rv);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),2,GridLayoutManager.VERTICAL,false);
@@ -78,19 +84,35 @@ public class ShopFragment extends Fragment {
     }
 
     public void createNewShopDialog(int pos){
-        alertDialogBuilder = new AlertDialog.Builder(getContext());
-        final View shopPopUpView = getLayoutInflater().inflate(R.layout.shop_popup,null);
-        popUpCoinsIcon = shopPopUpView.findViewById(R.id.shop_popup_icon_iv);
-        popUpPrice = shopPopUpView.findViewById(R.id.shop_popup_price_tv);
-        popUpSaveBtn = shopPopUpView.findViewById(R.id.shop_popup_buy_btn);
-        popUpCancel = shopPopUpView.findViewById(R.id.shop_popup_cancel_btn);
+
+
+
+//        alertDialogBuilder = new AlertDialog.Builder(getContext());
+//        final View shopPopUpView = getLayoutInflater().inflate(R.layout.shop_popup,null);
+//        popUpCoinsIcon = shopPopUpView.findViewById(R.id.shop_popup_icon_iv);
+//        popUpPrice = shopPopUpView.findViewById(R.id.shop_popup_price_tv);
+//        popUpSaveBtn = shopPopUpView.findViewById(R.id.shop_popup_buy_btn);
+//        popUpCancel = shopPopUpView.findViewById(R.id.shop_popup_cancel_btn);
+        tryDialog = new Dialog(getActivity());
+        tryDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        tryDialog.setContentView(R.layout.shop_popup);
+        popUpCoinsIcon = tryDialog.findViewById(R.id.shop_popup_icon_iv);
+        popUpPrice = tryDialog.findViewById(R.id.shop_popup_price_tv);
+        popUpSaveBtn = tryDialog.findViewById(R.id.shop_popup_buy_btn);
+        popUpCancel = tryDialog.findViewById(R.id.shop_popup_cancel_btn);
 
         popUpCoinsIcon.setImageResource(images.get(pos));
         popUpPrice.setText(titles.get(pos));
 
-        alertDialogBuilder.setView(shopPopUpView);
-        dialog = alertDialogBuilder.create();
-        dialog.show();
+//        alertDialogBuilder.setView(shopPopUpView);
+//        dialog = alertDialogBuilder.create();
+//        dialog.show();
+
+        tryDialog.show();
+        tryDialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        tryDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        tryDialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+        tryDialog.getWindow().setGravity(Gravity.BOTTOM);
 
         popUpSaveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,7 +135,7 @@ public class ShopFragment extends Fragment {
                         num = 1000;
                         break;
                     case  5:
-                        num = 0;
+                        num = 1;
                         break;
                     default: num = 0;
                 }
@@ -125,7 +147,7 @@ public class ShopFragment extends Fragment {
                             public void onComplete(User user, String message) {
                                 Model.instance.getSignedUser().setCoins(user.getCoins());
                                 Toast.makeText(getContext(), "Thank You !! Spend your Gcoins wisely :)", Toast.LENGTH_SHORT).show();
-                                dialog.dismiss();
+                                tryDialog.dismiss();
                             }
                         });
 
@@ -135,7 +157,7 @@ public class ShopFragment extends Fragment {
         popUpCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dialog.dismiss();
+                tryDialog.dismiss();
             }
         });
 
