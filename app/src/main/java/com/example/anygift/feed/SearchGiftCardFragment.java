@@ -76,7 +76,7 @@ public class SearchGiftCardFragment extends Fragment {
                 Navigation.findNavController(v).navigate(R.id.action_global_cardsDetailsFragment,map);
             }
         });
-        Model.instance.getAllCards(new Model.cardsReturnListener() {
+        Model.instance.getAllFeedCardsForSale(new Model.cardsReturnListener() {
             @Override
             public void onComplete(List<Card> cards, String message) {
                 searchResult.clear();

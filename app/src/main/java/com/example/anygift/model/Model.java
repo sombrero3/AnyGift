@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Model {
     public static final Model instance = new Model();
@@ -182,8 +183,10 @@ public class Model {
             @Override
             public void onComplete(List<Card> cards, String message) {
                 String user_id = modelRetrofit.getUserId();
-                cards.stream().filter(c -> c.getIsForSale() && !c.getOwner().equals(user_id));
-                listener.onComplete(cards, "Cards filtered");
+                System.out.println("size before: " + cards.size());
+                List<Card> cs = cards.stream().filter(c -> c.getIsForSale() && !c.getOwner().equals(user_id)).collect(Collectors.toList());
+                System.out.println("size after: " + cards.size());
+                listener.onComplete(cs, "Cards filtered");
             }
         });
     }

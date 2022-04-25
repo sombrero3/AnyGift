@@ -23,6 +23,7 @@ import com.example.anygift.R;
 import com.example.anygift.Retrofit.Card;
 import com.example.anygift.Retrofit.CardType;
 import com.example.anygift.model.Model;
+import com.example.anygift.model.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,7 +65,7 @@ public class EditCardDetailsFragment extends Fragment {
                 //typeSp.setText(card.getCardType());
                 numberEt.setText(card.getCardNumber());
                 priceEt.setText(card.getPrice().toString());
-                expEt.setText(card.getExpirationDate().toString().split(" ")[0]);
+                expEt.setText(Utils.ConvertLongToDate(Long.parseLong(card.getExpirationDate().toString().split(" ")[0])));
                 valueTv.setText(card.getValue().toString());
                 setCardTypesSpinner();
             }
