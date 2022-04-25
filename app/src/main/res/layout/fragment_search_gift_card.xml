@@ -30,7 +30,7 @@
             android:fontFamily="sans-serif-medium"
             android:inputType="textEmailAddress"
             android:maxLines="1"
-            android:textColor="@color/red_transparent" />
+            android:textColor="@color/purple_dark" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -129,4 +129,14 @@
         app:layout_constraintEnd_toEndOf="@+id/search_card_type_spinner"
         app:layout_constraintStart_toEndOf="@+id/textView52"
         app:layout_constraintTop_toTopOf="@+id/textView52" />
+
+    <ProgressBar
+        android:id="@+id/search_progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

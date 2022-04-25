@@ -65,16 +65,16 @@ public class MyWalletFragment extends Fragment {
         pb.setVisibility(View.VISIBLE);
 
 //        swipeRefresh.setOnRefreshListener(() -> Model.instance.refreshGiftCardsList());
-        RecyclerView list = view.findViewById(R.id.MyCards_list_rv);
-        list.setHasFixedSize(true);
+        RecyclerView cardsList = view.findViewById(R.id.MyCards_list_rv);
+        cardsList.setHasFixedSize(true);
         RecyclerView.LayoutManager horizontalLayout = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-        list.setLayoutManager(horizontalLayout);
+        cardsList.setLayoutManager(horizontalLayout);
 
         viewModel.getListWithListener(new Model.CardsListListener() {
             @Override
             public void onComplete(List<Card> cards) {
                 adapter = new CardsListAdapter(cards);
-                list.setAdapter(adapter);
+                cardsList.setAdapter(adapter);
                 pb.setVisibility(View.GONE);
                 adapter.setOnItemClickListener(new OnItemClickListener() {
                     @Override
