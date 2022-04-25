@@ -54,12 +54,12 @@ public class ShopFragment extends Fragment {
         titles.add("Cost : 435$");
         titles.add("Cost : 860$");
 
-        images.add(R.drawable.cards_icon_1);
+        images.add(R.drawable.fifty);
+        images.add(R.drawable.handred);
+        images.add(R.drawable.twofifty);
+        images.add(R.drawable.fivehandred);
+        images.add(R.drawable.taulsend);
         images.add(R.drawable.shop_icon_2);
-        images.add(R.drawable.shop_icon_1);
-        images.add(R.drawable.search_icon_blue);
-        images.add(R.drawable.common_google_signin_btn_icon_light);
-        images.add(R.drawable.baseline_keyboard_arrow_down_black_24dp);
 
         gridRV = view.findViewById(R.id.shop_rv);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),2,GridLayoutManager.VERTICAL,false);
@@ -98,22 +98,22 @@ public class ShopFragment extends Fragment {
                 double num;
                 switch (pos) {
                     case  0:
-                       num = 10;
+                       num = 50;
                        break;
                     case  1:
-                        num = 50;
-                        break;
-                    case  2:
                         num = 100;
                         break;
-                    case  3:
+                    case  2:
                         num = 250;
                         break;
-                    case  4:
+                    case  3:
                         num = 500;
                         break;
-                    case  5:
+                    case  4:
                         num = 1000;
+                        break;
+                    case  5:
+                        num = 0;
                         break;
                     default: num = 0;
                 }
