@@ -312,7 +312,7 @@ public class Model {
                         result.addAll(cards.stream().filter(c->c.getCardType().equals(cardTypeId)).collect(Collectors.toList()));
                         Log.d("TAG", "filter by type only");
                     }else{
-                        if(false) {//spinner is empty, filter by date only
+                        if(cardTypeId.equals("Any")) {//spinner is empty, filter by date only
                             result.addAll(cards.stream().filter(c->c.getExpirationDate() <= Utils.convertDateToLong(Integer.toString(day),Integer.toString(month),Integer.toString(year)).longValue()).collect(Collectors.toList()));
                             Log.d("TAG", "filter by date only");
                         }else {
@@ -324,7 +324,7 @@ public class Model {
                     }
                 }else{
                     if(day==0){
-                        if(false){//spinner  and date are empty, filter by price only
+                        if(cardTypeId.equals("Any")){//spinner  and date are empty, filter by price only
                             result.addAll(cards.stream().filter(c->c.getCalculatedPrice()<=Double.valueOf(price)).collect(Collectors.toList()));
                             Log.d("TAG", "filter by price only");
                         }else{
@@ -333,7 +333,7 @@ public class Model {
                             Log.d("TAG", "filter by maxPrice & typeSpinner");
                         }
                     }else{
-                        if(false){//spinner is empty, filter by price & date
+                        if(cardTypeId.equals("Any")){//spinner is empty, filter by price & date
                             result.addAll(cards.stream().filter(c->c.getExpirationDate() <= Utils.convertDateToLong(Integer.toString(day),Integer.toString(month),Integer.toString(year)).longValue()
                                     && c.getCalculatedPrice()<=Double.valueOf(price)).collect(Collectors.toList()));
                             Log.d("TAG", "filter by date and price");
