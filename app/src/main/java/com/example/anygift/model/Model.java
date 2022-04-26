@@ -39,7 +39,7 @@ public class Model {
 
     private Model() {
         signedUser = new com.example.anygift.Retrofit.User();
-
+         setCardTypes();
         ListLoadingState.setValue(GiftListLoadingState.loaded);
     }
 

@@ -64,7 +64,6 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void toFeedActivity() {
-        Model.instance.setCardTypes();
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         finish();
