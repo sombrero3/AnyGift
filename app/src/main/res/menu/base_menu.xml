@@ -42,6 +42,12 @@
                     android:icon="@drawable/add_icon"
                     android:title="Add Card" />
                 <item
+                    android:id="@+id/transactions"
+                    android:icon="@drawable/transactions2"
+                    android:title="Transactions" />
+
+
+                <item
                     android:id="@+id/logout"
                     android:icon="@drawable/logout"
                     android:title="Logout" />
