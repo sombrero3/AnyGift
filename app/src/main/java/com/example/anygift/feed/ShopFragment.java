@@ -84,15 +84,6 @@ public class ShopFragment extends Fragment {
     }
 
     public void createNewShopDialog(int pos){
-
-
-
-//        alertDialogBuilder = new AlertDialog.Builder(getContext());
-//        final View shopPopUpView = getLayoutInflater().inflate(R.layout.shop_popup,null);
-//        popUpCoinsIcon = shopPopUpView.findViewById(R.id.shop_popup_icon_iv);
-//        popUpPrice = shopPopUpView.findViewById(R.id.shop_popup_price_tv);
-//        popUpSaveBtn = shopPopUpView.findViewById(R.id.shop_popup_buy_btn);
-//        popUpCancel = shopPopUpView.findViewById(R.id.shop_popup_cancel_btn);
         tryDialog = new Dialog(getActivity());
         tryDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         tryDialog.setContentView(R.layout.shop_popup);
@@ -103,10 +94,6 @@ public class ShopFragment extends Fragment {
 
         popUpCoinsIcon.setImageResource(images.get(pos));
         popUpPrice.setText(titles.get(pos));
-
-//        alertDialogBuilder.setView(shopPopUpView);
-//        dialog = alertDialogBuilder.create();
-//        dialog.show();
 
         tryDialog.show();
         tryDialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -139,7 +126,6 @@ public class ShopFragment extends Fragment {
                         break;
                     default: num = 0;
                 }
-
 
                 Model.instance.addCoinsToUser(Model.instance.getSignedUser().getId(),
                         num, new Model.userReturnListener() {

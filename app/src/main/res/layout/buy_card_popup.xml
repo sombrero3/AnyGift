@@ -64,29 +64,29 @@ android:id="@+id/buy_now_popup">
     app:layout_constraintTop_toTopOf="parent"
     app:shapeAppearanceOverlay="@style/roundedCornersImageView" />
 
-<TextView
-    android:id="@+id/textView291"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginStart="8dp"
-    android:text="G"
-    android:textColor="@color/red_transparent"
-    android:textSize="20sp"
-    android:textStyle="bold"
-    app:layout_constraintBaseline_toBaselineOf="@+id/buy_card_popup_price_tv"
-    app:layout_constraintStart_toEndOf="@+id/buy_card_popup_price_tv" />
+    <TextView
+        android:id="@+id/textView291"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="G"
+        android:textColor="@color/red_transparent"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBaseline_toBaselineOf="@+id/buy_card_popup_price_tv"
+        app:layout_constraintStart_toEndOf="@+id/buy_card_popup_price_tv" />
 
-<TextView
-    android:id="@+id/textView301"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="coins"
-    android:textColor="@color/coins"
-    android:textSize="20sp"
-    android:textStyle="bold"
-    app:layout_constraintBottom_toBottomOf="@+id/textView291"
-    app:layout_constraintStart_toEndOf="@+id/textView291"
-    app:layout_constraintTop_toTopOf="@+id/textView291" />
+    <TextView
+        android:id="@+id/textView301"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="coins"
+        android:textColor="@color/coins"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/textView291"
+        app:layout_constraintStart_toEndOf="@+id/textView291"
+        app:layout_constraintTop_toTopOf="@+id/textView291" />
 
 <TextView
     android:id="@+id/textview222"
@@ -154,14 +154,14 @@ android:id="@+id/buy_now_popup">
     app:layout_constraintStart_toEndOf="@+id/textview222"
     app:layout_constraintTop_toTopOf="@+id/textview222" />
 
-<TextView
-    android:id="@+id/textView59"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="16dp"
-    android:text="Saving :"
-    app:layout_constraintStart_toStartOf="@+id/textview222"
-    app:layout_constraintTop_toBottomOf="@+id/textView53" />
+    <TextView
+        android:id="@+id/textView59"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Saving :"
+        app:layout_constraintStart_toStartOf="@+id/textview222"
+        app:layout_constraintTop_toBottomOf="@+id/textView53" />
 
 <TextView
     android:id="@+id/textView60"

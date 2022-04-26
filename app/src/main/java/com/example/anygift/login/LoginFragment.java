@@ -93,7 +93,6 @@ public class LoginFragment extends Fragment {
                 } else {
                     mySnackbar = Snackbar.make(view, "Login successful :)", BaseTransientBottomBar.LENGTH_LONG);
                     mySnackbar.show();
-                    Model.instance.setCardTypes();
                     goToFeedActivity(user);
                 }
         });
