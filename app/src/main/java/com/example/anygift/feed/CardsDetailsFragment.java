@@ -257,8 +257,18 @@ public class CardsDetailsFragment extends Fragment {
                     @Override
                     public void onComplete(User user, String message) {
                         System.out.println(user);
-                        Toast.makeText(getContext(), "Enjoy your New GiftCard!", Toast.LENGTH_SHORT).show();
-                        Navigation.findNavController(view).navigate(FeedFragmentDirections.actionGlobalMyCardsFragment());
+
+                        HashMap<String, Object> map = com.example.anygift.Retrofit.CoinTransaction.mapToAddCoinTransaction(buyerID, sellerID, coins);
+                        Model.instance.addCoinTransaction(map, new Model.coinTransactionListener() {
+                            @Override
+                            public void onComplete(String message) {
+                                System.out.println(message);
+                                Toast.makeText(getContext(), "Enjoy your New GiftCard!", Toast.LENGTH_SHORT).show();
+                                Navigation.findNavController(view).navigate(FeedFragmentDirections.actionGlobalMyCardsFragment());
+
+                            }
+                        });
+
                     }
                 });
 
