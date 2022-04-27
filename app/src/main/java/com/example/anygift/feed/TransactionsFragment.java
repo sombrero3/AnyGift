@@ -34,8 +34,10 @@ public class TransactionsFragment extends Fragment {
         tranList = new ArrayList<>();
         for(int i=0;i<10;i++){
             CoinTransaction ct = new CoinTransaction();
+            ct.setDate("0/0/00"+i);
             ct.setAmount(i*100.0);
             ct.setFrom("Mister "+i);
+            ct.setTo(Double.valueOf(i));
             tranList.add(ct);
         }
 

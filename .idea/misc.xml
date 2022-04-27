@@ -6,6 +6,7 @@
         <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/drawable/bottom_popup_background.xml" value="0.234" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/drawable/button_border_radious_25dp.xml" value="0.2555" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/drawable/button_border_radious_8dp.xml" value="0.2555" />
+        <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/drawable/button_border_radious_8dp_grey.xml" value="0.238" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/drawable/button_border_radious_8dp_purpel_200.xml" value="0.2555" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/drawable/button_border_round.xml" value="0.2555" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/drawable/button_radious_8dp_blue.xml" value="0.2375" />
@@ -36,7 +37,7 @@
         <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/layout/my_card_row.xml" value="0.2559322033898305" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/layout/shop_grid_box.xml" value="0.25" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/layout/shop_popup.xml" value="0.4" />
-        <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/layout/transactions_row.xml" value="0.4" />
+        <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/layout/transactions_row.xml" value="0.6" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/menu/base_menu.xml" value="0.264" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/menu/not_home_menu.xml" value="0.1" />
         <entry key="..\:/Users/Shir/AnyGift/app/src/main/res/layout/activity_main.xml" value="0.1" />
