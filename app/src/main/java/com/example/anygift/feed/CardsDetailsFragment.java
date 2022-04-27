@@ -41,7 +41,7 @@ import java.util.HashMap;
 public class CardsDetailsFragment extends Fragment {
     View view;
     //    UserViewModel userViewModel;
-    private TextView name, value, expTv, buyAt, typeTv, popUpTypeTv, popUpExpTv, popupValueTv, popUpPriceTv, emailTv, savingTv;
+    private TextView name, value, expTv, buyAt, typeTv, popUpTypeTv, popUpExpTv, popupValueTv, popUpPriceTv, emailTv, savingTv,askedPriceTv;
     private Button mapBtn, editBtn, deleteBtn, buyBtn, popUpSaveBtn, popUpCancel;
     private ImageView userImage, giftCardImage, popUpCcardImage;
     Card card;
@@ -75,6 +75,7 @@ public class CardsDetailsFragment extends Fragment {
         savingTv = view.findViewById(R.id.details_saving_tv);
         typeTv = view.findViewById(R.id.card_details_type_tv);
         expTv = view.findViewById(R.id.card_details_exp_tv);
+        askedPriceTv = view.findViewById(R.id.details_asked_price_tv);
         Model.instance.getCardRetrofit(cardId, new Model.cardReturnListener() {
             @Override
             public void onComplete(Card c, String message) {
@@ -87,7 +88,8 @@ public class CardsDetailsFragment extends Fragment {
                         name.setText(user.getFirstName() + " " + user.getLastName());
                         emailTv.setText(user.getEmail());
                         expTv.setText(Utils.ConvertLongToDate(card.getExpirationDate()));
-                        buyAt.setText(Double.toString(card.getPrice()));
+                        askedPriceTv.setText(Double.toString(card.getPrice()));
+                        buyAt.setText(Double.toString(card.getCalculatedPrice()));
                         savingTv.setText(card.getPrecentageSaved()+"%");
                         for(CardType ct:Model.instance.cardTypes){
                             if(ct.getId().equals(card.getCardType())){
@@ -195,7 +197,7 @@ public class CardsDetailsFragment extends Fragment {
         popUpTypeTv = tryDialog.findViewById(R.id.buy_card_popup_card_type_tv);
 
         setCardImage(popUpCcardImage);
-        popUpPriceTv.setText(Double.toString(card.getPrice()));
+        popUpPriceTv.setText(Double.toString(card.getCalculatedPrice()));
         popupValueTv.setText(Double.toString(card.getValue()));
         popUpExpTv.setText(Utils.ConvertLongToDate(card.getExpirationDate()));
 

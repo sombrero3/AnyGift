@@ -58,6 +58,7 @@ public class SearchGiftCardFragment extends Fragment {
         pb = view.findViewById(R.id.search_progressBar);
         pb.setVisibility(View.VISIBLE);
         spinnerCardType = (Spinner) view.findViewById(R.id.search_card_type_spinner);
+
         RecyclerView cardsList = view.findViewById(R.id.search_result_rv);
         cardsList.setHasFixedSize(true);
         RecyclerView.LayoutManager horizontalLayout = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
@@ -76,6 +77,7 @@ public class SearchGiftCardFragment extends Fragment {
                 Navigation.findNavController(v).navigate(R.id.action_global_cardsDetailsFragment,map);
             }
         });
+
         Model.instance.getAllFeedCardsForSale(new Model.cardsReturnListener() {
             @Override
             public void onComplete(List<Card> cards, String message) {
@@ -85,8 +87,6 @@ public class SearchGiftCardFragment extends Fragment {
                 setCardtypesSpinner();
             }
         });
-
-
 
         searchBtn =view.findViewById(R.id.search_card_search_btn);
         searchBtn.setOnClickListener(new View.OnClickListener() {

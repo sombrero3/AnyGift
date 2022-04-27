@@ -63,4 +63,10 @@
         android:name="com.example.anygift.feed.SearchGiftCardFragment"
         android:label="fragment_search_gift_card"
         tools:layout="@layout/fragment_search_gift_card" /><action android:id="@+id/action_global_searchGiftCardFragment" app:destination="@id/searchGiftCardFragment"/>
+    <fragment
+        android:id="@+id/transactionsFragment"
+        android:name="com.example.anygift.feed.TransactionsFragment"
+        android:label="fragment_transactions"
+        tools:layout="@layout/fragment_transactions" />
+    <action android:id="@+id/action_global_transactionsFragment" app:destination="@id/transactionsFragment" />
 </navigation>
