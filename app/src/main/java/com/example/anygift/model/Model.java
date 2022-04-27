@@ -39,11 +39,10 @@ public class Model {
 
     private Model() {
         signedUser = new com.example.anygift.Retrofit.User();
-         setCardTypes();
         ListLoadingState.setValue(GiftListLoadingState.loaded);
     }
 
-    public void setCardTypes() {
+    public void setCardTypes(VoidListener listener) {
         getAllCardTypes(new cardTypesReturnListener() {
             @Override
             public void onComplete(List<CardType> cts) {
@@ -53,6 +52,7 @@ public class Model {
                         public void onComplete(Bitmap bitmap) {
                             ct.setPicture(bitmap);
                             cardTypes.add(ct);
+                            listener.onComplete();
                         }
                     });
                 }
