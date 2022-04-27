@@ -43,7 +43,13 @@ public class SplashActivity extends AppCompatActivity {
                                     user.setAccessToken(Model.instance.modelRetrofit.getAccessToken());
                                     user.setRefreshToken(Model.instance.modelRetrofit.getRefreshToken());
                                     Model.instance.setCurrentUser(user);
-                                    toFeedActivity();
+                                    Model.instance.setCardTypes(new Model.VoidListener() {
+                                        @Override
+                                        public void onComplete() {
+                                            toFeedActivity();
+                                        }
+                                    });
+
                                 }
                             });
                         });
