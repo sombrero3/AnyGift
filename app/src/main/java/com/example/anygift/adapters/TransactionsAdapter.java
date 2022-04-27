@@ -28,7 +28,7 @@ public class TransactionsAdapter extends RecyclerView.Adapter<TransactionsViewHo
     @NonNull
     @Override
     public TransactionsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.my_card_row,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.transactions_row,parent,false);
         TransactionsViewHolder holder = new TransactionsViewHolder(view,listener);
         return holder;
     }

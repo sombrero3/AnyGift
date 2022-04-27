@@ -99,6 +99,11 @@ public class MainActivity extends AppCompatActivity {
                         navCtr.navigate(R.id.action_global_shopFragment);
                         break;
                     }
+                    case R.id.transactions:{
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                        navCtr.navigate(R.id.action_global_transactionsFragment);
+                        break;
+                    }
                     case R.id.menu_search: {
                         drawerLayout.closeDrawer(GravityCompat.START);
                         navCtr.navigate(R.id.action_global_searchGiftCardFragment);
