@@ -1,9 +1,10 @@
-package com.example.anygift;
+package com.example.anygift.view_holders;
 
 import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.anygift.OnItemClickListener;
 import com.example.anygift.Retrofit.CoinTransaction;
 
 

@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.anygift.OnItemClickListener;
 import com.example.anygift.R;
 import com.example.anygift.Retrofit.CoinTransaction;
-import com.example.anygift.TransactionsViewHolder;
+import com.example.anygift.view_holders.TransactionsViewHolder;
 
 import java.util.List;
 

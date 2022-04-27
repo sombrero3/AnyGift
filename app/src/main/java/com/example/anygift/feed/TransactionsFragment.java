@@ -1,4 +1,4 @@
-package com.example.anygift;
+package com.example.anygift.feed;
 
 import android.os.Bundle;
 
@@ -11,6 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.anygift.OnItemClickListener;
+import com.example.anygift.R;
 import com.example.anygift.Retrofit.CoinTransaction;
 import com.example.anygift.adapters.TransactionsAdapter;
 
