@@ -13,6 +13,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.anygift.MyApplication;
 import com.example.anygift.Retrofit.Card;
+import com.example.anygift.Retrofit.CardTransaction;
 import com.example.anygift.Retrofit.CardType;
 import com.example.anygift.Retrofit.Category;
 import com.example.anygift.Retrofit.Income;
@@ -64,6 +65,15 @@ public class Model {
     public interface StringListener {
         void onComplete(String message);
     }
+
+    public interface cardsTransactionsReturnListener {
+        void onComplete(List<CardTransaction> cardTransaction,String message);
+    }
+
+    public interface cardTransactionReturnListener {
+        void onComplete(CardTransaction cardTransaction,String message);
+    }
+
 
     public interface userLoginListener {
         void onComplete(com.example.anygift.Retrofit.User user, String message);
@@ -237,6 +247,16 @@ public class Model {
 
     public void getCardRetrofit(String card_id, cardReturnListener listener) {
         modelRetrofit.getCard(card_id, listener);
+    }
+
+
+    public void getCardsTransactionsRetrofit(cardsTransactionsReturnListener listener) {
+        modelRetrofit.getAllUserCardsTransactions(listener);
+    }
+
+
+    public void addCardTransaction(HashMap<String,Object> map,cardTransactionReturnListener listener) {
+        modelRetrofit.addCardTransaction(map, listener);
     }
 
 
