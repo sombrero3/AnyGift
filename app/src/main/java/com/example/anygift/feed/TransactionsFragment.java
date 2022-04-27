@@ -16,6 +16,7 @@ import com.example.anygift.R;
 import com.example.anygift.Retrofit.CoinTransaction;
 import com.example.anygift.adapters.TransactionsAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TransactionsFragment extends Fragment {
@@ -29,11 +30,22 @@ public class TransactionsFragment extends Fragment {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_transactions, container, false);
 
-        RecyclerView cardsList = view.findViewById(R.id.transactions_rv);
-        cardsList.setHasFixedSize(true);
-        cardsList.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        tranList = new ArrayList<>();
+        for(int i=0;i<10;i++){
+            CoinTransaction ct = new CoinTransaction();
+            ct.setAmount(i*100.0);
+            ct.setFrom("Mister "+i);
+            tranList.add(ct);
+        }
+
+
+
+        rv = view.findViewById(R.id.transactions_rv);
+        rv.setHasFixedSize(true);
+        rv.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new TransactionsAdapter(tranList);
-        cardsList.setAdapter(adapter);
+        rv.setAdapter(adapter);
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(View v, int position) {
