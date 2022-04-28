@@ -96,7 +96,9 @@ public class MainActivity extends AppCompatActivity {
                     }
                     case R.id.shop: {
                         drawerLayout.closeDrawer(GravityCompat.START);
-                        navCtr.navigate(R.id.action_global_shopFragment);
+                        Bundle args = new Bundle();
+                        args.putString("cardId","");
+                        navCtr.navigate(R.id.action_global_shopFragment,args);
                         break;
                     }
                     case R.id.transactions:{

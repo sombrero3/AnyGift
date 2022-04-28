@@ -14,10 +14,13 @@ import com.example.anygift.Retrofit.CardType;
 import com.example.anygift.model.Model;
 import com.example.anygift.model.Utils;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
 
 public class CardsListViewHolder extends RecyclerView.ViewHolder{
     TextView typeNameTv,expTv,valueTv, calculatedPriceTv,firstPriceTv,savingTv,firstPriceTextTv;
-    ImageView picIv;
+    ImageView picIv,expIv;
     View line;
     public CardsListViewHolder(@NonNull View itemView, OnItemClickListener listener) {
         super(itemView);
@@ -30,6 +33,7 @@ public class CardsListViewHolder extends RecyclerView.ViewHolder{
         savingTv = itemView.findViewById(R.id.my_card_row_saving_tv);
         picIv = itemView.findViewById(R.id.my_card_row_iv);
         line = itemView.findViewById(R.id.my_card_row_line);
+        expIv = itemView.findViewById(R.id.card_row_exp_iv);
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,11 +63,13 @@ public class CardsListViewHolder extends RecyclerView.ViewHolder{
                 picIv.setImageBitmap(ct.getPicture());
             }
         }
-
-
-//        if(card.getCardType().equals("62532859427c06ccbf55d31e")) {
-//            //Picasso.get().load(review.getImageUrl()).into(image);
-//            picIv.setImageResource(R.drawable.shufersal_card);
-//        }
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        Long now = Utils.convertDateToLong(Integer.toString(day), Integer.toString(month), Integer.toString(year));
+        if(card.getExpirationDate()<now){
+            expIv.setVisibility(View.VISIBLE);
+        }
     }
 }
