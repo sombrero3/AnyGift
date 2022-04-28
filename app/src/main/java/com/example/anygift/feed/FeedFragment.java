@@ -34,6 +34,7 @@ import com.example.anygift.Retrofit.Card;
 import com.example.anygift.Retrofit.CardType;
 import com.example.anygift.adapters.CardsListAdapter;
 import com.example.anygift.model.Model;
+import com.example.anygift.model.Utils;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -217,11 +218,21 @@ public class FeedFragment extends Fragment {
             @Override
             public void onComplete(List<Card> cards, String message) {
                 mosetRecCl.clear();
-                mosetRecCl.addAll(cards);
+                Calendar calendar = Calendar.getInstance();
+                int y = calendar.get(Calendar.YEAR);
+                int m = calendar.get(Calendar.MONTH);
+                int d = calendar.get(Calendar.DAY_OF_MONTH);
+                Long now = Utils.convertDateToLong(Integer.toString(d), Integer.toString(m), Integer.toString(y));
+                String userId =  Model.instance.getSignedUser().getId();
+                for (Card c:cards) {
+                    if(c.getExpirationDate()>now && !c.getOwner().equals(userId)){
+                        mosetRecCl.add(c);
+                    }
+                }
                 mostRecList.setHasFixedSize(true);
                 RecyclerView.LayoutManager mostRecLayout = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
                 mostRecList.setLayoutManager(mostRecLayout);
-                mostRecAdapter = new CardsListAdapter(viewModel.getMostRecList());
+                mostRecAdapter = new CardsListAdapter(mosetRecCl);
                 mostRecList.setAdapter(mostRecAdapter);
 
                 mostRecAdapter.setOnItemClickListener(new com.example.anygift.OnItemClickListener() {

@@ -56,7 +56,11 @@
     <action android:id="@+id/action_global_addCardFragment" app:destination="@id/addCardFragment"/><action android:id="@+id/action_global_feedFragment" app:destination="@id/feedFragment"/><action android:id="@+id/action_global_myCardsFragment" app:destination="@id/myCardsFragment"/>
     <fragment
         android:id="@+id/shopFragment"
-        android:name="com.example.anygift.feed.ShopFragment" />
+        android:name="com.example.anygift.feed.ShopFragment" >
+        <argument
+            android:name="cardId"
+            app:argType="string" />
+    </fragment>
     <action android:id="@+id/action_global_shopFragment" app:destination="@id/shopFragment" />
     <fragment
         android:id="@+id/searchGiftCardFragment"

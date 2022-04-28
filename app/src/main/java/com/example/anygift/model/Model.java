@@ -20,6 +20,7 @@ import com.example.anygift.Retrofit.Outcome;
 import com.example.anygift.Retrofit.UploadImageResult;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.Executor;
@@ -346,6 +347,17 @@ public class Model {
                                     && c.getExpirationDate() <= Utils.convertDateToLong(Integer.toString(day),Integer.toString(month),Integer.toString(year)).longValue()).collect(Collectors.toList()));
                             Log.d("TAG", "filter by date, type and price");
                         }
+                    }
+                }
+                Calendar calendar = Calendar.getInstance();
+                int y = calendar.get(Calendar.YEAR);
+                int m = calendar.get(Calendar.MONTH);
+                int d = calendar.get(Calendar.DAY_OF_MONTH);
+                Long now = Utils.convertDateToLong(Integer.toString(d), Integer.toString(m), Integer.toString(y));
+                String userId =  Model.instance.getSignedUser().getId();
+                for (Card c:result) {
+                    if(c.getExpirationDate()<now || c.getOwner().equals(userId)){
+                        result.remove(c);
                     }
                 }
                 listener.onComplete(result);

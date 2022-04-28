@@ -182,5 +182,15 @@
             app:layout_constraintStart_toEndOf="@+id/my_card_row_first_price_text_tv"
             app:layout_constraintTop_toTopOf="@+id/my_card_row_first_price_text_tv" />
 
+        <ImageView
+            android:id="@+id/card_row_exp_iv"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/expired"
+            android:visibility="invisible"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

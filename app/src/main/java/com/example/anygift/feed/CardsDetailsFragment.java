@@ -42,7 +42,7 @@ public class CardsDetailsFragment extends Fragment {
     View view;
     //    UserViewModel userViewModel;
     private TextView name, value, expTv, buyAt, typeTv, popUpTypeTv, popUpExpTv, popupValueTv, popUpPriceTv, emailTv, savingTv,askedPriceTv;
-    private Button mapBtn, editBtn, deleteBtn, buyBtn, popUpSaveBtn, popUpCancel;
+    private Button mapBtn, editBtn, deleteBtn, buyBtn, popUpSaveBtn, popUpCancel,popUpStoreBtn;
     private ImageView userImage, giftCardImage, popUpCcardImage;
     Card card;
     AlertDialog.Builder alertDialogBuilder;
@@ -195,6 +195,7 @@ public class CardsDetailsFragment extends Fragment {
         popupValueTv = tryDialog.findViewById(R.id.buy_card_popup_value_tv);
         popUpExpTv = tryDialog.findViewById(R.id.buy_card_popup_exp_tv);
         popUpTypeTv = tryDialog.findViewById(R.id.buy_card_popup_card_type_tv);
+        popUpStoreBtn =tryDialog.findViewById(R.id.buy_card_popup_coins_btn);
 
         setCardImage(popUpCcardImage);
         popUpPriceTv.setText(Double.toString(card.getCalculatedPrice()));
@@ -207,12 +208,21 @@ public class CardsDetailsFragment extends Fragment {
             }
         }
 
+        //go get more coins
+        popUpStoreBtn.setOnClickListener(v -> {
+            Bundle args = new Bundle();
+            args.putString("cardId",cardId);
+            tryDialog.dismiss();
+            Navigation.findNavController(view).navigate(R.id.action_global_shopFragment,args);
+        });
+
         //buy
         popUpSaveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(Model.instance.getSignedUser().getCoins()<card.getCalculatedPrice()){
                     Toast.makeText(getContext(), "You do not have enough coins!", Toast.LENGTH_SHORT).show();
+                    popUpStoreBtn.setVisibility(View.VISIBLE);
                 }else{
                     String buyer = Model.instance.getSignedUser().getId();
                     String seller = card.getOwner();

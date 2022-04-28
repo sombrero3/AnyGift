@@ -42,14 +42,26 @@ public class ShopFragment extends Fragment {
     Dialog tryDialog;
     TextView popUpPrice;
     ImageView popUpCoinsIcon;
-    Button popUpCancel, popUpSaveBtn;
+    Button popUpCancel, popUpSaveBtn,backToCardBtn;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_shop, container, false);
+        backToCardBtn = view.findViewById(R.id.shop_back_to_card_btn);
+        String cardId = ShopFragmentArgs.fromBundle(getArguments()).getCardId();
 
-
+        if(!cardId.isEmpty()){
+            backToCardBtn.setVisibility(View.VISIBLE);
+            backToCardBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Bundle args = new Bundle();
+                    args.putString("giftCardId",cardId);
+                    Navigation.findNavController(view).navigate(R.id.action_global_cardsDetailsFragment,args);
+                }
+            });
+        }
         titles = new ArrayList<>();
         images = new ArrayList<>();
 
