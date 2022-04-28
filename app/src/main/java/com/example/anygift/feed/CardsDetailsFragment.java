@@ -221,11 +221,12 @@ public class CardsDetailsFragment extends Fragment {
                     Toast.makeText(getContext(), "You do not have enough coins!", Toast.LENGTH_SHORT).show();
                     popUpStoreBtn.setVisibility(View.VISIBLE);
                 } else {
+                    pb.setVisibility(View.VISIBLE);
                     String buyer = Model.instance.getSignedUser().getId();
                     String seller = card.getOwner();
                     double coins = card.getCalculatedPrice();
                     transactCard(seller, buyer, card.getId(), coins);
-                    tryDialog.dismiss();
+
                 }
             }
         });
@@ -273,6 +274,10 @@ public class CardsDetailsFragment extends Fragment {
                             public void onComplete(String message) {
                                 System.out.println(message);
                                 addCardTransaction(sellerID, buyerID, cardId, coins);
+                                Model.instance.setCurrentUser(user);
+                                pb.setVisibility(View.INVISIBLE);
+                                tryDialog.dismiss();
+                                Navigation.findNavController(view).navigate(R.id.action_global_myCardsFragment);
                             }
                         });
 
