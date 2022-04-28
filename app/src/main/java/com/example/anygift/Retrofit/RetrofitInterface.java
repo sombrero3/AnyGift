@@ -78,5 +78,17 @@ public interface RetrofitInterface {
     @GET("images/{imageName}")
     Call<ResponseBody> downloadImage(@Path("imageName") String image_name);
 
+    @POST("cardTransactions")
+    Call<CardTransaction> addCardTransaction(@Body HashMap<String,Object> map,@Header("Authorization") String token);
+
+    @GET("cardTransactions/{user_id}")
+    Call<List<CardTransaction>> getCardsTransactions(@Path("user_id") String user_id, @Header("Authorization") String token);
+
+//    @GET("cardTransactions/seller/{user_id}")
+//    Call<CardTransaction> getSellerCardsTransactions(@Path("user_id") String user_id, @Header("Authorization") String token);
+//
+//    @GET("cardTransactions/buyer/{user_id}")
+//    Call<CardTransaction> getBuyerCardsTransactions(@Path("user_id") String user_id, @Header("Authorization") String token);
+
 
 }

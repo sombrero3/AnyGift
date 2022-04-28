@@ -20,7 +20,7 @@
                     android:title="Coins" />
                 <item
                     android:id="@+id/anyGiftCards"
-                    android:icon="@drawable/anygift_01"
+                    android:icon="@drawable/anygift_03"
                     android:title="anyGift Cards (soon..)" />
             </menu>
         </item>

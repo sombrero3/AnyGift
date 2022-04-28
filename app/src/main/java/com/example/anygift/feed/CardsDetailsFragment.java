@@ -2,19 +2,14 @@ package com.example.anygift.feed;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.os.Bundle;
 
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
-import android.text.Layout;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,21 +23,23 @@ import android.widget.Toast;
 
 import com.example.anygift.R;
 import com.example.anygift.Retrofit.Card;
+import com.example.anygift.Retrofit.CardTransaction;
 import com.example.anygift.Retrofit.CardType;
 import com.example.anygift.Retrofit.User;
 import com.example.anygift.model.Model;
 import com.example.anygift.model.Utils;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
-import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
 
 public class CardsDetailsFragment extends Fragment {
     View view;
     //    UserViewModel userViewModel;
+
     private TextView name, value, expTv, buyAt, typeTv, popUpTypeTv, popUpExpTv, popupValueTv, popUpPriceTv, emailTv, savingTv,askedPriceTv;
     private Button mapBtn, editBtn, deleteBtn, buyBtn, popUpSaveBtn, popUpCancel,popUpStoreBtn;
+
     private ImageView userImage, giftCardImage, popUpCcardImage;
     Card card;
     AlertDialog.Builder alertDialogBuilder;
@@ -90,9 +87,9 @@ public class CardsDetailsFragment extends Fragment {
                         expTv.setText(Utils.ConvertLongToDate(card.getExpirationDate()));
                         askedPriceTv.setText(Double.toString(card.getPrice()));
                         buyAt.setText(Double.toString(card.getCalculatedPrice()));
-                        savingTv.setText(card.getPrecentageSaved()+"%");
-                        for(CardType ct:Model.instance.cardTypes){
-                            if(ct.getId().equals(card.getCardType())){
+                        savingTv.setText(card.getPrecentageSaved() + "%");
+                        for (CardType ct : Model.instance.cardTypes) {
+                            if (ct.getId().equals(card.getCardType())) {
                                 typeTv.setText(ct.getName());
                             }
                         }
@@ -119,7 +116,7 @@ public class CardsDetailsFragment extends Fragment {
     }
 
     private void setUI() {
-        if(userId.equals(Model.instance.getSignedUser().getId())){
+        if (userId.equals(Model.instance.getSignedUser().getId())) {
             deleteBtn.setEnabled(true);
             deleteBtn.setVisibility(View.VISIBLE);
             editBtn.setEnabled(true);
@@ -183,7 +180,7 @@ public class CardsDetailsFragment extends Fragment {
         }
     }
 
-    public void createNewBottomDialog(){
+    public void createNewBottomDialog() {
         tryDialog = new Dialog(getActivity());
         tryDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         tryDialog.setContentView(R.layout.buy_card_popup);
@@ -202,8 +199,8 @@ public class CardsDetailsFragment extends Fragment {
         popupValueTv.setText(Double.toString(card.getValue()));
         popUpExpTv.setText(Utils.ConvertLongToDate(card.getExpirationDate()));
 
-        for(CardType ct:Model.instance.cardTypes){
-            if(ct.getId().equals(card.getCardType())){
+        for (CardType ct : Model.instance.cardTypes) {
+            if (ct.getId().equals(card.getCardType())) {
                 popUpTypeTv.setText(ct.getName());
             }
         }
@@ -220,14 +217,14 @@ public class CardsDetailsFragment extends Fragment {
         popUpSaveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(Model.instance.getSignedUser().getCoins()<card.getCalculatedPrice()){
+                if (Model.instance.getSignedUser().getCoins() < card.getCalculatedPrice()) {
                     Toast.makeText(getContext(), "You do not have enough coins!", Toast.LENGTH_SHORT).show();
                     popUpStoreBtn.setVisibility(View.VISIBLE);
-                }else{
+                } else {
                     String buyer = Model.instance.getSignedUser().getId();
                     String seller = card.getOwner();
                     double coins = card.getCalculatedPrice();
-                    transacteCard(seller, buyer, card.getId(), coins);
+                    transactCard(seller, buyer, card.getId(), coins);
                     tryDialog.dismiss();
                 }
             }
@@ -240,27 +237,27 @@ public class CardsDetailsFragment extends Fragment {
             }
         });
         tryDialog.show();
-        tryDialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        tryDialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         tryDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         tryDialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
         tryDialog.getWindow().setGravity(Gravity.BOTTOM);
 
     }
 
-    public void transacteCard(String fromID, String toID, String cardID, Double coins) {
+    public void transactCard(String fromID, String toID, String cardID, Double coins) {
         HashMap<String, Object> map = new HashMap<>();
         map.put("owner", toID);
         HashMap<String, Object> updateMap = Card.mapToUpdateCard(cardID, map); //update card owner.
         Model.instance.updateCardRetrofit(cardID, updateMap, new Model.cardReturnListener() {
             @Override
             public void onComplete(Card card, String message) {
-                transferCoins(fromID, toID, coins);
+                transferCoins(fromID, toID, cardID, coins);
             }
         });
 
     }
 
-    public void transferCoins(String sellerID, String buyerID, Double coins) {
+    public void transferCoins(String sellerID, String buyerID, String cardId, Double coins) {
         Model.instance.addCoinsToUser(buyerID, -coins, new Model.userReturnListener() {
             @Override
             public void onComplete(User user, String message) {
@@ -275,9 +272,7 @@ public class CardsDetailsFragment extends Fragment {
                             @Override
                             public void onComplete(String message) {
                                 System.out.println(message);
-                                Toast.makeText(getContext(), "Enjoy your New GiftCard!", Toast.LENGTH_SHORT).show();
-                                Navigation.findNavController(view).navigate(FeedFragmentDirections.actionGlobalMyCardsFragment());
-
+                                addCardTransaction(sellerID, buyerID, cardId, coins);
                             }
                         });
 
@@ -290,4 +285,18 @@ public class CardsDetailsFragment extends Fragment {
 
     }
 
+    public void addCardTransaction(String sellerID, String buyerID, String cardID, Double coins) {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("seller", sellerID);
+        map.put("buyer", buyerID);
+        map.put("card", cardID);
+        map.put("boughtFor", coins);
+        Model.instance.addCardTransaction(map, new Model.cardTransactionReturnListener() {
+            @Override
+            public void onComplete(CardTransaction cardTransaction, String message) {
+                Toast.makeText(getContext(), "Enjoy your New GiftCard!", Toast.LENGTH_SHORT).show();
+                Navigation.findNavController(view).navigate(FeedFragmentDirections.actionGlobalMyCardsFragment());
+            }
+        });
+    }
 }
