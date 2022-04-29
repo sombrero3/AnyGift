@@ -33,7 +33,7 @@ import okhttp3.ResponseBody;
 
 public class ModelRetrofit {
     public RetrofitInterface retrofitInterface;
-    public String Base_URL = "http://10.0.2.2:8001/api/v1/";
+    public String Base_URL = "http://193.106.55.135:8000/api/v1/";
 
     public ModelRetrofit() {
         retrofitInterface = new Retrofit.Builder()
