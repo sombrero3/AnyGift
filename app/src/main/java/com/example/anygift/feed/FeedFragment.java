@@ -86,6 +86,9 @@ public class FeedFragment extends Fragment {
 
 
         nameTv.setText("Hello " + Model.instance.getSignedUser().getFirstName() +" and welcome to the gift card trading platform. Find every gift card buy or trade with your own cards.");
+        if(Model.instance.getSignedUser().getCoins() == null){
+            Model.instance.getSignedUser().setCoins(0);
+        }
         coinsTv.setText(Model.instance.getSignedUser().getCoins().toString());
         searchFab = view.findViewById(R.id.feed_search_fab);
         mosetRecCl = new ArrayList<>();
@@ -101,6 +104,8 @@ public class FeedFragment extends Fragment {
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                nameTv.setText("Hello " + Model.instance.getSignedUser().getFirstName() +" and welcome to the gift card trading platform. Find every gift card buy or trade with your own cards.");
+                coinsTv.setText(Model.instance.getSignedUser().getCoins().toString());
                 setSearchRv();
             }
         });

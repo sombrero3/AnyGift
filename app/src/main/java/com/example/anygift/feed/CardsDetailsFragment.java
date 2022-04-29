@@ -274,7 +274,7 @@ public class CardsDetailsFragment extends Fragment {
                             public void onComplete(String message) {
                                 System.out.println(message);
                                 addCardTransaction(sellerID, buyerID, cardId, coins);
-                                Model.instance.setCurrentUser(user);
+                               // Model.instance.setCurrentUser(user);
                                 pb.setVisibility(View.INVISIBLE);
                                 tryDialog.dismiss();
                                 Navigation.findNavController(view).navigate(R.id.action_global_myCardsFragment);
