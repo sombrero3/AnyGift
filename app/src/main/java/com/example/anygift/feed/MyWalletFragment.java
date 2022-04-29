@@ -28,6 +28,7 @@ import com.example.anygift.R;
 import com.example.anygift.Retrofit.Card;
 import com.example.anygift.Retrofit.Income;
 import com.example.anygift.Retrofit.Outcome;
+import com.example.anygift.Retrofit.User;
 import com.example.anygift.adapters.CardsListAdapter;
 import com.example.anygift.model.Model;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;

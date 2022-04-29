@@ -144,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
         nameTv.setText(  Model.instance.getSignedUser().getFirstName() + " " + Model.instance.getSignedUser().getLastName());
         emailTv.setText( Model.instance.getSignedUser().getEmail());
 
-        if( Model.instance.getSignedUser().getProfilePicture().compareTo("")!=0){
+        if( Model.instance.getSignedUser().getProfilePicture()!=null && Model.instance.getSignedUser().getProfilePicture().compareTo("")!=0){
             Model.instance.downloadImage(Model.instance.getSignedUser().getProfilePicture().replace("/image/", ""),
                     new Model.byteArrayReturnListener() {
                         @Override
