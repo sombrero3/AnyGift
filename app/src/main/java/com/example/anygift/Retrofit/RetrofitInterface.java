@@ -1,23 +1,20 @@
 package com.example.anygift.Retrofit;
 
-import com.example.anygift.model.GiftCard;
-import com.example.anygift.model.User;
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
-
 import java.util.HashMap;
 import java.util.List;
 
+import okhttp3.MultipartBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
-import retrofit2.Retrofit;
 import retrofit2.http.Body;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
-import retrofit2.http.HEAD;
 import retrofit2.http.Header;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
+import retrofit2.http.Url;
 
 public interface RetrofitInterface {
     //    <----- Working ----->
@@ -29,6 +26,9 @@ public interface RetrofitInterface {
 
     @PUT("cards/{id}")
     Call<Card> updateCard(@Path("id") String card_id, @Body HashMap<String, Object> map, @Header("Authorization") String token);
+
+    @GET("cards/{id}")
+    Call<Card> getCard(@Path("id") String card_id, @Header("Authorization") String token);
 
     @GET("cards/owner/{id}")
     Call<List<Card>> getAllUserCards(@Path("id") String user_id, @Header("Authorization") String token);
@@ -70,6 +70,25 @@ public interface RetrofitInterface {
     Call<Income> getUserIncome(@Path("id") String user_id, @Header("Authorization") String token);
     @GET("coinTransactions/outcome/{id}") // WORKS!
     Call<Outcome> getUserOutcome(@Path("id") String user_id, @Header("Authorization") String token);
+
+    @Multipart
+    @POST("images/upload/{id}")
+    Call<UploadImageResult> uploadImage(@Part MultipartBody.Part image,@Path("id") String user_id, @Header("Authorization") String token);
+
+    @GET("images/{imageName}")
+    Call<ResponseBody> downloadImage(@Path("imageName") String image_name);
+
+    @POST("cardTransactions")
+    Call<CardTransaction> addCardTransaction(@Body HashMap<String,Object> map,@Header("Authorization") String token);
+
+    @GET("cardTransactions/{user_id}")
+    Call<List<CardTransaction>> getCardsTransactions(@Path("user_id") String user_id, @Header("Authorization") String token);
+
+//    @GET("cardTransactions/seller/{user_id}")
+//    Call<CardTransaction> getSellerCardsTransactions(@Path("user_id") String user_id, @Header("Authorization") String token);
+//
+//    @GET("cardTransactions/buyer/{user_id}")
+//    Call<CardTransaction> getBuyerCardsTransactions(@Path("user_id") String user_id, @Header("Authorization") String token);
 
 
 }

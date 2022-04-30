@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/myCardsFragment"
-        android:name="com.example.anygift.feed.MyCardsFragment"
+        android:name="com.example.anygift.feed.MyWalletFragment"
         tools:layout="@layout/fragment_my_cards">
         <action
             android:id="@+id/action_myCardsFragment_to_cardsDetailsFragment"
@@ -56,11 +56,21 @@
     <action android:id="@+id/action_global_addCardFragment" app:destination="@id/addCardFragment"/><action android:id="@+id/action_global_feedFragment" app:destination="@id/feedFragment"/><action android:id="@+id/action_global_myCardsFragment" app:destination="@id/myCardsFragment"/>
     <fragment
         android:id="@+id/shopFragment"
-        android:name="com.example.anygift.feed.ShopFragment" />
+        android:name="com.example.anygift.feed.ShopFragment" >
+        <argument
+            android:name="cardId"
+            app:argType="string" />
+    </fragment>
     <action android:id="@+id/action_global_shopFragment" app:destination="@id/shopFragment" />
     <fragment
         android:id="@+id/searchGiftCardFragment"
-        android:name="com.example.anygift.SearchGiftCardFragment"
+        android:name="com.example.anygift.feed.SearchGiftCardFragment"
         android:label="fragment_search_gift_card"
         tools:layout="@layout/fragment_search_gift_card" /><action android:id="@+id/action_global_searchGiftCardFragment" app:destination="@id/searchGiftCardFragment"/>
+    <fragment
+        android:id="@+id/transactionsFragment"
+        android:name="com.example.anygift.feed.TransactionsFragment"
+        android:label="fragment_transactions"
+        tools:layout="@layout/fragment_transactions" />
+    <action android:id="@+id/action_global_transactionsFragment" app:destination="@id/transactionsFragment" />
 </navigation>

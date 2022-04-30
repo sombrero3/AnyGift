@@ -165,6 +165,19 @@ public class Card {
         }};
     }
 
+    public HashMap<String, Object> toMap() {
+        return new HashMap<String, Object>() {{
+            put("id",id);
+            put("price", price);
+            put("value", value);
+            put("cardNumber", cardNumber);
+            put("cardType", cardType);
+            put("owner", owner);
+            put("isForSale", isForSale);
+            put("expirationDate", expirationDate);
+            put("isDeleted",isDeleted);
+        }};
+    }
     public static HashMap<String, Object> mapToUpdateCard(String card_id,HashMap<String,Object> map) {
         HashMap<String, Object> newMap = new HashMap<>(map);
         newMap.put("id", card_id);

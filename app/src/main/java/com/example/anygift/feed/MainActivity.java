@@ -14,6 +14,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.NavHost;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -95,7 +96,14 @@ public class MainActivity extends AppCompatActivity {
                     }
                     case R.id.shop: {
                         drawerLayout.closeDrawer(GravityCompat.START);
-                        navCtr.navigate(R.id.action_global_shopFragment);
+                        Bundle args = new Bundle();
+                        args.putString("cardId","");
+                        navCtr.navigate(R.id.action_global_shopFragment,args);
+                        break;
+                    }
+                    case R.id.transactions:{
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                        navCtr.navigate(R.id.action_global_transactionsFragment);
                         break;
                     }
                     case R.id.menu_search: {
@@ -135,8 +143,21 @@ public class MainActivity extends AppCompatActivity {
         imageIv = header.findViewById(R.id.menu_header_image_iv);
         nameTv.setText(  Model.instance.getSignedUser().getFirstName() + " " + Model.instance.getSignedUser().getLastName());
         emailTv.setText( Model.instance.getSignedUser().getEmail());
-        if( Model.instance.getSignedUser().getProfilePicture().compareTo("")!=0){
-            Picasso.get().load(Model.instance.getSignedUser().getProfilePicture()).into(imageIv);
+
+        if( Model.instance.getSignedUser().getProfilePicture()!=null && Model.instance.getSignedUser().getProfilePicture().compareTo("")!=0){
+            Model.instance.downloadImage(Model.instance.getSignedUser().getProfilePicture().replace("/image/", ""),
+                    new Model.byteArrayReturnListener() {
+                        @Override
+                        public void onComplete(Bitmap bitmap) {
+                            if (bitmap == null) {
+                                return;
+                            }
+                            imageIv.setImageBitmap(bitmap);
+                            imageIv.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                            imageIv.setClipToOutline(true);
+
+                        }
+                    });
         }
     }
 

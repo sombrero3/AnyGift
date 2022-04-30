@@ -53,52 +53,32 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-
-        <TextView
-            android:id="@+id/textView40"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:text="Add image of your card:"
-            android:textSize="20sp"
-            app:layout_constraintStart_toStartOf="@+id/textInputLayout40"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout50" />
-
-        <ImageView
-            android:id="@+id/edit_card_camera_bt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/red_transparent"
-            android:src="@android:drawable/ic_menu_camera"
-            app:layout_constraintBottom_toBottomOf="@+id/textView40"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textView40"
-            app:layout_constraintTop_toTopOf="@+id/textView40"
-            tools:ignore="SpeakableTextPresentCheck" />
-
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/edit_card_giftCardImage"
-            android:layout_width="120dp"
-            android:layout_height="93dp"
+            android:layout_width="wrap_content"
+            android:layout_height="140dp"
             android:layout_marginTop="16dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
             android:src="@drawable/amazon_giftcard"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView80" />
+            app:layout_constraintTop_toBottomOf="@+id/textView80"
+            app:shapeAppearanceOverlay="@style/roundedCornersImageView" />
 
         <Button
             android:id="@+id/edit_card_upload_bt"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="64dp"
+            android:layout_marginTop="50dp"
             android:layout_marginBottom="24dp"
             android:background="@drawable/button_radious_25dp_long"
-            android:text="Confirm"
+            android:text="Save Changes"
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView40" />
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout50" />
 
         <TextView
             android:id="@+id/textView70"
@@ -113,7 +93,7 @@
             android:id="@+id/textView90"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="32dp"
             android:text="Choose Card Type:"
             app:layout_constraintStart_toStartOf="@+id/textView80"
             app:layout_constraintTop_toBottomOf="@+id/edit_card_giftCardImage" />

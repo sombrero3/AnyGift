@@ -23,8 +23,6 @@ import android.widget.Toast;
 
 import com.example.anygift.R;
 import com.example.anygift.feed.MainActivity;
-import com.example.anygift.Retrofit.RetrofitInterface;
-import com.example.anygift.feed.Testing;
 import com.example.anygift.model.Model;
 import com.example.anygift.model.ModelFirebase;
 import com.example.anygift.model.User;
@@ -41,8 +39,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -52,8 +48,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 public class LoginFragment extends Fragment {
-
-    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     View view;
     Snackbar mySnackbar;
@@ -131,25 +125,25 @@ CallbackManager callbackManager;
     }
 
     public void login() {
-        //TODO Login using Retrofit
         setButtons(false);
         HashMap<String, Object> map = com.example.anygift.Retrofit.User.mapToLogin(email.getText().toString(), password.getText().toString());
-        Model.instance.login(map, new Model.userLoginListener() {
-            @Override
-            public void onComplete(com.example.anygift.Retrofit.User user, String message) {
-                pb.setVisibility(View.INVISIBLE);
-                if (user == null) {
-                    setButtons(true);
-                    mySnackbar = Snackbar.make(view, message, BaseTransientBottomBar.LENGTH_LONG);
-                    mySnackbar.show();
-
+        Model.instance.login(map, (user, message) -> {
+            pb.setVisibility(View.INVISIBLE);
+            if (user == null) {
+                setButtons(true);
+                mySnackbar = Snackbar.make(view, message, BaseTransientBottomBar.LENGTH_LONG);
+                mySnackbar.show();
                 } else {
                     mySnackbar = Snackbar.make(view, "Login successful :)", BaseTransientBottomBar.LENGTH_LONG);
                     mySnackbar.show();
-                    Testing testing = new Testing();
-                    goToFeedActivity(user);
+                    Model.instance.setCardTypes(new Model.VoidListener() {
+                        @Override
+                        public void onComplete() {
+                            goToFeedActivity(user);
+                        }
+                    });
+
                 }
-            }
         });
     }
 
@@ -166,6 +160,7 @@ CallbackManager callbackManager;
         }
         //connect via http request
         pb.setVisibility(View.VISIBLE);
+
         login();
 
     }
@@ -178,20 +173,20 @@ CallbackManager callbackManager;
         getActivity().finish();
     }
 
-    public void forgotPassword() {
-        email_user = email.getText().toString();
-        mAuth.sendPasswordResetEmail(email_user).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()) {
-                    mySnackbar = Snackbar.make(view, "Email sent, check your mailbox :)", BaseTransientBottomBar.LENGTH_LONG);
-                    mySnackbar.show();
-
-                } else
-                    Log.d("TAG", "failed");
-            }
-        });
-    }
+//    public void forgotPassword() {
+//        email_user = email.getText().toString();
+//        mAuth.sendPasswordResetEmail(email_user).addOnCompleteListener(new OnCompleteListener<Void>() {
+//            @Override
+//            public void onComplete(@NonNull Task<Void> task) {
+//                if (task.isSuccessful()) {
+//                    mySnackbar = Snackbar.make(view, "Email sent, check your mailbox :)", BaseTransientBottomBar.LENGTH_LONG);
+//                    mySnackbar.show();
+//
+//                } else
+//                    Log.d("TAG", "failed");
+//            }
+//        });
+//    }
 
 
     @Override

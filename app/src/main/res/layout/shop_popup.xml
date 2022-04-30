@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@drawable/bottom_popup_background"
+    android:id="@+id/shop_popup_constraintsLayout">
 
     <ImageView
         android:id="@+id/imageView8"
@@ -20,11 +22,13 @@
 
     <Button
         android:id="@+id/shop_popup_buy_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="4dp"
         android:layout_marginTop="32dp"
-        android:layout_marginBottom="32dp"
-        android:background="@drawable/button_radious_25dp_long"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/button_radious_8dp_pupel_dark"
         android:text="buy"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -35,9 +39,11 @@
 
     <Button
         android:id="@+id/shop_popup_cancel_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/button_border_radious_25dp"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="4dp"
+        android:background="@drawable/button_border_radious_8dp"
         android:text="cancel"
         android:textColor="@color/red_transparent"
         app:layout_constraintBottom_toBottomOf="@+id/shop_popup_buy_btn"
@@ -50,7 +56,7 @@
         android:id="@+id/shop_popup_icon_iv"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -60,7 +66,7 @@
         android:id="@+id/textView29"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="-30dp"
         android:text="G"
         android:textColor="@color/red_transparent"
         android:textSize="20sp"
@@ -72,7 +78,7 @@
         android:id="@+id/textView30"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
+        android:layout_marginStart="12dp"
         android:text="coins"
         android:textColor="@color/coins"
         android:textSize="20sp"
@@ -88,10 +94,21 @@
         android:id="@+id/shop_popup_price_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:text="Pay Only : 99.0 $"
         android:textSize="18dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView30" />
+
+    <TextView
+        android:id="@+id/textView62"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="Resupply"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

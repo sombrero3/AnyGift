@@ -14,6 +14,7 @@
             android:id="@+id/textView49"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_marginTop="4dp"
             android:layout_marginBottom="-16dp"
             android:background="@color/red_transparent_2"
             app:layout_constraintBottom_toBottomOf="@+id/cardDetails_mapBtn"
@@ -55,33 +56,36 @@
             android:id="@+id/details_giftvalue_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
             android:text="200$"
             android:textColor="@color/purple_dark"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="@+id/details_value_tv"
-            app:layout_constraintStart_toEndOf="@+id/details_value_tv"
-            app:layout_constraintTop_toTopOf="@+id/details_value_tv" />
+            android:textSize="18sp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/details_value_tv"
+            app:layout_constraintStart_toStartOf="@+id/details_asked_price_tv" />
 
         <TextView
             android:id="@+id/details_value_tv"
             android:layout_width="wrap_content"
+
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="Value:"
-            android:textSize="16sp"
+            android:textSize="14sp"
             app:layout_constraintStart_toStartOf="@+id/textView10"
             app:layout_constraintTop_toBottomOf="@+id/textView51" />
 
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/details_giftpic_iv"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="140dp"
-            android:layout_marginTop="32dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
             android:src="@drawable/amazon_giftcard"
+            app:shapeAppearanceOverlay="@style/roundedCornersImageView"
+            android:layout_marginTop="32dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/details_picture_iv" />
+            app:layout_constraintTop_toTopOf="parent"/>
+
 
         <TextView
             android:id="@+id/details_buyat_tv"
@@ -89,65 +93,76 @@
             android:layout_height="0dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:text="Buy At:"
-            android:textSize="16sp"
+            android:text="Buy now :"
+            android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/details_value_tv" />
+            app:layout_constraintTop_toBottomOf="@+id/textView55" />
+
+        <TextView
+            android:id="@+id/details_buyat_tv2"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="Saving :"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/details_buyat_tv" />
 
         <TextView
             android:id="@+id/details_buyatval_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
             android:text="180$"
             android:textColor="@color/purple_dark"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="@+id/details_buyat_tv"
-            app:layout_constraintStart_toEndOf="@+id/details_buyat_tv"
-            app:layout_constraintTop_toTopOf="@+id/details_buyat_tv" /><![CDATA[
+            android:textSize="18sp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/details_buyat_tv"
+            app:layout_constraintStart_toStartOf="@+id/details_asked_price_tv" />
 
-    app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.843"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardDetails_mapBtn" />
+        <TextView
+            android:id="@+id/details_saving_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="180$"
+            android:textColor="@color/green_saving"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBaseline_toBaselineOf="@+id/details_buyat_tv2"
+            app:layout_constraintStart_toStartOf="@+id/details_buyatval_tv" />
 
-
-
-    ]]>
-
-    <Button
-        android:id="@+id/details_delete_btn"
-        android:layout_width="151dp"
-        android:layout_height="49dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginBottom="32dp"
-        android:background="@drawable/button_radious_8dp_pupel_dark"
-        android:textColor="@color/purple_dark"
-        android:text="Delete"
-        android:textSize="20sp"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/details_edit_btn2"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/card_details_buy_btn" />
+        <Button
+            android:id="@+id/details_delete_btn"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/button_border_radious_8dp"
+            android:text="Delete"
+            android:textColor="@color/red_transparent"
+            android:textSize="14sp"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toStartOf="@+id/details_edit_btn2"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/details_buyat_tv2" />
 
         <Button
             android:id="@+id/details_edit_btn2"
-            android:layout_width="151dp"
-            android:layout_height="49dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginBottom="32dp"
-            android:background="@drawable/button_border_radious_8dp"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="32dp"
+            android:background="@drawable/button_radious_8dp_pupel_dark"
             android:text="Edit"
-            android:textColor="@color/red_transparent"
-            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:textSize="14sp"
             android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/details_delete_btn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/details_delete_btn"
-            app:layout_constraintTop_toBottomOf="@+id/card_details_buy_btn" />
+            app:layout_constraintTop_toTopOf="@+id/details_delete_btn" />
 
         <TextView
             android:id="@+id/textView10"
@@ -155,19 +170,20 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:text="Belongs to:"
-            android:textSize="16sp"
+            android:textSize="14sp"
             app:layout_constraintStart_toStartOf="@+id/textView43"
-            app:layout_constraintTop_toBottomOf="@+id/details_buyat_tv" />
+            app:layout_constraintTop_toBottomOf="@+id/card_details_buy_btn" />
 
         <Button
             android:id="@+id/cardDetails_mapBtn"
-            android:layout_width="200dp"
+            android:layout_width="0dp"
             android:layout_height="20dp"
             android:layout_marginTop="8dp"
             android:background="@drawable/button_border_radious_8dp_purpel_200"
             android:shadowColor="#039BE5"
-            android:text="Buyer Address"
+            android:text="Seller Address"
             android:textColor="@color/purple_dark"
+            app:layout_constraintEnd_toEndOf="@+id/card_details_email_tv"
             app:layout_constraintStart_toStartOf="@+id/textView48"
             app:layout_constraintTop_toBottomOf="@+id/card_details_user_pic_iv"
             tools:ignore="TouchTargetSizeCheck" />
@@ -179,7 +195,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:text="Type :"
-            android:textSize="16sp"
+            android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/details_giftpic_iv" />
 
@@ -189,7 +205,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="Stores :"
-            android:textSize="16sp"
+            android:textSize="14sp"
             app:layout_constraintStart_toStartOf="@+id/textView42"
             app:layout_constraintTop_toBottomOf="@+id/textView42" />
 
@@ -201,10 +217,10 @@
             android:layout_marginEnd="16dp"
             android:text="TextView"
             android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="@+id/textView42"
+            app:layout_constraintBaseline_toBaselineOf="@+id/textView42"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textView42"
-            app:layout_constraintTop_toTopOf="@+id/textView42" />
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/textView42" />
 
         <TextView
             android:id="@+id/card_details_stores_tv"
@@ -214,15 +230,15 @@
             android:layout_marginEnd="16dp"
             android:text="jncekjnckdcnkncksnncndskksncksncnckdsndkndkcnsncnscsbcbc kdsnncsjcnsc scnskjcnskcnkscn ckscnjskccnksnc ccnscjksc cnjcnskcn cncjsk cskcn"
             android:textSize="18sp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/textView43"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textView43"
-            app:layout_constraintTop_toTopOf="@+id/textView43" />
+            app:layout_constraintStart_toEndOf="@+id/textView43" />
 
         <View
             android:id="@+id/login_line"
             style="@style/line"
             android:layout_width="0dp"
-            android:layout_marginEnd="-16dp"
+            android:layout_marginTop="-2dp"
             app:layout_constraintEnd_toEndOf="@+id/textView10"
             app:layout_constraintStart_toStartOf="@+id/textView10"
             app:layout_constraintTop_toBottomOf="@+id/textView10" />
@@ -245,7 +261,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:text="Name :"
-            android:textSize="16sp"
+            android:textSize="14sp"
             app:layout_constraintStart_toEndOf="@+id/card_details_user_pic_iv"
             app:layout_constraintTop_toTopOf="@+id/card_details_user_pic_iv" />
 
@@ -254,8 +270,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Email:"
-            android:textSize="16sp"
+            android:text="Email :"
+            android:textSize="14sp"
             app:layout_constraintStart_toStartOf="@+id/textView46"
             app:layout_constraintTop_toBottomOf="@+id/textView46" />
 
@@ -265,7 +281,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="Level :"
-            android:textSize="16sp"
+            android:textSize="14sp"
             app:layout_constraintStart_toStartOf="@+id/textView47"
             app:layout_constraintTop_toBottomOf="@+id/textView47" />
 
@@ -284,15 +300,18 @@
 
         <Button
             android:id="@+id/card_details_buy_btn"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="64dp"
             android:layout_marginTop="32dp"
+            android:layout_marginEnd="64dp"
             android:background="@drawable/button_radious_8dp_pupel_dark"
             android:text="Buy "
             android:textColor="@color/white"
-            app:layout_constraintEnd_toEndOf="@+id/cardDetails_mapBtn"
-            app:layout_constraintStart_toStartOf="@+id/cardDetails_mapBtn"
-            app:layout_constraintTop_toBottomOf="@+id/textView49" />
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/details_buyat_tv2" />
 
         <TextView
             android:id="@+id/textView51"
@@ -300,7 +319,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="Experation date :"
-            android:textSize="16sp"
+            android:textSize="14sp"
             app:layout_constraintStart_toStartOf="@+id/textView43"
             app:layout_constraintTop_toBottomOf="@+id/card_details_stores_tv" />
 
@@ -315,6 +334,45 @@
             app:layout_constraintBottom_toBottomOf="@+id/textView51"
             app:layout_constraintStart_toEndOf="@+id/textView51"
             app:layout_constraintTop_toTopOf="@+id/textView51" />
+
+        <ProgressBar
+            android:id="@+id/details_pb"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="250dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView55"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Asked price :"
+            app:layout_constraintStart_toStartOf="@+id/details_buyat_tv"
+            app:layout_constraintTop_toBottomOf="@+id/details_value_tv" />
+
+        <TextView
+            android:id="@+id/details_asked_price_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="200$"
+            android:textSize="18sp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/textView55"
+            app:layout_constraintStart_toStartOf="@+id/card_details_exp_tv" />
+
+        <View
+            android:id="@+id/card_details_line"
+            style="@style/line"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/details_asked_price_tv"
+            app:layout_constraintEnd_toEndOf="@+id/details_asked_price_tv"
+            app:layout_constraintStart_toStartOf="@+id/details_asked_price_tv"
+            app:layout_constraintTop_toTopOf="@+id/details_asked_price_tv" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

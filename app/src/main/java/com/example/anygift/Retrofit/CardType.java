@@ -1,5 +1,7 @@
 package com.example.anygift.Retrofit;
 
+import android.graphics.Bitmap;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -16,6 +18,9 @@ public class CardType {
     @SerializedName("id")
     @Expose
     private String id;
+    @SerializedName("picture")
+    @Expose
+    private Bitmap picture;
 
     @Override
     public String toString() {
@@ -30,6 +35,14 @@ public class CardType {
         this.name = name;
         this.categories = categories;
         this.id = id;
+    }
+
+    public Bitmap getPicture() {
+        return picture;
+    }
+
+    public void setPicture(Bitmap picture) {
+        this.picture = picture;
     }
 
     public String getName() {
