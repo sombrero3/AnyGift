@@ -141,13 +141,12 @@
             android:id="@+id/SignUp_continue_btn"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="84dp"
-            android:layout_marginBottom="24dp"
+            android:layout_marginTop="32dp"
             android:background="@drawable/button_radius_8dp"
             android:text="Create Account"
             android:textColor="#F3F2F2"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/SignUp_textInput_Password"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/SignUp_check_box"
             tools:ignore="MissingConstraints" />
 
@@ -155,14 +154,16 @@
             android:id="@+id/SignUp_signIn_btn"
             android:layout_width="81dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="32dp"
             android:background="@drawable/button_border_radious_8dp"
             android:text="Sign In"
             android:textColor="@color/red_transparent"
             android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="@+id/SignUp_continue_btn"
-            app:layout_constraintEnd_toStartOf="@+id/SignUp_continue_btn"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/SignUp_continue_btn"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/SignUp_check_box"
+            app:layout_constraintTop_toBottomOf="@+id/SignUp_continue_btn"
             tools:ignore="MissingConstraints" />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -259,6 +260,17 @@
             app:layout_constraintEnd_toEndOf="@+id/SignUp_textInputnput_Email"
             app:layout_constraintStart_toEndOf="@+id/SignUp_textInput_address"
             app:layout_constraintTop_toTopOf="@+id/SignUp_textInput_address" />
+
+        <Button
+            android:id="@+id/signup_facebook_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_marginEnd="32dp"
+            android:background="@drawable/button_radious_8dp_blue"
+            android:text="  Sign Up with facebook  "
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="@+id/SignUp_textInput_Password"
+            app:layout_constraintTop_toTopOf="@+id/SignUp_signIn_btn" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

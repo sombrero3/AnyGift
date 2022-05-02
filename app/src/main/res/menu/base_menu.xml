@@ -1,38 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="HardcodedText">
     <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/menu_feed"
-            android:icon="@drawable/ic_baseline_home_24"
-            android:title="Home" />
-        <item
-            android:id="@+id/cards_map"
-            android:icon="@drawable/ic_baseline_map_24"
-            android:title="Show all Cards" />
-        <item
-            android:id="@+id/shop"
-            android:icon="@drawable/coin"
-            android:title="Shop" />
+        <item android:title="Market Place">
+            <menu>
+                <item
+                    android:id="@+id/menu_search"
+                    android:icon="@drawable/search_icon_blue"
+                    android:title="Search Card" />
+                <item
+                    android:id="@+id/menu_feed"
+                    android:icon="@drawable/cards_icon_2"
+                    android:title="Cards" />
+                <item
+                    android:id="@+id/shop"
+                    android:icon="@drawable/shop_new"
+                    android:title="Coins" />
+                <item
+                    android:id="@+id/anyGiftCards"
+                    android:icon="@drawable/anygift_03"
+                    android:title="anyGift Cards (soon..)" />
+            </menu>
+        </item>
     </group>
     <group android:checkableBehavior="single">
         <item android:title="Profile">
             <menu>
-                <item
-                    android:id="@+id/menu_profile"
-                    android:icon="@drawable/green_face"
-                    android:title="Profile"
-                    app:showAsAction="withText" />
+                <!--                <item-->
+                <!--                    android:id="@+id/menu_profile"-->
+                <!--                    android:icon="@drawable/green_face"-->
+                <!--                    android:title="Profile"-->
+                <!--                    app:showAsAction="withText" />-->
                 <item
                     android:id="@+id/menu_cards"
-                    android:icon="@drawable/cards_yellow"
+                    android:icon="@drawable/wallet_icon_2"
                     android:title="My Wallet" />
                 <item
                     android:id="@+id/add_card"
                     android:icon="@drawable/add_icon"
                     android:title="Add Card" />
+                <item
+                    android:id="@+id/transactions"
+                    android:icon="@drawable/transactions2"
+                    android:title="Transactions" />
+
+
                 <item
                     android:id="@+id/logout"
                     android:icon="@drawable/logout"
@@ -43,10 +57,14 @@
     <group android:checkableBehavior="single">
         <item android:title="Communicate">
             <menu>
-               <item
+                <item
                     android:id="@+id/share"
                     android:icon="@drawable/ic_share"
                     android:title="Share" />
+                <item
+                    android:id="@+id/cards_map"
+                    android:icon="@drawable/ic_baseline_map_24"
+                    android:title="Show all Cards" />
             </menu>
         </item>
     </group>

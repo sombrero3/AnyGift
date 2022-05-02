@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:background="@drawable/bottom_popup_background"
+android:id="@+id/buy_now_popup">
+
+<TextView
+    android:id="@+id/buy_card_popup_card_type_tv"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="16dp"
+    android:layout_marginTop="8dp"
+    android:text="card type"
+    android:textSize="18sp"
+    android:textStyle="bold"
+    app:layout_constraintStart_toEndOf="@+id/buy_card_popup_icon_iv"
+    app:layout_constraintTop_toTopOf="@+id/buy_card_popup_icon_iv" />
+
+<Button
+    android:id="@+id/buy_card_popup_buy_btn"
+    android:layout_width="0dp"
+    android:layout_height="40dp"
+    android:layout_marginStart="4dp"
+    android:layout_marginTop="16dp"
+    android:layout_marginEnd="8dp"
+    android:layout_marginBottom="8dp"
+    android:background="@drawable/button_radious_8dp_pupel_dark"
+    android:text="buy"
+    android:textColor="@color/white"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.5"
+    app:layout_constraintStart_toEndOf="@+id/buy_card_popup_cancel_btn"
+    app:layout_constraintTop_toBottomOf="@+id/textview222" />
+
+<Button
+    android:id="@+id/buy_card_popup_cancel_btn"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:layout_marginStart="8dp"
+    android:layout_marginEnd="4dp"
+    android:background="@drawable/button_border_radious_8dp"
+    android:text="cancel"
+    android:textColor="@color/red_transparent"
+    app:layout_constraintBottom_toBottomOf="@+id/buy_card_popup_buy_btn"
+    app:layout_constraintEnd_toStartOf="@+id/buy_card_popup_buy_btn"
+    app:layout_constraintHorizontal_bias="0.5"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="@+id/buy_card_popup_buy_btn" />
+
+<com.google.android.material.imageview.ShapeableImageView
+    android:id="@+id/buy_card_popup_icon_iv"
+    android:layout_width="wrap_content"
+    android:layout_height="80dp"
+    android:layout_marginStart="16dp"
+    android:layout_marginTop="48dp"
+    android:adjustViewBounds="true"
+    android:scaleType="fitCenter"
+    android:src="@drawable/amazon_giftcard"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:shapeAppearanceOverlay="@style/roundedCornersImageView" />
+
+    <TextView
+        android:id="@+id/textView291"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="G"
+        android:textColor="@color/red_transparent"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBaseline_toBaselineOf="@+id/buy_card_popup_price_tv"
+        app:layout_constraintStart_toEndOf="@+id/buy_card_popup_price_tv" />
+
+    <TextView
+        android:id="@+id/textView301"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="coins"
+        android:textColor="@color/coins"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/textView291"
+        app:layout_constraintStart_toEndOf="@+id/textView291"
+        app:layout_constraintTop_toTopOf="@+id/textView291" />
+
+<TextView
+    android:id="@+id/textview222"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="16dp"
+    android:text="Pay Only :"
+    android:textSize="15sp"
+    app:layout_constraintStart_toStartOf="@+id/textView53"
+    app:layout_constraintTop_toBottomOf="@+id/textView59" />
+
+<TextView
+    android:id="@+id/textView50"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="16dp"
+    android:text="Exp date :"
+    app:layout_constraintBottom_toBottomOf="@+id/buy_card_popup_icon_iv"
+    app:layout_constraintStart_toEndOf="@+id/buy_card_popup_icon_iv"
+    app:layout_constraintTop_toBottomOf="@+id/buy_card_popup_card_type_tv" />
+
+<TextView
+    android:id="@+id/buy_card_popup_exp_tv"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="8dp"
+    android:text="01/01/01"
+    android:textSize="15sp"
+    android:textStyle="bold"
+    app:layout_constraintBottom_toBottomOf="@+id/textView50"
+    app:layout_constraintStart_toEndOf="@+id/textView50"
+    app:layout_constraintTop_toTopOf="@+id/textView50" />
+
+<TextView
+    android:id="@+id/textView53"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="8dp"
+    android:layout_marginTop="16dp"
+    android:text="Contain :"
+    app:layout_constraintStart_toStartOf="@+id/buy_card_popup_icon_iv"
+    app:layout_constraintTop_toBottomOf="@+id/buy_card_popup_icon_iv" />
+
+<TextView
+    android:id="@+id/buy_card_popup_value_tv"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="8dp"
+    android:text="Value $"
+    android:textSize="18sp"
+    android:textStyle="bold"
+    app:layout_constraintBottom_toBottomOf="@+id/textView53"
+    app:layout_constraintStart_toEndOf="@+id/textView53"
+    app:layout_constraintTop_toTopOf="@+id/textView53" />
+
+<TextView
+    android:id="@+id/buy_card_popup_price_tv"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="8dp"
+    android:text="Price"
+    android:textSize="18sp"
+    android:textStyle="bold"
+    app:layout_constraintBottom_toBottomOf="@+id/textview222"
+    app:layout_constraintStart_toEndOf="@+id/textview222"
+    app:layout_constraintTop_toTopOf="@+id/textview222" />
+
+    <TextView
+        android:id="@+id/textView59"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Saving :"
+        app:layout_constraintStart_toStartOf="@+id/textview222"
+        app:layout_constraintTop_toBottomOf="@+id/textView53" />
+
+<TextView
+    android:id="@+id/textView60"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="8dp"
+    android:textColor="@color/green_saving"
+    android:textStyle="bold"
+    android:text="TextView"
+    app:layout_constraintBottom_toBottomOf="@+id/textView59"
+    app:layout_constraintStart_toEndOf="@+id/textView59"
+    app:layout_constraintTop_toTopOf="@+id/textView59" />
+
+<TextView
+    android:id="@+id/textView61"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="5dp"
+    android:text="Buy Now"
+    android:textColor="@color/purple_dark"
+    android:textStyle="bold"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/buy_card_popup_coins_btn"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="32dp"
+        android:background="@drawable/button_round_yellow"
+        android:text="get Coins"
+        android:visibility="invisible"
+        android:textColor="@color/purple_dark"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/buy_card_popup_buy_btn"
+        app:layout_constraintEnd_toEndOf="@+id/buy_card_popup_buy_btn" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout  xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
     android:id="@+id/giftCardlist_swiperefresh"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -14,10 +17,21 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".feed.FeedFragment">
+
+    <ImageView
+        android:id="@+id/imageView10"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/anygift_01" />
 
     <View
         android:id="@+id/general_list_line"
@@ -34,9 +48,7 @@
         android:id="@+id/cards_list_rv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginTop="3dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/general_list_line" />
@@ -71,11 +83,11 @@
         android:id="@+id/textView23"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="104dp"
+        android:layout_marginTop="32dp"
         android:text="ift"
         android:textColor="@color/grey_1"
-        android:textStyle="italic"
         android:textSize="54sp"
+        android:textStyle="italic"
         app:layout_constraintStart_toEndOf="@+id/textView21"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -83,9 +95,9 @@
         android:id="@+id/cards_list_user_name_tv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="58dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="58dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
         android:text="Hello User Name and welcome to the gift card trading platform. Find evry gift card buy or trade with your own cards."
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -106,11 +118,12 @@
         android:id="@+id/textView16"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="58dp"
+        android:layout_marginTop="8dp"
         android:text="Most recommended :"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cards_list_user_name_tv" />
+        android:textColor="@color/purple_dark"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/feed_date_tv"
+        app:layout_constraintTop_toBottomOf="@+id/feed_search_result_rv" />
 
     <TextView
         android:id="@+id/feed_coins_tv"
@@ -124,14 +137,173 @@
 
     <ImageView
         android:id="@+id/imageView7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/plain_coin" />
+        app:srcCompat="@drawable/coin_0" />
 
+    <ImageView
+        android:id="@+id/imageView9"
+        android:layout_width="wrap_content"
+        android:layout_height="280dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="600dp"
+        app:layout_constraintBaseline_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cards_list_rv"
+        app:srcCompat="@drawable/giftbg2" />
+
+    <TextView
+        android:id="@+id/textView44"
+        android:layout_width="260dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:text="Buy gift cards at affordable prices and enjoy an abundance of different and varied discounts."
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView9"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageView9" />
+
+    <TextView
+        android:id="@+id/giftbgcoover"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#0CF87171"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView9"
+        app:layout_constraintEnd_toEndOf="@+id/imageView9"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageView9" />
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout2222"
+        android:layout_width="180dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="-4dp"
+        android:layout_marginTop="2dp"
+        android:hint="Click to enter max price"
+        android:textColorHint="@color/grey_1"
+        app:errorTextColor="@color/error"
+        app:layout_constraintStart_toStartOf="@+id/feed_date_tv"
+        app:layout_constraintTop_toBottomOf="@+id/feed_date_tv">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/feed_max_price_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginRight="0dp"
+            android:backgroundTint="@color/grey_1"
+            android:fontFamily="sans-serif-medium"
+            android:inputType="textEmailAddress"
+            android:maxLines="1"
+            android:textColor="@color/purple_dark"
+            android:textSize="14sp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <TextView
+        android:id="@+id/textView45"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:text="Choose card type :"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cards_list_user_name_tv" />
+
+    <Spinner
+        android:id="@+id/feed_card_type_spinner"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="32dp"
+        android:background="@drawable/spinner_background"
+        android:contentDescription="Select Type:"
+        android:overlapAnchor="false"
+        android:spinnerMode="dropdown"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/textView45"
+        app:layout_constraintTop_toBottomOf="@+id/textView45" />
+
+    <TextView
+        android:id="@+id/feed_search_results_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Search results :"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="@+id/feed_date_tv"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout2222" />
+
+    <Button
+        android:id="@+id/feed_search_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/button_radious_25dp_long"
+        android:text="Search"
+        android:textColor="@color/purple_dark"
+        app:layout_constraintEnd_toEndOf="@+id/feed_card_type_spinner"
+        app:layout_constraintTop_toBottomOf="@+id/feed_card_type_spinner" />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/feed_search_result_rv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/feed_search_results_tv" />
+
+    <TextView
+        android:id="@+id/feed_date_tv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:text="Click to select max exp date"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/feed_card_type_spinner"
+        app:layout_constraintTop_toBottomOf="@+id/feed_card_type_spinner" />
+
+    <ProgressBar
+        android:id="@+id/feed_progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/feed_search_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/feed_search_btn" />
 </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
+        </ScrollView>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/feed_search_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/purple_dark"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_gravity="end|bottom"
+        android:tint="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/search_icon_blue"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+</FrameLayout>

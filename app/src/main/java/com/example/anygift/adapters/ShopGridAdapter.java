@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.anygift.OnItemClickListener;
 import com.example.anygift.R;
-import com.example.anygift.feed.MyCardsFragment;
 import com.example.anygift.view_holders.ShopGridViewHolder;
 ;
 

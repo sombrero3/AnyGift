@@ -23,23 +23,14 @@ import android.widget.Toast;
 
 import com.example.anygift.R;
 import com.example.anygift.feed.MainActivity;
-import com.example.anygift.Retrofit.LoginResult;
-import com.example.anygift.Retrofit.RetrofitInterface;
 import com.example.anygift.model.Model;
-import com.example.anygift.model.ModelFirebase;
-import com.example.anygift.model.User;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
+
 import java.util.HashMap;
 
 public class LoginFragment extends Fragment {
-
-    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     View view;
     Snackbar mySnackbar;
@@ -68,7 +59,7 @@ public class LoginFragment extends Fragment {
         forgotP_btn.setTypeface(Typeface.SANS_SERIF);
 
         signIn_btn.setOnClickListener(v -> {
-            //login();
+//            login();
             checkUser();
         });
 
@@ -76,22 +67,40 @@ public class LoginFragment extends Fragment {
             Navigation.findNavController(v).navigate(LoginFragmentDirections.actionLoginFragmentToSignUpFragment());
         });
 
+        //TODO implement forgot password
         forgotP_btn.setOnClickListener(v -> {
-            forgotPassword();
+            mySnackbar = Snackbar.make(view, "in development", BaseTransientBottomBar.LENGTH_LONG);
+            mySnackbar.show();
         });
+
         return view;
     }
+    public void setButtons(Boolean b){
+        signIn_btn.setEnabled(b);
+        signUp_btn.setEnabled(b);
+        forgotP_btn.setEnabled(b);
+    }
 
-    public void login(){
-        //TODO Login using Retrofit
-        HashMap<String,String> map=new HashMap<>();
-        map.put("email",email.getText().toString());
-        map.put("password",password.getText().toString());
-        Model.instance.login(map, new Model.StringListener() {
-            @Override
-            public void onComplete(String message) {
-                Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
-            }
+    public void login() {
+        setButtons(false);
+        HashMap<String, Object> map = com.example.anygift.Retrofit.User.mapToLogin(email.getText().toString(), password.getText().toString());
+        Model.instance.login(map, (user, message) -> {
+            pb.setVisibility(View.INVISIBLE);
+            if (user == null) {
+                setButtons(true);
+                mySnackbar = Snackbar.make(view, message, BaseTransientBottomBar.LENGTH_LONG);
+                mySnackbar.show();
+                } else {
+                    mySnackbar = Snackbar.make(view, "Login successful :)", BaseTransientBottomBar.LENGTH_LONG);
+                    mySnackbar.show();
+                    Model.instance.setCardTypes(new Model.VoidListener() {
+                        @Override
+                        public void onComplete() {
+                            goToFeedActivity(user);
+                        }
+                    });
+
+                }
         });
     }
 
@@ -99,7 +108,7 @@ public class LoginFragment extends Fragment {
         email_user = email.getText().toString();
         password_user = password.getText().toString();
         if (TextUtils.isEmpty(email_user) && email_user.matches(emailPattern)) {
-            email.setError("please enter  correct   email");
+            email.setError("please enter correct email");
             return;
         }
         if (TextUtils.isEmpty(password_user)) {
@@ -108,56 +117,33 @@ public class LoginFragment extends Fragment {
         }
         //connect via http request
         pb.setVisibility(View.VISIBLE);
-        // login();
 
-        mAuth.signInWithEmailAndPassword(email_user, password_user).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    signIn_btn.setEnabled(false);
-                    signUp_btn.setEnabled(false);
-                    forgotP_btn.setEnabled(false);
-                    pb.setVisibility(View.INVISIBLE);
-                    mySnackbar = Snackbar.make(view, "Login successful :)", BaseTransientBottomBar.LENGTH_LONG);
-                    mySnackbar.show();
-                    Log.d("TAG", "login successful");
-                    goToFeedActivity();
-                   // Navigation.findNavController(view).navigate(R.id.action_global_feedFragment);
-                } else
-                    //Log.d("TAG","Login failed");
-                    Toast.makeText(getContext(), "Error! " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
-                pb.setVisibility(View.INVISIBLE);
-            }
-        });
-
+        login();
 
     }
 
-    public void goToFeedActivity(){
-        Model.instance.setCurrentUser(new Model.GetUserListener() {
-            @Override
-            public void onComplete(User user) {
-                pb.setVisibility(View.INVISIBLE);
-                Intent intent = new Intent(getContext(), MainActivity.class);
-                startActivity(intent);
-                getActivity().finish();
-            }
-        });
+    public void goToFeedActivity(com.example.anygift.Retrofit.User user) {
+        Model.instance.setCurrentUser(user);
+        //progressBar.setVisibility(View.INVISIBLE);
+        Intent intent = new Intent(getContext(), MainActivity.class);
+        startActivity(intent);
+        getActivity().finish();
     }
-    public void forgotPassword() {
-        email_user = email.getText().toString();
-        mAuth.sendPasswordResetEmail(email_user).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()) {
-                    mySnackbar = Snackbar.make(view, "Email sent, check your mailbox :)", BaseTransientBottomBar.LENGTH_LONG);
-                    mySnackbar.show();
 
-                } else
-                    Log.d("TAG", "failed");
-            }
-        });
-    }
+//    public void forgotPassword() {
+//        email_user = email.getText().toString();
+//        mAuth.sendPasswordResetEmail(email_user).addOnCompleteListener(new OnCompleteListener<Void>() {
+//            @Override
+//            public void onComplete(@NonNull Task<Void> task) {
+//                if (task.isSuccessful()) {
+//                    mySnackbar = Snackbar.make(view, "Email sent, check your mailbox :)", BaseTransientBottomBar.LENGTH_LONG);
+//                    mySnackbar.show();
+//
+//                } else
+//                    Log.d("TAG", "failed");
+//            }
+//        });
+//    }
 
 
     @Override

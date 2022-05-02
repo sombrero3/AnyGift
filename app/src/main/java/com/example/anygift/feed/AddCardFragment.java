@@ -4,12 +4,15 @@ import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -22,40 +25,48 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
+import android.widget.TextView;
 
-import com.craftman.cardform.CardForm;
 import com.example.anygift.R;
-import com.example.anygift.model.GiftCard;
+import com.example.anygift.Retrofit.Card;
+import com.example.anygift.Retrofit.CardType;
 import com.example.anygift.model.Model;
-import com.example.anygift.model.User;
+import com.example.anygift.model.Utils;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
 
 public class AddCardFragment extends Fragment {
-    private static final int REQUEST_CAMERA = 1;//
-    TextInputEditText cardValue,  cardAskingValue, cardNumber;
-    //cardExpDay, cardExpMonth, cardExpYear
-    ImageButton uploadPicButton;
+    TextInputEditText cardValue, cardAskingValue, cardNumber;
     Button addCardButton;
     ImageView giftCardImage;
     View view;
     ProgressBar pb;
-    String latAndLong;
-    UserViewModel userViewModel;
-    Spinner spinnerCardType,spinnerExpiryMonth,spinnerExpiryYear;
-    CardForm cardForm;
+    String latAndLong, cardType;
+//    UserViewModel userViewModel;
+    Spinner spinnerCardType;
+    TextView dateTv;
+    CheckBox forSaleCb;
+    DatePickerDialog.OnDateSetListener dateListener;
+    List<String> cardTypes;
+    int year, month, day;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -65,119 +76,82 @@ public class AddCardFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_add_card, container, false);
         cardNumber = view.findViewById(R.id.add_card_number);
         cardValue = view.findViewById(R.id.add_card_value);
-//        cardExpDay = view.findViewById(R.id.add_card_exp_day);
-//        cardExpMonth = view.findViewById(R.id.add_card_exp_mo);
-//        cardExpYear = view.findViewById(R.id.add_card_exp_year);
         cardAskingValue = view.findViewById(R.id.add_card_asking_price);
-        uploadPicButton = view.findViewById(R.id.add_camera_bt);
         addCardButton = view.findViewById(R.id.add_upload_bt);
         giftCardImage = view.findViewById(R.id.add_giftCardImage);
-
-        spinnerCardType = (Spinner) view.findViewById(R.id.option);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.options, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerCardType.setAdapter(adapter);
-        //spinnerCardType.getSelectedItem().toString();
-
-        spinnerExpiryMonth = (Spinner) view.findViewById(R.id.add_card_expiry_month);
-        ArrayAdapter<CharSequence> adapterExpiryMonth = ArrayAdapter.createFromResource(getContext(), R.array.month, android.R.layout.simple_spinner_item);
-        adapterExpiryMonth.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerExpiryMonth.setAdapter(adapterExpiryMonth);
-       // spinnerExpiryMonth.getSelectedItem().toString();
-
-        spinnerExpiryYear = (Spinner) view.findViewById(R.id.add_card_expiry_year);
-        ArrayAdapter<CharSequence> adapterExpiryYear = ArrayAdapter.createFromResource(getContext(), R.array.year, android.R.layout.simple_spinner_item);
-        adapterExpiryYear.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerExpiryYear.setAdapter(adapterExpiryYear);
-       // spinnerExpiryYear.getSelectedItem().toString();
-
-
-        giftCardImage.setTag("");
+        dateTv = view.findViewById(R.id.add_card_date_tv);
+        forSaleCb = view.findViewById(R.id.add_card_for_sale_cb);
         pb = view.findViewById(R.id.add_pb);
-        pb.setVisibility(View.INVISIBLE);
+
+        pb.setVisibility(View.VISIBLE);
+        giftCardImage.setTag("");
+
+        setCardtypesSpinner();
+        setDateSelector();
 
 
-
-
-
-
-        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
-        userViewModel.getUser(new UserViewModel.GetUserListener() {
-            @Override
-            public void onComplete(User user) {
-                latAndLong = user.getLatAndLong();
-            }
-        });
+//        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
         addCardButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 upload();
             }
         });
-        uploadPicButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                editImage();
-            }
-        });
 
         return view;
     }
 
-    private void editImage() {
-        final CharSequence[] options = {"Take Photo", "Choose from Gallery", "Cancel"};
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("Choose your profile picture");
-        builder.setItems(options, new DialogInterface.OnClickListener() {
+    private void setDateSelector() {
+        Calendar calendar = Calendar.getInstance();
+        year = calendar.get(Calendar.YEAR);
+        month = calendar.get(Calendar.MONTH);
+        day = calendar.get(Calendar.DAY_OF_MONTH);
+        dateTv.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int item) {
-                if (options[item].equals("Take Photo")) {
-                    Intent takePicture = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                    startActivityForResult(takePicture, 0);
-                } else if (options[item].equals("Choose from Gallery")) {
-                    Intent pickPhoto = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                    startActivityForResult(pickPhoto, 1);
-                } else if (options[item].equals("Cancel")) {
-                    dialog.dismiss();
-                }
+            public void onClick(View view) {
+                DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), android.R.style.Theme_Holo_Light_Dialog_MinWidth, dateListener, year, month, day);
+                datePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                datePickerDialog.show();
             }
         });
-        builder.show();
-    }
-
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode != RESULT_CANCELED) {
-            switch (requestCode) {
-                case 0:
-                    if (resultCode == RESULT_OK && data != null) {
-                        Bitmap selectedImage = (Bitmap) data.getExtras().get("data");
-                        giftCardImage.setImageBitmap(selectedImage);
-                        giftCardImage.setTag("img");
-                    }
-                    break;
-                case 1:
-                    if (resultCode == RESULT_OK && data != null) {
-                        Uri selectedImage = data.getData();
-                        String[] filePathColumn = {MediaStore.Images.Media.DATA};
-                        if (selectedImage != null) {
-                            Cursor cursor = getActivity().getContentResolver().query(selectedImage,
-                                    filePathColumn, null, null, null);
-                            if (cursor != null) {
-                                cursor.moveToFirst();
-                                int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                                String picturePath = cursor.getString(columnIndex);
-                                giftCardImage.setImageBitmap(BitmapFactory.decodeFile(picturePath));
-                                giftCardImage.setTag("img");
-                                cursor.close();
-                            }
-                        }
-                    }
-                    break;
+        dateListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int y, int m, int d) {
+                m += 1;
+                year = y;
+                month = m;
+                day = d;
+                dateTv.setText(day + "/" + month + "/" + year);
             }
-        }
+        };
     }
+
+    private void setCardtypesSpinner() {
+        List<CardType> cts = Model.instance.cardTypes;
+        cardTypes = new ArrayList<>();
+        for (CardType ct : cts) {
+            cardTypes.add(ct.getName());
+        }
+
+        spinnerCardType = (Spinner) view.findViewById(R.id.option);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, cardTypes);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerCardType.setAdapter(adapter);
+        spinnerCardType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                giftCardImage.setImageBitmap(cts.get(i).getPicture());
+                cardType = cts.get(i).getId();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                cardType = cts.get(0).getId();
+            }
+        });
+        pb.setVisibility(View.INVISIBLE);
+    }
+
 
     void popMsg(String Msg) {
         Snackbar mySnackbar = Snackbar.make(view, Msg, BaseTransientBottomBar.LENGTH_LONG);
@@ -187,13 +161,10 @@ public class AddCardFragment extends Fragment {
 
     void enableButtons() {
         addCardButton.setEnabled(true);
-        uploadPicButton.setEnabled(true);
     }
 
     void disableButtons() {
         addCardButton.setEnabled(false);
-        uploadPicButton.setEnabled(false);
-
     }
 
     static boolean isLegalDate(String s) {
@@ -214,62 +185,37 @@ public class AddCardFragment extends Fragment {
         boolean error = false;
         String errorMsg = "";
         disableButtons();
-        String CardValue = cardValue.getText().toString();
-        String CardAskingValue = cardAskingValue.getText().toString();
-        String CardNumber = cardNumber.getText().toString();
-//        String day = cardExpDay.getText().toString();
-//        String mo = cardExpMonth.getText().toString();
-//        String year = cardExpYear.getText().toString();
-        String day = "1";
-        String mo = spinnerExpiryMonth.getSelectedItem().toString();
-        String year = spinnerExpiryYear.getSelectedItem().toString();
-        String dateFormatted = year + "-" + mo + "-" + day;
-        if (!isLegalDate(dateFormatted)) {
-            error = true;
-            errorMsg += "date: " + dateFormatted + " is Invalid!\n";
-        }
+
         if (error) {
             popMsg(errorMsg);
             enableButtons();
             return;
         }
 
-        String date = day + "/" + mo + "/" + year;
-        logging(CardValue, CardAskingValue, CardNumber);
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-        FirebaseUser user = auth.getCurrentUser();
-        String emailUser = user.getEmail().toString();
+        Log.d("TAG", "date = " + day + "/" + month + "/" + year);
+        Log.d("TAG", "card type id = " + cardType);
 
-        GiftCard newGiftCard = new GiftCard(CardNumber, Double.parseDouble(CardValue), date, Double.parseDouble(CardAskingValue), emailUser, latAndLong); //todo maybe change double to string
-        BitmapDrawable drawable = (BitmapDrawable) giftCardImage.getDrawable();
-        Log.d("BITAG", drawable.toString());
-        Bitmap bitmap = drawable.getBitmap();
-        Model.instance.uploadImage(bitmap, newGiftCard.getCardName(), new Model.UploadImageListener() {
+        HashMap<String, Object> map = Card.mapToAddCard(Double.parseDouble(cardAskingValue.getText().toString()),
+                Double.parseDouble(cardValue.getText().toString()), cardNumber.getText().toString(), cardType,
+                Model.instance.modelRetrofit.getUserId(), forSaleCb.isChecked(),
+                Utils.convertDateToLong(Integer.toString(day), Integer.toString(month), Integer.toString(year)));
+
+        //"62532859427c06ccbf55d31e" <--> this is card type id
+
+        Model.instance.addCardRetrofit(map, new Model.cardReturnListener() {
+
             @Override
-            public void onComplete(String url) {
-                if (url == null) {
-                    displayFailedError();
+            public void onComplete(Card card, String message) {
+                if (card != null) {
+                    popMsg("GiftCard successfully uploaded");
+                    Navigation.findNavController(dateTv).navigate(AddCardFragmentDirections.actionGlobalMyCardsFragment());
                 } else {
-                    newGiftCard.setGiftCardImageUrl(url);
-                    Model.instance.addGiftCard(newGiftCard, () -> {
-                        Navigation.findNavController(view).navigate(R.id.action_global_feedFragment);
-                        popMsg("GiftCard Added! :)");
-                    });
+                    popMsg("GiftCard uploading Failed!");
                 }
+                enableButtons();
+                pb.setVisibility(View.INVISIBLE);
             }
         });
-    }
 
-    private void displayFailedError() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("Operation Failed");
-        builder.setMessage("Saving image failed, please try again later...");
-        builder.setNeutralButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.dismiss();
-            }
-        });
-        builder.show();
     }
 }

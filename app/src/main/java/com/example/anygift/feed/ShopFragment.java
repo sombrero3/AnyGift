@@ -1,6 +1,9 @@
 package com.example.anygift.feed;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -9,16 +12,21 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.anygift.OnItemClickListener;
 import com.example.anygift.R;
+import com.example.anygift.Retrofit.User;
 import com.example.anygift.adapters.ShopGridAdapter;
+import com.example.anygift.model.Model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,32 +39,45 @@ public class ShopFragment extends Fragment {
     List<String> titles;
     AlertDialog.Builder alertDialogBuilder;
     AlertDialog dialog;
+    Dialog tryDialog;
     TextView popUpPrice;
     ImageView popUpCoinsIcon;
-    Button popUpCancel, popUpSaveBtn;
+    Button popUpCancel, popUpSaveBtn,backToCardBtn;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_shop, container, false);
+        backToCardBtn = view.findViewById(R.id.shop_back_to_card_btn);
+        String cardId = ShopFragmentArgs.fromBundle(getArguments()).getCardId();
 
-
+        if(!cardId.isEmpty()){
+            backToCardBtn.setVisibility(View.VISIBLE);
+            backToCardBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Bundle args = new Bundle();
+                    args.putString("giftCardId",cardId);
+                    Navigation.findNavController(view).navigate(R.id.action_global_cardsDetailsFragment,args);
+                }
+            });
+        }
         titles = new ArrayList<>();
         images = new ArrayList<>();
 
-        titles.add("First Item");
-        titles.add("Second Item");
-        titles.add("Third Item");
-        titles.add("Fourth Item");
-        titles.add("fifth Item");
-        titles.add("sixth Item");
 
-        images.add(R.drawable.add_icon);
-        images.add(R.drawable.green_face);
-        images.add(R.drawable.cards_yellow);
-        images.add(R.drawable.coin);
-        images.add(R.drawable.common_google_signin_btn_icon_light);
-        images.add(R.drawable.baseline_keyboard_arrow_down_black_24dp);
+        titles.add("Cost : 45$");
+        titles.add("Cost : 90$");
+        titles.add("Cost : 220$");
+        titles.add("Cost : 435$");
+        titles.add("Cost : 860$");
+        titles.add("Cost : 1$");
+        images.add(R.drawable.fifty);
+        images.add(R.drawable.handred);
+        images.add(R.drawable.twofifty);
+        images.add(R.drawable.fivehandred);
+        images.add(R.drawable.taulsend);
+        images.add(R.drawable.coin_0);
 
         gridRV = view.findViewById(R.id.shop_rv);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),2,GridLayoutManager.VERTICAL,false);
@@ -75,23 +96,58 @@ public class ShopFragment extends Fragment {
     }
 
     public void createNewShopDialog(int pos){
-        alertDialogBuilder = new AlertDialog.Builder(getContext());
-        final View shopPopUpView = getLayoutInflater().inflate(R.layout.shop_popup,null);
-        popUpCoinsIcon = shopPopUpView.findViewById(R.id.shop_popup_icon_iv);
-        popUpPrice = shopPopUpView.findViewById(R.id.shop_popup_price_tv);
-        popUpSaveBtn = shopPopUpView.findViewById(R.id.shop_popup_buy_btn);
-        popUpCancel = shopPopUpView.findViewById(R.id.shop_popup_cancel_btn);
+        tryDialog = new Dialog(getActivity());
+        tryDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        tryDialog.setContentView(R.layout.shop_popup);
+        popUpCoinsIcon = tryDialog.findViewById(R.id.shop_popup_icon_iv);
+        popUpPrice = tryDialog.findViewById(R.id.shop_popup_price_tv);
+        popUpSaveBtn = tryDialog.findViewById(R.id.shop_popup_buy_btn);
+        popUpCancel = tryDialog.findViewById(R.id.shop_popup_cancel_btn);
 
         popUpCoinsIcon.setImageResource(images.get(pos));
         popUpPrice.setText(titles.get(pos));
 
-        alertDialogBuilder.setView(shopPopUpView);
-        dialog = alertDialogBuilder.create();
-        dialog.show();
+        tryDialog.show();
+        tryDialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        tryDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        tryDialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+        tryDialog.getWindow().setGravity(Gravity.BOTTOM);
 
         popUpSaveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                double num;
+                switch (pos) {
+                    case  0:
+                       num = 50;
+                       break;
+                    case  1:
+                        num = 100;
+                        break;
+                    case  2:
+                        num = 250;
+                        break;
+                    case  3:
+                        num = 500;
+                        break;
+                    case  4:
+                        num = 1000;
+                        break;
+                    case  5:
+                        num = 1;
+                        break;
+                    default: num = 0;
+                }
+
+                Model.instance.addCoinsToUser(Model.instance.getSignedUser().getId(),
+                        num, new Model.userReturnListener() {
+                            @Override
+                            public void onComplete(User user, String message) {
+                                Model.instance.getSignedUser().setCoins(user.getCoins());
+                                Toast.makeText(getContext(), "Thank You !! Spend your Gcoins wisely :)", Toast.LENGTH_SHORT).show();
+                                tryDialog.dismiss();
+                            }
+                        });
 
             }
         });
@@ -99,7 +155,7 @@ public class ShopFragment extends Fragment {
         popUpCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dialog.dismiss();
+                tryDialog.dismiss();
             }
         });
 

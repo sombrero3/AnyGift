@@ -9,10 +9,17 @@
     <color name="white">#FFFFFFFF</color>
     <color name="red_1">#F87171</color>
     <color name="red_transparent">#79F87171</color>
+    <color name="red_transparent2">#40F87171</color>
     <color name="grey_1">#535252</color>
+    <color name="grey_2">#979696</color>
     <color name="red_transparent_2">#25F87171</color>
-    <color name="coins">#FFDF00</color>
+    <color name="coins">#DBC10C</color>
     <color name="transparent">#00FFFFFF</color>
     <color name="purple_dark">#320120</color>
     <color name="error">#E31212</color>
+    <color name="blue_facebook">#27278A</color>
+    <color name="green_saving">#10F119</color>
+    <color name="shop">#52D7F4FB</color>
+    <color name="shop2">#11320120</color>
+
 </resources>

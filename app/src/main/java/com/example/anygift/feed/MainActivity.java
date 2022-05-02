@@ -14,6 +14,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.NavHost;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -72,11 +73,11 @@ public class MainActivity extends AppCompatActivity {
                         navCtr.navigate(R.id.action_global_feedFragment);
                         break;
                     }
-                    case R.id.menu_profile: {
-                        drawerLayout.closeDrawer(GravityCompat.START);
-                        navCtr.navigate(R.id.action_global_userProfileFragment);
-                        break;
-                    }
+//                    case R.id.menu_profile: {
+//                        drawerLayout.closeDrawer(GravityCompat.START);
+//                        navCtr.navigate(R.id.action_global_userProfileFragment);
+//                        break;
+//                    }
                     case R.id.menu_cards: {
                         drawerLayout.closeDrawer(GravityCompat.START);
                         navCtr.navigate(R.id.action_global_myCardsFragment);
@@ -95,16 +96,23 @@ public class MainActivity extends AppCompatActivity {
                     }
                     case R.id.shop: {
                         drawerLayout.closeDrawer(GravityCompat.START);
-                        navCtr.navigate(R.id.action_global_shopFragment);
+                        Bundle args = new Bundle();
+                        args.putString("cardId","");
+                        navCtr.navigate(R.id.action_global_shopFragment,args);
+                        break;
+                    }
+                    case R.id.transactions:{
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                        navCtr.navigate(R.id.action_global_transactionsFragment);
+                        break;
+                    }
+                    case R.id.menu_search: {
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                        navCtr.navigate(R.id.action_global_searchGiftCardFragment);
                         break;
                     }
                     case R.id.logout: {
-                        Toast.makeText(getBaseContext(),"Logging Out",Toast.LENGTH_SHORT).show();
-                        FirebaseAuth.getInstance().signOut();
-                        drawerLayout.closeDrawer(GravityCompat.START);
-                        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                        startActivity(intent);
-                        finish();
+                        logout();
                         break;
                     }
                 }
@@ -113,15 +121,43 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    public void logout() {
+        Model.instance.logout(new Model.StringListener() {
+            @Override
+            public void onComplete(String message) {
+                Toast.makeText(getBaseContext(),"Logging Out",Toast.LENGTH_SHORT).show();
+                drawerLayout.closeDrawer(GravityCompat.START);
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
+
+            }
+        });
+    }
+
     private void setMenuHeader() {
+        System.out.println(Model.instance.getSignedUser());
         View header= (View)navigationView.getHeaderView(0);
         nameTv = header.findViewById(R.id.menu_header_name_tv);
         emailTv = header.findViewById(R.id.menu_header_email_tv);
         imageIv = header.findViewById(R.id.menu_header_image_iv);
-        nameTv.setText(  Model.instance.getSignedUser().getName());
+        nameTv.setText(  Model.instance.getSignedUser().getFirstName() + " " + Model.instance.getSignedUser().getLastName());
         emailTv.setText( Model.instance.getSignedUser().getEmail());
-        if( Model.instance.getSignedUser().getImageUrl().compareTo("")!=0){
-            Picasso.get().load(Model.instance.getSignedUser().getImageUrl()).into(imageIv);
+
+        if( Model.instance.getSignedUser().getProfilePicture()!=null && Model.instance.getSignedUser().getProfilePicture().compareTo("")!=0){
+            Model.instance.downloadImage(Model.instance.getSignedUser().getProfilePicture().replace("/image/", ""),
+                    new Model.byteArrayReturnListener() {
+                        @Override
+                        public void onComplete(Bitmap bitmap) {
+                            if (bitmap == null) {
+                                return;
+                            }
+                            imageIv.setImageBitmap(bitmap);
+                            imageIv.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                            imageIv.setClipToOutline(true);
+
+                        }
+                    });
         }
     }
 

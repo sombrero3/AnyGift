@@ -75,7 +75,7 @@
                 android:fontFamily="sans-serif-medium"
                 android:inputType="textEmailAddress"
                 android:maxLines="1"
-                android:textColor="@color/red_transparent" />
+                android:textColor="@color/purple_dark" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -99,7 +99,8 @@
                 android:backgroundTint="@color/black"
                 android:fontFamily="sans-serif-medium"
                 android:inputType="textPassword"
-                android:maxLines="1" />
+                android:maxLines="1"
+                android:textColor="@color/purple_dark" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
@@ -133,7 +134,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="70dp"
+            android:layout_marginTop="32dp"
             android:layout_marginBottom="24dp"
             android:background="@drawable/button_border_radious_8dp"
             android:fontFamily="sans-serif-medium"
@@ -143,7 +144,7 @@
             app:layout_constraintEnd_toEndOf="@+id/textInputLayout3"
             app:layout_constraintHorizontal_bias="0.625"
             app:layout_constraintStart_toEndOf="@+id/Login_btn_forgotp"
-            app:layout_constraintTop_toBottomOf="@+id/Login_signIn_btn"
+            app:layout_constraintTop_toBottomOf="@+id/signin_facebook_btn"
             app:strokeColor="#B8A8A8"
             tools:ignore="MissingConstraints" />
 
@@ -195,6 +196,17 @@
             app:layout_constraintStart_toEndOf="@+id/textView34"
             app:layout_constraintTop_toTopOf="@+id/textView34" />
 
+        <Button
+            android:id="@+id/signin_facebook_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/button_radious_8dp_blue"
+            android:text="  Sign in with facebook  "
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Login_signIn_btn" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
