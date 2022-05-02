@@ -6,6 +6,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.NavHost;
@@ -24,14 +25,15 @@ import android.widget.Toast;
 import com.example.anygift.R;
 import com.example.anygift.feed.MainActivity;
 import com.example.anygift.model.Model;
-import com.example.anygift.model.ModelFirebase;
-import com.example.anygift.model.User;
+
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
+import com.facebook.Profile;
+import com.facebook.ProfileTracker;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -59,6 +61,8 @@ public class LoginFragment extends Fragment {
     TextInputEditText email, password;
     String email_user, password_user;
 CallbackManager callbackManager;
+ProfileTracker profileTracker;
+    String userEmail,userName;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         setHasOptionsMenu(true);
@@ -92,10 +96,91 @@ CallbackManager callbackManager;
 //Facebook
         callbackManager = CallbackManager.Factory.create();
         facebook_btn=view.findViewById(R.id.signin_facebook_btn);
+        facebook_btn.setOnClickListener(v -> facebook_btn.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                AccessToken accessToken = loginResult.getAccessToken();
+                if(Profile.getCurrentProfile() == null) {
+
+
+                    profileTracker = new ProfileTracker() {
+                        @Override
+                        protected void onCurrentProfileChanged(Profile oldProfile, Profile currentProfile) {
+                            GraphRequest request = GraphRequest.newMeRequest(
+                                    accessToken,
+                                    new GraphRequest.GraphJSONObjectCallback() {
+                                        @Override
+                                        public void onCompleted(@Nullable JSONObject jsonObject, @Nullable GraphResponse graphResponse) {
+                                            try {
+                                                if (AccessToken.getCurrentAccessToken() == null) {
+
+                                                    return; // already logged out
+                                                }
+                                                 userEmail = jsonObject.getString("email");
+                                                  userName = jsonObject.getString("name");
+                                                Long id = jsonObject.getLong("id");
+                                                //oldProfile.getPictureUri()
+                                                String token = loginResult.getAccessToken().getToken();
+                                                String facebookToken = token;
+
+                                                //check if user already register
+
+                                              /* Modelauth.instance2.getUserByUserNameInSignIn(username2, new Modelauth.getUserByUserNameInSignIn() {
+                                                    @Override
+                                                    public void onComplete(User profile) {
+                                                        if (profile != null) {
+                                                            isCreated=false;
+                                                            Modelauth.instance2.Login(username2, "facebook", new Modelauth.loginListener() {
+                                                                @Override
+                                                                public void onComplete(int code) {
+                                                                    toFeedActivity();
+                                                                    Toast.makeText(getActivity(), "Welcome to Collab Me!", Toast.LENGTH_LONG).show();
+                                                                }
+                                                            });
+
+                                                            return;
+                                                        }
+
+
+                                                        else {
+//                                                            Navigation.findNavController(v).navigate(LoginFragmentDirections.actionGlobalSocialmedia(username2, "facebook", false,
+//                                                                    true, email, "age", gender, null, null, null,null));
+                                                            // handleSighUp();
+                                                            Navigation.findNavController(v).navigate(LoginFragmentDirections.actionGlobalSignupFragment2(username2,"facebook",email));
+                                                        }
+                                                    }
+                                                });
+*/
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                            }
+                                        }
+                                    });
+                            Bundle parameters = new Bundle();
+                            parameters.putString("fields", "id,name,email");
+                            request.setParameters(parameters);
+                            request.executeAsync();
+
+                        }
+                    };
+                    profileTracker.startTracking();
+                }
+
+            }
+
+            @Override
+            public void onCancel() {
+
+            }
+
+            @Override
+            public void onError(FacebookException e) {
+            }
+        }));
         //facebook_btn.registerCallback(callbackManager,this);
-        facebook_btn.setReadPermissions(Arrays.asList(
+       /*   facebook_btn.setReadPermissions(Arrays.asList(
                 "public_profile", "email", "user_birthday", "user_friends"));
-        facebook_btn.registerCallback(callbackManager, new FacebookCallback<LoginResult>(){
+      facebook_btn.registerCallback(callbackManager, new FacebookCallback<LoginResult>(){
             @Override
             public void onSuccess(LoginResult loginResult){
 
@@ -116,7 +201,10 @@ CallbackManager callbackManager;
             }
 
         });
+         */
+
         return view;
+
     }
     public void setButtons(Boolean b){
         signIn_btn.setEnabled(b);
@@ -194,7 +282,7 @@ CallbackManager callbackManager;
         menu.clear();
     }
 
-    protected void GraphLoginRequest(AccessToken accessToken){
+   /* protected void GraphLoginRequest(AccessToken accessToken){
         GraphRequest graphRequest = GraphRequest.newMeRequest(accessToken,
                 new GraphRequest.GraphJSONObjectCallback() {
                     @Override
@@ -213,5 +301,7 @@ CallbackManager callbackManager;
         Navigation.findNavController(view).navigate(R.id.signUpFragment, bundle);
 
     }
+
+    */
 }
 
