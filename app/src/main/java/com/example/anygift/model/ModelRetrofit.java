@@ -12,6 +12,7 @@ import com.example.anygift.Retrofit.Card;
 import com.example.anygift.Retrofit.CardTransaction;
 import com.example.anygift.Retrofit.CardType;
 import com.example.anygift.Retrofit.Category;
+import com.example.anygift.Retrofit.EmailExists;
 import com.example.anygift.Retrofit.Income;
 import com.example.anygift.Retrofit.Outcome;
 import com.example.anygift.Retrofit.RetrofitInterface;
@@ -638,6 +639,32 @@ public class ModelRetrofit {
 
             @Override
             public void onFailure(Call<CardTransaction> call, Throwable t) {
+                listener.onComplete(null, t.getMessage());
+                System.out.println("Very BAD");
+            }
+        });
+    }
+
+
+    public void checkIfEmailExists(String email, Model.booleanReturnListener listener) { //done
+        HashMap<String,Object> map = new HashMap<>();
+        map.put("email",email);
+        Call<EmailExists> call = retrofitInterface.getEmailExists(map);
+        call.enqueue(new Callback<EmailExists>() {
+            @Override
+            public void onResponse(Call<EmailExists> call, Response<EmailExists> response) {
+
+                if (response.code() == 200) {
+                    EmailExists ee = response.body();
+                    assert ee != null;
+                    listener.onComplete(ee.getEmail_exists(), "Email exists returned");
+                }else{
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<EmailExists> call, Throwable t) {
                 listener.onComplete(null, t.getMessage());
                 System.out.println("Very BAD");
             }

@@ -261,6 +261,10 @@ public class Model {
     }
 
 
+    public void checkIfEmailExists(String email, Model.booleanReturnListener listener){
+        modelRetrofit.checkIfEmailExists(email,listener);
+    }
+
     public void deleteCardRetrofit(String card_id, cardReturnListener listener) {
         HashMap<String, Object> map = new HashMap<>();
         map.put("isDeleted", true);

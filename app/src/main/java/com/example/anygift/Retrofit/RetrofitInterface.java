@@ -84,6 +84,10 @@ public interface RetrofitInterface {
     @GET("cardTransactions/{user_id}")
     Call<List<CardTransaction>> getCardsTransactions(@Path("user_id") String user_id, @Header("Authorization") String token);
 
+    @POST("users/email_check")
+    Call<EmailExists> getEmailExists(@Body HashMap<String,Object> map);
+
+
 //    @GET("cardTransactions/seller/{user_id}")
 //    Call<CardTransaction> getSellerCardsTransactions(@Path("user_id") String user_id, @Header("Authorization") String token);
 //
