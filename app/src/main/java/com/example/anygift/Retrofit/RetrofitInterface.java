@@ -66,9 +66,9 @@ public interface RetrofitInterface {
     @GET("cardTypes")
     Call<List<CardType>> getAllCardTypes(@Header("Authorization") String token);
 
-    @GET("coinTransactions/income/{id}") // WORKS!
+    @GET("cardTransactions/income/{id}") // WORKS!
     Call<Income> getUserIncome(@Path("id") String user_id, @Header("Authorization") String token);
-    @GET("coinTransactions/outcome/{id}") // WORKS!
+    @GET("cardTransactions/outcome/{id}") // WORKS!
     Call<Outcome> getUserOutcome(@Path("id") String user_id, @Header("Authorization") String token);
 
     @Multipart
@@ -79,7 +79,7 @@ public interface RetrofitInterface {
     Call<ResponseBody> downloadImage(@Path("imageName") String image_name);
 
     @POST("cardTransactions")
-    Call<CardTransaction> addCardTransaction(@Body HashMap<String,Object> map,@Header("Authorization") String token);
+    Call<ResponseBody> addCardTransaction(@Body HashMap<String,Object> map,@Header("Authorization") String token);
 
     @GET("cardTransactions/{user_id}")
     Call<List<CardTransaction>> getCardsTransactions(@Path("user_id") String user_id, @Header("Authorization") String token);

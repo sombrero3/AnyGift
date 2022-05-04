@@ -274,10 +274,6 @@ public class CardsDetailsFragment extends Fragment {
                             public void onComplete(String message) {
                                 System.out.println(message);
                                 addCardTransaction(sellerID, buyerID, cardId, coins);
-                               // Model.instance.setCurrentUser(user);
-                                pb.setVisibility(View.INVISIBLE);
-                                tryDialog.dismiss();
-                                Navigation.findNavController(view).navigate(R.id.action_global_myCardsFragment);
                             }
                         });
 
@@ -296,11 +292,15 @@ public class CardsDetailsFragment extends Fragment {
         map.put("buyer", buyerID);
         map.put("card", cardID);
         map.put("boughtFor", coins);
-        Model.instance.addCardTransaction(map, new Model.cardTransactionReturnListener() {
+        Model.instance.addCardTransaction(map, new Model.booleanReturnListener() {
             @Override
-            public void onComplete(CardTransaction cardTransaction, String message) {
+            public void onComplete(Boolean cardTransaction, String message) {
                 Toast.makeText(getContext(), "Enjoy your New GiftCard!", Toast.LENGTH_SHORT).show();
-                Navigation.findNavController(view).navigate(FeedFragmentDirections.actionGlobalMyCardsFragment());
+                // Model.instance.setCurrentUser(user);
+                pb.setVisibility(View.INVISIBLE);
+                tryDialog.dismiss();
+                Navigation.findNavController(view).navigate(R.id.action_global_myCardsFragment);
+
             }
         });
     }

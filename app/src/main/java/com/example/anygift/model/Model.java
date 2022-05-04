@@ -256,7 +256,7 @@ public class Model {
     }
 
 
-    public void addCardTransaction(HashMap<String,Object> map,cardTransactionReturnListener listener) {
+    public void addCardTransaction(HashMap<String,Object> map,booleanReturnListener listener) {
         modelRetrofit.addCardTransaction(map, listener);
     }
 

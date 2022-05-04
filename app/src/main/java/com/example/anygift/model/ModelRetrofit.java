@@ -261,6 +261,9 @@ public class ModelRetrofit {
             public void onResponse(Call<Outcome> call, Response<Outcome> response) {
                 if (response.code() == 200) {
                     Outcome outcome = response.body();
+                    System.out.println("HAHAHAHAHA");
+                    System.out.println(outcome);
+                    System.out.println("HAHAHAHAHA");
                     listener.onComplete(outcome);
 
                 } else if (response.code() == 400) {
@@ -618,27 +621,19 @@ public class ModelRetrofit {
     }
 
 
-    public void addCardTransaction(HashMap<String, Object> map, Model.cardTransactionReturnListener listener) { //done
+    public void addCardTransaction(HashMap<String, Object> map, Model.booleanReturnListener listener) { //done
         String token = getAccessToken();
-        Call<CardTransaction> call = retrofitInterface.addCardTransaction(map, token);
-        call.enqueue(new Callback<CardTransaction>() {
+        Call<ResponseBody> call = retrofitInterface.addCardTransaction(map, token);
+        call.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call<CardTransaction> call, Response<CardTransaction> response) {
-
-                if (response.code() == 200) {
-                    if (response.body() != null) {
-                        CardTransaction ct = response.body();
-                        listener.onComplete(ct, "All Good");
-                    }
-
-                } else if (response.code() == 400) {
-                    listener.onComplete(null, "this is bad");
-                    System.out.println("THIS IS BAD");
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    System.out.println("TESTTTTTTTTTTTTTTTTTTTTTTT");
+                    listener.onComplete(true, "All Good");
                 }
             }
-
             @Override
-            public void onFailure(Call<CardTransaction> call, Throwable t) {
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
                 listener.onComplete(null, t.getMessage());
                 System.out.println("Very BAD");
             }

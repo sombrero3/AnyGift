@@ -1,0 +1,20 @@
+[
+  {
+    "store": "azrieli",
+    "locations": [
+      {
+        "addresses": "",
+        "gps": "123131"
+      }
+    ]
+  },
+  {
+    "store": "shufersal",
+    "locations": [
+      {
+        "address": "",
+        "gps": "123131"
+      }
+    ]
+  }
+]

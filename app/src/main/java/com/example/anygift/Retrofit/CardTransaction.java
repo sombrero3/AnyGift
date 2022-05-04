@@ -4,9 +4,38 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class CardTransaction {
+    @SerializedName("id")
+    @Expose
+    private String id;
+
     @SerializedName("from")
     @Expose
     private String from;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public Boolean getSatisfied() {
+        return satisfied;
+    }
+
+    public void setSatisfied(Boolean satisfied) {
+        this.satisfied = satisfied;
+    }
+
+    public String getBuyerComment() {
+        return buyerComment;
+    }
+
+    public void setBuyerComment(String buyerComment) {
+        this.buyerComment = buyerComment;
+    }
+
     @SerializedName("to")
     @Expose
     private Double to;
@@ -19,7 +48,12 @@ public class CardTransaction {
     @SerializedName("date")
     @Expose
     private String date;
-
+    @SerializedName("satisfied")
+    @Expose
+    private Boolean satisfied;
+    @SerializedName("buyerComment")
+    @Expose
+    private String buyerComment;
 
     public String getFrom() {
         return from;
