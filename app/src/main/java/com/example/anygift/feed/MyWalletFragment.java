@@ -28,6 +28,7 @@ import com.example.anygift.R;
 import com.example.anygift.Retrofit.Card;
 import com.example.anygift.Retrofit.Income;
 import com.example.anygift.Retrofit.Outcome;
+import com.example.anygift.Retrofit.SellerRatings;
 import com.example.anygift.Retrofit.User;
 import com.example.anygift.adapters.CardsListAdapter;
 import com.example.anygift.model.Model;
@@ -177,6 +178,14 @@ public class MyWalletFragment extends Fragment {
                 if (outcome != null) {
                     numOfBought.setText(outcome.getTransactions().toString());
                     boughtInCoins.setText(outcome.getoutcome().toString());
+                    Model.instance.getSellerRatings(Model.instance.getSignedUser().getId(), new Model.sellerRatingsListener() {
+                        @Override
+                        public void onComplete(SellerRatings sr) {
+                            System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&7");
+                            System.out.println(sr);
+                            System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&7");
+                        }
+                    });
                 }
             }
         });

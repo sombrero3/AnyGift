@@ -18,6 +18,7 @@ import com.example.anygift.Retrofit.CardType;
 import com.example.anygift.Retrofit.Category;
 import com.example.anygift.Retrofit.Income;
 import com.example.anygift.Retrofit.Outcome;
+import com.example.anygift.Retrofit.SellerRatings;
 import com.example.anygift.Retrofit.UploadImageResult;
 
 import java.util.ArrayList;
@@ -115,6 +116,10 @@ public class Model {
         void onComplete(Outcome outcome);
     }
 
+    public interface sellerRatingsListener {
+        void onComplete(SellerRatings sr);
+    }
+
     public interface coinTransactionListener {
         void onComplete(String message);
     }
@@ -188,6 +193,17 @@ public class Model {
     public void getAllUserCards(cardsReturnListener listener) {
         modelRetrofit.getAllUserCards(listener);
     }
+
+
+    public void getSellerRatings(String user_id, sellerRatingsListener listener) {
+        modelRetrofit.getSellerRatings(user_id, listener);
+    }
+public void addReview(String card_trans_id, Boolean satisfied,String buyerComment,cardTransactionReturnListener l){
+        HashMap<String,Object> map = new HashMap<>();
+        map.put("buyerComment",buyerComment);
+        map.put("satisfied",satisfied);
+        modelRetrofit.addCardTransSatis(card_trans_id,map, l);
+}
 
     public void getAllFeedCardsForSale(cardsReturnListener listener) {
         modelRetrofit.getAllCards(new cardsReturnListener() {

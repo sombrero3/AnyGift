@@ -87,12 +87,11 @@ public interface RetrofitInterface {
     @POST("users/email_check")
     Call<EmailExists> getEmailExists(@Body HashMap<String,Object> map);
 
+    @PUT("cardTransactions/{trans_id}")
+    Call<CardTransaction> addCardTransSatis(@Path("trans_id") String trans_id,
+                                         @Body HashMap<String,Object> map,@Header("Authorization") String token);
 
-//    @GET("cardTransactions/seller/{user_id}")
-//    Call<CardTransaction> getSellerCardsTransactions(@Path("user_id") String user_id, @Header("Authorization") String token);
-//
-//    @GET("cardTransactions/buyer/{user_id}")
-//    Call<CardTransaction> getBuyerCardsTransactions(@Path("user_id") String user_id, @Header("Authorization") String token);
-
+    @GET("cardTransactions/sellerRatings/{user_id}")
+    Call<SellerRatings> getSellerRatings(@Path("user_id") String user_id, @Header("Authorization") String token);
 
 }

@@ -16,6 +16,7 @@ import com.example.anygift.Retrofit.EmailExists;
 import com.example.anygift.Retrofit.Income;
 import com.example.anygift.Retrofit.Outcome;
 import com.example.anygift.Retrofit.RetrofitInterface;
+import com.example.anygift.Retrofit.SellerRatings;
 import com.example.anygift.Retrofit.UploadImageResult;
 
 import java.io.IOException;
@@ -632,6 +633,7 @@ public class ModelRetrofit {
                     listener.onComplete(true, "All Good");
                 }
             }
+
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 listener.onComplete(null, t.getMessage());
@@ -642,8 +644,8 @@ public class ModelRetrofit {
 
 
     public void checkIfEmailExists(String email, Model.booleanReturnListener listener) { //done
-        HashMap<String,Object> map = new HashMap<>();
-        map.put("email",email);
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("email", email);
         Call<EmailExists> call = retrofitInterface.getEmailExists(map);
         call.enqueue(new Callback<EmailExists>() {
             @Override
@@ -653,8 +655,6 @@ public class ModelRetrofit {
                     EmailExists ee = response.body();
                     assert ee != null;
                     listener.onComplete(ee.getEmail_exists(), "Email exists returned");
-                }else{
-
                 }
             }
 
@@ -666,5 +666,41 @@ public class ModelRetrofit {
         });
     }
 
+    public void getSellerRatings(String user_id, Model.sellerRatingsListener listener){
+        Call<SellerRatings> call = retrofitInterface.getSellerRatings(user_id, getAccessToken());
+        call.enqueue(new Callback<SellerRatings>() {
+            @Override
+            public void onResponse(Call<SellerRatings> call, Response<SellerRatings> response) {
+
+                if (response.code() == 200) {
+                    SellerRatings ee = response.body();
+                    listener.onComplete(ee);
+                }
+            }
+            @Override
+            public void onFailure(Call<SellerRatings> call, Throwable t) {
+                listener.onComplete(null);
+                System.out.println("Very BAD");
+            }
+        });
+    }
+
+    public void addCardTransSatis(String card_trans_id,HashMap<String,Object> m, Model.cardTransactionReturnListener l){
+        Call<CardTransaction> call = retrofitInterface.addCardTransSatis(card_trans_id,m,getAccessToken());
+        call.enqueue(new Callback<CardTransaction>() {
+            @Override
+            public void onResponse(Call<CardTransaction> call, Response<CardTransaction> response) {
+                if (response.code() == 200){
+                    CardTransaction ct = response.body();
+                    l.onComplete(ct, "CardTransaction updated");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CardTransaction> call, Throwable t) {
+                l.onComplete(null,"Fail");
+            }
+        });
+    }
 
 }
