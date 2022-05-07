@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -37,8 +38,8 @@ public class CardsDetailsFragment extends Fragment {
     View view;
     //    UserViewModel userViewModel;
 
-    private TextView name, value, expTv, buyAt, typeTv, popUpTypeTv, popUpExpTv, popupValueTv, popUpPriceTv, emailTv, savingTv,askedPriceTv;
-    private Button mapBtn, editBtn, deleteBtn, buyBtn, popUpSaveBtn, popUpCancel,popUpStoreBtn;
+    private TextView name, value, expTv, buyAt, typeTv, popUpTypeTv, popUpExpTv, popupValueTv, popUpPriceTv, emailTv, savingTv, askedPriceTv, storesTv;
+    private Button mapBtn, editBtn, deleteBtn, buyBtn, popUpSaveBtn, popUpCancel, popUpStoreBtn;
 
     private ImageView userImage, giftCardImage, popUpCcardImage;
     Card card;
@@ -53,6 +54,7 @@ public class CardsDetailsFragment extends Fragment {
         // Inflate the layout for this fragment
 //        Testing testing = new Testing();
         //getActivity().setTitle("AnyGift - CardsDetails");
+        // card_details_stores_tv
         view = inflater.inflate(R.layout.fragment_cards_details, container, false);
         cardId = CardsDetailsFragmentArgs.fromBundle(getArguments()).getGiftCardId();
 
@@ -64,6 +66,7 @@ public class CardsDetailsFragment extends Fragment {
         value = view.findViewById(R.id.details_giftvalue_tv);
         mapBtn = view.findViewById(R.id.cardDetails_mapBtn);
         buyAt = view.findViewById(R.id.details_buyatval_tv);
+        storesTv = view.findViewById(R.id.card_details_stores_tv);
         deleteBtn = view.findViewById(R.id.details_delete_btn);
         editBtn = view.findViewById(R.id.details_edit_btn2);
         giftCardImage = view.findViewById(R.id.details_giftpic_iv);
@@ -79,7 +82,7 @@ public class CardsDetailsFragment extends Fragment {
                 card = c;
                 Model.instance.getUserRetrofit(card.getOwner(), new Model.userReturnListener() {
                     @Override
-                    public void onComplete(com.example.anygift.Retrofit.User user, String message) {
+                    public void onComplete(User user, String message) {
                         userId = user.getId();
                         value.setText(Double.toString(card.getValue()));
                         name.setText(user.getFirstName() + " " + user.getLastName());
@@ -91,6 +94,9 @@ public class CardsDetailsFragment extends Fragment {
                         for (CardType ct : Model.instance.cardTypes) {
                             if (ct.getId().equals(card.getCardType())) {
                                 typeTv.setText(ct.getName());
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                    storesTv.setText(String.join(", ", ct.getStores()));
+                                }
                             }
                         }
                         Model.instance.downloadImage(user.getProfilePicture().replace("/image/", ""),
@@ -192,7 +198,7 @@ public class CardsDetailsFragment extends Fragment {
         popupValueTv = tryDialog.findViewById(R.id.buy_card_popup_value_tv);
         popUpExpTv = tryDialog.findViewById(R.id.buy_card_popup_exp_tv);
         popUpTypeTv = tryDialog.findViewById(R.id.buy_card_popup_card_type_tv);
-        popUpStoreBtn =tryDialog.findViewById(R.id.buy_card_popup_coins_btn);
+        popUpStoreBtn = tryDialog.findViewById(R.id.buy_card_popup_coins_btn);
 
         setCardImage(popUpCcardImage);
         popUpPriceTv.setText(Double.toString(card.getCalculatedPrice()));
@@ -208,9 +214,9 @@ public class CardsDetailsFragment extends Fragment {
         //go get more coins
         popUpStoreBtn.setOnClickListener(v -> {
             Bundle args = new Bundle();
-            args.putString("cardId",cardId);
+            args.putString("cardId", cardId);
             tryDialog.dismiss();
-            Navigation.findNavController(view).navigate(R.id.action_global_shopFragment,args);
+            Navigation.findNavController(view).navigate(R.id.action_global_shopFragment, args);
         });
 
         //buy

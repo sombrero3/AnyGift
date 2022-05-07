@@ -182,7 +182,7 @@ public class ModelRetrofit {
                 if (response.code() == 200) {
                     if (response.body() != null) {
                         for (int i = 0; i < response.body().size(); i++) {
-                            CardType ct = new CardType(response.body().get(i).getName(), response.body().get(i).getCategories(), response.body().get(i).getId());
+                            CardType ct = new CardType(response.body().get(i).getName(), response.body().get(i).getCategories(),response.body().get(i).getStores(), response.body().get(i).getId());
                             list.add(ct);
                         }
                         listener.onComplete(list);

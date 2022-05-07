@@ -210,9 +210,10 @@ public void addReview(String card_trans_id, Boolean satisfied,String buyerCommen
             @Override
             public void onComplete(List<Card> cards, String message) {
                 String user_id = modelRetrofit.getUserId();
-                System.out.println("size before: " + cards.size());
-                List<Card> cs = cards.stream().filter(c -> c.getIsForSale() && !c.getOwner().equals(user_id)).collect(Collectors.toList());
-                System.out.println("size after: " + cards.size());
+                List<Card> cs = cards.stream().filter(c -> c.getIsForSale() &&
+                        !c.getOwner().equals(user_id) &&
+                                System.currentTimeMillis() / 1000 < c.getExpirationDate()
+                        ).collect(Collectors.toList());
                 listener.onComplete(cs, "Cards filtered");
             }
         });
@@ -346,7 +347,7 @@ public void addReview(String card_trans_id, Boolean satisfied,String buyerCommen
      */
     public void searchCards(int day,int month,int year,String price,String cardTypeId,cardsListener listener){
         List<Card> result = new ArrayList<>();
-        getAllCards(new Model.cardsReturnListener() {
+        getAllFeedCardsForSale(new Model.cardsReturnListener() {
             @Override
             public void onComplete(List<Card> cards, String message) {
                 Log.d("TAG", "maxPrice: "+price);

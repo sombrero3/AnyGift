@@ -8,13 +8,16 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class CardType {
-
     @SerializedName("name")
     @Expose
     private String name;
     @SerializedName("categories")
     @Expose
     private List<String> categories = null;
+
+    @SerializedName("stores")
+    @Expose
+    private List<String> stores = null;
     @SerializedName("id")
     @Expose
     private String id;
@@ -22,19 +25,19 @@ public class CardType {
     @Expose
     private Bitmap picture;
 
-    @Override
-    public String toString() {
-        return "CardType{" +
-                "name='" + name + '\'' +
-                ", categories=" + categories +
-                ", id='" + id + '\'' +
-                '}';
-    }
-
-    public CardType(String name, List<String> categories, String id) {
+    public CardType(String name, List<String> categories, List<String> stores,String id) {
         this.name = name;
         this.categories = categories;
+        this.stores = stores;
         this.id = id;
+    }
+
+    public List<String> getStores() {
+        return stores;
+    }
+
+    public void setStores(List<String> stores) {
+        this.stores = stores;
     }
 
     public Bitmap getPicture() {
@@ -68,5 +71,18 @@ public class CardType {
     public void setId(String id) {
         this.id = id;
     }
+
+
+    @Override
+    public String toString() {
+        return "CardType{" +
+                "name='" + name + '\'' +
+                ", categories=" + categories +
+                ", stores=" + stores +
+                ", id='" + id + '\'' +
+                ", picture=" + picture +
+                '}';
+    }
+
 
 }

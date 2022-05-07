@@ -219,7 +219,7 @@ public class FeedFragment extends Fragment {
     }
 
     private void setMostRecRv() {
-        Model.instance.getAllCards(new Model.cardsReturnListener() {
+        Model.instance.getAllFeedCardsForSale(new Model.cardsReturnListener() {
             @Override
             public void onComplete(List<Card> cards, String message) {
                 mosetRecCl.clear();
