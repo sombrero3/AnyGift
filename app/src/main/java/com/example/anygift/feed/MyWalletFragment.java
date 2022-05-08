@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,7 @@ import android.widget.TextView;
 import com.example.anygift.OnItemClickListener;
 import com.example.anygift.R;
 import com.example.anygift.Retrofit.Card;
+import com.example.anygift.Retrofit.CardTransaction;
 import com.example.anygift.Retrofit.Income;
 import com.example.anygift.Retrofit.Outcome;
 import com.example.anygift.Retrofit.SellerRatings;
@@ -128,6 +130,7 @@ public class MyWalletFragment extends Fragment {
     private void setUserUI() {
         com.example.anygift.Retrofit.User user = Model.instance.getSignedUser();
         System.out.println(user);
+
         userName.setText(user.getFirstName() + " " + user.getLastName());
         userEmail.setText(user.getEmail());
         userPhone.setText(user.getPhone());
@@ -181,9 +184,7 @@ public class MyWalletFragment extends Fragment {
                     Model.instance.getSellerRatings(Model.instance.getSignedUser().getId(), new Model.sellerRatingsListener() {
                         @Override
                         public void onComplete(SellerRatings sr) {
-                            System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&7");
                             System.out.println(sr);
-                            System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&7");
                         }
                     });
                 }

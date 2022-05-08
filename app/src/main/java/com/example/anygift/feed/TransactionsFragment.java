@@ -13,8 +13,10 @@ import android.view.ViewGroup;
 
 import com.example.anygift.OnItemClickListener;
 import com.example.anygift.R;
+import com.example.anygift.Retrofit.CardTransaction;
 import com.example.anygift.Retrofit.CoinTransaction;
 import com.example.anygift.adapters.TransactionsAdapter;
+import com.example.anygift.model.Model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,6 +60,14 @@ public class TransactionsFragment extends Fragment {
             }
         });
 
+        Model.instance.getCardsTransactionsRetrofit(new Model.cardsTransactionsReturnListener() {
+            @Override
+            public void onComplete(List<CardTransaction> cardTransaction, String message) {
+                System.out.println("######################");
+                System.out.println(cardTransaction);
+                System.out.println("######################");
+            }
+        });
 
         return view;
     }

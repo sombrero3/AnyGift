@@ -198,6 +198,7 @@ public class Model {
     public void getSellerRatings(String user_id, sellerRatingsListener listener) {
         modelRetrofit.getSellerRatings(user_id, listener);
     }
+
 public void addReview(String card_trans_id, Boolean satisfied,String buyerComment,cardTransactionReturnListener l){
         HashMap<String,Object> map = new HashMap<>();
         map.put("buyerComment",buyerComment);

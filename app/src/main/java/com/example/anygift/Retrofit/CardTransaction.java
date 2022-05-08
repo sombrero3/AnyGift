@@ -8,9 +8,9 @@ public class CardTransaction {
     @Expose
     private String id;
 
-    @SerializedName("from")
+    @SerializedName("seller")
     @Expose
-    private String from;
+    private String seller;
 
     public String getId() {
         return id;
@@ -36,12 +36,12 @@ public class CardTransaction {
         this.buyerComment = buyerComment;
     }
 
-    @SerializedName("to")
+    @SerializedName("buyer")
     @Expose
-    private Double to;
+    private String buyer;
     @SerializedName("card")
     @Expose
-    private Double card;
+    private String card;
     @SerializedName("boughtFor")
     @Expose
     private Double boughtFor;
@@ -55,27 +55,27 @@ public class CardTransaction {
     @Expose
     private String buyerComment;
 
-    public String getFrom() {
-        return from;
+    public String getSeller() {
+        return seller;
     }
 
-    public void setFrom(String from) {
-        this.from = from;
+    public void setSeller(String seller) {
+        this.seller = seller;
     }
 
-    public Double getTo() {
-        return to;
+    public String getBuyer() {
+        return buyer;
     }
 
-    public void setTo(Double to) {
-        this.to = to;
+    public void setBuyer(String buyer) {
+        this.buyer = buyer;
     }
 
-    public Double getCard() {
+    public String getCard() {
         return card;
     }
 
-    public void setCard(Double card) {
+    public void setCard(String card) {
         this.card = card;
     }
 
@@ -93,5 +93,19 @@ public class CardTransaction {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    @Override
+    public String toString() {
+        return "CardTransaction{" +
+                "id='" + id + '\'' +
+                ", seller='" + seller + '\'' +
+                ", buyer='" + buyer + '\'' +
+                ", card='" + card + '\'' +
+                ", boughtFor=" + boughtFor +
+                ", date='" + date + '\'' +
+                ", satisfied=" + satisfied +
+                ", buyerComment='" + buyerComment + '\'' +
+                '}';
     }
 }

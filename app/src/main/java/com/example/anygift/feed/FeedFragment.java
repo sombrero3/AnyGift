@@ -222,6 +222,12 @@ public class FeedFragment extends Fragment {
         Model.instance.getAllFeedCardsForSale(new Model.cardsReturnListener() {
             @Override
             public void onComplete(List<Card> cards, String message) {
+                cards.sort((c1, c2) -> {
+                    double c1value = Double.parseDouble(c1.getPrecentageSaved().replace("%", ""));
+                    double c2value = Double.parseDouble(c2.getPrecentageSaved().replace("%", ""));
+                    return Double.compare(c1value, c2value);
+                });
+
                 mosetRecCl.clear();
                 Calendar calendar = Calendar.getInstance();
                 int y = calendar.get(Calendar.YEAR);
