@@ -34,6 +34,7 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.Profile;
 import com.facebook.ProfileTracker;
+import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -99,6 +100,7 @@ ProfileTracker profileTracker;
 //Facebook
         callbackManager = CallbackManager.Factory.create();
         facebook_btn=view.findViewById(R.id.signin_facebook_btn);
+        LoginManager.getInstance().logOut();
         facebook_btn.setOnClickListener(v -> facebook_btn.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
