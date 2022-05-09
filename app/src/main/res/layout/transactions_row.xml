@@ -53,8 +53,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:text="Card Type:"
+                android:layout_marginTop="8dp"
+                android:text="Card Type : "
                 android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -87,8 +87,7 @@
                 android:layout_height="wrap_content"
                 android:text="TextView"
                 app:layout_constraintBaseline_toBaselineOf="@+id/textView64"
-                app:layout_constraintEnd_toEndOf="@+id/tran_row_to_tv"
-                app:layout_constraintStart_toStartOf="@+id/tran_row_to_tv" />
+                app:layout_constraintStart_toEndOf="@+id/textView64" />
 
             <TextView
                 android:id="@+id/tran_row_from_tv"
@@ -97,8 +96,7 @@
                 android:text="TextView"
                 android:textStyle="bold"
                 app:layout_constraintBaseline_toBaselineOf="@+id/textView65"
-                app:layout_constraintEnd_toEndOf="@+id/tran_row_to_tv"
-                app:layout_constraintStart_toStartOf="@+id/tran_row_to_tv" />
+                app:layout_constraintStart_toEndOf="@+id/textView65" />
 
             <TextView
                 android:id="@+id/tran_row_to_tv"
@@ -106,18 +104,20 @@
                 android:layout_height="wrap_content"
                 android:text="TextView"
                 app:layout_constraintBaseline_toBaselineOf="@+id/textView63"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toEndOf="@+id/textView63" />
 
             <ImageView
                 android:id="@+id/tran_row_type_iv"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginTop="32dp"
+                android:layout_width="100dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tran_row_date_tv"
                 app:srcCompat="@drawable/anygift_01" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

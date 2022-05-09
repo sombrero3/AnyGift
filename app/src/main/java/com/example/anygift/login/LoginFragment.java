@@ -96,10 +96,9 @@ public class LoginFragment extends Fragment {
                     Model.instance.setCardTypes(new Model.VoidListener() {
                         @Override
                         public void onComplete() {
-                            goToFeedActivity(user);
-                        }
+                                goToFeedActivity(user);
+                            }
                     });
-
                 }
         });
     }

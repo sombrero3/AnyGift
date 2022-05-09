@@ -214,10 +214,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="32dp"
         android:text="Choose card type :"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cards_list_user_name_tv" />
+        app:layout_constraintTop_toBottomOf="@+id/button" />
 
     <Spinner
         android:id="@+id/feed_card_type_spinner"
@@ -286,6 +286,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/feed_search_btn" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/button_border_radious_8dp_purpel_200"
+        android:text="Complete Verification"
+        android:textColor="@color/purple_dark"
+        app:layout_constraintEnd_toEndOf="@+id/cards_list_user_name_tv"
+        app:layout_constraintStart_toStartOf="@+id/cards_list_user_name_tv"
+        app:layout_constraintTop_toBottomOf="@+id/cards_list_user_name_tv" />
 </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

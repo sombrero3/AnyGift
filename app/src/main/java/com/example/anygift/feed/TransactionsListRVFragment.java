@@ -21,7 +21,7 @@ import com.example.anygift.model.Model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TransactionsFragment extends Fragment {
+public class TransactionsListRVFragment extends Fragment {
     RecyclerView rv;
     TransactionsAdapter adapter;
     List<CoinTransaction> tranList;
@@ -30,7 +30,7 @@ public class TransactionsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_transactions, container, false);
+        View view =  inflater.inflate(R.layout.fragment_transactions_list_rv, container, false);
 
 
         tranList = new ArrayList<>();
