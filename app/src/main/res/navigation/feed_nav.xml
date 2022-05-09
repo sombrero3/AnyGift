@@ -71,6 +71,19 @@
         android:id="@+id/transactionsFragment"
         android:name="com.example.anygift.feed.TransactionsListRVFragment"
         android:label="fragment_transactions"
-        tools:layout="@layout/fragment_transactions_list_rv" />
+        tools:layout="@layout/fragment_transactions_list_rv" >
+        <action
+            android:id="@+id/action_transactionsFragment_to_transactionDetailsFragment"
+            app:destination="@id/transactionDetailsFragment" />
+    </fragment>
     <action android:id="@+id/action_global_transactionsFragment" app:destination="@id/transactionsFragment" />
+    <fragment
+        android:id="@+id/transactionDetailsFragment"
+        android:name="com.example.anygift.feed.TransactionDetailsFragment"
+        android:label="fragment_transaction_details"
+        tools:layout="@layout/fragment_transaction_details" >
+        <argument
+            android:name="tranId"
+            app:argType="string" />
+    </fragment>
 </navigation>
