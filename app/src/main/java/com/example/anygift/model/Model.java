@@ -73,6 +73,11 @@ public class Model {
         void onComplete(List<CardTransaction> cardTransaction,String message);
     }
 
+    public interface cardsTransactionReturnListener {
+        void onComplete(CardTransaction cardTransaction,String message);
+    }
+
+
     public interface cardTransactionReturnListener {
         void onComplete(CardTransaction cardTransaction,String message);
     }
@@ -274,6 +279,11 @@ public void addReview(String card_trans_id, Boolean satisfied,String buyerCommen
     public void getCardsTransactionsRetrofit(cardsTransactionsReturnListener listener) {
         modelRetrofit.getAllUserCardsTransactions(listener);
     }
+
+    public void getCardsTransactionByTransactionIdRetrofit(String trans_id,cardsTransactionReturnListener listener) {
+        modelRetrofit.getCardTransactionByTransactionId(trans_id,listener);
+    }
+
 
 
     public void addCardTransaction(HashMap<String,Object> map,booleanReturnListener listener) {
