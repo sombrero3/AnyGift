@@ -189,7 +189,7 @@
             tools:ignore="TouchTargetSizeCheck" />
 
         <TextView
-            android:id="@+id/textView42"
+            android:id="@+id/tran_details_no_feedback_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -206,8 +206,8 @@
             android:layout_marginTop="8dp"
             android:text="Stores :"
             android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="@+id/textView42"
-            app:layout_constraintTop_toBottomOf="@+id/textView42" />
+            app:layout_constraintStart_toStartOf="@+id/tran_details_no_feedback_tv"
+            app:layout_constraintTop_toBottomOf="@+id/tran_details_no_feedback_tv" />
 
         <TextView
             android:id="@+id/card_details_type_tv"
@@ -217,10 +217,10 @@
             android:layout_marginEnd="16dp"
             android:text="TextView"
             android:textSize="18sp"
-            app:layout_constraintBaseline_toBaselineOf="@+id/textView42"
+            app:layout_constraintBaseline_toBaselineOf="@+id/tran_details_no_feedback_tv"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="@+id/textView42" />
+            app:layout_constraintStart_toEndOf="@+id/tran_details_no_feedback_tv" />
 
         <TextView
             android:id="@+id/card_details_stores_tv"
