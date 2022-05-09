@@ -134,7 +134,8 @@ ProfileTracker profileTracker;
                                                     public void onComplete(Boolean result, String message) {
                                                         //go to feed
                                                         if(result){
-                                                            //need to return the user
+                                                            email.setText(userEmail);
+                                                        Toast.makeText(getContext(),"Please enter your password",Toast.LENGTH_LONG).show();
                                                             //goToFeedActivity(user);
                                                         }
                                                         else{
