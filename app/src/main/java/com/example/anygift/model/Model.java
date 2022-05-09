@@ -49,6 +49,7 @@ public class Model {
         getAllCardTypes(new cardTypesReturnListener() {
             @Override
             public void onComplete(List<CardType> cts) {
+                cardTypes.clear();
                 for (CardType ct : cts) {
                     downloadImage(ct.getId() + ".jpeg", new byteArrayReturnListener() {
                         @Override

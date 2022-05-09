@@ -227,10 +227,9 @@ ProfileTracker profileTracker;
                     Model.instance.setCardTypes(new Model.VoidListener() {
                         @Override
                         public void onComplete() {
-                            goToFeedActivity(user);
-                        }
+                                goToFeedActivity(user);
+                            }
                     });
-
                 }
         });
     }
