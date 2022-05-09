@@ -11,6 +11,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -229,10 +230,20 @@ public class CardsDetailsFragment extends Fragment {
                 } else {
                     pb.setVisibility(View.VISIBLE);
                     String buyer = Model.instance.getSignedUser().getId();
+                    String buyerEmail = Model.instance.getSignedUser().getEmail();
                     String seller = card.getOwner();
-                    double coins = card.getCalculatedPrice();
-                    transactCard(seller, buyer, card.getId(), coins);
+                    Model.instance.getUserRetrofit(seller, new Model.userReturnListener() {
+                        @Override
+                        public void onComplete(User user, String message) {
+                            String sellerEmail = user.getEmail();
+                            double cardPrice = card.getCalculatedPrice();
+                            double cardValue = card.getValue();
+                            String cardType = card.getCardType();
+                            // sellerId, sellerEmail,buyerId,buyerEmail,CardId,CardTypeId,cardPrice,cardValue
+                            transactCard(seller, sellerEmail, buyer, buyerEmail, card.getId(), cardType, cardPrice, cardValue);
 
+                        }
+                    });
                 }
             }
         });
@@ -251,35 +262,37 @@ public class CardsDetailsFragment extends Fragment {
 
     }
 
-    public void transactCard(String fromID, String toID, String cardID, Double coins) {
+    // sellerId, sellerEmail,buyerId,buyerEmail,CardId,CardTypeId,cardPrice,cardValue
+    public void transactCard(String fromID, String fromEmail, String toID, String toEmail,
+                             String cardID, String cardTypeId, Double cardPrice, Double cardValue) {
         HashMap<String, Object> map = new HashMap<>();
         map.put("owner", toID);
         HashMap<String, Object> updateMap = Card.mapToUpdateCard(cardID, map); //update card owner.
         Model.instance.updateCardRetrofit(cardID, updateMap, new Model.cardReturnListener() {
             @Override
             public void onComplete(Card card, String message) {
-                transferCoins(fromID, toID, cardID, coins);
+                transferCoins(fromID, fromEmail, toID, toEmail, cardID, cardTypeId, cardPrice, cardValue);
             }
         });
 
     }
 
-    public void transferCoins(String sellerID, String buyerID, String cardId, Double coins) {
-        Model.instance.addCoinsToUser(buyerID, -coins, new Model.userReturnListener() {
+    public void transferCoins(String fromID, String fromEmail, String toID, String toEmail,
+                              String cardID, String cardTypeId, Double cardPrice, Double cardValue) {
+        Model.instance.addCoinsToUser(toID, -cardPrice, new Model.userReturnListener() {
             @Override
             public void onComplete(User user, String message) {
                 System.out.println(user);
-                Model.instance.addCoinsToUser(sellerID, coins, new Model.userReturnListener() {
+                Model.instance.addCoinsToUser(fromID, cardPrice, new Model.userReturnListener() {
                     @Override
                     public void onComplete(User user, String message) {
-                        System.out.println(user);
-
-                        HashMap<String, Object> map = com.example.anygift.Retrofit.CoinTransaction.mapToAddCoinTransaction(buyerID, sellerID, coins);
+                        HashMap<String, Object> map = com.example.anygift.Retrofit.CoinTransaction.mapToAddCoinTransaction(toID, fromID, cardPrice);
                         Model.instance.addCoinTransaction(map, new Model.coinTransactionListener() {
                             @Override
                             public void onComplete(String message) {
                                 System.out.println(message);
-                                addCardTransaction(sellerID, buyerID, cardId, coins);
+                                addCardTransaction(fromID, fromEmail, toID, toEmail,
+                                        cardID, cardTypeId, cardPrice, cardValue);
                             }
                         });
 
@@ -292,12 +305,17 @@ public class CardsDetailsFragment extends Fragment {
 
     }
 
-    public void addCardTransaction(String sellerID, String buyerID, String cardID, Double coins) {
+    public void addCardTransaction(String fromID, String fromEmail, String toID, String toEmail,
+                                   String cardID, String cardTypeId, Double cardPrice, Double cardValue) {
         HashMap<String, Object> map = new HashMap<>();
-        map.put("seller", sellerID);
-        map.put("buyer", buyerID);
+        map.put("seller", fromID);
+        map.put("sellerEmail", fromEmail);
+        map.put("buyer", toID);
+        map.put("buyerEmail", toEmail);
         map.put("card", cardID);
-        map.put("boughtFor", coins);
+        map.put("boughtFor", cardPrice);
+        map.put("cardValue", cardValue);
+        map.put("cardType", cardTypeId);
         Model.instance.addCardTransaction(map, new Model.booleanReturnListener() {
             @Override
             public void onComplete(Boolean cardTransaction, String message) {
@@ -306,7 +324,6 @@ public class CardsDetailsFragment extends Fragment {
                 pb.setVisibility(View.INVISIBLE);
                 tryDialog.dismiss();
                 Navigation.findNavController(view).navigate(R.id.action_global_myCardsFragment);
-
             }
         });
     }
