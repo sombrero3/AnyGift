@@ -212,7 +212,7 @@ public class Model {
             public void onComplete(List<Card> cards, String message) {
                 System.out.println(message);
                 System.out.println(cards);
-                Model.instance.modelRetrofit.getAllCardTypes(new Model.cardTypesReturnListener() {
+       /*         Model.instance.modelRetrofit.getAllCardTypes(new Model.cardTypesReturnListener() {
                     @Override
                     public void onComplete(List<CardType> cts) {
                         if (cts != null) {
@@ -234,6 +234,7 @@ public class Model {
                         }
                     }
                 });
+           */
             }
         });
     }

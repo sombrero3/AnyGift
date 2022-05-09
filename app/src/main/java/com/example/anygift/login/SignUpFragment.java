@@ -113,7 +113,10 @@ public class SignUpFragment extends Fragment {
             Navigation.findNavController(v).navigate(SignUpFragmentDirections.actionSignUpFragmentToLoginFragment());
         });
 
-
+        String userEmail=getArguments().getString("userEmail");
+        if(userEmail!=null){
+            email.setText(userEmail);
+        }
         return view;
     }
 

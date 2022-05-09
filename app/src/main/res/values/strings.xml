@@ -80,4 +80,7 @@
         <item>2027</item>
         <item>2028</item>
     </string-array>
+    <string name="facebook_app_id">391616272595263</string>
+    <string name="fb_login_protocol_scheme">fb1234</string>
+    <string name="facebook_client_token">bfde300cdbe4a11ac7cfce31b4208f46</string>
 </resources>
