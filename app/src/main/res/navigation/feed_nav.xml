@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/feedFragment">
+
+    <fragment
+        android:id="@+id/myCardsFragment"
+        android:name="com.example.anygift.feed.MyWalletFragment"
+        tools:layout="@layout/fragment_my_cards">
+        <action
+            android:id="@+id/action_myCardsFragment_to_cardsDetailsFragment"
+            app:destination="@id/cardsDetailsFragment" />
+        <action
+            android:id="@+id/action_myCardsFragment_to_editProfileFragment"
+            app:destination="@id/editProfileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addCardFragment"
+        android:name="com.example.anygift.feed.AddCardFragment"
+        tools:layout="@layout/fragment_add_card" />
+    <fragment
+        android:id="@+id/feedFragment"
+        android:name="com.example.anygift.feed.FeedFragment"
+        tools:layout="@layout/fragment_feed">
+        <action
+            android:id="@+id/action_feedFragment_to_cardsDetailsFragment"
+            app:destination="@id/cardsDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/cardsDetailsFragment"
+        android:name="com.example.anygift.feed.CardsDetailsFragment"
+        tools:layout="@layout/fragment_cards_details">
+        <argument
+            android:name="giftCardId"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_cardsDetailsFragment_to_editCardsDetailsFragment"
+            app:destination="@id/editCardDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editCardDetailsFragment"
+        android:name="com.example.anygift.feed.EditCardDetailsFragment"
+        android:label="AG"
+        tools:layout="@layout/fragment_edit_card_details">
+        <argument
+            android:name="giftCardId"
+            app:argType="string" />
+    </fragment>
+    <action android:id="@+id/action_global_cardsDetailsFragment" app:destination="@id/cardsDetailsFragment"/>
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.example.anygift.feed.EditProfileFragment"
+        tools:layout="@layout/fragment_edit_profile"/>
+    <action android:id="@+id/action_global_addCardFragment" app:destination="@id/addCardFragment"/><action android:id="@+id/action_global_feedFragment" app:destination="@id/feedFragment"/><action android:id="@+id/action_global_myCardsFragment" app:destination="@id/myCardsFragment"/>
+    <fragment
+        android:id="@+id/shopFragment"
+        android:name="com.example.anygift.feed.ShopFragment" >
+        <argument
+            android:name="cardId"
+            app:argType="string" />
+    </fragment>
+    <action android:id="@+id/action_global_shopFragment" app:destination="@id/shopFragment" />
+    <fragment
+        android:id="@+id/searchGiftCardFragment"
+        android:name="com.example.anygift.feed.SearchGiftCardFragment"
+        android:label="fragment_search_gift_card"
+        tools:layout="@layout/fragment_search_gift_card" /><action android:id="@+id/action_global_searchGiftCardFragment" app:destination="@id/searchGiftCardFragment"/>
+    <fragment
+        android:id="@+id/transactionsFragment"
+        android:name="com.example.anygift.feed.TransactionsFragment"
+        android:label="fragment_transactions"
+        tools:layout="@layout/fragment_transactions" />
+    <action android:id="@+id/action_global_transactionsFragment" app:destination="@id/transactionsFragment" />
+</navigation>
