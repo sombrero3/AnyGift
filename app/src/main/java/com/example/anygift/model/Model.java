@@ -230,7 +230,7 @@ public void addReview(String card_trans_id, Boolean satisfied,String buyerCommen
             public void onComplete(List<Card> cards, String message) {
                 System.out.println(message);
                 System.out.println(cards);
-                Model.instance.modelRetrofit.getAllCardTypes(new Model.cardTypesReturnListener() {
+       /*         Model.instance.modelRetrofit.getAllCardTypes(new Model.cardTypesReturnListener() {
                     @Override
                     public void onComplete(List<CardType> cts) {
                         if (cts != null) {
@@ -252,6 +252,7 @@ public void addReview(String card_trans_id, Boolean satisfied,String buyerCommen
                         }
                     }
                 });
+           */
             }
         });
     }
