@@ -46,7 +46,7 @@
         android:id="@+id/textView68"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="24dp"
         android:text="Buyer Review : "
         app:layout_constraintStart_toStartOf="@+id/textView67"
         app:layout_constraintTop_toBottomOf="@+id/textView75" />
@@ -55,11 +55,10 @@
         android:id="@+id/textView69"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:text="Card Type : "
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="@+id/textView76"
+        app:layout_constraintTop_toBottomOf="@+id/textView76" />
 
     <TextView
         android:id="@+id/textView71"
@@ -74,10 +73,10 @@
         android:id="@+id/textView72"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="8dp"
         android:text="Date of deal : "
         app:layout_constraintStart_toStartOf="@+id/textView71"
-        app:layout_constraintTop_toBottomOf="@+id/textView73" />
+        app:layout_constraintTop_toBottomOf="@+id/textView766" />
 
     <TextView
         android:id="@+id/textView73"
@@ -156,10 +155,13 @@
 
     <TextView
         android:id="@+id/trans_details_review_tv"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="16dp"
         android:text="TextView"
         app:layout_constraintBaseline_toBaselineOf="@+id/textView68"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView68" />
 
     <TextView
@@ -175,7 +177,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="32dp"
         android:text="Feedback"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -199,7 +201,7 @@
         android:layout_marginTop="8dp"
         android:text="Sutisfied : "
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView85" />
+        app:layout_constraintTop_toBottomOf="@+id/trans_details_nofeedback_tv" />
 
     <Button
         android:id="@+id/tran_details_add_feedback_btn"
@@ -211,15 +213,14 @@
         android:textColor="@color/purple_dark"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView68" />
+        app:layout_constraintTop_toBottomOf="@+id/trans_details_review_tv" />
 
     <TextView
-        android:id="@+id/textView42"
+        android:id="@+id/trans_details_nofeedback_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="No Feedback Yet"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/textView85"
         app:layout_constraintTop_toBottomOf="@+id/textView85" />
 
@@ -232,4 +233,97 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/trans_details_like_iv"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="-4dp"
+        android:src="@drawable/like_icon_1"
+        app:layout_constraintBottom_toBottomOf="@+id/textView75"
+        app:layout_constraintStart_toEndOf="@+id/textView75" />
+
+    <ImageView
+        android:id="@+id/trans_details_unlike_iv"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginBottom="-6dp"
+        android:src="@drawable/unlike_icon_1"
+        app:layout_constraintBottom_toBottomOf="@+id/trans_details_like_iv"
+        app:layout_constraintStart_toEndOf="@+id/trans_details_like_iv" />
+
+    <ImageView
+        android:id="@+id/trans_details_vi_like_iv"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_marginEnd="-2dp"
+        android:layout_marginBottom="-2dp"
+        android:src="@drawable/vi_icon"
+        app:layout_constraintBottom_toBottomOf="@+id/trans_details_like_iv"
+        app:layout_constraintEnd_toEndOf="@+id/trans_details_like_iv" />
+
+    <ImageView
+        android:id="@+id/trans_details_vi_unlike_iv"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_marginBottom="4dp"
+        android:src="@drawable/vi_icon"
+        app:layout_constraintBottom_toBottomOf="@+id/trans_details_unlike_iv"
+        app:layout_constraintEnd_toEndOf="@+id/trans_details_unlike_iv" />
+
+    <TextView
+        android:id="@+id/textView76"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Card details"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <View
+        android:id="@+id/card_details_line"
+        style="@style/line"
+        android:background="@color/grey_1"
+        android:layout_width="0dp"
+        android:layout_marginTop="-2dp"
+        app:layout_constraintEnd_toEndOf="@+id/textView76"
+        app:layout_constraintStart_toStartOf="@+id/textView76"
+        app:layout_constraintTop_toBottomOf="@+id/textView76" />
+
+    <TextView
+        android:id="@+id/textView766"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Transaction details"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/textView73"
+        app:layout_constraintTop_toBottomOf="@+id/textView73" />
+    <View
+        android:id="@+id/tran_details_line"
+        style="@style/line"
+        android:background="@color/grey_1"
+        android:layout_width="0dp"
+        android:layout_marginTop="-2dp"
+        app:layout_constraintEnd_toEndOf="@+id/textView766"
+        app:layout_constraintStart_toStartOf="@+id/textView766"
+        app:layout_constraintTop_toBottomOf="@+id/textView766" />
+
+    <EditText
+        android:id="@+id/trans_details_review_et"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="16dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name"
+        app:layout_constraintBaseline_toBaselineOf="@+id/textView68"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView68" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
