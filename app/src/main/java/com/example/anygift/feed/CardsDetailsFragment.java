@@ -80,6 +80,7 @@ public class CardsDetailsFragment extends Fragment {
         Model.instance.getCardRetrofit(cardId, new Model.cardReturnListener() {
             @Override
             public void onComplete(Card c, String message) {
+                card = new Card();
                 card = c;
                 Model.instance.getUserRetrofit(card.getOwner(), new Model.userReturnListener() {
                     @Override

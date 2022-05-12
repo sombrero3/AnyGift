@@ -16,16 +16,16 @@
                 -->
 
     <TextView
-        android:id="@+id/textView58"
+        android:id="@+id/tran_details_buyer_title_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="Buyer : "
-        app:layout_constraintStart_toStartOf="@+id/textView66"
-        app:layout_constraintTop_toBottomOf="@+id/textView66" />
+        app:layout_constraintStart_toStartOf="@+id/tran_details_seller_title_tv"
+        app:layout_constraintTop_toBottomOf="@+id/tran_details_seller_title_tv" />
 
     <TextView
-        android:id="@+id/textView66"
+        android:id="@+id/tran_details_seller_title_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -39,27 +39,26 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="Cost : "
-        app:layout_constraintStart_toStartOf="@+id/textView58"
+        app:layout_constraintStart_toStartOf="@+id/tran_details_buyer_title_tv"
         app:layout_constraintTop_toBottomOf="@+id/textView74" />
 
     <TextView
-        android:id="@+id/textView68"
+        android:id="@+id/tran_details_review_title_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="32dp"
         android:text="Buyer Review : "
         app:layout_constraintStart_toStartOf="@+id/textView67"
-        app:layout_constraintTop_toBottomOf="@+id/textView85" />
+        app:layout_constraintTop_toBottomOf="@+id/tran_details_satisfied_title_tv" />
 
     <TextView
         android:id="@+id/textView69"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:text="Card Type : "
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="@+id/textView76"
+        app:layout_constraintTop_toBottomOf="@+id/textView76" />
 
     <TextView
         android:id="@+id/textView71"
@@ -74,10 +73,10 @@
         android:id="@+id/textView72"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="8dp"
         android:text="Date of deal : "
         app:layout_constraintStart_toStartOf="@+id/textView71"
-        app:layout_constraintTop_toBottomOf="@+id/textView73" />
+        app:layout_constraintTop_toBottomOf="@+id/textView766" />
 
     <TextView
         android:id="@+id/textView73"
@@ -96,7 +95,7 @@
         android:layout_marginTop="8dp"
         android:text="Card Value At Deal Day : "
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView58" />
+        app:layout_constraintTop_toBottomOf="@+id/tran_details_buyer_title_tv" />
 
     <TextView
         android:id="@+id/trans_details_number_tv"
@@ -127,16 +126,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
-        app:layout_constraintBaseline_toBaselineOf="@+id/textView66"
-        app:layout_constraintStart_toEndOf="@+id/textView66" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/tran_details_seller_title_tv"
+        app:layout_constraintStart_toEndOf="@+id/tran_details_seller_title_tv" />
 
     <TextView
-        android:id="@+id/trans_details_owner_tv"
+        android:id="@+id/trans_details_buyer_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
-        app:layout_constraintBaseline_toBaselineOf="@+id/textView58"
-        app:layout_constraintStart_toEndOf="@+id/textView58" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/tran_details_buyer_title_tv"
+        app:layout_constraintStart_toEndOf="@+id/tran_details_buyer_title_tv" />
 
     <TextView
         android:id="@+id/trans_details_value_deal_day_tv"
@@ -156,11 +155,15 @@
 
     <TextView
         android:id="@+id/trans_details_review_tv"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="16dp"
         android:text="TextView"
-        app:layout_constraintBaseline_toBaselineOf="@+id/textView68"
-        app:layout_constraintStart_toEndOf="@+id/textView68" />
+        android:visibility="invisible"
+        app:layout_constraintBaseline_toBaselineOf="@+id/tran_details_review_title_tv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tran_details_review_title_tv" />
 
     <TextView
         android:id="@+id/trans_details_type_tv"
@@ -175,7 +178,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="32dp"
         android:text="Feedback"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -184,10 +187,161 @@
     <View
         android:id="@+id/feedback_line"
         style="@style/line"
-        android:background="@color/grey_1"
         android:layout_width="0dp"
         android:layout_marginTop="-2dp"
+        android:background="@color/grey_1"
         app:layout_constraintEnd_toEndOf="@+id/textView85"
         app:layout_constraintStart_toStartOf="@+id/textView85"
         app:layout_constraintTop_toBottomOf="@+id/textView85" />
+
+    <TextView
+        android:id="@+id/tran_details_satisfied_title_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="Sutisfied : "
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/trans_details_nofeedback_tv" />
+
+    <Button
+        android:id="@+id/tran_details_add_feedback_btn"
+        android:layout_width="150dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/button_border_radious_8dp_purpel_200"
+        android:text=" Post Feedback "
+        android:textColor="@color/purple_dark"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/trans_details_review_tv" />
+
+    <TextView
+        android:id="@+id/trans_details_nofeedback_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="No Feedback Yet"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="@+id/textView85"
+        app:layout_constraintTop_toBottomOf="@+id/textView85" />
+
+    <ProgressBar
+        android:id="@+id/tran_details_pb"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/trans_details_like_iv"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="-4dp"
+        android:src="@drawable/like_icon_1"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/tran_details_satisfied_title_tv"
+        app:layout_constraintStart_toEndOf="@+id/tran_details_satisfied_title_tv" />
+
+    <ImageView
+        android:id="@+id/trans_details_unlike_iv"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginBottom="-6dp"
+        android:src="@drawable/unlike_icon_1"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/trans_details_like_iv"
+        app:layout_constraintStart_toEndOf="@+id/trans_details_like_iv" />
+
+    <ImageView
+        android:id="@+id/trans_details_vi_like_iv"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_marginEnd="-2dp"
+        android:layout_marginBottom="-2dp"
+        android:visibility="invisible"
+        android:src="@drawable/vi_icon"
+        app:layout_constraintBottom_toBottomOf="@+id/trans_details_like_iv"
+        app:layout_constraintEnd_toEndOf="@+id/trans_details_like_iv" />
+
+    <ImageView
+        android:id="@+id/trans_details_vi_unlike_iv"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_marginBottom="4dp"
+        android:src="@drawable/vi_icon"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/trans_details_unlike_iv"
+        app:layout_constraintEnd_toEndOf="@+id/trans_details_unlike_iv" />
+
+    <TextView
+        android:id="@+id/textView76"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Card details"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/card_details_line"
+        style="@style/line"
+        android:layout_width="0dp"
+        android:layout_marginTop="-2dp"
+        android:background="@color/grey_1"
+        app:layout_constraintEnd_toEndOf="@+id/textView76"
+        app:layout_constraintStart_toStartOf="@+id/textView76"
+        app:layout_constraintTop_toBottomOf="@+id/textView76" />
+
+    <TextView
+        android:id="@+id/textView766"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Transaction details"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/textView73"
+        app:layout_constraintTop_toBottomOf="@+id/textView73" />
+
+    <View
+        android:id="@+id/tran_details_line"
+        style="@style/line"
+        android:layout_width="0dp"
+        android:layout_marginTop="-2dp"
+        android:background="@color/grey_1"
+        app:layout_constraintEnd_toEndOf="@+id/textView766"
+        app:layout_constraintStart_toStartOf="@+id/textView766"
+        app:layout_constraintTop_toBottomOf="@+id/textView766" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout029"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="16dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/tran_details_review_title_tv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tran_details_review_title_tv"
+        app:layout_constraintTop_toTopOf="@+id/tran_details_review_title_tv">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/trans_details_review_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:height="30dp"
+            android:fontFamily="sans-serif-medium"
+            android:hint="Enter your feedback here"
+            tools:ignore="TouchTargetSizeCheck" />
+    </com.google.android.material.textfield.TextInputLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -9,22 +9,25 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.anygift.OnItemClickListener;
 import com.example.anygift.R;
+import com.example.anygift.Retrofit.CardTransaction;
 import com.example.anygift.Retrofit.CardType;
-import com.example.anygift.Retrofit.CoinTransaction;
 import com.example.anygift.model.Model;
 
 
 public class TransactionsViewHolder extends RecyclerView.ViewHolder{
-    TextView dateTv,amountTv,fromTv,toTv;
-    ImageView typeIv;
+    TextView dateTv, numOfCoinsPayedTv,typeNameTv,otherTv,titleOtherTv,noFeedbackTv;
+    ImageView typeIv,likeIv,unlikeIv;
     public TransactionsViewHolder(@NonNull View itemView, OnItemClickListener listener) {
         super(itemView);
         dateTv = itemView.findViewById(R.id.tran_row_date_tv);
-        amountTv = itemView.findViewById(R.id.tran_row_amount_tv);
-        fromTv = itemView.findViewById(R.id.tran_row_from_tv);
-        toTv = itemView.findViewById(R.id.tran_row_to_tv);
+        numOfCoinsPayedTv = itemView.findViewById(R.id.tran_row_gcoins_cost_tv);
+        typeNameTv = itemView.findViewById(R.id.tran_row_type_name_tv);
+        otherTv = itemView.findViewById(R.id.tran_row_other_tv);
         typeIv = itemView.findViewById(R.id.tran_row_type_iv);
-
+        titleOtherTv= itemView.findViewById(R.id.tran_row_title_other_tv);
+        likeIv = itemView.findViewById(R.id.tran_row_like_iv);
+        unlikeIv = itemView.findViewById(R.id.tran_row_unlike_iv);
+        noFeedbackTv = itemView.findViewById(R.id.tran_row_nofeedback_tv);
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -33,14 +36,35 @@ public class TransactionsViewHolder extends RecyclerView.ViewHolder{
             }
         });
     }
-    public void bind(CoinTransaction tran) {
-        dateTv.setText(tran.getDate());
-        amountTv.setText(tran.getAmount().toString());
-        fromTv.setText(tran.getFrom());
-        toTv.setText(tran.getTo().toString());
+    public void bind(CardTransaction tran) {
+        dateTv.setText(tran.getDate().split("T")[0]);
+        numOfCoinsPayedTv.setText(tran.getBoughtFor().toString());
 
-//        for(CardType ct: Model.instance.cardTypes){
-//            if(ct.getId().e)
-//        }
+        if(tran.getBuyer().equals(Model.instance.getSignedUser().getId())){
+            otherTv.setText(tran.getSellerEmail());
+            titleOtherTv.setText("Bought From : ");
+        }else if(tran.getSeller().equals(Model.instance.getSignedUser().getId())){
+            otherTv.setText(tran.getBuyerEmail());
+            titleOtherTv.setText("Sold To : ");
+        }else{
+            otherTv.setText("ERROR!! That shouldn't be here!!");
+        }
+
+        for(CardType ct: Model.instance.cardTypes){
+            if(ct.getId().equals(tran.getCardType())){
+                typeNameTv.setText(ct.getName());
+                typeIv.setImageBitmap(ct.getPicture());
+            }
+        }
+
+        if(tran.getSatisfied()!=null) {
+            if (tran.getSatisfied()) {
+                likeIv.setVisibility(View.VISIBLE);
+            } else if (!tran.getSatisfied()) {
+                unlikeIv.setVisibility(View.VISIBLE);
+            }
+        }else{
+            noFeedbackTv.setVisibility(View.VISIBLE);
+        }
     }
 }
