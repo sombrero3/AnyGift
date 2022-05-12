@@ -23,7 +23,7 @@ import com.example.anygift.model.Utils;
 
 
 public class TransactionDetailsFragment extends Fragment {
-    TextView typeTv,numTv,expTv,dealDateTv,sellerTv,buyerTv,costTv,valueAtDealDateTv,reviewTv,noFeedbackTv;
+    TextView typeTv,numTv,expTv,dealDateTv,sellerTv,sellerTitleTv,buyerTitleTv,buyerTv,costTv,valueAtDealDateTv,reviewTv,noFeedbackTv;
     EditText reviewEt;
     String tranId;
     CardTransaction transaction;
@@ -38,39 +38,18 @@ public class TransactionDetailsFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_transaction_details, container, false);
         tranId = TransactionDetailsFragmentArgs.fromBundle(getArguments()).getTranId();
-
-        pb = view.findViewById(R.id.tran_details_pb);
-        pb.setVisibility(View.VISIBLE);
-
-        typeTv = view.findViewById(R.id.trans_details_type_tv);
-        numTv = view.findViewById(R.id.trans_details_number_tv);
-        expTv = view.findViewById(R.id.trans_details_exp_date_tv);
-        dealDateTv = view.findViewById(R.id.trans_details_tran_date_tv);
-        sellerTv = view.findViewById(R.id.trans_details_seller_tv);
-        buyerTv = view.findViewById(R.id.trans_details_buyer_tv);
-        costTv = view.findViewById(R.id.trans_details_cost_tv);
-        valueAtDealDateTv = view.findViewById(R.id.trans_details_value_deal_day_tv);
-        reviewTv = view.findViewById(R.id.trans_details_review_tv);
-        reviewEt = view.findViewById(R.id.trans_details_review_et);
-        noFeedbackTv = view.findViewById(R.id.trans_details_nofeedback_tv);
-        likeIv = view.findViewById(R.id.trans_details_like_iv);
-        unlikeIv = view.findViewById(R.id.trans_details_unlike_iv);
-        likeClickedIv = view.findViewById(R.id.trans_details_vi_like_iv);
-        unlikeClickedIv = view.findViewById(R.id.trans_details_vi_unlike_iv);
-        addFeedbackBtn = view.findViewById(R.id.tran_details_add_feedback_btn);
-
+        getUIReferences(view);
         getData();
 
         return view;
     }
-
     private void getData() {
         Model.instance.getCardsTransactionByTransactionIdRetrofit(tranId, new Model.cardsTransactionReturnListener() {
             @Override
             public void onComplete(CardTransaction cardTransaction, String message) {
                 transaction = new CardTransaction();
                 transaction = cardTransaction;
-                Model.instance.getCardRetrofit(cardTransaction.getCard(), new Model.cardReturnListener() {
+                Model.instance.getCardRetrofit(transaction.getCard(), new Model.cardReturnListener() {
                     @Override
                     public void onComplete(Card c, String message) {
                         card=new Card();
@@ -83,6 +62,7 @@ public class TransactionDetailsFragment extends Fragment {
     }
 
     private void setUI() {
+        //card details
         for(CardType ct:Model.instance.cardTypes){
             if(ct.getId().equals(transaction.getCardType())){
                 typeTv.setText(ct.getName());
@@ -92,31 +72,28 @@ public class TransactionDetailsFragment extends Fragment {
         numTv.setText(card.getCardNumber());
         expTv.setText(Utils.ConvertLongToDate(card.getExpirationDate()));
 
+        //transaction details
         costTv.setText(transaction.getBoughtFor().toString());
         valueAtDealDateTv.setText(transaction.getCardValue().toString());
-        dealDateTv.setText(transaction.getDate());
+        dealDateTv.setText(transaction.getDate().split("T")[0]);
         unlikeClickedIv.setVisibility(View.GONE);
-        //satisfied and review
+        //satisfied and review, seller and buyer titles
         if(transaction.getSeller().equals(Model.instance.getSignedUser().getId())){
             //I'm the seller
             buyerTv.setText(transaction.getBuyerEmail());
             sellerTv.setVisibility(View.GONE);
-            reviewEt.setVisibility(View.GONE);
+            sellerTitleTv.setVisibility(View.INVISIBLE);
             addFeedbackBtn.setEnabled(false);
-            addFeedbackBtn.setVisibility(View.GONE);
 
             if(transaction.getSatisfied()==null){
-                likeIv.setVisibility(View.GONE);
-                unlikeIv.setVisibility(View.GONE);
-                likeClickedIv.setVisibility(View.GONE);
-                reviewTv.setVisibility(View.GONE);
+                noFeedbackTv.setVisibility(View.VISIBLE);
             }else{
-                likeClickedIv.setVisibility(View.GONE);
+                reviewTv.setVisibility(View.VISIBLE);
                 reviewTv.setText(transaction.getBuyerComment());
                 if(transaction.getSatisfied()){
-                    unlikeIv.setVisibility(View.GONE);
+                    likeIv.setVisibility(View.VISIBLE);
                 }else{
-                    likeIv.setVisibility(View.GONE);
+                    unlikeIv.setVisibility(View.VISIBLE);
                 }
             }
 
@@ -124,24 +101,23 @@ public class TransactionDetailsFragment extends Fragment {
             //I'm the buyer
             sellerTv.setText(transaction.getSellerEmail());
             buyerTv.setVisibility(View.GONE);
+            buyerTitleTv.setVisibility(View.GONE);
 
             if(transaction.getSatisfied()==null){
-
-                reviewTv.setVisibility(View.GONE);
+                likeIv.setVisibility(View.VISIBLE);
+                likeClickedIv.setVisibility(View.VISIBLE);
+                unlikeIv.setVisibility(View.VISIBLE);
+                reviewEt.setVisibility(View.VISIBLE);
                 addFeedbackBtn.setOnClickListener(view -> postFeedback());
                 setLikeSystem();
 
             }else{
-                likeClickedIv.setVisibility(View.GONE);
+                reviewTv.setVisibility(View.VISIBLE);
                 reviewTv.setText(transaction.getBuyerComment());
-                reviewEt.setVisibility(View.GONE);
-                addFeedbackBtn.setVisibility(View.GONE);
-                noFeedbackTv.setVisibility(View.GONE);
                 if(transaction.getSatisfied()){
-                    unlikeIv.setVisibility(View.GONE);
-
+                    likeIv.setVisibility(View.VISIBLE);
                 }else{
-                    likeIv.setVisibility(View.GONE);
+                    unlikeIv.setVisibility(View.VISIBLE);
                 }
             }
         }
@@ -170,7 +146,6 @@ public class TransactionDetailsFragment extends Fragment {
         if(reviewEt.getText().toString().isEmpty()){
             reviewEt.setError("Feedback is required");
             reviewEt.requestFocus();
-
         }else{
             //push transaction feedback here
             pb.setVisibility(View.VISIBLE);
@@ -181,6 +156,28 @@ public class TransactionDetailsFragment extends Fragment {
                 }
             });
         }
+    }
 
+    private void getUIReferences(View view) {
+        pb = view.findViewById(R.id.tran_details_pb);
+        pb.setVisibility(View.VISIBLE);
+        typeTv = view.findViewById(R.id.trans_details_type_tv);
+        numTv = view.findViewById(R.id.trans_details_number_tv);
+        expTv = view.findViewById(R.id.trans_details_exp_date_tv);
+        dealDateTv = view.findViewById(R.id.trans_details_tran_date_tv);
+        sellerTv = view.findViewById(R.id.trans_details_seller_tv);
+        buyerTv = view.findViewById(R.id.trans_details_buyer_tv);
+        costTv = view.findViewById(R.id.trans_details_cost_tv);
+        valueAtDealDateTv = view.findViewById(R.id.trans_details_value_deal_day_tv);
+        reviewTv = view.findViewById(R.id.trans_details_review_tv);
+        reviewEt = view.findViewById(R.id.trans_details_review_et);
+        noFeedbackTv = view.findViewById(R.id.trans_details_nofeedback_tv);
+        likeIv = view.findViewById(R.id.trans_details_like_iv);
+        unlikeIv = view.findViewById(R.id.trans_details_unlike_iv);
+        likeClickedIv = view.findViewById(R.id.trans_details_vi_like_iv);
+        unlikeClickedIv = view.findViewById(R.id.trans_details_vi_unlike_iv);
+        addFeedbackBtn = view.findViewById(R.id.tran_details_add_feedback_btn);
+        sellerTitleTv = view.findViewById(R.id.tran_details_seller_title_tv);
+        buyerTitleTv = view.findViewById(R.id.tran_details_buyer_title_tv);
     }
 }

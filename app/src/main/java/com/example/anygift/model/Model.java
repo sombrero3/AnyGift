@@ -51,14 +51,22 @@ public class Model {
             public void onComplete(List<CardType> cts) {
                 cardTypes.clear();
                 for (CardType ct : cts) {
-                    downloadImage(ct.getId() + ".jpeg", new byteArrayReturnListener() {
+                    Model.instance.executor.execute(new Runnable() {
                         @Override
-                        public void onComplete(Bitmap bitmap) {
-                            ct.setPicture(bitmap);
-                            cardTypes.add(ct);
-                            listener.onComplete();
+                        public void run() {
+                            downloadImage(ct.getId() + ".jpeg", new byteArrayReturnListener() {
+                                @Override
+                                public void onComplete(Bitmap bitmap) {
+                                    ct.setPicture(bitmap);
+                                    cardTypes.add(ct);
+                                    if(ct.getId().equals(cts.get(cts.size()-1).getId())) {
+                                        listener.onComplete();
+                                    }
+                                }
+                            });
                         }
                     });
+
                 }
             }
         });

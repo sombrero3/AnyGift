@@ -16,7 +16,7 @@ import com.example.anygift.model.Model;
 
 public class TransactionsViewHolder extends RecyclerView.ViewHolder{
     TextView dateTv, numOfCoinsPayedTv,typeNameTv,otherTv,titleOtherTv;
-    ImageView typeIv;
+    ImageView typeIv,likeIv,unlikeIv;
     public TransactionsViewHolder(@NonNull View itemView, OnItemClickListener listener) {
         super(itemView);
         dateTv = itemView.findViewById(R.id.tran_row_date_tv);
@@ -25,7 +25,8 @@ public class TransactionsViewHolder extends RecyclerView.ViewHolder{
         otherTv = itemView.findViewById(R.id.tran_row_other_tv);
         typeIv = itemView.findViewById(R.id.tran_row_type_iv);
         titleOtherTv= itemView.findViewById(R.id.tran_row_title_other_tv);
-
+        likeIv = itemView.findViewById(R.id.tran_row_like_iv);
+        unlikeIv = itemView.findViewById(R.id.tran_row_unlike_iv);
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -35,7 +36,7 @@ public class TransactionsViewHolder extends RecyclerView.ViewHolder{
         });
     }
     public void bind(CardTransaction tran) {
-        dateTv.setText(tran.getDate());
+        dateTv.setText(tran.getDate().split("T")[0]);
         numOfCoinsPayedTv.setText(tran.getBoughtFor().toString());
 
         if(tran.getBuyer().equals(Model.instance.getSignedUser().getId())){
@@ -49,8 +50,16 @@ public class TransactionsViewHolder extends RecyclerView.ViewHolder{
         }
 
         for(CardType ct: Model.instance.cardTypes){
-            if(ct.getId().equals(tran.getId())){
+            if(ct.getId().equals(tran.getCardType())){
                 typeIv.setImageBitmap(ct.getPicture());
+            }
+        }
+
+        if(tran.getSatisfied()!=null) {
+            if (tran.getSatisfied()) {
+                likeIv.setVisibility(View.VISIBLE);
+            } else if (!tran.getSatisfied()) {
+                unlikeIv.setVisibility(View.VISIBLE);
             }
         }
     }

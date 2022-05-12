@@ -33,8 +33,10 @@
             app:cardCornerRadius="8dp"
             app:layout_constraintBottom_toBottomOf="@+id/tran_row_top_constraints"
             app:layout_constraintEnd_toEndOf="@+id/tran_row_top_constraints"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/tran_row_top_constraints"
-            app:layout_constraintTop_toTopOf="@+id/tran_row_top_constraints">
+            app:layout_constraintTop_toTopOf="@+id/tran_row_top_constraints"
+            app:layout_constraintVertical_bias="0.0">
 
             <TextView
                 android:id="@+id/textView64"
@@ -64,7 +66,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="24dp"
                 android:text="Orhet Preson :  "
                 android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -106,17 +108,42 @@
                 app:layout_constraintBaseline_toBaselineOf="@+id/tran_row_title_other_tv"
                 app:layout_constraintStart_toEndOf="@+id/tran_row_title_other_tv" />
 
-            <ImageView
+            <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/tran_row_type_iv"
-                android:layout_width="100dp"
+                android:layout_width="wrap_content"
                 android:layout_height="0dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="8dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="12dp"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tran_row_date_tv"
-                app:srcCompat="@drawable/anygift_01" />
+                app:shapeAppearanceOverlay="@style/roundedCornersSmallImageView"
+                app:srcCompat="@drawable/amazon_giftcard" />
+
+            <ImageView
+                android:id="@+id/tran_row_like_iv"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="3dp"
+                android:visibility="invisible"
+                app:layout_constraintStart_toStartOf="@+id/textView65"
+                app:layout_constraintTop_toBottomOf="@+id/textView65"
+                app:srcCompat="@drawable/like_icon" />
+
+            <ImageView
+                android:id="@+id/tran_row_unlike_iv"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="3dp"
+                android:visibility="invisible"
+                app:layout_constraintStart_toStartOf="@+id/textView65"
+                app:layout_constraintTop_toBottomOf="@+id/textView65"
+                app:srcCompat="@drawable/unlike_icon" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
