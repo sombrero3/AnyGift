@@ -20,10 +20,11 @@ import com.example.anygift.Retrofit.CardTransaction;
 import com.example.anygift.Retrofit.CardType;
 import com.example.anygift.model.Model;
 import com.example.anygift.model.Utils;
+import com.google.android.material.textfield.TextInputLayout;
 
 
 public class TransactionDetailsFragment extends Fragment {
-    TextView typeTv,numTv,expTv,dealDateTv,sellerTv,sellerTitleTv,buyerTitleTv,buyerTv,costTv,valueAtDealDateTv,reviewTv,noFeedbackTv;
+    TextView typeTv,numTv,expTv,dealDateTv,sellerTv,sellerTitleTv,buyerTitleTv,buyerTv,costTv,valueAtDealDateTv,reviewTv,noFeedbackTv,satisfiedTitleTv,reviewTitleTv;
     EditText reviewEt;
     String tranId;
     CardTransaction transaction;
@@ -31,6 +32,7 @@ public class TransactionDetailsFragment extends Fragment {
     Card card;
     ProgressBar pb;
     Button addFeedbackBtn;
+    TextInputLayout reviewEtContainer;
     boolean likeFlag=true;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -82,11 +84,13 @@ public class TransactionDetailsFragment extends Fragment {
             //I'm the seller
             buyerTv.setText(transaction.getBuyerEmail());
             sellerTv.setVisibility(View.GONE);
-            sellerTitleTv.setVisibility(View.INVISIBLE);
+            sellerTitleTv.setVisibility(View.GONE);
             addFeedbackBtn.setEnabled(false);
 
             if(transaction.getSatisfied()==null){
                 noFeedbackTv.setVisibility(View.VISIBLE);
+                reviewTitleTv.setVisibility(View.GONE);
+                satisfiedTitleTv.setVisibility(View.GONE);
             }else{
                 reviewTv.setVisibility(View.VISIBLE);
                 reviewTv.setText(transaction.getBuyerComment());
@@ -108,6 +112,8 @@ public class TransactionDetailsFragment extends Fragment {
                 likeClickedIv.setVisibility(View.VISIBLE);
                 unlikeIv.setVisibility(View.VISIBLE);
                 reviewEt.setVisibility(View.VISIBLE);
+                reviewEtContainer.setVisibility(View.VISIBLE);
+                addFeedbackBtn.setVisibility(View.VISIBLE);
                 addFeedbackBtn.setOnClickListener(view -> postFeedback());
                 setLikeSystem();
 
@@ -179,5 +185,8 @@ public class TransactionDetailsFragment extends Fragment {
         addFeedbackBtn = view.findViewById(R.id.tran_details_add_feedback_btn);
         sellerTitleTv = view.findViewById(R.id.tran_details_seller_title_tv);
         buyerTitleTv = view.findViewById(R.id.tran_details_buyer_title_tv);
+        reviewEtContainer = view.findViewById(R.id.textInputLayout029);
+        satisfiedTitleTv = view.findViewById(R.id.tran_details_satisfied_title_tv);
+        reviewTitleTv = view.findViewById(R.id.tran_details_review_title_tv);
     }
 }

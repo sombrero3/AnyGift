@@ -15,7 +15,7 @@ import com.example.anygift.model.Model;
 
 
 public class TransactionsViewHolder extends RecyclerView.ViewHolder{
-    TextView dateTv, numOfCoinsPayedTv,typeNameTv,otherTv,titleOtherTv;
+    TextView dateTv, numOfCoinsPayedTv,typeNameTv,otherTv,titleOtherTv,noFeedbackTv;
     ImageView typeIv,likeIv,unlikeIv;
     public TransactionsViewHolder(@NonNull View itemView, OnItemClickListener listener) {
         super(itemView);
@@ -27,6 +27,7 @@ public class TransactionsViewHolder extends RecyclerView.ViewHolder{
         titleOtherTv= itemView.findViewById(R.id.tran_row_title_other_tv);
         likeIv = itemView.findViewById(R.id.tran_row_like_iv);
         unlikeIv = itemView.findViewById(R.id.tran_row_unlike_iv);
+        noFeedbackTv = itemView.findViewById(R.id.tran_row_nofeedback_tv);
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,6 +52,7 @@ public class TransactionsViewHolder extends RecyclerView.ViewHolder{
 
         for(CardType ct: Model.instance.cardTypes){
             if(ct.getId().equals(tran.getCardType())){
+                typeNameTv.setText(ct.getName());
                 typeIv.setImageBitmap(ct.getPicture());
             }
         }
@@ -61,6 +63,8 @@ public class TransactionsViewHolder extends RecyclerView.ViewHolder{
             } else if (!tran.getSatisfied()) {
                 unlikeIv.setVisibility(View.VISIBLE);
             }
+        }else{
+            noFeedbackTv.setVisibility(View.VISIBLE);
         }
     }
 }

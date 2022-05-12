@@ -43,13 +43,13 @@
         app:layout_constraintTop_toBottomOf="@+id/textView74" />
 
     <TextView
-        android:id="@+id/textView68"
+        android:id="@+id/tran_details_review_title_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="Buyer Review : "
         app:layout_constraintStart_toStartOf="@+id/textView67"
-        app:layout_constraintTop_toBottomOf="@+id/textView75" />
+        app:layout_constraintTop_toBottomOf="@+id/tran_details_satisfied_title_tv" />
 
     <TextView
         android:id="@+id/textView69"
@@ -161,9 +161,9 @@
         android:layout_marginEnd="16dp"
         android:text="TextView"
         android:visibility="invisible"
-        app:layout_constraintBaseline_toBaselineOf="@+id/textView68"
+        app:layout_constraintBaseline_toBaselineOf="@+id/tran_details_review_title_tv"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView68" />
+        app:layout_constraintStart_toEndOf="@+id/tran_details_review_title_tv" />
 
     <TextView
         android:id="@+id/trans_details_type_tv"
@@ -195,7 +195,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView85" />
 
     <TextView
-        android:id="@+id/textView75"
+        android:id="@+id/tran_details_satisfied_title_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -245,8 +245,8 @@
         android:layout_marginBottom="-4dp"
         android:src="@drawable/like_icon_1"
         android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@+id/textView75"
-        app:layout_constraintStart_toEndOf="@+id/textView75" />
+        app:layout_constraintBottom_toBottomOf="@+id/tran_details_satisfied_title_tv"
+        app:layout_constraintStart_toEndOf="@+id/tran_details_satisfied_title_tv" />
 
     <ImageView
         android:id="@+id/trans_details_unlike_iv"
@@ -329,10 +329,10 @@
         android:layout_marginTop="2dp"
         android:layout_marginEnd="16dp"
         android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@+id/textView68"
+        app:layout_constraintBottom_toBottomOf="@+id/tran_details_review_title_tv"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView68"
-        app:layout_constraintTop_toTopOf="@+id/textView68">
+        app:layout_constraintStart_toEndOf="@+id/tran_details_review_title_tv"
+        app:layout_constraintTop_toTopOf="@+id/tran_details_review_title_tv">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/trans_details_review_et"
