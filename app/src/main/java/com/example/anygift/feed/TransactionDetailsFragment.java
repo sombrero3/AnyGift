@@ -26,6 +26,7 @@ import com.google.android.material.textfield.TextInputLayout;
 public class TransactionDetailsFragment extends Fragment {
     TextView typeTv,numTv,expTv,dealDateTv,sellerTv,sellerTitleTv,buyerTitleTv,buyerTv,costTv,valueAtDealDateTv,reviewTv,noFeedbackTv,satisfiedTitleTv,reviewTitleTv;
     EditText reviewEt;
+    ImageView typeIv;
     String tranId;
     CardTransaction transaction;
     ImageView likeIv,unlikeIv,likeClickedIv,unlikeClickedIv;
@@ -68,6 +69,7 @@ public class TransactionDetailsFragment extends Fragment {
         for(CardType ct:Model.instance.cardTypes){
             if(ct.getId().equals(transaction.getCardType())){
                 typeTv.setText(ct.getName());
+                typeIv.setImageBitmap(ct.getPicture());
                 break;
             }
         }
@@ -188,5 +190,6 @@ public class TransactionDetailsFragment extends Fragment {
         reviewEtContainer = view.findViewById(R.id.textInputLayout029);
         satisfiedTitleTv = view.findViewById(R.id.tran_details_satisfied_title_tv);
         reviewTitleTv = view.findViewById(R.id.tran_details_review_title_tv);
+        typeIv = view.findViewById(R.id.tran_details_type_iv);
     }
 }
