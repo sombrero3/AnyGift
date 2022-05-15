@@ -268,6 +268,29 @@ public class User {
         return newMap;
     }
 
+    public HashMap<String,Object> toMap(){
+        HashMap<String,Object> map = new HashMap<>();
+        map.put("id",id);
+        map.put("password",password);
+        map.put("email",email);
+        map.put("firstName",firstName);
+        map.put("lastName",lastName);
+        map.put("phone",phone);
+        map.put("address",address);
+        map.put("isAdmin",isAdmin);
+        map.put("createdAt",createdAt);
+        map.put("lastUpdate",lastUpdate);
+        map.put("coins",coins);
+        map.put("rating",rating);
+        map.put("document",document);
+        map.put("verified",verified);
+        map.put("latAndLong",latAndLong);
+        map.put("profilePicture",profilePicture);
+        map.put("accessToken",accessToken);
+        map.put("refreshToken",refreshToken);
+        return map;
+    }
+
     @Override
     public String toString() {
         return "User{" +

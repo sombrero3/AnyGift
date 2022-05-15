@@ -216,7 +216,7 @@
             android:id="@+id/textView32"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="32dp"
             android:text="Phone Number:"
             app:layout_constraintStart_toStartOf="@+id/my_cards_avater_iv"
             app:layout_constraintTop_toBottomOf="@+id/my_cards_avater_iv" />
@@ -300,6 +300,50 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/my_cards_verified_iv"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:visibility="invisible"
+            app:layout_constraintStart_toStartOf="@+id/my_cards_avater_iv"
+            app:layout_constraintTop_toBottomOf="@+id/my_cards_avater_iv"
+            app:srcCompat="@drawable/head_vi_icon" />
+
+        <TextView
+            android:id="@+id/my_cards_num_like_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            app:layout_constraintEnd_toStartOf="@+id/imageView12"
+            app:layout_constraintTop_toBottomOf="@+id/my_cards_avater_iv" />
+
+        <ImageView
+            android:id="@+id/imageView12"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/my_cards_num_like_tv"
+            app:layout_constraintEnd_toStartOf="@+id/my_cards_num_un_like_tv"
+            app:layout_constraintTop_toTopOf="@+id/my_cards_num_like_tv"
+            app:srcCompat="@drawable/like_icon_1" />
+
+        <ImageView
+            android:id="@+id/imageView14"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_marginTop="4dp"
+            app:layout_constraintEnd_toEndOf="@+id/my_cards_avater_iv"
+            app:layout_constraintTop_toBottomOf="@+id/my_cards_avater_iv"
+            app:srcCompat="@drawable/unlike_icon_1" />
+
+        <TextView
+            android:id="@+id/my_cards_num_un_like_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            app:layout_constraintEnd_toStartOf="@+id/imageView14"
+            app:layout_constraintTop_toTopOf="@+id/my_cards_num_like_tv" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

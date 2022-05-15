@@ -51,7 +51,7 @@ public class FeedFragment extends Fragment {
     FloatingActionButton searchFab;
     RecyclerView mostRecList,searchResultRv;
     int year,month,day;
-    Button searchBtn;
+    Button searchBtn,verificationBtn;
     View v;
     DatePickerDialog.OnDateSetListener dateListener;
     List<Card> searchResultCl,mosetRecCl;
@@ -83,7 +83,7 @@ public class FeedFragment extends Fragment {
         searchBtn = view.findViewById(R.id.feed_search_btn);
         searchResultRv = view.findViewById(R.id.feed_search_result_rv);
         searchResultTv = view.findViewById(R.id.feed_search_results_tv);
-
+        verificationBtn = view.findViewById(R.id.feed_verification_btn);
 
         nameTv.setText("Hello " + Model.instance.getSignedUser().getFirstName() +" and welcome to the gift card trading platform. Find every gift card buy or trade with your own cards.");
         if(Model.instance.getSignedUser().getCoins() == null){
@@ -143,6 +143,13 @@ public class FeedFragment extends Fragment {
             day = d;
             dateTv.setText(day+"/"+month+"/"+year);
         };
+
+        if(Model.instance.getSignedUser().getVerified()){
+            verificationBtn.setVisibility(View.GONE);
+        }else{
+            verificationBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_global_verificationFragment));
+        }
+
 
         return view;
 

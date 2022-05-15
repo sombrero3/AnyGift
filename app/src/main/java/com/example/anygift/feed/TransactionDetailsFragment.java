@@ -1,5 +1,6 @@
 package com.example.anygift.feed;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -20,6 +21,7 @@ import com.example.anygift.Retrofit.CardTransaction;
 import com.example.anygift.Retrofit.CardType;
 import com.example.anygift.model.Model;
 import com.example.anygift.model.Utils;
+import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.textfield.TextInputLayout;
 
 
@@ -35,6 +37,7 @@ public class TransactionDetailsFragment extends Fragment {
     Button addFeedbackBtn;
     TextInputLayout reviewEtContainer;
     boolean likeFlag=true;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

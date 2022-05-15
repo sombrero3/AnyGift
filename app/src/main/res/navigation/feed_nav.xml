@@ -86,4 +86,9 @@
             android:name="tranId"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/verificationFragment"
+        android:name="com.example.anygift.VerificationFragment"
+        android:label="fragment_verification"
+        tools:layout="@layout/fragment_verification" /><action android:id="@+id/action_global_verificationFragment" app:destination="@id/verificationFragment"/>
 </navigation>

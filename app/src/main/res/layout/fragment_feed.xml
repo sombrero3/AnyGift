@@ -215,8 +215,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="Choose card type :"
-        app:layout_constraintStart_toStartOf="@+id/button"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
+        app:layout_constraintStart_toStartOf="@+id/cards_list_user_name_tv"
+        app:layout_constraintTop_toBottomOf="@+id/feed_verification_btn" />
 
     <Spinner
         android:id="@+id/feed_card_type_spinner"
@@ -227,7 +227,7 @@
         android:contentDescription="Select Type:"
         android:overlapAnchor="false"
         android:spinnerMode="dropdown"
-        app:layout_constraintEnd_toEndOf="@+id/button"
+        app:layout_constraintEnd_toEndOf="@+id/cards_list_user_name_tv"
         app:layout_constraintStart_toStartOf="@+id/textView45"
         app:layout_constraintTop_toBottomOf="@+id/textView45" />
 
@@ -286,7 +286,7 @@
         app:layout_constraintTop_toTopOf="@+id/feed_search_btn" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/feed_verification_btn"
         android:layout_width="0dp"
         android:layout_height="30dp"
         android:layout_marginTop="8dp"

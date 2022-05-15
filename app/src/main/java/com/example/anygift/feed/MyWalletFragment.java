@@ -48,8 +48,8 @@ public class MyWalletFragment extends Fragment {
     MyWalletViewModel viewModel;
     CardsListAdapter adapter;
     SwipeRefreshLayout swipeRefresh;
-    TextView userName, userEmail, userPhone, coins, userAddress, numOfSold, numOfBought, soldInCoins, boughtInCoins;
-    ImageView userImage, editIv, addCardIv;
+    TextView userName, userEmail, userPhone, coins, userAddress, numOfSold, numOfBought, soldInCoins, boughtInCoins,numLikeTv,numUnlikeTv;
+    ImageView userImage, editIv, addCardIv,verifiedIv;
     FloatingActionButton searchFab;
 
     @Override
@@ -105,6 +105,10 @@ public class MyWalletFragment extends Fragment {
         editIv = view.findViewById(R.id.my_cards_edit_iv);
         addCardIv = view.findViewById(R.id.my_cards_add_card_iv);
         searchFab = view.findViewById(R.id.my_cards_search_fab);
+        numLikeTv = view.findViewById(R.id.my_cards_num_like_tv);
+        numUnlikeTv = view.findViewById(R.id.my_cards_num_un_like_tv);
+        verifiedIv = view.findViewById(R.id.my_cards_verified_iv);
+
 
         editIv.setOnClickListener(v -> Navigation.findNavController(v).navigate(MyWalletFragmentDirections.actionMyCardsFragmentToEditProfileFragment()));
         addCardIv.setOnClickListener(v -> Navigation.findNavController(v).navigate(MyWalletFragmentDirections.actionGlobalAddCardFragment()));
@@ -136,27 +140,62 @@ public class MyWalletFragment extends Fragment {
         userPhone.setText(user.getPhone());
         userAddress.setText(user.getAddress());
         coins.setText(user.getCoins().toString());
-
-        if (user.getProfilePicture() != null && !user.getProfilePicture().isEmpty()) {
-            Model.instance.downloadImage(user.getProfilePicture().replace("/image/", ""),
-                    new Model.byteArrayReturnListener() {
-                        @Override
-                        public void onComplete(Bitmap bitmap) {
-                            if (bitmap == null) {
-                                return;
-                            }
-                            userImage.setImageBitmap(bitmap);
-                            userImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                            userImage.setClipToOutline(true);
-
-                        }
-                    });
+        if(user.getVerified()){
+            verifiedIv.setVisibility(View.VISIBLE);
         }
 
-        Model.instance.modelRetrofit.refreshToken(message -> {
-            getIncomeStats();
-            getOutComeStats();
+        Model.instance.getCardsTransactionsRetrofit(new Model.cardsTransactionsReturnListener() {
+            @Override
+            public void onComplete(List<CardTransaction> cardTransaction, String message) {
+                int like=0, unlike=0,numOfSoldCards=0,numOfBoughtCards=0;
+                double coinsFromSales=0,coinsSpent=0;
+                for (CardTransaction ct:cardTransaction) {
+                    if(ct.getSatisfied()!=null && ct.getSeller().equals(user.getId())){
+                        if(ct.getSatisfied()){
+                            like++;
+                        }else{
+                            unlike++;
+                        }
+                    }
+
+                    if(ct.getSeller().equals(user.getId())){
+                        numOfSoldCards++;
+                        coinsFromSales+=ct.getBoughtFor();
+                    }else{
+                        numOfBoughtCards++;
+                        coinsSpent+=ct.getBoughtFor();
+                    }
+                }
+                numLikeTv.setText(""+like);
+                numUnlikeTv.setText(""+unlike);
+                numOfSold.setText(""+numOfSoldCards);
+                numOfBought.setText(""+numOfBoughtCards);
+                soldInCoins.setText(""+coinsFromSales);
+                boughtInCoins.setText(""+coinsSpent);
+
+                if (user.getProfilePicture() != null && !user.getProfilePicture().isEmpty()) {
+                    Model.instance.downloadImage(user.getProfilePicture().replace("/image/", ""),
+                            new Model.byteArrayReturnListener() {
+                                @Override
+                                public void onComplete(Bitmap bitmap) {
+                                    if (bitmap == null) {
+                                        return;
+                                    }
+                                    userImage.setImageBitmap(bitmap);
+                                    userImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                                    userImage.setClipToOutline(true);
+
+                                    Model.instance.modelRetrofit.refreshToken(message -> {
+                                        getIncomeStats();
+                                        getOutComeStats();
+                                    });
+                                }
+                            });
+                }
+
+            }
         });
+
 
     }
 
