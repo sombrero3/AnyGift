@@ -1,4 +1,4 @@
-package com.example.anygift;
+package com.example.anygift.feed;
 
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
@@ -22,6 +22,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.example.anygift.R;
 import com.example.anygift.Retrofit.User;
 import com.example.anygift.model.Model;
 import com.google.android.material.navigation.NavigationView;

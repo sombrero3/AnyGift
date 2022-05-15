@@ -45,8 +45,8 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/menu_header_image_iv"
-        android:layout_width="85dp"
-        android:layout_height="85dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_marginTop="8dp"
         android:src="@drawable/avatar"
         app:layout_constraintDimensionRatio="w,1:1"
