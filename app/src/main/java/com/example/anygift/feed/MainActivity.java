@@ -1,14 +1,10 @@
 package com.example.anygift.feed;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.NavHost;
@@ -23,11 +19,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.anygift.R;
+import com.example.anygift.Retrofit.CardTransaction;
+import com.example.anygift.Retrofit.SellerRatings;
+import com.example.anygift.Retrofit.User;
 import com.example.anygift.login.LoginActivity;
 import com.example.anygift.model.Model;
 import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.auth.FirebaseAuth;
-import com.squareup.picasso.Picasso;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -36,9 +35,9 @@ public class MainActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     ActionBarDrawerToggle actionBarDrawerToggle;
-    TextView nameTv,emailTv;
-    ImageView imageIv;
-
+    TextView nameTv,emailTv,numUnlikeTv,numLikeTv;
+    ImageView imageIv,verifiedIv;
+    User user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,10 +47,8 @@ public class MainActivity extends AppCompatActivity {
         navCtr = navHost.getNavController();
         viewModel = new ViewModelProvider(this).get(FeedViewModel.class);
 
-
-        nameTv = findViewById(R.id.menu_header_name_tv);
-        emailTv = findViewById(R.id.menu_header_email_tv);
-        imageIv = findViewById(R.id.menu_header_image_iv);
+        user = new User();
+        user = Model.instance.getSignedUser();
 
         drawerLayout = findViewById(R.id.my_drawer_layout);
         navigationView = findViewById(R.id.Navigation_view);
@@ -136,29 +133,45 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setMenuHeader() {
-        System.out.println(Model.instance.getSignedUser());
+
+        System.out.println(user);
         View header= (View)navigationView.getHeaderView(0);
         nameTv = header.findViewById(R.id.menu_header_name_tv);
         emailTv = header.findViewById(R.id.menu_header_email_tv);
         imageIv = header.findViewById(R.id.menu_header_image_iv);
-        nameTv.setText(  Model.instance.getSignedUser().getFirstName() + " " + Model.instance.getSignedUser().getLastName());
-        emailTv.setText( Model.instance.getSignedUser().getEmail());
-
-        if( Model.instance.getSignedUser().getProfilePicture()!=null && Model.instance.getSignedUser().getProfilePicture().compareTo("")!=0){
-            Model.instance.downloadImage(Model.instance.getSignedUser().getProfilePicture().replace("/image/", ""),
-                    new Model.byteArrayReturnListener() {
-                        @Override
-                        public void onComplete(Bitmap bitmap) {
-                            if (bitmap == null) {
-                                return;
-                            }
-                            imageIv.setImageBitmap(bitmap);
-                            imageIv.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                            imageIv.setClipToOutline(true);
-
-                        }
-                    });
+        numUnlikeTv = header.findViewById(R.id.header_num_unlike_tv);
+        numLikeTv = header.findViewById(R.id.header_num_like_tv);
+        verifiedIv = header.findViewById(R.id.header_verification_iv);
+        nameTv.setText(  user.getFirstName() + " " + user.getLastName());
+        emailTv.setText( user.getEmail());
+        if(user.getVerified()){
+            verifiedIv.setVisibility(View.VISIBLE);
         }
+
+        Model.instance.getSellerRatings(user.getId(), new Model.sellerRatingsListener() {
+            @Override
+            public void onComplete(SellerRatings sr) {
+                numLikeTv.setText(""+sr.getGood());
+                numUnlikeTv.setText(""+sr.getBad());
+
+                if( user.getProfilePicture()!=null && user.getProfilePicture().compareTo("")!=0){
+                    Model.instance.downloadImage(user.getProfilePicture().replace("/image/", ""),
+                            new Model.byteArrayReturnListener() {
+                                @Override
+                                public void onComplete(Bitmap bitmap) {
+                                    if (bitmap == null) {
+                                        return;
+                                    }
+                                    imageIv.setImageBitmap(bitmap);
+                                    imageIv.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                                    imageIv.setClipToOutline(true);
+
+                                }
+                            });
+                }
+            }
+        });
+
     }
 
     @Override

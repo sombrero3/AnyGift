@@ -27,28 +27,32 @@ import com.example.anygift.R;
 import com.example.anygift.Retrofit.Card;
 import com.example.anygift.Retrofit.CardTransaction;
 import com.example.anygift.Retrofit.CardType;
+import com.example.anygift.Retrofit.SellerRatings;
 import com.example.anygift.Retrofit.User;
 import com.example.anygift.model.Model;
 import com.example.anygift.model.Utils;
+import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.HashMap;
+import java.util.List;
 
 public class CardsDetailsFragment extends Fragment {
     View view;
     //    UserViewModel userViewModel;
 
-    private TextView name, value, expTv, buyAt, typeTv, popUpTypeTv, popUpExpTv, popupValueTv, popUpPriceTv, emailTv, savingTv, askedPriceTv, storesTv;
+    private TextView name, value, expTv, buyAt, typeTv, popUpTypeTv, popUpExpTv, popupValueTv, popUpPriceTv, emailTv, savingTv, askedPriceTv, storesTv,numLikeTv,numUnlikeTv;
     private Button mapBtn, editBtn, deleteBtn, buyBtn, popUpSaveBtn, popUpCancel, popUpStoreBtn;
-
-    private ImageView userImage, giftCardImage, popUpCcardImage;
+    NavigationView navigationView;
+    private ImageView userImage, giftCardImage, popUpCcardImage,verifiedIv;
     Card card;
     AlertDialog.Builder alertDialogBuilder;
     AlertDialog dialog;
     String imageUrl, cardId, userId;
     ProgressBar pb;
     Dialog tryDialog;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -77,6 +81,10 @@ public class CardsDetailsFragment extends Fragment {
         typeTv = view.findViewById(R.id.card_details_type_tv);
         expTv = view.findViewById(R.id.card_details_exp_tv);
         askedPriceTv = view.findViewById(R.id.details_asked_price_tv);
+        numLikeTv = view.findViewById(R.id.details_num_like_tv);
+        numUnlikeTv = view.findViewById(R.id.details_num_unlike_tv);
+        verifiedIv = view.findViewById(R.id.details_verified_iv);
+
         Model.instance.getCardRetrofit(cardId, new Model.cardReturnListener() {
             @Override
             public void onComplete(Card c, String message) {
@@ -101,19 +109,30 @@ public class CardsDetailsFragment extends Fragment {
                                 }
                             }
                         }
-                        Model.instance.downloadImage(user.getProfilePicture().replace("/image/", ""),
-                                new Model.byteArrayReturnListener() {
-                                    @Override
-                                    public void onComplete(Bitmap bitmap) {
-                                        if (bitmap != null) {
-                                            userImage.setImageBitmap(bitmap);
-                                            userImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                                            userImage.setClipToOutline(true);
-                                        }
-                                        setUI();
-                                    }
-                                });
+                        if(user.getVerified()){
+                            verifiedIv.setVisibility(View.VISIBLE);
+                        }
 
+                        Model.instance.getSellerRatings(card.getOwner(), new Model.sellerRatingsListener() {
+                            @Override
+                            public void onComplete(SellerRatings sr) {
+                                numLikeTv.setText(""+sr.getGood());
+                                numUnlikeTv.setText(""+sr.getBad());
+
+                                Model.instance.downloadImage(user.getProfilePicture().replace("/image/", ""),
+                                        new Model.byteArrayReturnListener() {
+                                            @Override
+                                            public void onComplete(Bitmap bitmap) {
+                                                if (bitmap != null) {
+                                                    userImage.setImageBitmap(bitmap);
+                                                    userImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                                                    userImage.setClipToOutline(true);
+                                                }
+                                                setUI();
+                                            }
+                                        });
+                            }
+                        });
                     }
                 });
             }
@@ -322,10 +341,12 @@ public class CardsDetailsFragment extends Fragment {
             public void onComplete(Boolean cardTransaction, String message) {
                 Toast.makeText(getContext(), "Enjoy your New GiftCard!", Toast.LENGTH_SHORT).show();
                 // Model.instance.setCurrentUser(user);
+
                 pb.setVisibility(View.INVISIBLE);
                 tryDialog.dismiss();
                 Navigation.findNavController(view).navigate(R.id.action_global_myCardsFragment);
             }
         });
     }
+
 }
