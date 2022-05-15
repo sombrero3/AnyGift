@@ -71,7 +71,9 @@ public class EditCardDetailsFragment extends Fragment {
         Model.instance.getCardRetrofit(giftCardId, new Model.cardReturnListener() {
             @Override
             public void onComplete(Card card, String message) {
+                giftCard = new Card();
                 giftCard.setId(card.getId());
+                giftCard.setCardType(card.getCardType());
                 giftCard.setOwner(card.getOwner());
                 //typeSp.setText(card.getCardType());
                 numberEt.setText(card.getCardNumber());
@@ -104,6 +106,7 @@ public class EditCardDetailsFragment extends Fragment {
             cardTypes.add(cts.get(i).getName());
             if(cts.get(i).getId().equals(giftCard.getCardType())){
                 pos=i;
+                break;
             }
 
         }
@@ -126,7 +129,7 @@ public class EditCardDetailsFragment extends Fragment {
             }
         });
 
-        typeSp.setSelection(finalPos);
+        typeSp.setSelection(pos);
         pb.setVisibility(View.GONE);
 
     }
@@ -140,11 +143,10 @@ public class EditCardDetailsFragment extends Fragment {
         giftCard.setIsForSale(forSaleCb.isChecked());
         giftCard.setCardType(Model.instance.cardTypes.get(typeSp.getSelectedItemPosition()).getId());
 
-
-        Model.instance.addCardRetrofit(giftCard.toMap(), new Model.cardReturnListener() {
+        Model.instance.updateCardRetrofit(giftCard.getId(), giftCard.toMap(), new Model.cardReturnListener() {
             @Override
             public void onComplete(Card card, String message) {
-                Navigation.findNavController(valueTv).navigateUp();
+                Navigation.findNavController(view).navigateUp();
             }
         });
     }
