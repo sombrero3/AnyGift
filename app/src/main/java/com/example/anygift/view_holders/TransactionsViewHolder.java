@@ -60,11 +60,17 @@ public class TransactionsViewHolder extends RecyclerView.ViewHolder{
         if(tran.getSatisfied()!=null) {
             if (tran.getSatisfied()) {
                 likeIv.setVisibility(View.VISIBLE);
+                unlikeIv.setVisibility(View.GONE);
+                noFeedbackTv.setVisibility(View.GONE);
             } else if (!tran.getSatisfied()) {
                 unlikeIv.setVisibility(View.VISIBLE);
+                noFeedbackTv.setVisibility(View.GONE);
+                likeIv.setVisibility(View.GONE);
             }
         }else{
             noFeedbackTv.setVisibility(View.VISIBLE);
+            likeIv.setVisibility(View.GONE);
+            unlikeIv.setVisibility(View.GONE);
         }
     }
 }
