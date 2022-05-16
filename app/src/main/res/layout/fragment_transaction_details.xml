@@ -264,7 +264,7 @@
         android:layout_height="30dp"
         android:layout_marginStart="16dp"
         android:layout_marginBottom="-4dp"
-        android:src="@drawable/like_icon_1"
+        android:src="@drawable/like_icon_green"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/tran_details_satisfied_title_tv"
         app:layout_constraintStart_toEndOf="@+id/tran_details_satisfied_title_tv" />
@@ -275,7 +275,7 @@
         android:layout_height="30dp"
         android:layout_marginStart="12dp"
         android:layout_marginBottom="-6dp"
-        android:src="@drawable/unlike_icon_1"
+        android:src="@drawable/unlike_icon_red"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/trans_details_like_iv"
         app:layout_constraintStart_toEndOf="@+id/trans_details_like_iv" />

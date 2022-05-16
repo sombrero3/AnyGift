@@ -71,17 +71,17 @@
         app:layout_constraintBottom_toBottomOf="@+id/header_num_like_tv"
         app:layout_constraintEnd_toStartOf="@+id/header_num_unlike_tv"
         app:layout_constraintTop_toTopOf="@+id/header_num_like_tv"
-        app:srcCompat="@drawable/like_icon_1" />
+        app:srcCompat="@drawable/like_icon_green" />
 
     <ImageView
         android:id="@+id/imageView13"
-        android:layout_width="15dp"
-        android:layout_height="15dp"
-        android:layout_marginTop="4dp"
+        android:layout_width="13dp"
+        android:layout_height="13dp"
+        android:layout_marginTop="5dp"
         app:layout_constraintBottom_toBottomOf="@+id/header_num_unlike_tv"
         app:layout_constraintEnd_toEndOf="@+id/menu_header_image_iv"
         app:layout_constraintTop_toTopOf="@+id/header_num_unlike_tv"
-        app:srcCompat="@drawable/unlike_icon_1" />
+        app:srcCompat="@drawable/unlike_icon_red" />
 
     <TextView
         android:id="@+id/header_num_unlike_tv"

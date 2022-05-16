@@ -39,7 +39,7 @@
                     android:title="My Wallet" />
                 <item
                     android:id="@+id/add_card"
-                    android:icon="@drawable/add_icon"
+                    android:icon="@drawable/add_card_icon"
                     android:title="Add Card" />
                 <item
                     android:id="@+id/transactions"
