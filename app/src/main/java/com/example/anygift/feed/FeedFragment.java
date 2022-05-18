@@ -22,13 +22,12 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.example.anygift.OnItemClickListener;
 import com.example.anygift.R;
 import com.example.anygift.Retrofit.Card;
 import com.example.anygift.Retrofit.CardType;
@@ -36,6 +35,7 @@ import com.example.anygift.adapters.CardsListAdapter;
 import com.example.anygift.model.Model;
 import com.example.anygift.model.Utils;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -44,21 +44,23 @@ import java.util.List;
 
 public class FeedFragment extends Fragment {
     FeedViewModel viewModel;
-    CardsListAdapter mostRecAdapter,searchAdapter;
+    CardsListAdapter mostRecAdapter;
     SwipeRefreshLayout swipeRefresh;
-    TextView nameTv,coinsTv, dateTv,searchResultTv;
+    TextView nameTv,coinsTv, dateTv,spinnerTitleTv,mostRecTv;
     EditText maxPriceEt;
-    FloatingActionButton searchFab;
-    RecyclerView mostRecList,searchResultRv;
+    TextInputLayout maxPriceContainer;
+    FloatingActionButton addFab;
+    RecyclerView mostRecList;
     int year,month,day;
-    Button searchBtn,verificationBtn;
+    Button searchBtn,verificationBtn,filterBtn;
     View v;
     DatePickerDialog.OnDateSetListener dateListener;
-    List<Card> searchResultCl,mosetRecCl;
+    List<Card> mosetRecCl;
     Spinner spinnerCardType;
     List<String> cardTypes;
     String cardTypeId;
     ProgressBar pb;
+    boolean searchFlag;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -81,32 +83,48 @@ public class FeedFragment extends Fragment {
         maxPriceEt = view.findViewById(R.id.feed_max_price_et);
         spinnerCardType = view.findViewById(R.id.feed_card_type_spinner);
         searchBtn = view.findViewById(R.id.feed_search_btn);
-        searchResultRv = view.findViewById(R.id.feed_search_result_rv);
-        searchResultTv = view.findViewById(R.id.feed_search_results_tv);
         verificationBtn = view.findViewById(R.id.feed_verification_btn);
-
-        nameTv.setText("Hello " + Model.instance.getSignedUser().getFirstName() +" and welcome to the gift card trading platform. Find every gift card buy or trade with your own cards.");
+        filterBtn = view.findViewById(R.id.feed_filter_btn);
+        spinnerTitleTv = view.findViewById(R.id.feed_spinner_title_tv);
+        addFab = view.findViewById(R.id.feed_search_fab);
+        maxPriceContainer = view.findViewById(R.id.textInputLayout2222);
+        mostRecTv = view.findViewById(R.id.textView16);
+        nameTv.setText("Hello " + Model.instance.getSignedUser().getFirstName());
         if(Model.instance.getSignedUser().getCoins() == null){
             Model.instance.getSignedUser().setCoins(0);
         }
         coinsTv.setText(Model.instance.getSignedUser().getCoins().toString());
-        searchFab = view.findViewById(R.id.feed_search_fab);
-        mosetRecCl = new ArrayList<>();
-        //basic flow:{
-        setCardTypeSpinner();
-        //setSearchRv();
-        //setMostRecRv();
-        // }
 
+        mosetRecCl = new ArrayList<>();
+
+        setCardTypeSpinner();
+
+        mostRecList.setHasFixedSize(true);
+        mostRecList.setLayoutManager(new LinearLayoutManager(getContext()));
+        mostRecAdapter = new CardsListAdapter(mosetRecCl);
+        mostRecList.setAdapter(mostRecAdapter);
+
+        mostRecAdapter.setOnItemClickListener(new com.example.anygift.OnItemClickListener() {
+            @Override
+            public void onItemClick(View v, int position) {
+                double val = mosetRecCl.get(position).getValue();
+                String id = mosetRecCl.get(position).getId();
+                Log.d("TAG", "Gift card in value of: " + val);
+                Navigation.findNavController(v).navigate(FeedFragmentDirections.actionFeedFragmentToCardsDetailsFragment(id));
+            }
+        });
+
+        setMostRecRv();
         setHasOptionsMenu(true);
 
 
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                nameTv.setText("Hello " + Model.instance.getSignedUser().getFirstName() +" and welcome to the gift card trading platform. Find every gift card buy or trade with your own cards.");
+                nameTv.setText("Hello " + Model.instance.getSignedUser().getFirstName());
                 coinsTv.setText(Model.instance.getSignedUser().getCoins().toString());
-                setSearchRv();
+                //refreshMostRecRv();
+                setMostRecRv();
             }
         });
 //        swipeRefresh.setOnRefreshListener(() -> Model.instance.refreshGiftCardsList());
@@ -122,7 +140,8 @@ public class FeedFragment extends Fragment {
 //        });
 
         searchBtn.setOnClickListener(v -> search());
-        searchFab.setOnClickListener(v-> Navigation.findNavController(v).navigate(R.id.action_global_searchGiftCardFragment));
+
+        addFab.setOnClickListener(v-> Navigation.findNavController(v).navigate(R.id.action_global_addCardFragment));
 
         Calendar calendar = Calendar.getInstance();
         year=0;
@@ -150,44 +169,73 @@ public class FeedFragment extends Fragment {
             verificationBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_global_verificationFragment));
         }
 
+        searchFlag = false;
+        filterBtn.setOnClickListener(v->{
+            if(!searchFlag) {
+                showSearch();
+                searchFlag=true;
+            }else{
+                hideSearch();
+                searchFlag=false;
+            }
+        });
 
         return view;
 
     }
 
-    private void setSearchRv() {
-
-        searchResultRv.setHasFixedSize(true);
-        RecyclerView.LayoutManager horizontalLayout = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-        searchResultRv.setLayoutManager(horizontalLayout);
-        searchResultCl = new ArrayList<>();
-        searchAdapter = new CardsListAdapter(searchResultCl);
-        searchResultRv.setAdapter(searchAdapter);
-        searchAdapter.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(View v, int position) {
-                double val = searchResultCl.get(position).getValue();
-                String id = searchResultCl.get(position).getId();
-                Log.d("TAG", "Gift card in value of: " + val);
-                Bundle map = new Bundle();
-                map.putString("giftCardId",id);
-                Navigation.findNavController(v).navigate(R.id.action_global_cardsDetailsFragment,map);
-            }
-        });
-        setMostRecRv();
-
-
+    private void hideSearch(){
+        spinnerCardType.setVisibility(View.GONE);
+        dateTv.setVisibility(View.GONE);
+        maxPriceContainer.setVisibility(View.GONE);
+        searchBtn.setVisibility(View.GONE);
+        spinnerTitleTv.setVisibility(View.GONE);
+        filterBtn.setText("  SHOW FILTER  ");
     }
+    private void showSearch(){
+        spinnerCardType.setVisibility(View.VISIBLE);
+        dateTv.setVisibility(View.VISIBLE);
+        maxPriceContainer.setVisibility(View.VISIBLE);
+        searchBtn.setVisibility(View.VISIBLE);
+        spinnerTitleTv.setVisibility(View.VISIBLE);
+        filterBtn.setText("  HIDE FILTER  ");
+    }
+
+//    private void setSearchRv() {
+//
+//        searchResultRv.setHasFixedSize(true);
+//        RecyclerView.LayoutManager horizontalLayout = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+//        searchResultRv.setLayoutManager(horizontalLayout);
+//        searchResultCl = new ArrayList<>();
+//        searchAdapter = new CardsListAdapter(searchResultCl);
+//        searchResultRv.setAdapter(searchAdapter);
+//        searchAdapter.setOnItemClickListener(new OnItemClickListener() {
+//            @Override
+//            public void onItemClick(View v, int position) {
+//                double val = searchResultCl.get(position).getValue();
+//                String id = searchResultCl.get(position).getId();
+//                Log.d("TAG", "Gift card in value of: " + val);
+//                Bundle map = new Bundle();
+//                map.putString("giftCardId",id);
+//                Navigation.findNavController(v).navigate(R.id.action_global_cardsDetailsFragment,map);
+//            }
+//        });
+//        setMostRecRv();
+//
+//
+//    }
+
 
     private void search() {
         pb.setVisibility(View.VISIBLE);
+        mostRecTv.setText("Search result:");
         Model.instance.searchCards(day, month, year, maxPriceEt.getText().toString(), cardTypeId, new Model.cardsListener() {
             @Override
             public void onComplete(List<Card> cards) {
-                searchResultCl.clear();
-                searchResultCl.addAll(cards);
-                searchAdapter.notifyDataSetChanged();
-                searchResultTv.setVisibility(View.VISIBLE);
+                mosetRecCl.clear();
+                mosetRecCl.addAll(cards);
+                mostRecAdapter.notifyDataSetChanged();
+
                 pb.setVisibility(View.GONE);
             }
         });
@@ -222,7 +270,6 @@ public class FeedFragment extends Fragment {
             }
         });
         spinnerCardType.setSelection(cts.size());
-        setSearchRv();
     }
 
     private void setMostRecRv() {
@@ -242,26 +289,12 @@ public class FeedFragment extends Fragment {
                 int d = calendar.get(Calendar.DAY_OF_MONTH);
                 Long now = Utils.convertDateToLong(Integer.toString(d), Integer.toString(m), Integer.toString(y));
                 String userId =  Model.instance.getSignedUser().getId();
+
                 for (Card c:cards) {
                     if(c.getExpirationDate()>now && !c.getOwner().equals(userId)){
                         mosetRecCl.add(c);
                     }
                 }
-                mostRecList.setHasFixedSize(true);
-                RecyclerView.LayoutManager mostRecLayout = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
-                mostRecList.setLayoutManager(mostRecLayout);
-                mostRecAdapter = new CardsListAdapter(mosetRecCl);
-                mostRecList.setAdapter(mostRecAdapter);
-
-                mostRecAdapter.setOnItemClickListener(new com.example.anygift.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(View v, int position) {
-                        double val = mosetRecCl.get(position).getValue();
-                        String id = mosetRecCl.get(position).getId();
-                        Log.d("TAG", "Gift card in value of: " + val);
-                        Navigation.findNavController(v).navigate(FeedFragmentDirections.actionFeedFragmentToCardsDetailsFragment(id));
-                    }
-                });
                 mostRecAdapter.notifyDataSetChanged();
                 swipeRefresh.setRefreshing(false);
                 pb.setVisibility(View.INVISIBLE);
