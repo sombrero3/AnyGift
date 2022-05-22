@@ -46,24 +46,11 @@
 
             <TextView
                 android:id="@+id/cards_list_user_name_tv"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:text="Hello User Name"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/textView14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:text="Gift cards sharing comunity"
-                android:textColor="#777575"
-                android:textSize="10sp"
+                android:layout_marginTop="8dp"
+                android:text="Hello User Name"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -71,12 +58,12 @@
                 android:id="@+id/textView16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="16dp"
                 android:text="Most recommended :"
                 android:textColor="@color/grey_1"
                 android:textSize="10dp"
-                app:layout_constraintStart_toStartOf="@+id/cards_list_user_name_tv"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/feed_search_btn" />
 
             <TextView
@@ -102,17 +89,18 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout2222"
-                android:layout_width="180dp"
-                android:layout_height="48dp"
-                android:layout_marginStart="-4dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                android:hint="Click to enter max price"
-                android:textColorHint="@color/grey_1"
                 android:backgroundTint="@color/white"
+                android:gravity="center"
+                android:hint="Max Price"
+                android:textColorHint="@color/grey_1"
                 android:visibility="gone"
                 app:errorTextColor="@color/error"
-                app:layout_constraintStart_toStartOf="@+id/feed_date_tv"
-                app:layout_constraintTop_toBottomOf="@+id/feed_date_tv">
+                app:layout_constraintEnd_toEndOf="@+id/feed_card_type_spinner"
+                app:layout_constraintStart_toStartOf="@+id/feed_card_type_spinner"
+                app:layout_constraintTop_toBottomOf="@+id/feed_card_type_spinner">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/feed_max_price_et"
@@ -121,11 +109,13 @@
                     android:layout_marginLeft="0dp"
                     android:layout_marginTop="0dp"
                     android:layout_marginRight="0dp"
-                    android:backgroundTint="@color/grey_1"
+                    android:background="@color/white"
+                    android:backgroundTint="@color/white_transparent"
                     android:fontFamily="sans-serif-medium"
+                    android:gravity="center"
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
-                    android:textColor="@color/purple_dark"
+                    android:textColor="@color/grey_1"
                     android:textSize="14sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -136,87 +126,94 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="Choose card type :"
                 android:backgroundTint="@color/white"
+                android:text="Choose card type :"
+                android:textColor="@color/grey_1"
                 android:visibility="gone"
-                app:layout_constraintStart_toStartOf="@+id/cards_list_user_name_tv"
-                app:layout_constraintTop_toBottomOf="@+id/feed_filter_btn" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/feed_filter_btn"
+                app:layout_constraintTop_toBottomOf="@+id/feed_verification_btn" />
 
             <Spinner
                 android:id="@+id/feed_card_type_spinner"
-                android:layout_width="0dp"
+                android:layout_width="200dp"
                 android:layout_height="48dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginTop="2dp"
                 android:background="@drawable/spinner_background"
                 android:contentDescription="Select Type:"
                 android:overlapAnchor="false"
                 android:spinnerMode="dropdown"
                 android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/feed_spinner_title_tv"
                 app:layout_constraintStart_toStartOf="@+id/feed_spinner_title_tv"
                 app:layout_constraintTop_toBottomOf="@+id/feed_spinner_title_tv" />
 
             <Button
                 android:id="@+id/feed_search_btn"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="16dp"
                 android:background="@drawable/button_radious_25dp_long"
-                android:text="Search"
+                android:text="Filter"
                 android:textColor="@color/purple_dark"
                 android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="@+id/feed_card_type_spinner"
-                app:layout_constraintTop_toBottomOf="@+id/feed_card_type_spinner" />
+                app:layout_constraintStart_toStartOf="@+id/feed_card_type_spinner"
+                app:layout_constraintTop_toBottomOf="@+id/feed_date_tv" />
 
 
             <TextView
                 android:id="@+id/feed_date_tv"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                android:text="Click to select max exp date"
+                android:layout_marginTop="4dp"
+                android:background="@color/white"
+                android:gravity="center"
+                android:text="Max Exp Date"
+                android:textColor="@color/grey_1"
                 android:textSize="14sp"
-                android:textStyle="bold"
+                android:textStyle="normal"
                 android:visibility="gone"
-                app:layout_constraintStart_toStartOf="@+id/feed_card_type_spinner"
-                app:layout_constraintTop_toBottomOf="@+id/feed_card_type_spinner" />
+                app:layout_constraintEnd_toEndOf="@+id/feed_card_type_spinner"
+                app:layout_constraintStart_toStartOf="@+id/textInputLayout2222"
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayout2222" />
 
             <ProgressBar
                 android:id="@+id/feed_progressBar"
                 style="?android:attr/progressBarStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="@+id/feed_search_btn"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/feed_search_btn" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <Button
                 android:id="@+id/feed_verification_btn"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="30dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="8dp"
                 android:background="@drawable/button_border_radious_8dp_purpel_200"
                 android:text="  Complete Verification  "
                 android:textColor="@color/purple_dark"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cards_list_user_name_tv" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/feed_filter_btn" />
 
             <Button
                 android:id="@+id/feed_filter_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
-                android:layout_margin="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_margin="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
                 android:background="@drawable/button_border_radious_8dp_grey"
                 android:text="  Show Filter  "
                 android:textColor="@color/grey_1"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cards_list_user_name_tv"
+                app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/search_icon_blue" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

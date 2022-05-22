@@ -52,7 +52,6 @@ public class SplashActivity extends AppCompatActivity {
                                             toFeedActivity();
                                         }
                                     });
-
                                 }
                             });
                         });
