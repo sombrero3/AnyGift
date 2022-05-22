@@ -202,7 +202,7 @@ public class SignUpFragment extends Fragment {
 
 
         HashMap<String, Object> map = com.example.anygift.Retrofit.User.mapToAddUser(Fname, Lname,
-                email_usr, password_usr, address_usr, latAndLong, phone_usr, false);
+                email_usr, password_usr, address_usr, "11", phone_usr, false);
         Model.instance.addUserRetrofit(map, new Model.userReturnListener() {
             @Override
             public void onComplete(com.example.anygift.Retrofit.User user, String message) {
