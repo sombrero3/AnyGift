@@ -2,8 +2,8 @@
 <!-- Base application theme. -->
     <style name="Theme.Anygift" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/red_transparent2</item>
-        <item name="colorPrimaryVariant">@color/purple_dark</item>
+        <item name="colorPrimary">@color/purple_dark</item>
+        <item name="colorPrimaryVariant">@color/black</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
