@@ -53,7 +53,17 @@
         android:id="@+id/editProfileFragment"
         android:name="com.example.anygift.feed.EditProfileFragment"
         tools:layout="@layout/fragment_edit_profile"/>
-    <action android:id="@+id/action_global_addCardFragment" app:destination="@id/addCardFragment"/><action android:id="@+id/action_global_feedFragment" app:destination="@id/feedFragment"/><action android:id="@+id/action_global_myCardsFragment" app:destination="@id/myCardsFragment"/>
+    <action android:id="@+id/action_global_addCardFragment" app:destination="@id/addCardFragment"/>
+    <action
+        android:id="@+id/action_global_feedFragment"
+        app:destination="@id/feedFragment"
+        app:enterAnim="@android:anim/fade_in"
+        app:exitAnim="@android:anim/fade_out" />
+    <action
+        android:id="@+id/action_global_myCardsFragment"
+        app:destination="@id/myCardsFragment"
+        app:enterAnim="@android:anim/fade_in"
+        app:exitAnim="@android:anim/fade_out" />
     <fragment
         android:id="@+id/shopFragment"
         android:name="com.example.anygift.feed.ShopFragment" >
