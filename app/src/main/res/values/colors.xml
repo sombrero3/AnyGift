@@ -22,4 +22,13 @@
     <color name="shop">#52D7F4FB</color>
     <color name="shop2">#11320120</color>
     <color name="white_transparent">#6FFFFFFF</color>
+    <color name="purple_1">#7B1FA2</color>
+    <color name="purple_2">#9C27B0</color>
+    <color name="purple_3">#E1BEE7</color>
+    <color name="blue_dark">#607D8B</color>
+    <color name="pink_dark">#C2185B</color>
+    <color name="pink">#E91E63</color>
+
+
+
 </resources>
