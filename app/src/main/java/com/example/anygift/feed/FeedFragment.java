@@ -52,12 +52,13 @@ public class FeedFragment extends Fragment {
     FloatingActionButton addFab;
     RecyclerView mostRecList;
     int year,month,day;
-    Button searchBtn,verificationBtn,filterBtn;
+    Button searchBtn,verificationBtn;
     View v;
     DatePickerDialog.OnDateSetListener dateListener;
     List<Card> mosetRecCl;
     Spinner spinnerCardType;
     List<String> cardTypes;
+    ImageView searchIconIv;
     String cardTypeId;
     ProgressBar pb;
     boolean searchFlag;
@@ -84,7 +85,7 @@ public class FeedFragment extends Fragment {
         spinnerCardType = view.findViewById(R.id.feed_card_type_spinner);
         searchBtn = view.findViewById(R.id.feed_search_btn);
         verificationBtn = view.findViewById(R.id.feed_verification_btn);
-        filterBtn = view.findViewById(R.id.feed_filter_btn);
+        searchIconIv = view.findViewById(R.id.feed_filter_iv);
         spinnerTitleTv = view.findViewById(R.id.feed_spinner_title_tv);
         addFab = view.findViewById(R.id.feed_search_fab);
         maxPriceContainer = view.findViewById(R.id.textInputLayout2222);
@@ -170,7 +171,7 @@ public class FeedFragment extends Fragment {
         }
 
         searchFlag = false;
-        filterBtn.setOnClickListener(v->{
+        searchIconIv.setOnClickListener(v->{
             if(!searchFlag) {
                 showSearch();
                 searchFlag=true;
@@ -190,7 +191,6 @@ public class FeedFragment extends Fragment {
         maxPriceContainer.setVisibility(View.GONE);
         searchBtn.setVisibility(View.GONE);
         spinnerTitleTv.setVisibility(View.GONE);
-        filterBtn.setText("  SHOW FILTER  ");
     }
     private void showSearch(){
         spinnerCardType.setVisibility(View.VISIBLE);
@@ -198,7 +198,6 @@ public class FeedFragment extends Fragment {
         maxPriceContainer.setVisibility(View.VISIBLE);
         searchBtn.setVisibility(View.VISIBLE);
         spinnerTitleTv.setVisibility(View.VISIBLE);
-        filterBtn.setText("  HIDE FILTER  ");
     }
 
 //    private void setSearchRv() {

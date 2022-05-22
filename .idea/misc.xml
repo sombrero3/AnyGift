@@ -4,6 +4,10 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/drawable/bottom_popup_background.xml" value="0.234" />
+        <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/drawable/button_25sp_pink.xml" value="0.144" />
+        <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/drawable/button_25sp_pink_dark.xml" value="0.144" />
+        <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/drawable/button_border_8sp_blue_dark.xml" value="0.144" />
+        <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/drawable/button_border_8sp_pink.xml" value="0.144" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/drawable/button_border_radious_25_blue.xml" value="0.144" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/drawable/button_border_radious_25dp.xml" value="0.2555" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/drawable/button_border_radious_25dp_grey.xml" value="0.155" />
