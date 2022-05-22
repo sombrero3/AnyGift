@@ -37,7 +37,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="G"
-        android:textColor="@color/red_transparent"
+        android:textColor="@color/pink"
         android:textSize="54sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/splash_title_1_tv"
