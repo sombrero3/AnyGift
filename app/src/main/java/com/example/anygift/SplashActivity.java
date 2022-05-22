@@ -40,7 +40,7 @@ public class SplashActivity extends AppCompatActivity {
         title1Tv.setAnimation(topAnim);
         title2Tv.setAnimation(topAnim);
         title3Tv.setAnimation(topAnim);
-        title4Tv.setAnimation(topAnim);
+        title4Tv.setAnimation(bottomAnim);
 
 
         Model.instance.executor.execute(() -> {
