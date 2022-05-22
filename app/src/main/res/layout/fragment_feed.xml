@@ -108,6 +108,7 @@
                 android:layout_marginTop="2dp"
                 android:hint="Click to enter max price"
                 android:textColorHint="@color/grey_1"
+                android:backgroundTint="@color/white"
                 android:visibility="gone"
                 app:errorTextColor="@color/error"
                 app:layout_constraintStart_toStartOf="@+id/feed_date_tv"
@@ -136,6 +137,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="Choose card type :"
+                android:backgroundTint="@color/white"
                 android:visibility="gone"
                 app:layout_constraintStart_toStartOf="@+id/cards_list_user_name_tv"
                 app:layout_constraintTop_toBottomOf="@+id/feed_filter_btn" />
