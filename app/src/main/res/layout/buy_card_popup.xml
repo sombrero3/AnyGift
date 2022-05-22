@@ -19,22 +19,22 @@ android:id="@+id/buy_now_popup">
     app:layout_constraintStart_toEndOf="@+id/buy_card_popup_icon_iv"
     app:layout_constraintTop_toTopOf="@+id/buy_card_popup_icon_iv" />
 
-<Button
-    android:id="@+id/buy_card_popup_buy_btn"
-    android:layout_width="0dp"
-    android:layout_height="40dp"
-    android:layout_marginStart="4dp"
-    android:layout_marginTop="16dp"
-    android:layout_marginEnd="8dp"
-    android:layout_marginBottom="8dp"
-    android:background="@drawable/button_radious_8dp_pupel_dark"
-    android:text="buy"
-    android:textColor="@color/white"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHorizontal_bias="0.5"
-    app:layout_constraintStart_toEndOf="@+id/buy_card_popup_cancel_btn"
-    app:layout_constraintTop_toBottomOf="@+id/textview222" />
+    <Button
+        android:id="@+id/buy_card_popup_buy_btn"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="260dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/button_radious_8dp_pupel_dark"
+        android:text="buy"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/buy_card_popup_cancel_btn"
+        app:layout_constraintTop_toBottomOf="@+id/textview222" />
 
 <Button
     android:id="@+id/buy_card_popup_cancel_btn"
@@ -51,18 +51,18 @@ android:id="@+id/buy_now_popup">
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="@+id/buy_card_popup_buy_btn" />
 
-<com.google.android.material.imageview.ShapeableImageView
-    android:id="@+id/buy_card_popup_icon_iv"
-    android:layout_width="wrap_content"
-    android:layout_height="80dp"
-    android:layout_marginStart="16dp"
-    android:layout_marginTop="48dp"
-    android:adjustViewBounds="true"
-    android:scaleType="fitCenter"
-    android:src="@drawable/amazon_giftcard"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-    app:shapeAppearanceOverlay="@style/roundedCornersImageView" />
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/buy_card_popup_icon_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="64dp"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+        android:src="@drawable/amazon_giftcard"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/roundedCornersImageView" />
 
     <TextView
         android:id="@+id/textView291"
