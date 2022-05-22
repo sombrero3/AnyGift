@@ -22,6 +22,10 @@
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">20dp</item>
     </style>
+    <style name="roundedCornersSmallImageView" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">8dp</item>
+    </style>
     <style name="DialogAnimation">
         <item name="android:windowEnterAnimation">@anim/buttom_sheet_anim_slide_up</item>
         <item name="android:windowExitAnimation">@anim/buttom_sheet_anim_slide_down</item>

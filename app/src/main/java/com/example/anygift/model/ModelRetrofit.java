@@ -182,7 +182,7 @@ public class ModelRetrofit {
                 if (response.code() == 200) {
                     if (response.body() != null) {
                         for (int i = 0; i < response.body().size(); i++) {
-                            CardType ct = new CardType(response.body().get(i).getName(), response.body().get(i).getCategories(),response.body().get(i).getStores(), response.body().get(i).getId());
+                            CardType ct = new CardType(response.body().get(i).getName(), response.body().get(i).getCategories(), response.body().get(i).getStores(), response.body().get(i).getId());
                             list.add(ct);
                         }
                         listener.onComplete(list);
@@ -595,7 +595,7 @@ public class ModelRetrofit {
     public void getAllUserCardsTransactions(Model.cardsTransactionsReturnListener listener) { //done
         String user_id = getUserId();
         String token = getAccessToken();
-        Call<List<CardTransaction>> call = retrofitInterface.getCardsTransactions(user_id, token);
+        Call<List<CardTransaction>> call = retrofitInterface.getCardsTransactionsByUserId(user_id, token);
         List<CardTransaction> list = new ArrayList<>();
         call.enqueue(new Callback<List<CardTransaction>>() {
             @Override
@@ -615,6 +615,33 @@ public class ModelRetrofit {
 
             @Override
             public void onFailure(Call<List<CardTransaction>> call, Throwable t) {
+                listener.onComplete(null, t.getMessage());
+                System.out.println("Very BAD");
+            }
+        });
+    }
+
+    public void getCardTransactionByTransactionId(String trans_id, Model.cardsTransactionReturnListener listener) { //done
+        String token = getAccessToken();
+        Call<CardTransaction> call = retrofitInterface.getCardsTransactionsByTransactionId(trans_id, token);
+        call.enqueue(new Callback<CardTransaction>() {
+            @Override
+            public void onResponse(Call<CardTransaction> call, Response<CardTransaction> response) {
+
+                if (response.code() == 200) {
+                    if (response.body() != null) {
+                        CardTransaction ct = response.body();
+                        listener.onComplete(ct, "All Good");
+                    }
+
+                } else if (response.code() == 400) {
+                    listener.onComplete(null, "this is bad");
+                    System.out.println("THIS IS BAD");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CardTransaction> call, Throwable t) {
                 listener.onComplete(null, t.getMessage());
                 System.out.println("Very BAD");
             }
@@ -666,7 +693,7 @@ public class ModelRetrofit {
         });
     }
 
-    public void getSellerRatings(String user_id, Model.sellerRatingsListener listener){
+    public void getSellerRatings(String user_id, Model.sellerRatingsListener listener) {
         Call<SellerRatings> call = retrofitInterface.getSellerRatings(user_id, getAccessToken());
         call.enqueue(new Callback<SellerRatings>() {
             @Override
@@ -677,6 +704,7 @@ public class ModelRetrofit {
                     listener.onComplete(ee);
                 }
             }
+
             @Override
             public void onFailure(Call<SellerRatings> call, Throwable t) {
                 listener.onComplete(null);
@@ -685,12 +713,12 @@ public class ModelRetrofit {
         });
     }
 
-    public void addCardTransSatis(String card_trans_id,HashMap<String,Object> m, Model.cardTransactionReturnListener l){
-        Call<CardTransaction> call = retrofitInterface.addCardTransSatis(card_trans_id,m,getAccessToken());
+    public void addCardTransSatis(String card_trans_id, HashMap<String, Object> m, Model.cardTransactionReturnListener l) {
+        Call<CardTransaction> call = retrofitInterface.addCardTransSatis(card_trans_id, m, getAccessToken());
         call.enqueue(new Callback<CardTransaction>() {
             @Override
             public void onResponse(Call<CardTransaction> call, Response<CardTransaction> response) {
-                if (response.code() == 200){
+                if (response.code() == 200) {
                     CardTransaction ct = response.body();
                     l.onComplete(ct, "CardTransaction updated");
                 }
@@ -698,7 +726,7 @@ public class ModelRetrofit {
 
             @Override
             public void onFailure(Call<CardTransaction> call, Throwable t) {
-                l.onComplete(null,"Fail");
+                l.onComplete(null, "Fail");
             }
         });
     }

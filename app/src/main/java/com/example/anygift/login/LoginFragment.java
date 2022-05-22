@@ -58,13 +58,12 @@ public class LoginFragment extends Fragment {
     Snackbar mySnackbar;
     String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
     ProgressBar pb;
-
     Button signIn_btn, signUp_btn, forgotP_btn;
     LoginButton facebook_btn;
     TextInputEditText email, password;
     String email_user, password_user;
-CallbackManager callbackManager;
-ProfileTracker profileTracker;
+    CallbackManager callbackManager;
+    ProfileTracker profileTracker;
     String userEmail,firstName,lastName;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -216,19 +215,17 @@ ProfileTracker profileTracker;
         setButtons(false);
         HashMap<String, Object> map = com.example.anygift.Retrofit.User.mapToLogin(email.getText().toString(), password.getText().toString());
         Model.instance.login(map, (user, message) -> {
-            pb.setVisibility(View.INVISIBLE);
             if (user == null) {
                 setButtons(true);
                 mySnackbar = Snackbar.make(view, message, BaseTransientBottomBar.LENGTH_LONG);
                 mySnackbar.show();
+                pb.setVisibility(View.INVISIBLE);
                 } else {
                     mySnackbar = Snackbar.make(view, "Login successful :)", BaseTransientBottomBar.LENGTH_LONG);
                     mySnackbar.show();
-                    Model.instance.setCardTypes(new Model.VoidListener() {
-                        @Override
-                        public void onComplete() {
-                                goToFeedActivity(user);
-                            }
+                    Model.instance.setCardTypes(() -> {
+                        pb.setVisibility(View.INVISIBLE);
+                        goToFeedActivity(user);
                     });
                 }
         });
@@ -247,14 +244,11 @@ ProfileTracker profileTracker;
         }
         //connect via http request
         pb.setVisibility(View.VISIBLE);
-
         login();
-
     }
 
     public void goToFeedActivity(com.example.anygift.Retrofit.User user) {
         Model.instance.setCurrentUser(user);
-        //progressBar.setVisibility(View.INVISIBLE);
         Intent intent = new Intent(getContext(), MainActivity.class);
         startActivity(intent);
         getActivity().finish();

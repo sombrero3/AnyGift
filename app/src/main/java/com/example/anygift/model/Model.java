@@ -51,14 +51,22 @@ public class Model {
             public void onComplete(List<CardType> cts) {
                 cardTypes.clear();
                 for (CardType ct : cts) {
-                    downloadImage(ct.getId() + ".jpeg", new byteArrayReturnListener() {
+                    Model.instance.executor.execute(new Runnable() {
                         @Override
-                        public void onComplete(Bitmap bitmap) {
-                            ct.setPicture(bitmap);
-                            cardTypes.add(ct);
-                            listener.onComplete();
+                        public void run() {
+                            downloadImage(ct.getId() + ".jpeg", new byteArrayReturnListener() {
+                                @Override
+                                public void onComplete(Bitmap bitmap) {
+                                    ct.setPicture(bitmap);
+                                    cardTypes.add(ct);
+                                    if(ct.getId().equals(cts.get(cts.size()-1).getId())) {
+                                        listener.onComplete();
+                                    }
+                                }
+                            });
                         }
                     });
+
                 }
             }
         });
@@ -72,6 +80,11 @@ public class Model {
     public interface cardsTransactionsReturnListener {
         void onComplete(List<CardTransaction> cardTransaction,String message);
     }
+
+    public interface cardsTransactionReturnListener {
+        void onComplete(CardTransaction cardTransaction,String message);
+    }
+
 
     public interface cardTransactionReturnListener {
         void onComplete(CardTransaction cardTransaction,String message);
@@ -274,6 +287,11 @@ public void addReview(String card_trans_id, Boolean satisfied,String buyerCommen
     public void getCardsTransactionsRetrofit(cardsTransactionsReturnListener listener) {
         modelRetrofit.getAllUserCardsTransactions(listener);
     }
+
+    public void getCardsTransactionByTransactionIdRetrofit(String trans_id,cardsTransactionReturnListener listener) {
+        modelRetrofit.getCardTransactionByTransactionId(trans_id,listener);
+    }
+
 
 
     public void addCardTransaction(HashMap<String,Object> map,booleanReturnListener listener) {

@@ -374,6 +374,50 @@
             app:layout_constraintStart_toStartOf="@+id/details_asked_price_tv"
             app:layout_constraintTop_toTopOf="@+id/details_asked_price_tv" />
 
+        <ImageView
+            android:id="@+id/details_verified_iv"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@+id/card_details_user_pic_iv"
+            app:layout_constraintTop_toBottomOf="@+id/card_details_user_pic_iv"
+            app:srcCompat="@drawable/head_vi_icon" />
+
+        <ImageView
+            android:id="@+id/imageView15"
+            android:layout_width="13dp"
+            android:layout_height="13dp"
+            android:layout_marginTop="5dp"
+            app:layout_constraintEnd_toEndOf="@+id/card_details_user_pic_iv"
+            app:layout_constraintTop_toBottomOf="@+id/card_details_user_pic_iv"
+            app:srcCompat="@drawable/unlike_icon_red" />
+
+        <TextView
+            android:id="@+id/details_num_like_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            app:layout_constraintEnd_toStartOf="@+id/imageView16"
+            app:layout_constraintTop_toBottomOf="@+id/card_details_user_pic_iv" />
+
+        <ImageView
+            android:id="@+id/imageView16"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/details_num_like_tv"
+            app:layout_constraintEnd_toStartOf="@+id/details_num_unlike_tv"
+            app:layout_constraintTop_toBottomOf="@+id/card_details_user_pic_iv"
+            app:srcCompat="@drawable/like_icon_green" />
+
+        <TextView
+            android:id="@+id/details_num_unlike_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            app:layout_constraintEnd_toStartOf="@+id/imageView15"
+            app:layout_constraintTop_toTopOf="@+id/details_num_like_tv" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
