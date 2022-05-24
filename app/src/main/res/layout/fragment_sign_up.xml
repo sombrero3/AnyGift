@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="56dp"
             android:text="G"
-            android:textColor="@color/red_transparent"
+            android:textColor="@color/purplediff"
             android:textSize="34dp"
 
             android:textStyle="bold"
@@ -58,7 +58,7 @@
             android:fontFamily="sans-serif-medium"
             android:text="Sign Up"
             android:textAlignment="center"
-            android:textColor="@color/black"
+            android:textColor="@color/y"
             android:textSize="24sp"
             app:layout_constraintBottom_toTopOf="@+id/SignUp_textInput_Finame"
             app:layout_constraintStart_toStartOf="parent"
@@ -70,6 +70,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
+            android:fontFamily="sans-serif-medium"
             android:text="Please enter your details:"
             app:layout_constraintStart_toStartOf="@+id/SignUp_text_view"
             app:layout_constraintTop_toBottomOf="@+id/SignUp_text_view" />

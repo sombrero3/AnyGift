@@ -21,6 +21,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
+        android:fontFamily="sans-serif-medium"
         android:text="Upload picture of your personal ID to verificate your account"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -42,8 +43,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="58dp"
         android:background="@drawable/button_border_radious_25dp"
+        android:fontFamily="sans-serif-medium"
         android:text="Complete"
-        android:textColor="@color/red_1"
+        android:textColor="@color/y"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/verification_camera_iv" />
