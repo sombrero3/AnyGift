@@ -26,8 +26,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:height="50dp"
-            android:hint="Card Number:"
             android:fontFamily="sans-serif-medium"
+            android:hint="Card Number:"
+            android:textColor="#311042"
             tools:ignore="TouchTargetSizeCheck" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -49,6 +50,7 @@
             android:fontFamily="sans-serif-medium"
             android:hint="Card Value:"
             android:inputType="numberDecimal"
+            android:textColor="#311042"
             tools:ignore="TouchTargetSizeCheck" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -77,6 +79,7 @@
         android:background="@drawable/button_radious_25dp_long"
         android:fontFamily="sans-serif-medium"
         android:text="Confirm"
+        android:textColor="#FFF7F7"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -89,6 +92,7 @@
         android:layout_marginTop="32dp"
         android:fontFamily="sans-serif-medium"
         android:text="Exp details :"
+        android:textColor="#311042"
         app:layout_constraintStart_toStartOf="@+id/textInputLayout"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
 
@@ -100,6 +104,7 @@
         android:layout_marginTop="16dp"
         android:fontFamily="sans-serif-medium"
         android:text="Choose Card Type:"
+        android:textColor="#311042"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/add_giftCardImage" />
 
@@ -110,6 +115,7 @@
         android:layout_marginTop="24dp"
         android:fontFamily="sans-serif-medium"
         android:text="Enter Card Number:"
+        android:textColor="#311042"
         app:layout_constraintStart_toStartOf="@+id/option"
         app:layout_constraintTop_toBottomOf="@+id/option" />
 
@@ -120,6 +126,7 @@
         android:layout_marginTop="32dp"
         android:fontFamily="sans-serif-medium"
         android:text="Enter Card Value:"
+        android:textColor="#311042"
         app:layout_constraintStart_toStartOf="@+id/textView7"
         app:layout_constraintTop_toBottomOf="@+id/add_card_date_tv" />
 
@@ -130,6 +137,7 @@
         android:layout_marginTop="24dp"
         android:fontFamily="sans-serif-medium"
         android:text="Enter your selling price:"
+        android:textColor="#311042"
         app:layout_constraintStart_toStartOf="@+id/textView7"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout4" />
 
@@ -158,7 +166,7 @@
         android:layout_marginEnd="32dp"
         android:fontFamily="sans-serif-medium"
         android:text="Add new gift card"
-        android:textColor="@color/red_transparent"
+        android:textColor="#8dca7f"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -182,6 +190,7 @@
             android:fontFamily="sans-serif-medium"
             android:hint="Your Asking Price"
             android:inputType="numberDecimal"
+            android:textColor="#311042"
             tools:ignore="TouchTargetSizeCheck" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -218,6 +227,7 @@
         android:layout_marginTop="24dp"
         android:fontFamily="sans-serif-medium"
         android:text="Publish card for sale"
+        android:textColor="#311042"
         app:layout_constraintStart_toStartOf="@+id/textInputLayout5"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout5" />
 

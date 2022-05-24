@@ -41,7 +41,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
+        android:fontFamily="sans-serif-medium"
         android:text="Choose card type :"
+        android:textColor="@color/purplediff"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView56" />
 
@@ -64,6 +66,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
+        android:fontFamily="sans-serif-medium"
         android:text="Choose Max Exp Date :"
         app:layout_constraintStart_toStartOf="@+id/search_card_type_spinner"
         app:layout_constraintTop_toBottomOf="@+id/search_card_type_spinner" />
@@ -72,7 +75,9 @@
         android:id="@+id/textView54"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-medium"
         android:text="Choose Max Price :"
+        android:textColor="@color/purplediff"
         app:layout_constraintBaseline_toBaselineOf="@+id/textInputLayout222"
         app:layout_constraintStart_toStartOf="@+id/textView52" />
 
@@ -81,7 +86,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:fontFamily="sans-serif-medium"
         android:text="AnyGift Search Engine"
+        android:textColor="@color/y"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -91,7 +98,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
+        android:fontFamily="sans-serif-medium"
         android:text="Search results :"
+        android:textColor="@color/purplediff"
         app:layout_constraintStart_toStartOf="@+id/textView54"
         app:layout_constraintTop_toBottomOf="@+id/search_card_search_btn" />
 
@@ -100,9 +109,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Search"
-        android:textColor="@color/purple_dark"
         android:background="@drawable/button_radious_25dp_long"
+        android:text="Search"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="@+id/textInputLayout222"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout222" />
 
@@ -122,6 +131,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:fontFamily="sans-serif-medium"
         android:text="Select date"
         android:textSize="20sp"
         android:textStyle="bold"

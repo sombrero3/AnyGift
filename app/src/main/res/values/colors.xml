@@ -26,8 +26,12 @@
     <color name="purple_2">#9C27B0</color>
     <color name="purple_3">#E1BEE7</color>
     <color name="blue_dark">#607D8B</color>
+    <color name="other">#8dca7f</color>
     <color name="pink_dark">#C2185B</color>
     <color name="pink">#E91E63</color>
+    <color name="t">#311042</color>
+    <color name="y">#8dca7f</color>
+    <color name="purplediff">#311042</color>
 
 
 
