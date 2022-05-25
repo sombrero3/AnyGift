@@ -98,11 +98,11 @@
     <Button
         android:id="@+id/search_card_search_btn"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="30dp"
         android:layout_marginTop="16dp"
         android:text="Search"
-        android:textColor="@color/purple_dark"
-        android:background="@drawable/button_radious_25dp_long"
+        android:textColor="@color/pink"
+        android:background="@drawable/button_border_radious_25_blue"
         app:layout_constraintEnd_toEndOf="@+id/textInputLayout222"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout222" />
 

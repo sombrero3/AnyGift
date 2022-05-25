@@ -7,13 +7,11 @@
 <FrameLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#DC1A1A"
     tools:context=".login.LoginFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#F8F8F8">
+        android:layout_height="match_parent">
 
 
         <TextView
@@ -76,7 +74,9 @@
                 android:fontFamily="sans-serif-medium"
                 android:inputType="textEmailAddress"
                 android:maxLines="1"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:textColorHighlight="@color/blue_dark"
+                android:textColorLink="@color/blue_dark" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -101,6 +101,7 @@
                 android:fontFamily="sans-serif-medium"
                 android:inputType="textPassword"
                 android:maxLines="1"
+                android:textColorHighlight="@color/pink"
                 android:textColorLink="@color/black" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -126,7 +127,7 @@
             android:background="?attr/selectableItemBackground"
             android:fontFamily="sans-serif-medium"
             android:text="  Forgot Password?  "
-            android:textColor="@color/blue_dark"
+            android:textColor="@color/grey_1"
             app:layout_constraintBaseline_toBaselineOf="@+id/Login_btn_signUp"
             app:layout_constraintStart_toStartOf="@+id/login_line"
             tools:ignore="MissingConstraints" />
@@ -140,7 +141,7 @@
             android:background="?attr/selectableItemBackground"
             android:fontFamily="sans-serif-medium"
             android:text="Sign Up"
-            android:textColor="@color/blue_dark"
+            android:textColor="@color/grey_1"
             app:layout_constraintEnd_toEndOf="@+id/login_line"
             app:layout_constraintTop_toBottomOf="@+id/login_line"
             app:strokeColor="#B8A8A8"
@@ -175,7 +176,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="G"
-            android:textColor="@color/pink"
+            android:textColor="@color/pink_dark"
             android:textSize="34dp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/textView31"

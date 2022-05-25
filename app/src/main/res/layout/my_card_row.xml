@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="32dp"
-    android:layout_marginTop="16dp"
-    android:layout_marginRight="32dp"
-    android:layout_marginBottom="16dp"
+    android:layout_marginLeft="16dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginRight="16dp"
+    android:layout_marginBottom="10dp"
     android:clickable="true"
     app:cardBackgroundColor="#DDFFFFFF"
     app:cardCornerRadius="20dp"
@@ -25,7 +25,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="-10dp"
-            android:layout_marginEnd="-30dp"
+            android:layout_marginEnd="-40dp"
             android:layout_marginBottom="-10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -55,8 +55,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:text="00.00"
-            android:textStyle="bold"
             android:textSize="20sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/tv111"
             app:layout_constraintStart_toEndOf="@+id/tv111"
             app:layout_constraintTop_toTopOf="@+id/tv111" />
@@ -96,7 +96,7 @@
             android:id="@+id/textView191"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="20dp"
             android:text="Exp :"
             app:layout_constraintStart_toStartOf="@+id/my_card_row_type_tv"
             app:layout_constraintTop_toBottomOf="@+id/my_card_row_type_tv" />
@@ -119,8 +119,8 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:text="CARD TYPE"
-            android:textStyle="bold"
             android:textSize="20sp"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -142,9 +142,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:text="00 %"
-            android:textStyle="bold"
             android:textColor="@color/green_saving"
             android:textSize="20sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/textView20"
             app:layout_constraintStart_toEndOf="@+id/textView20"
             app:layout_constraintTop_toTopOf="@+id/textView20" />
@@ -154,7 +154,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="20dp"
             android:text="Asked Price :"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -186,11 +186,11 @@
             android:id="@+id/card_row_exp_iv"
             android:layout_width="150dp"
             android:layout_height="150dp"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/expired"
-            android:visibility="invisible"/>
+            app:srcCompat="@drawable/expired" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

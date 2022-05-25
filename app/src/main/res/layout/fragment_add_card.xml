@@ -17,6 +17,7 @@
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginTop="2dp"
+        android:textColorHint="@color/black"
         app:layout_constraintEnd_toEndOf="@+id/option"
         app:layout_constraintStart_toStartOf="@+id/textView15"
         app:layout_constraintTop_toBottomOf="@+id/textView15">
@@ -26,8 +27,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:height="50dp"
-            android:hint="Card Number:"
             android:fontFamily="sans-serif-medium"
+            android:hint="Card Number:"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
             tools:ignore="TouchTargetSizeCheck" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -36,6 +39,7 @@
         android:layout_width="0dp"
         android:layout_height="56dp"
         android:layout_marginTop="2dp"
+        android:textColorHint="@color/black"
         app:layout_constraintEnd_toEndOf="@+id/textInputLayout"
         app:layout_constraintStart_toStartOf="@+id/textView17"
         app:layout_constraintTop_toBottomOf="@+id/textView17">
@@ -49,6 +53,7 @@
             android:fontFamily="sans-serif-medium"
             android:hint="Card Value:"
             android:inputType="numberDecimal"
+            android:textColor="@color/black"
             tools:ignore="TouchTargetSizeCheck" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -58,23 +63,24 @@
         android:id="@+id/add_giftCardImage"
         android:layout_width="wrap_content"
         android:layout_height="140dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="32dp"
         android:adjustViewBounds="true"
         android:scaleType="fitCenter"
         android:src="@drawable/amazon_giftcard"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView8"
-        app:shapeAppearanceOverlay="@style/roundedCornersImageView"/>
+        app:shapeAppearanceOverlay="@style/roundedCornersImageView" />
 
 
     <Button
         android:id="@+id/add_upload_bt"
         android:layout_width="200dp"
-        android:layout_height="wrap_content"
+        android:layout_height="30dp"
         android:layout_marginTop="38dp"
         android:layout_marginBottom="32dp"
-        android:background="@drawable/button_radious_25dp_long"
+        android:textColor="@color/pink"
+        android:background="@drawable/button_border_radious_25_blue"
         android:text="Confirm"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -87,6 +93,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="Exp details :"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="@+id/textInputLayout"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
 
@@ -97,6 +104,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
         android:text="Choose Card Type:"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/add_giftCardImage" />
 
@@ -106,6 +114,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="Enter Card Number:"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="@+id/option"
         app:layout_constraintTop_toBottomOf="@+id/option" />
 
@@ -115,6 +124,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="Enter Card Value:"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="@+id/textView7"
         app:layout_constraintTop_toBottomOf="@+id/add_card_date_tv" />
 
@@ -124,6 +134,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="Enter your selling price:"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="@+id/textView7"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout4" />
 
@@ -148,10 +159,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="32dp"
         android:text="Add new gift card"
-        android:textColor="@color/red_transparent"
+        android:textColor="@color/pink"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -163,6 +174,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
+        android:textColorHint="@color/black"
         app:layout_constraintEnd_toEndOf="@+id/textInputLayout4"
         app:layout_constraintStart_toStartOf="@+id/textView18"
         app:layout_constraintTop_toBottomOf="@+id/textView18">
@@ -195,9 +207,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:text="Select Date"
-        android:textStyle="bold"
         android:textAlignment="center"
+        android:textColor="@color/black"
         android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/textView7"
         app:layout_constraintEnd_toEndOf="@+id/textInputLayout"
         app:layout_constraintStart_toEndOf="@+id/textView7"
@@ -209,6 +222,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="Publish card for sale"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="@+id/textInputLayout5"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout5" />
 
