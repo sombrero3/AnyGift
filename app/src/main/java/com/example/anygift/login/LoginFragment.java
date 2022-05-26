@@ -17,6 +17,8 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -64,7 +66,8 @@ public class LoginFragment extends Fragment {
     String email_user, password_user;
     CallbackManager callbackManager;
     ProfileTracker profileTracker;
-    String userEmail,firstName,lastName;
+    String userEmail;
+    Animation rightAnim;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         setHasOptionsMenu(true);
@@ -77,6 +80,12 @@ public class LoginFragment extends Fragment {
         password = view.findViewById(R.id.Login_password_input);
         pb = view.findViewById(R.id.login_prob);
         pb.setVisibility(View.INVISIBLE);
+
+        rightAnim = AnimationUtils.loadAnimation(getActivity(),R.anim.right_anim);
+        email.setAnimation(rightAnim);
+        password.setAnimation(rightAnim);
+        signUp_btn.setAnimation(rightAnim);
+        forgotP_btn.setAnimation(rightAnim);
 
         signIn_btn.setTypeface(Typeface.SANS_SERIF);
         signUp_btn.setTypeface(Typeface.SANS_SERIF);

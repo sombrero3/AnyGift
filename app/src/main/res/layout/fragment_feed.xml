@@ -30,9 +30,9 @@
                 android:layout_marginTop="2dp"
                 android:layout_marginEnd="2dp"
                 android:background="#AFACAC"
-                app:layout_constraintEnd_toEndOf="@+id/textView16"
-                app:layout_constraintStart_toStartOf="@+id/textView16"
-                app:layout_constraintTop_toBottomOf="@+id/textView16" />
+                app:layout_constraintEnd_toEndOf="@+id/feed_most_rec_tv"
+                app:layout_constraintStart_toStartOf="@+id/feed_most_rec_tv"
+                app:layout_constraintTop_toBottomOf="@+id/feed_most_rec_tv" />
 
 
             <androidx.recyclerview.widget.RecyclerView
@@ -47,7 +47,7 @@
 
 
             <TextView
-                android:id="@+id/textView16"
+                android:id="@+id/feed_most_rec_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
@@ -81,11 +81,12 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout2222"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
+                android:layout_width="140dp"
+                android:layout_height="35dp"
+                android:layout_marginTop="4dp"
                 android:gravity="center"
                 android:hint="Max Price"
+                android:background="@drawable/spinner_background"
                 android:textColorHint="@color/grey_1"
                 android:visibility="gone"
                 app:errorTextColor="@color/error"
@@ -96,13 +97,13 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/feed_max_price_et"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="35dp"
                     android:layout_marginLeft="0dp"
                     android:layout_marginTop="0dp"
                     android:layout_marginRight="0dp"
                     android:backgroundTint="@color/transparent"
                     android:fontFamily="sans-serif-medium"
-                    android:gravity="center"
+                    android:gravity="left"
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
                     android:textColor="@color/black"
@@ -118,7 +119,7 @@
                 android:layout_marginTop="16dp"
                 android:backgroundTint="@color/white"
                 android:text="Choose card type :"
-                android:textColor="@color/grey_1"
+                android:textColor="@color/black"
                 android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -126,8 +127,8 @@
 
             <Spinner
                 android:id="@+id/feed_card_type_spinner"
-                android:layout_width="200dp"
-                android:layout_height="48dp"
+                android:layout_width="140dp"
+                android:layout_height="35dp"
                 android:layout_marginTop="2dp"
                 android:background="@drawable/spinner_background"
                 android:contentDescription="Select Type:"
@@ -154,17 +155,18 @@
 
             <TextView
                 android:id="@+id/feed_date_tv"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_width="140dp"
+                android:layout_height="35dp"
                 android:layout_marginTop="4dp"
-                android:gravity="center"
+                android:gravity="left"
                 android:text="Max Exp Date"
-                android:textColor="@color/grey_1"
+                android:textColor="@color/black"
                 android:textSize="14sp"
                 android:textStyle="normal"
                 android:visibility="gone"
+                android:background="@drawable/spinner_background"
                 app:layout_constraintEnd_toEndOf="@+id/feed_card_type_spinner"
-                app:layout_constraintStart_toStartOf="@+id/textInputLayout2222"
+                app:layout_constraintStart_toStartOf="@+id/feed_card_type_spinner"
                 app:layout_constraintTop_toBottomOf="@+id/textInputLayout2222" />
 
             <ProgressBar

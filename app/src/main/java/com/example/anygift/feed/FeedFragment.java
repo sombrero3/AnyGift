@@ -19,6 +19,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -62,6 +64,7 @@ public class FeedFragment extends Fragment {
     Switch filterSw;
     String cardTypeId;
     ProgressBar pb;
+    Animation topAnim,bottomAnim,rightAnim;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -88,7 +91,7 @@ public class FeedFragment extends Fragment {
         spinnerTitleTv = view.findViewById(R.id.feed_spinner_title_tv);
         addFab = view.findViewById(R.id.feed_search_fab);
         maxPriceContainer = view.findViewById(R.id.textInputLayout2222);
-        mostRecTv = view.findViewById(R.id.textView16);
+        mostRecTv = view.findViewById(R.id.feed_most_rec_tv);
 
         if(Model.instance.getSignedUser().getCoins() == null){
             Model.instance.getSignedUser().setCoins(0);
@@ -162,12 +165,18 @@ public class FeedFragment extends Fragment {
             dateTv.setText(day+"/"+month+"/"+year);
         };
 
+        //animations
+        rightAnim = AnimationUtils.loadAnimation(getActivity(),R.anim.right_anim);
+        bottomAnim = AnimationUtils.loadAnimation(getActivity(),R.anim.bottom_anim);
+        filterSw.setAnimation(rightAnim);
+        mostRecTv.setAnimation(bottomAnim);
+
         if(Model.instance.getSignedUser().getVerified()){
             verificationBtn.setVisibility(View.GONE);
         }else{
+            verificationBtn.setAnimation(bottomAnim);
             verificationBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_global_verificationFragment));
         }
-
 
         filterSw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override

@@ -18,7 +18,7 @@ import com.example.anygift.model.Model;
 import com.google.firebase.FirebaseApp;
 
 public class SplashActivity extends AppCompatActivity {
-    Animation topAnim,bottomAnim,rightAnim;
+    Animation topAnim,bottomAnim;
     TextView title1Tv,title2Tv,title3Tv,title4Tv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
