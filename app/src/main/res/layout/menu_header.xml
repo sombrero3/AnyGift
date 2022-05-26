@@ -5,7 +5,7 @@
     android:id="@+id/header_constraint"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/whitebg3">
+    android:background="@drawable/pink_dark_bg">
 
 
     <TextView
