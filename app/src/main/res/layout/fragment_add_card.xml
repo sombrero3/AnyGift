@@ -83,7 +83,6 @@
         android:background="@drawable/button_border_radious_25_blue"      
         android:fontFamily="sans-serif-medium"
         android:text="Confirm"
-        android:textColor="#FFF7F7"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
