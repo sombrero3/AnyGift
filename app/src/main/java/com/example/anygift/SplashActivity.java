@@ -15,11 +15,10 @@ import com.example.anygift.Retrofit.User;
 import com.example.anygift.feed.MainActivity;
 import com.example.anygift.login.LoginActivity;
 import com.example.anygift.model.Model;
-import com.example.anygift.model.ModelRetrofit;
 import com.google.firebase.FirebaseApp;
 
 public class SplashActivity extends AppCompatActivity {
-    Animation topAnim,bottomAnim;
+    Animation topAnim,bottomAnim,rightAnim;
     TextView title1Tv,title2Tv,title3Tv,title4Tv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +35,7 @@ public class SplashActivity extends AppCompatActivity {
         title3Tv = findViewById(R.id.splash_title_3_tv);
         title4Tv = findViewById(R.id.splash_title_4_tv);
         topAnim = AnimationUtils.loadAnimation(this,R.anim.top_anim);
-        bottomAnim = AnimationUtils.loadAnimation(this,R.anim.buttom_anim);
+        bottomAnim = AnimationUtils.loadAnimation(this,R.anim.bottom_anim);
         title1Tv.setAnimation(topAnim);
         title2Tv.setAnimation(topAnim);
         title3Tv.setAnimation(topAnim);
