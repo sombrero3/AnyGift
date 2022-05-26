@@ -28,23 +28,12 @@
             app:layout_constraintTop_toBottomOf="@+id/MyCards_list_rv"
             app:srcCompat="@drawable/wallet_icon_1" />
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="906dp"
-            android:layout_height="412dp"
-            android:layout_marginEnd="-170dp"
-            android:layout_marginBottom="-24dp"
-            android:src="@drawable/giftbg2"
-            app:layout_constraintBottom_toBottomOf="@+id/textView33"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
         <TextView
             android:id="@+id/textView4"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginBottom="-24dp"
-            android:background="#B9F8F3F3"
+            android:background="#2C171010"
             app:layout_constraintBottom_toBottomOf="@+id/textView33"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -215,7 +204,7 @@
             android:layout_marginTop="8dp"
             android:fontFamily="sans-serif-medium"
             android:text="TextView"
-            android:textColor="#939292"
+            android:textColor="@color/purple_dark"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="@+id/my_cards_user_name_tv"
             app:layout_constraintStart_toStartOf="@+id/my_cards_user_name_tv"
@@ -271,18 +260,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="84dp"
+            android:layout_marginTop="16dp"
             android:fontFamily="sans-serif-medium"
             android:text="Cards in Wallet :"
             android:textColor="@color/purplediff"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView33" />
+            app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/MyCards_list_rv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="4dp"
+
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView36" />
@@ -303,7 +293,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toTopOf="@+id/my_cards_user_name_tv"
             app:layout_constraintEnd_toEndOf="@+id/my_cards_address_tv"
-            app:srcCompat="@drawable/edit_pink_icon" />
+            app:srcCompat="@drawable/edit_icon_pink" />
 
         <ProgressBar
             android:id="@+id/my_cards_progressbar"

@@ -7,53 +7,67 @@ android:layout_height="wrap_content"
 android:background="@drawable/bottom_popup_background"
 android:id="@+id/buy_now_popup">
 
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginBottom="2dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView61"
+        app:srcCompat="@drawable/whitebg3" />
+
     <TextView
-        android:id="@+id/buy_card_popup_card_type_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:fontFamily="sans-serif-medium"
-        android:text="card type"
-        android:textColor="@color/purplediff"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/buy_card_popup_icon_iv"
-        app:layout_constraintTop_toTopOf="@+id/buy_card_popup_icon_iv" />
+    android:id="@+id/buy_card_popup_card_type_tv"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="16dp"
+    android:layout_marginTop="8dp"
+    android:text="card type"
+    android:textSize="18sp"
+    android:textStyle="bold"
+    app:layout_constraintStart_toEndOf="@+id/buy_card_popup_icon_iv"
+    app:layout_constraintTop_toTopOf="@+id/buy_card_popup_icon_iv" />
 
     <Button
         android:id="@+id/buy_card_popup_buy_btn"
         android:layout_width="0dp"
-        android:layout_height="40dp"
+        android:layout_height="30dp"
         android:layout_marginStart="4dp"
         android:layout_marginTop="260dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/button_radious_8dp_pupel_dark"
+        android:layout_marginBottom="4dp"
+        android:background="@drawable/button_border_8sp_blue_dark"
         android:fontFamily="sans-serif-medium"
         android:text="buy"
-        android:textColor="@color/white"
+        android:textColor="@color/pink"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/buy_card_popup_cancel_btn"
         app:layout_constraintTop_toBottomOf="@+id/textview222" />
 
-    <Button
-        android:id="@+id/buy_card_popup_cancel_btn"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="4dp"
-        android:background="@drawable/button_border_radious_8dp"
-        android:fontFamily="sans-serif-medium"
-        android:text="cancel"
-        android:textColor="@color/y"
-        app:layout_constraintBottom_toBottomOf="@+id/buy_card_popup_buy_btn"
-        app:layout_constraintEnd_toStartOf="@+id/buy_card_popup_buy_btn"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/buy_card_popup_buy_btn" />
+
+<Button
+    android:id="@+id/buy_card_popup_cancel_btn"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:layout_marginStart="8dp"
+    android:layout_marginEnd="4dp"
+    android:background="@drawable/button_border_8sp_pink"
+    android:text="cancel"
+    android:textColor="@color/blue_dark"
+    app:layout_constraintBottom_toBottomOf="@+id/buy_card_popup_buy_btn"
+    app:layout_constraintEnd_toStartOf="@+id/buy_card_popup_buy_btn"
+    app:layout_constraintHorizontal_bias="0.5"
+    app:layout_constraintStart_toStartOf="parent"
+    android:fontFamily="sans-serif-medium"
+    app:layout_constraintTop_toTopOf="@+id/buy_card_popup_buy_btn" />    
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/buy_card_popup_icon_iv"
@@ -86,7 +100,7 @@ android:id="@+id/buy_now_popup">
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-medium"
         android:text="coins"
-        android:textColor="@color/coins"
+        android:textColor="@color/purple_dark"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/textView291"

@@ -20,16 +20,16 @@
         android:layout_height="match_parent"
         android:layout_marginLeft="0dp"
         android:layout_marginRight="0dp"
-        android:background="@drawable/button_border_radious_8dp_grey">
+        android:background="@drawable/button_border_8sp_blue_dark">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="4dp"
-            android:layout_marginBottom="4dp"
-            android:background="@drawable/whitebg3"
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="3dp"
+            android:layout_marginBottom="2dp"
+            android:background="@drawable/pink_blue_1"
             app:cardCornerRadius="8dp"
             app:layout_constraintBottom_toBottomOf="@+id/tran_row_top_constraints"
             app:layout_constraintEnd_toEndOf="@+id/tran_row_top_constraints"
