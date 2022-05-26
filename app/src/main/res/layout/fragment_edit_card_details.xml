@@ -73,6 +73,7 @@
             android:layout_marginTop="32dp"
             android:layout_marginBottom="24dp"
             android:background="@drawable/button_radious_25dp_long"
+            android:fontFamily="sans-serif-medium"
             android:text="Save Changes"
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -85,7 +86,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
+            android:fontFamily="sans-serif-medium"
             android:text="Exp details :"
+            android:textColor="@color/purplediff"
             app:layout_constraintStart_toStartOf="@+id/textInputLayout0"
             app:layout_constraintTop_toBottomOf="@+id/textInputLayout0" />
 
@@ -94,7 +97,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
+            android:fontFamily="sans-serif-medium"
             android:text="Choose Card Type:"
+            android:textColor="@color/purplediff"
             app:layout_constraintStart_toStartOf="@+id/textView80"
             app:layout_constraintTop_toBottomOf="@+id/edit_card_giftCardImage" />
 
@@ -103,7 +108,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
+            android:fontFamily="sans-serif-medium"
             android:text="Enter Card Number:"
+            android:textColor="@color/purplediff"
             app:layout_constraintStart_toStartOf="@+id/edit_card_type_spinner"
             app:layout_constraintTop_toBottomOf="@+id/edit_card_type_spinner" />
 
@@ -112,7 +119,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
+            android:fontFamily="sans-serif-medium"
             android:text="Enter Card Value:"
+            android:textColor="@color/purplediff"
             app:layout_constraintStart_toStartOf="@+id/textView70"
             app:layout_constraintTop_toBottomOf="@+id/textView70" />
 
@@ -121,7 +130,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
+            android:fontFamily="sans-serif-medium"
             android:text="Enter your selling price:"
+            android:textColor="@color/purplediff"
             app:layout_constraintStart_toStartOf="@+id/textView70"
             app:layout_constraintTop_toBottomOf="@+id/textInputLayout40" />
 
@@ -147,8 +158,9 @@
             android:layout_marginStart="32dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="32dp"
+            android:fontFamily="sans-serif-medium"
             android:text="Edit Card Details:"
-            android:textColor="@color/red_transparent"
+            android:textColor="@color/y"
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -172,6 +184,7 @@
                 android:fontFamily="sans-serif-medium"
                 android:hint="Your Asking Price"
                 android:inputType="numberDecimal"
+                android:textColor="@color/black"
                 tools:ignore="TouchTargetSizeCheck" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -191,6 +204,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:fontFamily="sans-serif-medium"
             android:text="Select Date"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -202,7 +216,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
+            android:fontFamily="sans-serif-medium"
             android:text="Publish card for sale"
+            android:textColor="@color/purplediff"
             app:layout_constraintStart_toStartOf="@+id/textInputLayout50"
             app:layout_constraintTop_toBottomOf="@+id/textInputLayout50" />
 
