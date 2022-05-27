@@ -2,8 +2,8 @@
 <!-- Base application theme. -->
     <style name="Theme.Anygift" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purplediff</item>
-        <item name="colorPrimaryVariant">@color/purplediff</item>
+        <item name="colorPrimary">@color/grey_31</item>
+        <item name="colorPrimaryVariant">@color/grey_30</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/y</item>
@@ -27,8 +27,8 @@
         <item name="cornerSize">8dp</item>
     </style>
     <style name="DialogAnimation">
-        <item name="android:windowEnterAnimation">@anim/buttom_sheet_anim_slide_up</item>
-        <item name="android:windowExitAnimation">@anim/buttom_sheet_anim_slide_down</item>
+        <item name="android:windowEnterAnimation">@anim/bottom_sheet_anim_slide_up</item>
+        <item name="android:windowExitAnimation">@anim/bottom_sheet_anim_slide_down</item>
     </style>
     
 </resources>

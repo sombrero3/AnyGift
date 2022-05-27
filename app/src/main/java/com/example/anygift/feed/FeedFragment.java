@@ -19,13 +19,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.example.anygift.R;
@@ -46,7 +49,7 @@ public class FeedFragment extends Fragment {
     FeedViewModel viewModel;
     CardsListAdapter mostRecAdapter;
     SwipeRefreshLayout swipeRefresh;
-    TextView nameTv,coinsTv, dateTv,spinnerTitleTv,mostRecTv;
+    TextView coinsTv, dateTv,spinnerTitleTv,mostRecTv;
     EditText maxPriceEt;
     TextInputLayout maxPriceContainer;
     FloatingActionButton addFab;
@@ -58,10 +61,10 @@ public class FeedFragment extends Fragment {
     List<Card> mosetRecCl;
     Spinner spinnerCardType;
     List<String> cardTypes;
-    ImageView searchIconIv;
+    Switch filterSw;
     String cardTypeId;
     ProgressBar pb;
-    boolean searchFlag;
+    Animation topAnim,bottomAnim,rightAnim;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -78,19 +81,18 @@ public class FeedFragment extends Fragment {
         pb=view.findViewById(R.id.feed_progressBar);
         swipeRefresh = view.findViewById(R.id.giftCardlist_swiperefresh);
         mostRecList = view.findViewById(R.id.cards_list_rv);
-        nameTv = view.findViewById(R.id.cards_list_user_name_tv);
         coinsTv = view.findViewById(R.id.feed_coins_tv);
         dateTv = view.findViewById(R.id.feed_date_tv);
         maxPriceEt = view.findViewById(R.id.feed_max_price_et);
         spinnerCardType = view.findViewById(R.id.feed_card_type_spinner);
         searchBtn = view.findViewById(R.id.feed_search_btn);
         verificationBtn = view.findViewById(R.id.feed_verification_btn);
-        searchIconIv = view.findViewById(R.id.feed_filter_iv);
+        filterSw = view.findViewById(R.id.feed_filter_switch);
         spinnerTitleTv = view.findViewById(R.id.feed_spinner_title_tv);
         addFab = view.findViewById(R.id.feed_search_fab);
         maxPriceContainer = view.findViewById(R.id.textInputLayout2222);
-        mostRecTv = view.findViewById(R.id.textView16);
-        nameTv.setText("Hello " + Model.instance.getSignedUser().getFirstName());
+        mostRecTv = view.findViewById(R.id.feed_most_rec_tv);
+
         if(Model.instance.getSignedUser().getCoins() == null){
             Model.instance.getSignedUser().setCoins(0);
         }
@@ -122,7 +124,6 @@ public class FeedFragment extends Fragment {
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                nameTv.setText("Hello " + Model.instance.getSignedUser().getFirstName());
                 coinsTv.setText(Model.instance.getSignedUser().getCoins().toString());
                 //refreshMostRecRv();
                 setMostRecRv();
@@ -164,20 +165,28 @@ public class FeedFragment extends Fragment {
             dateTv.setText(day+"/"+month+"/"+year);
         };
 
+        //animations
+        rightAnim = AnimationUtils.loadAnimation(getActivity(),R.anim.right_anim);
+        bottomAnim = AnimationUtils.loadAnimation(getActivity(),R.anim.bottom_anim);
+        filterSw.setAnimation(rightAnim);
+        mostRecTv.setAnimation(bottomAnim);
+
         if(Model.instance.getSignedUser().getVerified()){
             verificationBtn.setVisibility(View.GONE);
         }else{
+            verificationBtn.setAnimation(bottomAnim);
             verificationBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_global_verificationFragment));
         }
 
-        searchFlag = false;
-        searchIconIv.setOnClickListener(v->{
-            if(!searchFlag) {
-                showSearch();
-                searchFlag=true;
-            }else{
-                hideSearch();
-                searchFlag=false;
+        filterSw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+
+                if (b) {
+                    showSearch();
+                } else {
+                    hideSearch();
+                }
             }
         });
 
