@@ -17,7 +17,7 @@ public class CardType {
 
     @SerializedName("stores")
     @Expose
-    private List<String> stores = null;
+    private List<Store> stores = null;
     @SerializedName("id")
     @Expose
     private String id;
@@ -25,18 +25,18 @@ public class CardType {
     @Expose
     private Bitmap picture;
 
-    public CardType(String name, List<String> categories, List<String> stores,String id) {
+    public CardType(String name, List<String> categories, List<Store> stores,String id) {
         this.name = name;
         this.categories = categories;
         this.stores = stores;
         this.id = id;
     }
 
-    public List<String> getStores() {
+    public List<Store> getStores() {
         return stores;
     }
 
-    public void setStores(List<String> stores) {
+    public void setStores(List<Store> stores) {
         this.stores = stores;
     }
 

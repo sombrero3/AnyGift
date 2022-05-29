@@ -185,6 +185,7 @@ public class ModelRetrofit {
                             CardType ct = new CardType(response.body().get(i).getName(), response.body().get(i).getCategories(), response.body().get(i).getStores(), response.body().get(i).getId());
                             list.add(ct);
                         }
+
                         listener.onComplete(list);
                     }
 

@@ -28,6 +28,7 @@ import com.example.anygift.Retrofit.Card;
 import com.example.anygift.Retrofit.CardTransaction;
 import com.example.anygift.Retrofit.CardType;
 import com.example.anygift.Retrofit.SellerRatings;
+import com.example.anygift.Retrofit.Store;
 import com.example.anygift.Retrofit.User;
 import com.example.anygift.model.Model;
 import com.example.anygift.model.Utils;
@@ -35,6 +36,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -105,7 +107,11 @@ public class CardsDetailsFragment extends Fragment {
                             if (ct.getId().equals(card.getCardType())) {
                                 typeTv.setText(ct.getName());
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                                    storesTv.setText(String.join(", ", ct.getStores()));
+                                    List<String> ls = new ArrayList<>();
+                                    for(Store st: ct.getStores()){
+                                        ls.add(st.getName());
+                                    }
+                                    storesTv.setText(String.join(", ",ls));
                                 }
                             }
                         }
