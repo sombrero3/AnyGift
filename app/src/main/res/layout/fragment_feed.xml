@@ -83,10 +83,10 @@
                 android:id="@+id/textInputLayout2222"
                 android:layout_width="140dp"
                 android:layout_height="35dp"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/spinner_background"
                 android:gravity="center"
                 android:hint="Max Price"
-                android:background="@drawable/spinner_background"
                 android:textColorHint="@color/grey_1"
                 android:visibility="gone"
                 app:errorTextColor="@color/error"
@@ -101,10 +101,8 @@
                     android:layout_marginLeft="0dp"
                     android:layout_marginTop="0dp"
                     android:layout_marginRight="0dp"
-                    android:backgroundTint="@color/transparent"
                     android:fontFamily="sans-serif-medium"
                     android:gravity="left"
-                    android:inputType="textEmailAddress"
                     android:maxLines="1"
                     android:textColor="@color/black"
                     android:textSize="14sp" />
@@ -121,22 +119,23 @@
                 android:text="Choose card type :"
                 android:textColor="@color/black"
                 android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/feed_card_type_spinner"
+                app:layout_constraintStart_toStartOf="@+id/feed_card_type_spinner"
                 app:layout_constraintTop_toBottomOf="@+id/feed_verification_btn" />
 
             <Spinner
                 android:id="@+id/feed_card_type_spinner"
                 android:layout_width="140dp"
                 android:layout_height="35dp"
-                android:layout_marginTop="2dp"
+                android:layout_marginTop="8dp"
                 android:background="@drawable/spinner_background"
                 android:contentDescription="Select Type:"
                 android:overlapAnchor="false"
                 android:spinnerMode="dropdown"
                 android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="@+id/feed_spinner_title_tv"
-                app:layout_constraintStart_toStartOf="@+id/feed_spinner_title_tv"
+                app:layout_constraintEnd_toStartOf="@+id/feed_card_category_spinner"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/feed_spinner_title_tv" />
 
             <Button
@@ -148,8 +147,8 @@
                 android:text="search"
                 android:textColor="@color/pink"
                 android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="@+id/feed_card_type_spinner"
-                app:layout_constraintStart_toStartOf="@+id/feed_card_type_spinner"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/feed_date_tv" />
 
 
@@ -157,17 +156,16 @@
                 android:id="@+id/feed_date_tv"
                 android:layout_width="140dp"
                 android:layout_height="35dp"
-                android:layout_marginTop="4dp"
+                android:background="@drawable/spinner_background"
                 android:gravity="left"
                 android:text="Max Exp Date"
                 android:textColor="@color/black"
                 android:textSize="14sp"
                 android:textStyle="normal"
                 android:visibility="gone"
-                android:background="@drawable/spinner_background"
-                app:layout_constraintEnd_toEndOf="@+id/feed_card_type_spinner"
-                app:layout_constraintStart_toStartOf="@+id/feed_card_type_spinner"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayout2222" />
+                app:layout_constraintEnd_toEndOf="@+id/feed_card_category_spinner"
+                app:layout_constraintStart_toStartOf="@+id/feed_card_category_spinner"
+                app:layout_constraintTop_toTopOf="@+id/textInputLayout2222" />
 
             <ProgressBar
                 android:id="@+id/feed_progressBar"
@@ -205,6 +203,28 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <Spinner
+                android:id="@+id/feed_card_category_spinner"
+                android:layout_width="140dp"
+                android:layout_height="35dp"
+                android:visibility="gone"
+                android:background="@drawable/spinner_background"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/feed_card_type_spinner"
+                app:layout_constraintTop_toTopOf="@+id/feed_card_type_spinner" />
+
+            <TextView
+                android:id="@+id/feed_card_category_title_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Choose category :"
+                android:visibility="gone"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toEndOf="@+id/feed_card_category_spinner"
+                app:layout_constraintStart_toStartOf="@+id/feed_card_category_spinner"
+                app:layout_constraintTop_toTopOf="@+id/feed_spinner_title_tv" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

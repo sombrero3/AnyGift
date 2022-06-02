@@ -44,7 +44,17 @@ public class Model {
         signedUser = new com.example.anygift.Retrofit.User();
         ListLoadingState.setValue(GiftListLoadingState.loaded);
     }
-
+    public void setCategories(VoidListener listener) {
+        getAllCategories(new categoriesReturnListener() {
+            @Override
+            public void onComplete(List<Category> cat) {
+                categories.clear();
+                for (Category ct : cat) {
+                    categories.add(ct);
+                }
+            }
+        });
+    }
     public void setCardTypes(VoidListener listener) {
         getAllCardTypes(new cardTypesReturnListener() {
             @Override
