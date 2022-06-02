@@ -63,7 +63,12 @@ public class SplashActivity extends AppCompatActivity {
                                     Model.instance.setCardTypes(new Model.VoidListener() {
                                         @Override
                                         public void onComplete() {
-                                            toFeedActivity();
+                                            Model.instance.setCategories(new Model.VoidListener() {
+                                                @Override
+                                                public void onComplete() {
+                                                    toFeedActivity();
+                                                }
+                                            });
                                         }
                                     });
                                 }

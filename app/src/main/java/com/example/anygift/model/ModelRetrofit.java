@@ -202,7 +202,7 @@ public class ModelRetrofit {
         });
     }
 
-    public List<Category> getAllCategories(Model.categoriesReturnListener listener) {
+    public void getAllCategories(Model.categoriesReturnListener listener) {
         String token = getAccessToken();
         Call<List<Category>> call = retrofitInterface.getAllCategories(token);
         List<Category> list = new ArrayList<>();
@@ -227,7 +227,7 @@ public class ModelRetrofit {
                 System.out.println("Very BAD");
             }
         });
-        return list;
+
     }
 
     public void getUserIncome(Model.incomeListener listener) {

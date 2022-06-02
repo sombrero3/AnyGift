@@ -34,6 +34,7 @@ import android.widget.TextView;
 import com.example.anygift.R;
 import com.example.anygift.Retrofit.Card;
 import com.example.anygift.Retrofit.CardType;
+import com.example.anygift.Retrofit.Category;
 import com.example.anygift.adapters.CardsListAdapter;
 import com.example.anygift.model.Model;
 import com.example.anygift.model.Utils;
@@ -49,7 +50,7 @@ public class FeedFragment extends Fragment {
     FeedViewModel viewModel;
     CardsListAdapter mostRecAdapter;
     SwipeRefreshLayout swipeRefresh;
-    TextView coinsTv, dateTv,spinnerTitleTv,mostRecTv;
+    TextView coinsTv, dateTv, spinnerTypeTitleTv,mostRecTv,spinnerCategoryTitleTv;
     EditText maxPriceEt;
     TextInputLayout maxPriceContainer;
     FloatingActionButton addFab;
@@ -59,10 +60,10 @@ public class FeedFragment extends Fragment {
     View v;
     DatePickerDialog.OnDateSetListener dateListener;
     List<Card> mosetRecCl;
-    Spinner spinnerCardType;
-    List<String> cardTypes;
+    Spinner spinnerCardType,spinnerCategory;
+    List<String> cardTypes,categories;
     Switch filterSw;
-    String cardTypeId;
+    String cardTypeId,categoryId;
     ProgressBar pb;
     Animation topAnim,bottomAnim,rightAnim;
 
@@ -88,10 +89,12 @@ public class FeedFragment extends Fragment {
         searchBtn = view.findViewById(R.id.feed_search_btn);
         verificationBtn = view.findViewById(R.id.feed_verification_btn);
         filterSw = view.findViewById(R.id.feed_filter_switch);
-        spinnerTitleTv = view.findViewById(R.id.feed_spinner_title_tv);
+        spinnerTypeTitleTv = view.findViewById(R.id.feed_spinner_title_tv);
         addFab = view.findViewById(R.id.feed_search_fab);
         maxPriceContainer = view.findViewById(R.id.textInputLayout2222);
         mostRecTv = view.findViewById(R.id.feed_most_rec_tv);
+        spinnerCategoryTitleTv = view.findViewById(R.id.feed_card_category_title_tv);
+        spinnerCategory = view.findViewById(R.id.feed_card_category_spinner);
 
         if(Model.instance.getSignedUser().getCoins() == null){
             Model.instance.getSignedUser().setCoins(0);
@@ -181,7 +184,6 @@ public class FeedFragment extends Fragment {
         filterSw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-
                 if (b) {
                     showSearch();
                 } else {
@@ -199,14 +201,18 @@ public class FeedFragment extends Fragment {
         dateTv.setVisibility(View.GONE);
         maxPriceContainer.setVisibility(View.GONE);
         searchBtn.setVisibility(View.GONE);
-        spinnerTitleTv.setVisibility(View.GONE);
+        spinnerTypeTitleTv.setVisibility(View.GONE);
+        spinnerCategory.setVisibility(View.GONE);
+        spinnerCategoryTitleTv.setVisibility(View.GONE);
     }
     private void showSearch(){
         spinnerCardType.setVisibility(View.VISIBLE);
         dateTv.setVisibility(View.VISIBLE);
         maxPriceContainer.setVisibility(View.VISIBLE);
         searchBtn.setVisibility(View.VISIBLE);
-        spinnerTitleTv.setVisibility(View.VISIBLE);
+        spinnerTypeTitleTv.setVisibility(View.VISIBLE);
+        spinnerCategory.setVisibility(View.VISIBLE);
+        spinnerCategoryTitleTv.setVisibility(View.VISIBLE);
     }
 
 //    private void setSearchRv() {
@@ -247,6 +253,37 @@ public class FeedFragment extends Fragment {
                 pb.setVisibility(View.GONE);
             }
         });
+    }
+
+    private void setCategoriesSpinner() {
+        List<Category> cats = Model.instance.categories;
+        categories = new ArrayList<>();
+
+        for (Category ct : cats) {
+            categories.add(ct.getName());
+        }
+        categories.add("Any");
+
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, categories);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerCategory.setAdapter(adapter);
+        spinnerCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if(i<cats.size()) {
+                    categoryId = cats.get(i).getId();
+                }else{
+                    categoryId = "Any";
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                categoryId = "Any";
+            }
+        });
+        spinnerCardType.setSelection(cats.size());
     }
 
     private void setCardTypeSpinner() {

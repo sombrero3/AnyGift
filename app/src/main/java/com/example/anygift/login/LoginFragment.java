@@ -233,8 +233,10 @@ public class LoginFragment extends Fragment {
                     mySnackbar = Snackbar.make(view, "Login successful :)", BaseTransientBottomBar.LENGTH_LONG);
                     mySnackbar.show();
                     Model.instance.setCardTypes(() -> {
-                        pb.setVisibility(View.INVISIBLE);
-                        goToFeedActivity(user);
+                        Model.instance.setCategories(()->{
+                            pb.setVisibility(View.INVISIBLE);
+                            goToFeedActivity(user);
+                        });
                     });
                 }
         });
