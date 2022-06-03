@@ -65,6 +65,7 @@ public class SearchGiftCardFragment extends Fragment {
         cardsList.setHasFixedSize(true);
         // RecyclerView.LayoutManager horizontalLayout = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         // horizontalLayout
+        //
         cardsList.setLayoutManager(new LinearLayoutManager(getContext()));
         searchResult = new ArrayList<>();
         adapter = new CardsListAdapter(searchResult);
