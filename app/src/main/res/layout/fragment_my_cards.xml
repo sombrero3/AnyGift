@@ -353,7 +353,7 @@
     </ScrollView>
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 <com.google.android.material.floatingactionbutton.FloatingActionButton
-android:id="@+id/my_cards_search_fab"
+android:id="@+id/my_cards_add_fab"
 android:layout_width="wrap_content"
 android:layout_height="wrap_content"
 android:layout_marginEnd="16dp"
@@ -366,6 +366,6 @@ android:tint="@color/white"
 app:layout_constraintBottom_toBottomOf="parent"
 app:layout_constraintEnd_toEndOf="parent"
 app:layout_constraintTop_toTopOf="parent"
-app:srcCompat="@drawable/search_icon_blue"
+app:srcCompat="@drawable/add_black_icon"
 tools:ignore="SpeakableTextPresentCheck" />
 </FrameLayout>

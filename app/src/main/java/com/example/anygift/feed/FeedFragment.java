@@ -128,7 +128,7 @@ public class FeedFragment extends Fragment {
             public void onRefresh() {
                 coinsTv.setText(Model.instance.getSignedUser().getCoins().toString());
                 //refreshMostRecRv();
-                setMostRecRv();
+                search();
             }
         });
 //        swipeRefresh.setOnRefreshListener(() -> Model.instance.refreshGiftCardsList());
@@ -217,13 +217,14 @@ public class FeedFragment extends Fragment {
     private void search() {
         pb.setVisibility(View.VISIBLE);
         mostRecTv.setText("Search result:");
-        Model.instance.searchCards(day, month, year, maxPriceEt.getText().toString(), cardTypeId, new Model.cardsListener() {
+        Model.instance.searchCards(day, month, year, maxPriceEt.getText().toString(), cardTypeId,categoryId, new Model.cardsListener() {
             @Override
             public void onComplete(List<Card> cards) {
                 mosetRecCl.clear();
                 mosetRecCl.addAll(cards);
                 mostRecAdapter.notifyDataSetChanged();
                 pb.setVisibility(View.GONE);
+                swipeRefresh.setRefreshing(false);
             }
         });
     }

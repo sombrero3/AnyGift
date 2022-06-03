@@ -3,7 +3,6 @@ package com.example.anygift.feed;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,20 +26,14 @@ import com.example.anygift.OnItemClickListener;
 import com.example.anygift.R;
 import com.example.anygift.Retrofit.Card;
 import com.example.anygift.Retrofit.CardTransaction;
-import com.example.anygift.Retrofit.Category;
 import com.example.anygift.Retrofit.Income;
 import com.example.anygift.Retrofit.Outcome;
 import com.example.anygift.Retrofit.SellerRatings;
-import com.example.anygift.Retrofit.User;
 import com.example.anygift.adapters.CardsListAdapter;
 import com.example.anygift.model.Model;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
-import java.io.InputStream;
-import java.net.URL;
-import java.util.Arrays;
 
 public class MyWalletFragment extends Fragment {
     View view;
@@ -51,7 +43,7 @@ public class MyWalletFragment extends Fragment {
     SwipeRefreshLayout swipeRefresh;
     TextView userName, userEmail, userPhone, coins, userAddress, numOfSold, numOfBought, soldInCoins, boughtInCoins,numLikeTv,numUnlikeTv;
     ImageView userImage, editIv, addCardIv,verifiedIv;
-    FloatingActionButton searchFab;
+    FloatingActionButton addFab;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -105,7 +97,7 @@ public class MyWalletFragment extends Fragment {
         boughtInCoins = view.findViewById(R.id.my_cards_bought_in_coins_tv);
         editIv = view.findViewById(R.id.my_cards_edit_iv);
         addCardIv = view.findViewById(R.id.my_cards_add_card_iv);
-        searchFab = view.findViewById(R.id.my_cards_search_fab);
+        addFab = view.findViewById(R.id.my_cards_add_fab);
         numLikeTv = view.findViewById(R.id.my_cards_num_like_tv);
         numUnlikeTv = view.findViewById(R.id.my_cards_num_un_like_tv);
         verifiedIv = view.findViewById(R.id.my_cards_verified_iv);
@@ -122,7 +114,7 @@ public class MyWalletFragment extends Fragment {
         setUserUI();
         setHasOptionsMenu(true);
 
-        searchFab.setOnClickListener((v)-> Navigation.findNavController(v).navigate(R.id.action_global_searchGiftCardFragment));
+        addFab.setOnClickListener((v)-> Navigation.findNavController(v).navigate(R.id.action_global_addCardFragment));
 
         swipeRefresh.setRefreshing(Model.instance.getListLoadingState().getValue() == Model.GiftListLoadingState.loading);
         Model.instance.getListLoadingState().observe(getViewLifecycleOwner(), ListLoadingState -> {

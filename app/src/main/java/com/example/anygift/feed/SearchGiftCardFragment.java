@@ -63,8 +63,9 @@ public class SearchGiftCardFragment extends Fragment {
 
         RecyclerView cardsList = view.findViewById(R.id.search_result_rv);
         cardsList.setHasFixedSize(true);
-        RecyclerView.LayoutManager horizontalLayout = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-        cardsList.setLayoutManager(horizontalLayout);
+        // RecyclerView.LayoutManager horizontalLayout = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        // horizontalLayout
+        cardsList.setLayoutManager(new LinearLayoutManager(getContext()));
         searchResult = new ArrayList<>();
         adapter = new CardsListAdapter(searchResult);
         cardsList.setAdapter(adapter);
@@ -132,7 +133,7 @@ public class SearchGiftCardFragment extends Fragment {
 
     private void search() {
         pb.setVisibility(View.VISIBLE);
-        Model.instance.searchCards(day, month, year, maxPriceEt.getText().toString(), cardTypeId, new Model.cardsListener() {
+        Model.instance.searchCards(day, month, year, maxPriceEt.getText().toString(), cardTypeId,categoryId, new Model.cardsListener() {
             @Override
             public void onComplete(List<Card> cards) {
                 searchResult.clear();
