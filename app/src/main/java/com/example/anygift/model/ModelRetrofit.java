@@ -211,8 +211,10 @@ public class ModelRetrofit {
             public void onResponse(@NonNull Call<List<Category>> call, @NonNull Response<List<Category>> response) {
                 if (response.body() != null) {
                     if (response.code() == 200) {
+                        System.out.println("categrories are : ");
                         for (int i = 0; i < response.body().size(); i++) {
                             Category c = new Category(response.body().get(i).getName(), response.body().get(i).getId());
+                            System.out.println(c.getName());
                             list.add(c);
                         }
                         listener.onComplete(list);

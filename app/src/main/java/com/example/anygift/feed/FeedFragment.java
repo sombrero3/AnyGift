@@ -52,7 +52,6 @@ public class FeedFragment extends Fragment {
     SwipeRefreshLayout swipeRefresh;
     TextView coinsTv, dateTv, spinnerTypeTitleTv,mostRecTv,spinnerCategoryTitleTv;
     EditText maxPriceEt;
-    TextInputLayout maxPriceContainer;
     FloatingActionButton addFab;
     RecyclerView mostRecList;
     int year,month,day;
@@ -91,7 +90,6 @@ public class FeedFragment extends Fragment {
         filterSw = view.findViewById(R.id.feed_filter_switch);
         spinnerTypeTitleTv = view.findViewById(R.id.feed_spinner_title_tv);
         addFab = view.findViewById(R.id.feed_search_fab);
-        maxPriceContainer = view.findViewById(R.id.textInputLayout2222);
         mostRecTv = view.findViewById(R.id.feed_most_rec_tv);
         spinnerCategoryTitleTv = view.findViewById(R.id.feed_card_category_title_tv);
         spinnerCategory = view.findViewById(R.id.feed_card_category_spinner);
@@ -104,6 +102,7 @@ public class FeedFragment extends Fragment {
         mosetRecCl = new ArrayList<>();
 
         setCardTypeSpinner();
+        setCategoriesSpinner();
 
         mostRecList.setHasFixedSize(true);
         mostRecList.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -199,8 +198,8 @@ public class FeedFragment extends Fragment {
     private void hideSearch(){
         spinnerCardType.setVisibility(View.GONE);
         dateTv.setVisibility(View.GONE);
-        maxPriceContainer.setVisibility(View.GONE);
         searchBtn.setVisibility(View.GONE);
+        maxPriceEt.setVisibility(View.GONE);
         spinnerTypeTitleTv.setVisibility(View.GONE);
         spinnerCategory.setVisibility(View.GONE);
         spinnerCategoryTitleTv.setVisibility(View.GONE);
@@ -208,37 +207,12 @@ public class FeedFragment extends Fragment {
     private void showSearch(){
         spinnerCardType.setVisibility(View.VISIBLE);
         dateTv.setVisibility(View.VISIBLE);
-        maxPriceContainer.setVisibility(View.VISIBLE);
+        maxPriceEt.setVisibility(View.VISIBLE);
         searchBtn.setVisibility(View.VISIBLE);
         spinnerTypeTitleTv.setVisibility(View.VISIBLE);
         spinnerCategory.setVisibility(View.VISIBLE);
         spinnerCategoryTitleTv.setVisibility(View.VISIBLE);
     }
-
-//    private void setSearchRv() {
-//
-//        searchResultRv.setHasFixedSize(true);
-//        RecyclerView.LayoutManager horizontalLayout = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-//        searchResultRv.setLayoutManager(horizontalLayout);
-//        searchResultCl = new ArrayList<>();
-//        searchAdapter = new CardsListAdapter(searchResultCl);
-//        searchResultRv.setAdapter(searchAdapter);
-//        searchAdapter.setOnItemClickListener(new OnItemClickListener() {
-//            @Override
-//            public void onItemClick(View v, int position) {
-//                double val = searchResultCl.get(position).getValue();
-//                String id = searchResultCl.get(position).getId();
-//                Log.d("TAG", "Gift card in value of: " + val);
-//                Bundle map = new Bundle();
-//                map.putString("giftCardId",id);
-//                Navigation.findNavController(v).navigate(R.id.action_global_cardsDetailsFragment,map);
-//            }
-//        });
-//        setMostRecRv();
-//
-//
-//    }
-
 
     private void search() {
         pb.setVisibility(View.VISIBLE);
@@ -249,7 +223,6 @@ public class FeedFragment extends Fragment {
                 mosetRecCl.clear();
                 mosetRecCl.addAll(cards);
                 mostRecAdapter.notifyDataSetChanged();
-
                 pb.setVisibility(View.GONE);
             }
         });
@@ -263,8 +236,6 @@ public class FeedFragment extends Fragment {
             categories.add(ct.getName());
         }
         categories.add("Any");
-
-
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, categories);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerCategory.setAdapter(adapter);
@@ -283,7 +254,7 @@ public class FeedFragment extends Fragment {
                 categoryId = "Any";
             }
         });
-        spinnerCardType.setSelection(cats.size());
+        spinnerCategory.setSelection(cats.size());
     }
 
     private void setCardTypeSpinner() {
