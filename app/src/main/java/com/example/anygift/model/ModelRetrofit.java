@@ -202,13 +202,13 @@ public class ModelRetrofit {
         });
     }
 
-    public List<Category> getAllCategories(Model.categoriesReturnListener listener) {
+    public void getAllCategories(Model.categoriesReturnListener listener) {
         String token = getAccessToken();
         Call<List<Category>> call = retrofitInterface.getAllCategories(token);
         List<Category> list = new ArrayList<>();
         call.enqueue(new Callback<List<Category>>() {
             @Override
-            public void onResponse(Call<List<Category>> call, Response<List<Category>> response) {
+            public void onResponse(@NonNull Call<List<Category>> call, @NonNull Response<List<Category>> response) {
                 if (response.body() != null) {
                     if (response.code() == 200) {
                         for (int i = 0; i < response.body().size(); i++) {
@@ -223,11 +223,11 @@ public class ModelRetrofit {
             }
 
             @Override
-            public void onFailure(Call<List<Category>> call, Throwable t) {
+            public void onFailure(@NonNull Call<List<Category>> call, Throwable t) {
                 System.out.println("Very BAD");
             }
         });
-        return list;
+
     }
 
     public void getUserIncome(Model.incomeListener listener) {

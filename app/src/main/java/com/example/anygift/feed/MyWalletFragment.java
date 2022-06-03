@@ -28,6 +28,7 @@ import com.example.anygift.OnItemClickListener;
 import com.example.anygift.R;
 import com.example.anygift.Retrofit.Card;
 import com.example.anygift.Retrofit.CardTransaction;
+import com.example.anygift.Retrofit.Category;
 import com.example.anygift.Retrofit.Income;
 import com.example.anygift.Retrofit.Outcome;
 import com.example.anygift.Retrofit.SellerRatings;
@@ -108,7 +109,12 @@ public class MyWalletFragment extends Fragment {
         numLikeTv = view.findViewById(R.id.my_cards_num_like_tv);
         numUnlikeTv = view.findViewById(R.id.my_cards_num_un_like_tv);
         verifiedIv = view.findViewById(R.id.my_cards_verified_iv);
-
+//        Model.instance.getAllCategories(new Model.categoriesReturnListener() {
+//            @Override
+//            public void onComplete(List<Category> cat) {
+//                System.out.println(cat);
+//            }
+//        });
 
         editIv.setOnClickListener(v -> Navigation.findNavController(v).navigate(MyWalletFragmentDirections.actionMyCardsFragmentToEditProfileFragment()));
         addCardIv.setOnClickListener(v -> Navigation.findNavController(v).navigate(MyWalletFragmentDirections.actionGlobalAddCardFragment()));
