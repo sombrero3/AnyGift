@@ -128,7 +128,7 @@ public class FeedFragment extends Fragment {
             public void onRefresh() {
                 coinsTv.setText(Model.instance.getSignedUser().getCoins().toString());
                 //refreshMostRecRv();
-                setMostRecRv();
+                search();
             }
         });
 //        swipeRefresh.setOnRefreshListener(() -> Model.instance.refreshGiftCardsList());
@@ -217,15 +217,45 @@ public class FeedFragment extends Fragment {
     private void search() {
         pb.setVisibility(View.VISIBLE);
         mostRecTv.setText("Search result:");
-        Model.instance.searchCards(day, month, year, maxPriceEt.getText().toString(), cardTypeId, new Model.cardsListener() {
+        Model.instance.searchCards(day, month, year, maxPriceEt.getText().toString(), cardTypeId,categoryId, new Model.cardsListener() {
             @Override
             public void onComplete(List<Card> cards) {
                 mosetRecCl.clear();
                 mosetRecCl.addAll(cards);
                 mostRecAdapter.notifyDataSetChanged();
                 pb.setVisibility(View.GONE);
+                swipeRefresh.setRefreshing(false);
             }
         });
+    }
+
+    private void setCategoriesSpinner() {
+        List<Category> cats = Model.instance.categories;
+        categories = new ArrayList<>();
+
+        for (Category ct : cats) {
+            categories.add(ct.getName());
+        }
+        categories.add("Any");
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, categories);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerCategory.setAdapter(adapter);
+        spinnerCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if(i<cats.size()) {
+                    categoryId = cats.get(i).getId();
+                }else{
+                    categoryId = "Any";
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                categoryId = "Any";
+            }
+        });
+        spinnerCategory.setSelection(cats.size());
     }
 
     private void setCategoriesSpinner() {
