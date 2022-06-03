@@ -258,6 +258,35 @@ public class FeedFragment extends Fragment {
         spinnerCategory.setSelection(cats.size());
     }
 
+    private void setCategoriesSpinner() {
+        List<Category> cats = Model.instance.categories;
+        categories = new ArrayList<>();
+
+        for (Category ct : cats) {
+            categories.add(ct.getName());
+        }
+        categories.add("Any");
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, categories);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerCategory.setAdapter(adapter);
+        spinnerCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if(i<cats.size()) {
+                    categoryId = cats.get(i).getId();
+                }else{
+                    categoryId = "Any";
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                categoryId = "Any";
+            }
+        });
+        spinnerCategory.setSelection(cats.size());
+    }
+
     private void setCardTypeSpinner() {
         List<CardType> cts = Model.instance.cardTypes;
         cardTypes = new ArrayList<>();
