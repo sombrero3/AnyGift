@@ -15,7 +15,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="parent"
-        app:layout_constraintVertical_bias="0.837">
+        app:layout_constraintVertical_bias="0.65">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -78,38 +78,26 @@
                 app:layout_constraintTop_toTopOf="@+id/feed_coins_tv"
                 app:srcCompat="@drawable/coin_0" />
 
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout2222"
+            <EditText
+                android:id="@+id/feed_max_price_et"
                 android:layout_width="140dp"
                 android:layout_height="35dp"
-                android:layout_marginTop="4dp"
-                android:gravity="center"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/edit_text_background_1"
+                android:elevation="5dp"
+                android:ems="10"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="left|top"
                 android:hint="Max Price"
-                android:background="@drawable/spinner_background"
-                android:textColorHint="@color/grey_1"
+                android:inputType="number"
                 android:visibility="gone"
-                app:errorTextColor="@color/error"
+                android:paddingLeft="13dp"
+                android:paddingTop="10dp"
+                android:textColor="@color/black"
+                android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="@+id/feed_card_type_spinner"
                 app:layout_constraintStart_toStartOf="@+id/feed_card_type_spinner"
-                app:layout_constraintTop_toBottomOf="@+id/feed_card_type_spinner">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/feed_max_price_et"
-                    android:layout_width="match_parent"
-                    android:layout_height="35dp"
-                    android:layout_marginLeft="0dp"
-                    android:layout_marginTop="0dp"
-                    android:layout_marginRight="0dp"
-                    android:backgroundTint="@color/transparent"
-                    android:fontFamily="sans-serif-medium"
-                    android:gravity="left"
-                    android:inputType="textEmailAddress"
-                    android:maxLines="1"
-                    android:textColor="@color/black"
-                    android:textSize="14sp" />
-
-            </com.google.android.material.textfield.TextInputLayout>
+                app:layout_constraintTop_toBottomOf="@+id/feed_card_type_spinner" />
 
 
             <TextView
@@ -121,22 +109,24 @@
                 android:text="Choose card type :"
                 android:textColor="@color/black"
                 android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/feed_card_type_spinner"
+                app:layout_constraintStart_toStartOf="@+id/feed_card_type_spinner"
                 app:layout_constraintTop_toBottomOf="@+id/feed_verification_btn" />
 
             <Spinner
                 android:id="@+id/feed_card_type_spinner"
                 android:layout_width="140dp"
                 android:layout_height="35dp"
-                android:layout_marginTop="2dp"
-                android:background="@drawable/spinner_background"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/spinner_background_style_1"
                 android:contentDescription="Select Type:"
                 android:overlapAnchor="false"
                 android:spinnerMode="dropdown"
+                android:elevation="5dp"
                 android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="@+id/feed_spinner_title_tv"
-                app:layout_constraintStart_toStartOf="@+id/feed_spinner_title_tv"
+                app:layout_constraintEnd_toStartOf="@+id/feed_card_category_spinner"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/feed_spinner_title_tv" />
 
             <Button
@@ -148,8 +138,9 @@
                 android:text="search"
                 android:textColor="@color/pink"
                 android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="@+id/feed_card_type_spinner"
-                app:layout_constraintStart_toStartOf="@+id/feed_card_type_spinner"
+                android:elevation="5dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/feed_date_tv" />
 
 
@@ -157,17 +148,18 @@
                 android:id="@+id/feed_date_tv"
                 android:layout_width="140dp"
                 android:layout_height="35dp"
-                android:layout_marginTop="4dp"
-                android:gravity="left"
-                android:text="Max Exp Date"
+                android:background="@drawable/edit_text_background_1"
+                android:gravity="center|left"
+                android:hint="Max Exp Date"
+                android:paddingLeft="13dp"
                 android:textColor="@color/black"
                 android:textSize="14sp"
+                android:elevation="5dp"
                 android:textStyle="normal"
                 android:visibility="gone"
-                android:background="@drawable/spinner_background"
-                app:layout_constraintEnd_toEndOf="@+id/feed_card_type_spinner"
-                app:layout_constraintStart_toStartOf="@+id/feed_card_type_spinner"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayout2222" />
+                app:layout_constraintEnd_toEndOf="@+id/feed_card_category_spinner"
+                app:layout_constraintStart_toStartOf="@+id/feed_card_category_spinner"
+                app:layout_constraintTop_toTopOf="@+id/feed_max_price_et" />
 
             <ProgressBar
                 android:id="@+id/feed_progressBar"
@@ -189,6 +181,7 @@
                 android:background="@drawable/button_border_radious_8dp_purpel_200"
                 android:text="  Complete Verification  "
                 android:textColor="@color/purple_3"
+                android:elevation="5dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/feed_filter_switch" />
@@ -205,6 +198,29 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <Spinner
+                android:id="@+id/feed_card_category_spinner"
+                android:layout_width="140dp"
+                android:layout_height="35dp"
+                android:background="@drawable/spinner_background_style_1"
+                android:visibility="gone"
+                android:elevation="5dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/feed_card_type_spinner"
+                app:layout_constraintTop_toTopOf="@+id/feed_card_type_spinner" />
+
+            <TextView
+                android:id="@+id/feed_card_category_title_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Choose category :"
+                android:textColor="@color/black"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@+id/feed_card_category_spinner"
+                app:layout_constraintStart_toStartOf="@+id/feed_card_category_spinner"
+                app:layout_constraintTop_toTopOf="@+id/feed_spinner_title_tv" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

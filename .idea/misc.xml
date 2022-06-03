@@ -4,12 +4,15 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/drawable/button_border_radious_25_blue.xml" value="0.142" />
+        <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/drawable/edit_text_background_1.xml" value="0.159" />
+        <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/drawable/spinner_background_style_1.xml" value="0.159" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/layout/activity_splash.xml" value="0.2" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/layout/cards_list_row.xml" value="0.25" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/layout/fragment_add_card.xml" value="0.16802536231884058" />
-        <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/layout/fragment_feed.xml" value="0.25" />
+        <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/layout/fragment_feed.xml" value="0.176" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/layout/fragment_login.xml" value="0.12158054711246201" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/layout/fragment_my_cards.xml" value="0.17753623188405798" />
+        <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/layout/fragment_search_gift_card.xml" value="0.2" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/layout/fragment_sign_up.xml" value="0.17753623188405798" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/layout/fragment_transaction_details.xml" value="0.25" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/layout/menu_header.xml" value="0.25" />

@@ -27,6 +27,7 @@ import com.example.anygift.OnItemClickListener;
 import com.example.anygift.R;
 import com.example.anygift.Retrofit.Card;
 import com.example.anygift.Retrofit.CardType;
+import com.example.anygift.Retrofit.Category;
 import com.example.anygift.adapters.CardsListAdapter;
 import com.example.anygift.model.Model;
 import com.example.anygift.model.Utils;
@@ -44,9 +45,9 @@ public class SearchGiftCardFragment extends Fragment {
     int year,month,day;
     CardsListAdapter adapter;
     List<Card> searchResult;
-    Spinner spinnerCardType;
-    List<String> cardTypes;
-    String cardTypeId;
+    Spinner spinnerCardType,spinnerCategories;
+    List<String> cardTypes,categories;
+    String cardTypeId,categoryId;
     ProgressBar pb;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -58,6 +59,7 @@ public class SearchGiftCardFragment extends Fragment {
         pb = view.findViewById(R.id.search_progressBar);
         pb.setVisibility(View.VISIBLE);
         spinnerCardType = (Spinner) view.findViewById(R.id.search_card_type_spinner);
+        spinnerCategories = view.findViewById(R.id.search_category_spinner);
 
         RecyclerView cardsList = view.findViewById(R.id.search_result_rv);
         cardsList.setHasFixedSize(true);
@@ -85,6 +87,7 @@ public class SearchGiftCardFragment extends Fragment {
                 searchResult.addAll(cards);
                 adapter.notifyDataSetChanged();
                 setCardtypesSpinner();
+                setCategoriesSpinner();
             }
         });
 
@@ -139,7 +142,36 @@ public class SearchGiftCardFragment extends Fragment {
             }
         });
     }
+    private void setCategoriesSpinner() {
+        List<Category> cats = Model.instance.categories;
+        categories = new ArrayList<>();
 
+        for (Category ct : cats) {
+            categories.add(ct.getName());
+        }
+        categories.add("Any");
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, categories);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerCategories.setAdapter(adapter);
+        spinnerCategories.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if(i<cats.size()) {
+                    categoryId = cats.get(i).getId();
+                }else{
+                    categoryId = "Any";
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                categoryId = "Any";
+            }
+        });
+        spinnerCategories.setSelection(cats.size());
+        pb.setVisibility(View.INVISIBLE);
+    }
     private void setCardtypesSpinner() {
         List<CardType> cts = Model.instance.cardTypes;
         cardTypes = new ArrayList<>();

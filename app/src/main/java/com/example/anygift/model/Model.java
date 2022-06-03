@@ -44,7 +44,18 @@ public class Model {
         signedUser = new com.example.anygift.Retrofit.User();
         ListLoadingState.setValue(GiftListLoadingState.loaded);
     }
-
+    public void setCategories(VoidListener listener) {
+        getAllCategories(new categoriesReturnListener() {
+            @Override
+            public void onComplete(List<Category> cat) {
+                categories.clear();
+                for (Category ct : cat) {
+                    categories.add(ct);
+                }
+                listener.onComplete();
+            }
+        });
+    }
     public void setCardTypes(VoidListener listener) {
         getAllCardTypes(new cardTypesReturnListener() {
             @Override
@@ -366,6 +377,12 @@ public void addReview(String card_trans_id, Boolean satisfied,String buyerCommen
     /**
      * search cards
      */
+    public List<Card> filterByCategory(String categoryName,List<Card> cards){
+        List<Card> result = new ArrayList<>();
+        return result;
+    }
+
+
     public void searchCards(int day,int month,int year,String price,String cardTypeId,cardsListener listener){
         List<Card> result = new ArrayList<>();
         getAllFeedCardsForSale(new Model.cardsReturnListener() {
