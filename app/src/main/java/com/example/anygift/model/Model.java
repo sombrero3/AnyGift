@@ -52,6 +52,7 @@ public class Model {
                 for (Category ct : cat) {
                     categories.add(ct);
                 }
+                listener.onComplete();
             }
         });
     }
@@ -376,6 +377,12 @@ public void addReview(String card_trans_id, Boolean satisfied,String buyerCommen
     /**
      * search cards
      */
+    public List<Card> filterByCategory(String categoryName,List<Card> cards){
+        List<Card> result = new ArrayList<>();
+        return result;
+    }
+
+
     public void searchCards(int day,int month,int year,String price,String cardTypeId,cardsListener listener){
         List<Card> result = new ArrayList<>();
         getAllFeedCardsForSale(new Model.cardsReturnListener() {
