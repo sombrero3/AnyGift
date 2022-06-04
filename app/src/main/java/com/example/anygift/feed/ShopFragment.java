@@ -27,6 +27,7 @@ import com.example.anygift.R;
 import com.example.anygift.Retrofit.User;
 import com.example.anygift.adapters.ShopGridAdapter;
 import com.example.anygift.model.Model;
+import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,8 +40,9 @@ public class ShopFragment extends Fragment {
     List<String> titles;
     AlertDialog.Builder alertDialogBuilder;
     AlertDialog dialog;
+    NavigationView navigationView;
     Dialog tryDialog;
-    TextView popUpPrice;
+    TextView popUpPrice,coinsTv;
     ImageView popUpCoinsIcon;
     Button popUpCancel, popUpSaveBtn,backToCardBtn;
     @Override
@@ -144,6 +146,10 @@ public class ShopFragment extends Fragment {
                             @Override
                             public void onComplete(User user, String message) {
                                 Model.instance.getSignedUser().setCoins(user.getCoins());
+                                navigationView = getActivity().findViewById(R.id.Navigation_view);
+                                View header= (View)navigationView.getHeaderView(0);
+                                coinsTv = header.findViewById(R.id.header_coins_tv);
+                                coinsTv.setText(Model.instance.getSignedUser().getCoins().toString());
                                 Toast.makeText(getContext(), "Thank You !! Spend your Gcoins wisely :)", Toast.LENGTH_SHORT).show();
                                 tryDialog.dismiss();
                             }

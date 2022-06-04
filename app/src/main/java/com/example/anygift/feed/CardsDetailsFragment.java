@@ -42,16 +42,12 @@ import java.util.List;
 
 public class CardsDetailsFragment extends Fragment {
     View view;
-    //    UserViewModel userViewModel;
-
-    private TextView name, value, expTv, buyAt, typeTv, popUpTypeTv, popUpExpTv, popupValueTv, popUpPriceTv, emailTv, savingTv, askedPriceTv, storesTv,numLikeTv,numUnlikeTv;
+    private TextView name, value, expTv, buyAt, typeTv, popUpTypeTv, popUpExpTv, popupValueTv, popUpPriceTv, emailTv, savingTv, askedPriceTv, storesTv,numLikeTv,numUnlikeTv,coinsTv;
     private Button mapBtn, editBtn, deleteBtn, buyBtn, popUpSaveBtn, popUpCancel, popUpStoreBtn;
     NavigationView navigationView;
     private ImageView userImage, giftCardImage, popUpCcardImage,verifiedIv;
     Card card;
-    AlertDialog.Builder alertDialogBuilder;
-    AlertDialog dialog;
-    String imageUrl, cardId, userId;
+    String cardId, userId;
     ProgressBar pb;
     Dialog tryDialog;
 
@@ -86,7 +82,6 @@ public class CardsDetailsFragment extends Fragment {
         numLikeTv = view.findViewById(R.id.details_num_like_tv);
         numUnlikeTv = view.findViewById(R.id.details_num_unlike_tv);
         verifiedIv = view.findViewById(R.id.details_verified_iv);
-
         Model.instance.getCardRetrofit(cardId, new Model.cardReturnListener() {
             @Override
             public void onComplete(Card c, String message) {
@@ -144,7 +139,6 @@ public class CardsDetailsFragment extends Fragment {
             }
         });
 
-
         return view;
     }
 
@@ -154,7 +148,6 @@ public class CardsDetailsFragment extends Fragment {
             deleteBtn.setVisibility(View.VISIBLE);
             editBtn.setEnabled(true);
             editBtn.setVisibility(View.VISIBLE);
-
             editBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -163,7 +156,6 @@ public class CardsDetailsFragment extends Fragment {
             });
 
             deleteBtn.setOnClickListener(new View.OnClickListener() {
-
                 @Override
                 public void onClick(View v) {
                     deleteBtn.setEnabled(false);
@@ -182,7 +174,6 @@ public class CardsDetailsFragment extends Fragment {
         } else {
             buyBtn.setEnabled(true);
             buyBtn.setVisibility(View.VISIBLE);
-
             buyBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -345,12 +336,27 @@ public class CardsDetailsFragment extends Fragment {
         Model.instance.addCardTransaction(map, new Model.booleanReturnListener() {
             @Override
             public void onComplete(Boolean cardTransaction, String message) {
+
                 Toast.makeText(getContext(), "Enjoy your New GiftCard!", Toast.LENGTH_SHORT).show();
                 // Model.instance.setCurrentUser(user);
 
-                pb.setVisibility(View.INVISIBLE);
-                tryDialog.dismiss();
-                Navigation.findNavController(view).navigate(R.id.action_global_myCardsFragment);
+
+//                Model.instance.addCoinsToUser(Model.instance.getSignedUser().getId(), (-1) * (card.getCalculatedPrice()), new Model.userReturnListener() {
+//                    @Override
+//                    public void onComplete(User user, String message) {
+//                        Model.instance.getSignedUser().setCoins(user.getCoins());
+                        double dub = card.getCalculatedPrice();
+                        int price = (int)dub;
+                        Model.instance.getSignedUser().setCoins(Model.instance.getSignedUser().getCoins()-price);
+                        navigationView = getActivity().findViewById(R.id.Navigation_view);
+                        View header= (View)navigationView.getHeaderView(0);
+                        coinsTv = header.findViewById(R.id.header_coins_tv);
+                        coinsTv.setText(Model.instance.getSignedUser().getCoins().toString());
+                        pb.setVisibility(View.INVISIBLE);
+                        tryDialog.dismiss();
+                        Navigation.findNavController(view).navigate(R.id.action_global_myCardsFragment);
+//                    }
+//                });
             }
         });
     }

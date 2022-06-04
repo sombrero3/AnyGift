@@ -50,7 +50,7 @@ import java.util.HashMap;
 public class EditProfileFragment extends Fragment {
 
 
-    TextView emailTv,headerEmailTv,headerNameTv;
+    TextView emailTv,headerEmailTv,headerNameTv,headerCoinsTv;
     View view;
     NavigationView navigationView;
 //    UserViewModel userViewModel;
@@ -300,8 +300,10 @@ public class EditProfileFragment extends Fragment {
         headerNameTv = header.findViewById(R.id.menu_header_name_tv);
         headerEmailTv = header.findViewById(R.id.menu_header_email_tv);
         headerImageIv = header.findViewById(R.id.menu_header_image_iv);
+        headerCoinsTv = header.findViewById(R.id.header_coins_tv);
         headerNameTv.setText(  Model.instance.getSignedUser().getFirstName() + " " + Model.instance.getSignedUser().getLastName());
         headerEmailTv.setText( Model.instance.getSignedUser().getEmail());
+
 
         if( Model.instance.getSignedUser().getProfilePicture().compareTo("")!=0){
             Model.instance.downloadImage(Model.instance.getSignedUser().getProfilePicture().replace("/image/", ""),

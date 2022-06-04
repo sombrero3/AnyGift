@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     ActionBarDrawerToggle actionBarDrawerToggle;
-    TextView nameTv,emailTv,numUnlikeTv,numLikeTv;
+    TextView nameTv,emailTv,numUnlikeTv,numLikeTv,coinsTv;
     ImageView imageIv,verifiedIv;
     User user;
     @Override
@@ -142,10 +142,16 @@ public class MainActivity extends AppCompatActivity {
         numUnlikeTv = header.findViewById(R.id.header_num_unlike_tv);
         numLikeTv = header.findViewById(R.id.header_num_like_tv);
         verifiedIv = header.findViewById(R.id.header_verification_iv);
+        coinsTv = header.findViewById(R.id.header_coins_tv);
         nameTv.setText(  user.getFirstName() + " " + user.getLastName());
         emailTv.setText( user.getEmail());
         if(user.getVerified()){
             verifiedIv.setVisibility(View.VISIBLE);
+        }
+        if(Model.instance.getSignedUser().getCoins() == null){
+            Model.instance.getSignedUser().setCoins(0);
+        }else {
+            coinsTv.setText(Model.instance.getSignedUser().getCoins().toString());
         }
 
         Model.instance.getSellerRatings(user.getId(), new Model.sellerRatingsListener() {
