@@ -35,6 +35,14 @@
                 app:layout_constraintTop_toBottomOf="@+id/feed_most_rec_tv" />
 
 
+            <View
+                android:id="@+id/general_list_line3"
+                style="@style/line"
+                android:layout_width="0dp"
+                android:layout_marginTop="8dp"
+                android:background="#AFACAC"
+                app:layout_constraintTop_toBottomOf="@+id/imageView18" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/cards_list_rv"
                 android:layout_width="match_parent"
@@ -50,39 +58,18 @@
                 android:id="@+id/feed_most_rec_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
                 android:text="Most recommended :"
                 android:textColor="@color/purplediff"
-                android:textSize="10dp"
+                android:textSize="12sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/feed_search_btn" />
 
-            <TextView
-                android:id="@+id/feed_coins_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="4dp"
-                android:text="999"
-                app:layout_constraintBottom_toTopOf="@+id/feed_verification_btn"
-                app:layout_constraintEnd_toStartOf="@+id/imageView7"
-                app:layout_constraintTop_toTopOf="@+id/feed_filter_switch" />
-
-            <ImageView
-                android:id="@+id/imageView7"
-                android:layout_width="10dp"
-                android:layout_height="10dp"
-                android:layout_marginEnd="8dp"
-                app:layout_constraintBottom_toBottomOf="@+id/feed_coins_tv"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/feed_coins_tv"
-                app:srcCompat="@drawable/coin_0" />
 
             <EditText
                 android:id="@+id/feed_max_price_et"
-                android:layout_width="140dp"
+                android:layout_width="180dp"
                 android:layout_height="35dp"
-                android:layout_marginTop="16dp"
                 android:background="@drawable/edit_text_background_1"
                 android:elevation="5dp"
                 android:ems="10"
@@ -90,41 +77,42 @@
                 android:gravity="left|top"
                 android:hint="Max Price"
                 android:inputType="number"
-                android:visibility="gone"
                 android:paddingLeft="13dp"
                 android:paddingTop="10dp"
                 android:textColor="@color/black"
                 android:textSize="14sp"
-                app:layout_constraintEnd_toEndOf="@+id/feed_card_type_spinner"
-                app:layout_constraintStart_toStartOf="@+id/feed_card_type_spinner"
-                app:layout_constraintTop_toBottomOf="@+id/feed_card_type_spinner" />
-
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/feed_card_category_spinner"
+                app:layout_constraintTop_toTopOf="@+id/feed_card_category_spinner" />
 
             <TextView
                 android:id="@+id/feed_spinner_title_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
                 android:backgroundTint="@color/white"
-                android:text="Choose card type :"
+                android:text="Card Type :"
                 android:textColor="@color/black"
                 android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="@+id/feed_card_type_spinner"
                 app:layout_constraintStart_toStartOf="@+id/feed_card_type_spinner"
-                app:layout_constraintTop_toBottomOf="@+id/feed_verification_btn" />
+                app:layout_constraintTop_toBottomOf="@+id/feed_filter_switch" />
 
             <Spinner
                 android:id="@+id/feed_card_type_spinner"
-                android:layout_width="140dp"
+                android:layout_width="180dp"
                 android:layout_height="35dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="1dp"
                 android:background="@drawable/spinner_background_style_1"
                 android:contentDescription="Select Type:"
+                android:elevation="5dp"
                 android:overlapAnchor="false"
                 android:spinnerMode="dropdown"
-                android:elevation="5dp"
                 android:visibility="gone"
-                app:layout_constraintEnd_toStartOf="@+id/feed_card_category_spinner"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/feed_date_tv"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/feed_spinner_title_tv" />
@@ -133,33 +121,33 @@
                 android:id="@+id/feed_search_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="32dp"
                 android:background="@drawable/button_border_radious_25_blue"
-                android:text="search"
-                android:textColor="@color/pink"
-                android:visibility="gone"
                 android:elevation="5dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/feed_date_tv" />
+                android:text="search"
+                android:textColor="@color/pink_dark"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@+id/feed_max_price_et"
+                app:layout_constraintTop_toBottomOf="@+id/feed_max_price_et" />
 
 
             <TextView
                 android:id="@+id/feed_date_tv"
-                android:layout_width="140dp"
+                android:layout_width="180dp"
                 android:layout_height="35dp"
                 android:background="@drawable/edit_text_background_1"
+                android:elevation="5dp"
                 android:gravity="center|left"
                 android:hint="Max Exp Date"
                 android:paddingLeft="13dp"
                 android:textColor="@color/black"
                 android:textSize="14sp"
-                android:elevation="5dp"
                 android:textStyle="normal"
                 android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="@+id/feed_card_category_spinner"
-                app:layout_constraintStart_toStartOf="@+id/feed_card_category_spinner"
-                app:layout_constraintTop_toTopOf="@+id/feed_max_price_et" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/feed_card_type_spinner"
+                app:layout_constraintTop_toBottomOf="@+id/feed_spinner_title_tv" />
 
             <ProgressBar
                 android:id="@+id/feed_progressBar"
@@ -175,52 +163,107 @@
                 android:id="@+id/feed_verification_btn"
                 android:layout_width="0dp"
                 android:layout_height="30dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginStart="1dp"
+                android:layout_marginTop="1dp"
+                android:layout_marginEnd="1dp"
                 android:background="@drawable/button_border_radious_8dp_purpel_200"
+                android:elevation="5dp"
                 android:text="  Complete Verification  "
                 android:textColor="@color/purple_3"
-                android:elevation="5dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/feed_filter_switch" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <Switch
                 android:id="@+id/feed_filter_switch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="16dp"
                 android:text="Filter"
                 android:textColor="@color/purple_dark"
                 android:textColorHighlight="@color/pink"
                 android:textColorLink="@color/red_1"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/imageView7" />
 
             <Spinner
                 android:id="@+id/feed_card_category_spinner"
-                android:layout_width="140dp"
+                android:layout_width="180dp"
                 android:layout_height="35dp"
+                android:layout_marginTop="32dp"
                 android:background="@drawable/spinner_background_style_1"
-                android:visibility="gone"
                 android:elevation="5dp"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:visibility="gone"
+                app:layout_constraintEnd_toStartOf="@+id/feed_max_price_et"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/feed_card_type_spinner"
-                app:layout_constraintTop_toTopOf="@+id/feed_card_type_spinner" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/feed_card_type_spinner" />
 
             <TextView
                 android:id="@+id/feed_card_category_title_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Choose category :"
+                android:layout_marginStart="8dp"
+                android:layout_marginBottom="1dp"
+                android:text="Category :"
                 android:textColor="@color/black"
                 android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="@+id/feed_card_category_spinner"
-                app:layout_constraintStart_toStartOf="@+id/feed_card_category_spinner"
-                app:layout_constraintTop_toTopOf="@+id/feed_spinner_title_tv" />
+                app:layout_constraintBottom_toTopOf="@+id/feed_card_category_spinner"
+                app:layout_constraintStart_toStartOf="@+id/feed_card_category_spinner" />
+
+            <ImageView
+                android:id="@+id/imageView7"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView18"
+                app:layout_constraintEnd_toStartOf="@+id/imageView11"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:srcCompat="@drawable/wallet_icon_1_1" />
+
+            <ImageView
+                android:id="@+id/imageView9"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView17"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/imageView17"
+                app:srcCompat="@drawable/coin_in_hand_icon" />
+
+            <ImageView
+                android:id="@+id/imageView11"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginBottom="-2dp"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView18"
+                app:layout_constraintEnd_toStartOf="@+id/imageView18"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/imageView7"
+                app:srcCompat="@drawable/store_icon_1_1" />
+
+            <ImageView
+                android:id="@+id/imageView17"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_marginBottom="-2dp"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView18"
+                app:layout_constraintEnd_toStartOf="@+id/imageView9"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/imageView18"
+                app:srcCompat="@drawable/trans_icon_1" />
+
+            <ImageView
+                android:id="@+id/imageView18"
+                android:layout_width="46dp"
+                android:layout_height="46dp"
+                android:layout_marginTop="4dp"
+                app:layout_constraintEnd_toStartOf="@+id/imageView17"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/imageView11"
+                app:layout_constraintTop_toBottomOf="@+id/feed_verification_btn"
+                app:srcCompat="@drawable/location_icon_1" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

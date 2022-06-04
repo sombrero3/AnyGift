@@ -18,6 +18,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -42,9 +43,10 @@ public class MyWalletFragment extends Fragment {
     MyWalletViewModel viewModel;
     CardsListAdapter adapter;
     SwipeRefreshLayout swipeRefresh;
-    TextView userName, userEmail, userPhone, coins, userAddress, numOfSold, numOfBought, soldInCoins, boughtInCoins,numLikeTv,numUnlikeTv;
-    ImageView userImage, editIv, addCardIv,verifiedIv;
+    TextView userName, userEmail, userPhone, userAddress, numOfSold, numOfBought, soldInCoins, boughtInCoins,numLikeTv,numUnlikeTv;
+    ImageView userImage,  addCardIv,verifiedIv;
     FloatingActionButton addFab;
+    Button editBtn,transactionsBtn;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -90,18 +92,18 @@ public class MyWalletFragment extends Fragment {
         userImage = view.findViewById(R.id.my_cards_avater_iv);
         userEmail = view.findViewById(R.id.my_cards_email_tv);
         userPhone = view.findViewById(R.id.my_cards_phone_tv);
-        coins = view.findViewById(R.id.my_cards_coins_tv);
         userAddress = view.findViewById(R.id.my_cards_address_tv);
         numOfSold = view.findViewById(R.id.my_cards_sold_counter_tv);
         numOfBought = view.findViewById(R.id.my_cards_bought_counter_tv);
         soldInCoins = view.findViewById(R.id.my_cards_sold_in_coins_tv);
         boughtInCoins = view.findViewById(R.id.my_cards_bought_in_coins_tv);
-        editIv = view.findViewById(R.id.my_cards_edit_iv);
+        editBtn = view.findViewById(R.id.my_cards_edit_btn);
         addCardIv = view.findViewById(R.id.my_cards_add_card_iv);
         addFab = view.findViewById(R.id.my_cards_add_fab);
         numLikeTv = view.findViewById(R.id.my_cards_num_like_tv);
         numUnlikeTv = view.findViewById(R.id.my_cards_num_un_like_tv);
         verifiedIv = view.findViewById(R.id.my_cards_verified_iv);
+        transactionsBtn = view.findViewById(R.id.my_cards_transactions_btn);
 //        Model.instance.getAllCategories(new Model.categoriesReturnListener() {
 //            @Override
 //            public void onComplete(List<Category> cat) {
@@ -109,7 +111,7 @@ public class MyWalletFragment extends Fragment {
 //            }
 //        });
 
-        editIv.setOnClickListener(v -> Navigation.findNavController(v).navigate(MyWalletFragmentDirections.actionMyCardsFragmentToEditProfileFragment()));
+        editBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(MyWalletFragmentDirections.actionMyCardsFragmentToEditProfileFragment()));
         addCardIv.setOnClickListener(v -> Navigation.findNavController(v).navigate(MyWalletFragmentDirections.actionGlobalAddCardFragment()));
 
         setUserUI();
@@ -126,6 +128,7 @@ public class MyWalletFragment extends Fragment {
             }
 
         });
+        transactionsBtn.setOnClickListener(view -> Navigation.findNavController(view).navigate(R.id.action_global_transactionsFragment));
         return view;
 
     }
@@ -138,7 +141,6 @@ public class MyWalletFragment extends Fragment {
         userEmail.setText(user.getEmail());
         userPhone.setText(user.getPhone());
         userAddress.setText(user.getAddress());
-        coins.setText(user.getCoins().toString());
         if(user.getVerified()){
             verifiedIv.setVisibility(View.VISIBLE);
         }

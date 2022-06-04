@@ -18,52 +18,38 @@
         android:layout_height="match_parent"
         tools:context=".feed.MyWalletFragment">
 
-        <ImageView
-            android:id="@+id/wallet_pic"
-            android:layout_width="0dp"
-            android:layout_height="80dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imageView6"
-            app:layout_constraintTop_toBottomOf="@+id/MyCards_list_rv"
-            app:srcCompat="@drawable/wallet_icon_1" />
-
         <TextView
             android:id="@+id/textView4"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginBottom="-24dp"
-            android:background="#2C171010"
-            app:layout_constraintBottom_toBottomOf="@+id/textView33"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="6dp"
+            android:layout_marginBottom="-16dp"
+            android:background="@drawable/button_border_8sp_blue_dark"
+            android:elevation="20dp"
+            app:layout_constraintBottom_toBottomOf="@+id/my_cards_edit_btn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/my_cards_coins_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/textView11"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="4dp"
-            android:text="999"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toStartOf="@+id/imageView4"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/imageView4"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginEnd="16dp"
-            android:src="@drawable/coin_0"
-            app:layout_constraintBottom_toBottomOf="@+id/my_cards_coins_tv"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/my_cards_coins_tv" />
+            android:layout_marginBottom="-24dp"
+            android:background="@drawable/button_border_8sp_blue_dark"
+            android:elevation="10dp"
+            app:layout_constraintBottom_toBottomOf="@+id/MyCards_list_rv"
+            app:layout_constraintEnd_toEndOf="@+id/textView4"
+            app:layout_constraintStart_toStartOf="@+id/textView4"
+            app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
         <ImageView
             android:id="@+id/imageView5"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
             android:layout_marginStart="4dp"
             android:src="@drawable/coin_0"
             app:layout_constraintBottom_toBottomOf="@+id/my_cards_sold_in_coins_tv"
@@ -72,8 +58,8 @@
 
         <ImageView
             android:id="@+id/imageView6"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
             android:layout_marginStart="4dp"
             android:src="@drawable/coin_0"
             app:layout_constraintBottom_toBottomOf="@+id/my_cards_bought_in_coins_tv"
@@ -81,45 +67,60 @@
             app:layout_constraintTop_toTopOf="@+id/my_cards_bought_in_coins_tv" />
 
         <TextView
-            android:id="@+id/textView22"
+            android:id="@+id/textView12"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/button_border_8sp_blue_dark"
+            android:elevation="10dp"
+            app:layout_constraintEnd_toEndOf="@+id/MyCards_list_rv"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/MyCards_list_rv"
+            app:layout_constraintTop_toBottomOf="@+id/textView11" />
+
+        <TextView
+            android:id="@+id/textView2289"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
             android:fontFamily="sans-serif-medium"
             android:text="Cards sold :"
+            android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/MyCards_list_rv" />
+            app:layout_constraintTop_toTopOf="@+id/textView12" />
 
         <TextView
             android:id="@+id/textView24"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="24dp"
             android:fontFamily="sans-serif-medium"
             android:text="Cards bought :"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView12"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView22" />
+            app:layout_constraintTop_toBottomOf="@+id/textView2289" />
 
         <TextView
             android:id="@+id/my_cards_sold_counter_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
             android:text="3"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="@+id/textView22"
-            app:layout_constraintStart_toEndOf="@+id/textView22"
-            app:layout_constraintTop_toTopOf="@+id/textView22" />
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView2289"
+            app:layout_constraintStart_toStartOf="@+id/my_cards_bought_counter_tv"
+            app:layout_constraintTop_toTopOf="@+id/textView2289" />
 
         <TextView
             android:id="@+id/my_cards_bought_counter_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="32dp"
             android:text="7"
-            android:textSize="18sp"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@+id/textView24"
             app:layout_constraintStart_toEndOf="@+id/textView24"
             app:layout_constraintTop_toTopOf="@+id/textView24" />
@@ -128,9 +129,10 @@
             android:id="@+id/textView26"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="70dp"
             android:fontFamily="sans-serif-medium"
             android:text="For :"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@+id/my_cards_sold_counter_tv"
             app:layout_constraintStart_toEndOf="@+id/my_cards_sold_counter_tv"
             app:layout_constraintTop_toTopOf="@+id/my_cards_sold_counter_tv" />
@@ -139,21 +141,21 @@
             android:id="@+id/textView27"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
             android:fontFamily="sans-serif-medium"
             android:text="For :"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@+id/my_cards_bought_counter_tv"
-            app:layout_constraintStart_toEndOf="@+id/my_cards_bought_counter_tv"
+            app:layout_constraintStart_toStartOf="@+id/textView26"
             app:layout_constraintTop_toTopOf="@+id/my_cards_bought_counter_tv" />
 
         <TextView
             android:id="@+id/my_cards_sold_in_coins_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="32dp"
             android:fontFamily="sans-serif-medium"
             android:text="640"
-            android:textSize="18sp"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@+id/textView26"
             app:layout_constraintStart_toEndOf="@+id/textView26"
             app:layout_constraintTop_toTopOf="@+id/textView26" />
@@ -162,34 +164,33 @@
             android:id="@+id/my_cards_bought_in_coins_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
             android:fontFamily="sans-serif-medium"
             android:text="817"
-            android:textSize="18sp"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@+id/textView27"
-            app:layout_constraintStart_toEndOf="@+id/textView27"
+            app:layout_constraintStart_toStartOf="@+id/my_cards_sold_in_coins_tv"
             app:layout_constraintTop_toTopOf="@+id/textView27" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/my_cards_avater_iv"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_marginStart="48dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
             android:src="@drawable/avatar"
             app:layout_constraintDimensionRatio="w,1:1"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/my_cards_coins_tv" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/my_cards_user_name_tv"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginStart="32dp"
             android:layout_marginEnd="16dp"
             android:fontFamily="sans-serif-medium"
             android:text="Use Name"
+            android:gravity="center"
             android:textColor="@color/purple_dark"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -200,70 +201,47 @@
             android:id="@+id/my_cards_email_tv"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:fontFamily="sans-serif-medium"
             android:text="TextView"
-            android:textColor="@color/purple_3"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="@+id/my_cards_user_name_tv"
             app:layout_constraintStart_toStartOf="@+id/my_cards_user_name_tv"
             app:layout_constraintTop_toBottomOf="@+id/my_cards_user_name_tv" />
 
         <TextView
-            android:id="@+id/textView32"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:fontFamily="sans-serif-medium"
-            android:text="Phone Number:"
-            app:layout_constraintStart_toStartOf="@+id/my_cards_avater_iv"
-            app:layout_constraintTop_toBottomOf="@+id/my_cards_avater_iv" />
-
-        <TextView
-            android:id="@+id/textView33"
+            android:id="@+id/my_cards_phone_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:fontFamily="sans-serif-medium"
-            android:text="Address :"
-            app:layout_constraintStart_toStartOf="@+id/textView32"
-            app:layout_constraintTop_toBottomOf="@+id/textView32" />
-
-        <TextView
-            android:id="@+id/my_cards_phone_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:fontFamily="sans-serif-medium"
             android:text="0507788523"
             android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/textView32"
-            app:layout_constraintStart_toEndOf="@+id/textView32"
-            app:layout_constraintTop_toTopOf="@+id/textView32" />
+            app:layout_constraintStart_toStartOf="@+id/my_cards_email_tv"
+            app:layout_constraintTop_toBottomOf="@+id/my_cards_email_tv" />
 
         <TextView
             android:id="@+id/my_cards_address_tv"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
             android:fontFamily="sans-serif-medium"
             android:text="TextView"
-            app:layout_constraintBottom_toBottomOf="@+id/textView33"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textView33"
-            app:layout_constraintTop_toTopOf="@+id/textView33" />
+            app:layout_constraintStart_toStartOf="@+id/my_cards_phone_tv"
+            app:layout_constraintTop_toBottomOf="@+id/my_cards_phone_tv" />
 
         <TextView
             android:id="@+id/textView36"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="24dp"
             android:fontFamily="sans-serif-medium"
             android:text="Cards in Wallet :"
-            android:textColor="@color/purplediff"
+            android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
@@ -271,29 +249,22 @@
             android:id="@+id/MyCards_list_rv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="4dp"
 
+            android:layout_marginStart="6dp"
+            android:layout_marginEnd="6dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView36" />
+            app:layout_constraintTop_toBottomOf="@+id/my_cards_add_card_iv" />
 
         <ImageView
             android:id="@+id/my_cards_add_card_iv"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginEnd="32dp"
             android:src="@drawable/add_card_icon"
             app:layout_constraintBottom_toBottomOf="@+id/textView36"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/textView36" />
-
-        <ImageView
-            android:id="@+id/my_cards_edit_iv"
-            android:layout_width="45dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@+id/my_cards_user_name_tv"
-            app:layout_constraintEnd_toEndOf="@+id/my_cards_address_tv"
-            app:srcCompat="@drawable/edit_icon_pink" />
 
         <ProgressBar
             android:id="@+id/my_cards_progressbar"
@@ -348,6 +319,34 @@
             android:text="0"
             app:layout_constraintEnd_toStartOf="@+id/imageView14"
             app:layout_constraintTop_toTopOf="@+id/my_cards_num_like_tv" />
+
+        <Button
+            android:id="@+id/my_cards_edit_btn"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/button_border_radious_25_blue"
+            android:text="Edit"
+            android:textColor="@color/pink"
+            app:layout_constraintEnd_toEndOf="@+id/my_cards_email_tv"
+            app:layout_constraintStart_toStartOf="@+id/my_cards_avater_iv"
+            app:layout_constraintTop_toBottomOf="@+id/my_cards_address_tv" />
+
+        <Button
+            android:id="@+id/my_cards_transactions_btn"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/button_border_8sp_blue_dark"
+            android:text="My transactions"
+            android:textColor="@color/pink"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView12" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

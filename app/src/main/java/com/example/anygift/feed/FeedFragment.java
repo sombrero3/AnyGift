@@ -50,7 +50,7 @@ public class FeedFragment extends Fragment {
     FeedViewModel viewModel;
     CardsListAdapter mostRecAdapter;
     SwipeRefreshLayout swipeRefresh;
-    TextView coinsTv, dateTv, spinnerTypeTitleTv,mostRecTv,spinnerCategoryTitleTv;
+    TextView dateTv, spinnerTypeTitleTv,mostRecTv,spinnerCategoryTitleTv;
     EditText maxPriceEt;
     FloatingActionButton addFab;
     RecyclerView mostRecList;
@@ -81,7 +81,6 @@ public class FeedFragment extends Fragment {
         pb=view.findViewById(R.id.feed_progressBar);
         swipeRefresh = view.findViewById(R.id.giftCardlist_swiperefresh);
         mostRecList = view.findViewById(R.id.cards_list_rv);
-        coinsTv = view.findViewById(R.id.feed_coins_tv);
         dateTv = view.findViewById(R.id.feed_date_tv);
         maxPriceEt = view.findViewById(R.id.feed_max_price_et);
         spinnerCardType = view.findViewById(R.id.feed_card_type_spinner);
@@ -94,10 +93,7 @@ public class FeedFragment extends Fragment {
         spinnerCategoryTitleTv = view.findViewById(R.id.feed_card_category_title_tv);
         spinnerCategory = view.findViewById(R.id.feed_card_category_spinner);
 
-        if(Model.instance.getSignedUser().getCoins() == null){
-            Model.instance.getSignedUser().setCoins(0);
-        }
-        coinsTv.setText(Model.instance.getSignedUser().getCoins().toString());
+
 
         mosetRecCl = new ArrayList<>();
 
@@ -126,7 +122,6 @@ public class FeedFragment extends Fragment {
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                coinsTv.setText(Model.instance.getSignedUser().getCoins().toString());
                 //refreshMostRecRv();
                 search();
             }
@@ -228,36 +223,6 @@ public class FeedFragment extends Fragment {
             }
         });
     }
-
-    private void setCategoriesSpinner() {
-        List<Category> cats = Model.instance.categories;
-        categories = new ArrayList<>();
-
-        for (Category ct : cats) {
-            categories.add(ct.getName());
-        }
-        categories.add("Any");
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, categories);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerCategory.setAdapter(adapter);
-        spinnerCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if(i<cats.size()) {
-                    categoryId = cats.get(i).getId();
-                }else{
-                    categoryId = "Any";
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-                categoryId = "Any";
-            }
-        });
-        spinnerCategory.setSelection(cats.size());
-    }
-
     private void setCategoriesSpinner() {
         List<Category> cats = Model.instance.categories;
         categories = new ArrayList<>();
