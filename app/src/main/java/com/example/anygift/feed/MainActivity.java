@@ -154,26 +154,28 @@ public class MainActivity extends AppCompatActivity {
             coinsTv.setText(Model.instance.getSignedUser().getCoins().toString());
         }
 
-        Model.instance.getSellerRatings(user.getId(), new Model.sellerRatingsListener() {
+        Model.instance.getSellerRatings(Model.instance.getSignedUser().getId(), new Model.sellerRatingsListener() {
             @Override
             public void onComplete(SellerRatings sr) {
-                numLikeTv.setText(""+sr.getGood());
-                numUnlikeTv.setText(""+sr.getBad());
+                if(sr!=null) {
+                    numLikeTv.setText("" + sr.getGood());
+                    numUnlikeTv.setText("" + sr.getBad());
 
-                if( user.getProfilePicture()!=null && user.getProfilePicture().compareTo("")!=0){
-                    Model.instance.downloadImage(user.getProfilePicture().replace("/image/", ""),
-                            new Model.byteArrayReturnListener() {
-                                @Override
-                                public void onComplete(Bitmap bitmap) {
-                                    if (bitmap == null) {
-                                        return;
+                    if (user.getProfilePicture() != null && user.getProfilePicture().compareTo("") != 0) {
+                        Model.instance.downloadImage(user.getProfilePicture().replace("/image/", ""),
+                                new Model.byteArrayReturnListener() {
+                                    @Override
+                                    public void onComplete(Bitmap bitmap) {
+                                        if (bitmap == null) {
+                                            return;
+                                        }
+                                        imageIv.setImageBitmap(bitmap);
+                                        imageIv.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                                        imageIv.setClipToOutline(true);
+
                                     }
-                                    imageIv.setImageBitmap(bitmap);
-                                    imageIv.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                                    imageIv.setClipToOutline(true);
-
-                                }
-                            });
+                                });
+                    }
                 }
             }
         });

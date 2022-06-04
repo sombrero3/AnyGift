@@ -149,21 +149,23 @@ public class MyWalletFragment extends Fragment {
             public void onComplete(List<CardTransaction> cardTransaction, String message) {
                 int like=0, unlike=0,numOfSoldCards=0,numOfBoughtCards=0;
                 double coinsFromSales=0,coinsSpent=0;
-                for (CardTransaction ct:cardTransaction) {
-                    if(ct.getSatisfied()!=null && ct.getSeller().equals(user.getId())){
-                        if(ct.getSatisfied()){
-                            like++;
-                        }else{
-                            unlike++;
+                if(cardTransaction!=null) {
+                    for (CardTransaction ct : cardTransaction) {
+                        if (ct.getSatisfied() != null && ct.getSeller().equals(user.getId())) {
+                            if (ct.getSatisfied()) {
+                                like++;
+                            } else {
+                                unlike++;
+                            }
                         }
-                    }
 
-                    if(ct.getSeller().equals(user.getId())){
-                        numOfSoldCards++;
-                        coinsFromSales+=ct.getBoughtFor();
-                    }else{
-                        numOfBoughtCards++;
-                        coinsSpent+=ct.getBoughtFor();
+                        if (ct.getSeller().equals(user.getId())) {
+                            numOfSoldCards++;
+                            coinsFromSales += ct.getBoughtFor();
+                        } else {
+                            numOfBoughtCards++;
+                            coinsSpent += ct.getBoughtFor();
+                        }
                     }
                 }
                 numLikeTv.setText(""+like);
