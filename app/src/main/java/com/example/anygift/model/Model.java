@@ -400,61 +400,44 @@ public void addReview(String card_trans_id, Boolean satisfied,String buyerCommen
                 Log.d("TAG", "maxPrice: "+price);
                 Log.d("TAG", "onDateSet: "+day+"/"+month+"/"+year);
 
+                boolean isFiltered = false;
+
                 System.out.println("cards : ");
                 for(Card c :cards){
                     System.out.println("Type : "+c.getCardType()+" Price : "+c.getPrice());
                 }
 
-
-
-
                 if(!cardTypeId.equals("Any")){
+                    isFiltered = true;
                     result.clear();
                     result.addAll(cards.stream().filter(c->c.getCardType().equals(cardTypeId)).collect(Collectors.toList()));
                     cards.clear();
                     cards.addAll(result);
-                    System.out.println("after Type Filter -------**************** ");
-                    System.out.println("cards : ");
-                    for(Card c :cards){
-                        System.out.println("Type : "+c.getCardType()+" Price : "+c.getPrice());
-                    }
                 }
 
                 if(!categoryId.equals("Any")){
+                    isFiltered = true;
                     result.clear();
                     List<String> list = categoryToTypesHash.get(categoryId);
                     result.addAll(cards.stream().filter(c->list.contains(c.getCardType())).collect(Collectors.toList()));
                     cards.clear();
                     cards.addAll(result);
-                    System.out.println("after Category Filter -------**************** ");
-                    System.out.println("cards : ");
-                    for(Card c :cards){
-                        System.out.println("Type : "+c.getCardType()+" Price : "+c.getPrice());
-                    }
                 }
 
                 if(!price.isEmpty()){
+                    isFiltered = true;
                     result.clear();
                     result.addAll(cards.stream().filter(c->c.getCalculatedPrice()<=Double.valueOf(price)).collect(Collectors.toList()));
                     cards.clear();
                     cards.addAll(result);
-                    System.out.println("after Price Filter -------**************** ");
-                    System.out.println("cards : ");
-                    for(Card c :cards){
-                        System.out.println("Type : "+c.getCardType()+" Price : "+c.getPrice());
-                    }
                 }
 
                 if(day!=0){
+                    isFiltered = true;
                     result.clear();
                     result.addAll(cards.stream().filter(c ->c.getExpirationDate() <= Utils.convertDateToLong(Integer.toString(day), Integer.toString(month), Integer.toString(year)).longValue()).collect(Collectors.toList()));
                     cards.clear();
                     cards.addAll(result);
-                    System.out.println("after Date Filter -------**************** ");
-                    System.out.println("cards : ");
-                    for(Card c :cards){
-                        System.out.println("Type : "+c.getCardType()+" Price : "+c.getPrice());
-                    }
                 }
 
                 Calendar calendar = Calendar.getInstance();
@@ -463,17 +446,22 @@ public void addReview(String card_trans_id, Boolean satisfied,String buyerCommen
                 int d = calendar.get(Calendar.DAY_OF_MONTH);
                 Long now = Utils.convertDateToLong(Integer.toString(d), Integer.toString(m), Integer.toString(y));
                 String userId =  Model.instance.getSignedUser().getId();
+
+                if(!isFiltered){
+                    result.addAll(cards);
+                }
+
                 for (Card c:result) {
+
                     if(c.getExpirationDate()<now || c.getOwner().equals(userId)){
                         result.remove(c);
                     }
                 }
-                System.out.println("search result return-------**************** ");
-                System.out.println("cards : ");
-                for(Card c :cards){
-                    System.out.println("Type : "+c.getCardType()+" Price : "+c.getPrice());
-                }
+
                 listener.onComplete(result);
+
+
+
             }
         });
 

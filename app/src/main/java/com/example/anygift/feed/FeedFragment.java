@@ -62,7 +62,7 @@ public class FeedFragment extends Fragment {
     Spinner spinnerCardType,spinnerCategory;
     List<String> cardTypes,categories;
     Switch filterSw;
-    String cardTypeId,categoryId;
+    String cardTypeId="Any",categoryId ="Any";
     ProgressBar pb;
     Animation topAnim,bottomAnim,rightAnim;
 
