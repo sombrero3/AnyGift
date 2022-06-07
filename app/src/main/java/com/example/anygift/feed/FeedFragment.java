@@ -190,9 +190,10 @@ public class FeedFragment extends Fragment {
             }
         });
 
-
+        Bundle args = new Bundle();
+        args.putString("cardId","");
         walletIv.setOnClickListener(v->Navigation.findNavController(v).navigate(R.id.action_global_myCardsFragment));
-        shopIv.setOnClickListener(v->Navigation.findNavController(v).navigate(R.id.action_global_shopFragment));
+        shopIv.setOnClickListener(v->Navigation.findNavController(v).navigate(R.id.action_global_shopFragment,args));
         transIv.setOnClickListener(v->Navigation.findNavController(v).navigate(R.id.action_global_transactionsFragment));
 
         return view;
