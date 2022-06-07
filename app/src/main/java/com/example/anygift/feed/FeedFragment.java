@@ -26,6 +26,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Switch;
@@ -52,6 +53,7 @@ public class FeedFragment extends Fragment {
     SwipeRefreshLayout swipeRefresh;
     TextView dateTv, spinnerTypeTitleTv,mostRecTv,spinnerCategoryTitleTv;
     EditText maxPriceEt;
+    ImageView walletIv,transIv,shopIv;
     FloatingActionButton addFab;
     RecyclerView mostRecList;
     int year,month,day;
@@ -62,7 +64,7 @@ public class FeedFragment extends Fragment {
     Spinner spinnerCardType,spinnerCategory;
     List<String> cardTypes,categories;
     Switch filterSw;
-    String cardTypeId,categoryId;
+    String cardTypeId="Any",categoryId ="Any";
     ProgressBar pb;
     Animation topAnim,bottomAnim,rightAnim;
 
@@ -92,7 +94,9 @@ public class FeedFragment extends Fragment {
         mostRecTv = view.findViewById(R.id.feed_most_rec_tv);
         spinnerCategoryTitleTv = view.findViewById(R.id.feed_card_category_title_tv);
         spinnerCategory = view.findViewById(R.id.feed_card_category_spinner);
-
+        transIv = view.findViewById(R.id.feed_transactions_iv);
+        shopIv = view.findViewById(R.id.feed_shop_iv);
+        walletIv = view.findViewById(R.id.feed_wallet_iv);
 
 
         mosetRecCl = new ArrayList<>();
@@ -185,6 +189,11 @@ public class FeedFragment extends Fragment {
                 }
             }
         });
+
+
+        walletIv.setOnClickListener(v->Navigation.findNavController(v).navigate(R.id.action_global_myCardsFragment));
+        shopIv.setOnClickListener(v->Navigation.findNavController(v).navigate(R.id.action_global_shopFragment));
+        transIv.setOnClickListener(v->Navigation.findNavController(v).navigate(R.id.action_global_transactionsFragment));
 
         return view;
 

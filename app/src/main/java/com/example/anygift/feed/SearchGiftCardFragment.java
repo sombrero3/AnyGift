@@ -47,7 +47,7 @@ public class SearchGiftCardFragment extends Fragment {
     List<Card> searchResult;
     Spinner spinnerCardType,spinnerCategories;
     List<String> cardTypes,categories;
-    String cardTypeId,categoryId;
+    String cardTypeId="Any",categoryId="Any";
     ProgressBar pb;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

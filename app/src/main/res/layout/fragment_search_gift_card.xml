@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="Choose card type :"
+        android:fontFamily="sans-serif-medium"
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="@+id/search_card_type_spinner"
         app:layout_constraintStart_toStartOf="@+id/search_card_type_spinner"
@@ -25,10 +26,10 @@
         android:layout_marginTop="4dp"
         android:background="@drawable/spinner_background_style_1"
         android:contentDescription="Select Type:"
+        android:elevation="5dp"
         android:overlapAnchor="false"
         android:spinnerMode="dropdown"
-        android:elevation="5dp"
-        app:layout_constraintEnd_toStartOf="@+id/search_category_spinner"
+        app:layout_constraintEnd_toStartOf="@+id/search_card_date_tv"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/feed_spinner_title_tv"
@@ -42,20 +43,21 @@
         android:fontFamily="sans-serif-medium"
         android:text="Search results :"
         android:textColor="@color/purplediff"
-        app:layout_constraintStart_toStartOf="@+id/search_card_date_tv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/search_card_search_btn" />
 
     <Button
         android:id="@+id/search_card_search_btn"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="24dp"
         android:background="@drawable/button_border_radious_25_blue"
         android:text="Search"
         android:textColor="@color/pink"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/search_card_date_tv"
+        app:layout_constraintTop_toBottomOf="@+id/search_category_spinner"
         tools:ignore="TouchTargetSizeCheck" />
 
 
@@ -73,17 +75,18 @@
         android:id="@+id/search_card_date_tv"
         android:layout_width="140dp"
         android:layout_height="35dp"
-        android:layout_marginTop="16dp"
         android:background="@drawable/edit_text_background_1"
-        android:hint="Exp Date"
-        android:paddingLeft="13dp"
         android:elevation="5dp"
+        android:fontFamily="sans-serif-medium"
+        android:gravity="center|start"
+        android:hint="Max Exp Date"
+        android:paddingLeft="13dp"
         android:textColor="@color/black"
         android:textSize="14sp"
-        android:gravity="center|start"
-        android:fontFamily="sans-serif-medium"
-        app:layout_constraintStart_toStartOf="@+id/search_card_type_spinner"
-        app:layout_constraintTop_toBottomOf="@+id/search_card_type_spinner" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/search_card_type_spinner"
+        app:layout_constraintTop_toTopOf="@+id/search_card_type_spinner" />
 
     <ProgressBar
         android:id="@+id/search_progressBar"
@@ -99,12 +102,13 @@
         android:id="@+id/search_category_spinner"
         android:layout_width="140dp"
         android:layout_height="35dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="32dp"
         android:background="@drawable/spinner_background_style_1"
-        app:layout_constraintHorizontal_bias="0.5"
         android:elevation="5dp"
-        app:layout_constraintStart_toEndOf="@+id/search_card_type_spinner"
-        app:layout_constraintTop_toTopOf="@+id/search_card_type_spinner"
+        app:layout_constraintEnd_toStartOf="@+id/search_max_price_et"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/search_card_type_spinner"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <TextView
@@ -112,27 +116,29 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-medium"
-        android:text="Choose Categroy :"
         android:textColor="@color/black"
+        android:text="Choose Categroy :"
+        app:layout_constraintBottom_toTopOf="@+id/search_category_spinner"
         app:layout_constraintEnd_toEndOf="@+id/search_category_spinner"
-        app:layout_constraintStart_toStartOf="@+id/search_category_spinner"
-        app:layout_constraintTop_toTopOf="@+id/feed_spinner_title_tv" />
+        app:layout_constraintStart_toStartOf="@+id/search_category_spinner" />
 
     <EditText
         android:id="@+id/search_max_price_et"
         android:layout_width="140dp"
         android:layout_height="35dp"
         android:background="@drawable/edit_text_background_1"
+        android:elevation="5dp"
         android:ems="10"
         android:fontFamily="sans-serif-medium"
-        android:inputType="number"
-        android:paddingTop="10dp"
-        android:hint="Max Price"
-        android:elevation="5dp"
-        android:paddingLeft="13dp"
         android:gravity="left|top"
+        android:hint="Max Price"
+        android:inputType="number"
+        android:paddingLeft="13dp"
+        android:paddingTop="10dp"
         android:textColor="@color/black"
         android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="@+id/search_category_spinner"
-        app:layout_constraintTop_toTopOf="@+id/search_card_date_tv" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/search_category_spinner"
+        app:layout_constraintTop_toTopOf="@+id/search_category_spinner" />
 </androidx.constraintlayout.widget.ConstraintLayout>
