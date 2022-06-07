@@ -1,16 +1,29 @@
 package com.example.anygift.feed;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.provider.Settings;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -32,13 +45,19 @@ import com.example.anygift.Retrofit.Store;
 import com.example.anygift.Retrofit.User;
 import com.example.anygift.model.Model;
 import com.example.anygift.model.Utils;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 public class CardsDetailsFragment extends Fragment {
     View view;
@@ -50,7 +69,11 @@ public class CardsDetailsFragment extends Fragment {
     String cardId, userId;
     ProgressBar pb;
     Dialog tryDialog;
-
+    //gps
+    FusedLocationProviderClient client;
+    String latAndLong;
+    Button btnCloseStore;
+    String[] listFromJSON= new String[]{"32.08136662421683, 34.770394074372796","31.887,34.738", "31.821,34.661", "31.762,35.176"};
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -138,7 +161,29 @@ public class CardsDetailsFragment extends Fragment {
                 });
             }
         });
+        client = LocationServices.getFusedLocationProviderClient(getActivity());
+        btnCloseStore=view.findViewById(R.id.btnCloseStore);
+        btnCloseStore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //find closet store
+                if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                    getCurrentLocation();
 
+
+
+                } else {
+                    requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
+                            Manifest.permission.ACCESS_COARSE_LOCATION}, 100);
+
+                }
+
+            }
+
+
+
+
+        });
         return view;
     }
 
@@ -361,4 +406,49 @@ public class CardsDetailsFragment extends Fragment {
         });
     }
 
+    @SuppressLint("MissingPermission")
+    private void getCurrentLocation() {
+        LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
+                locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+            client.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
+                @Override
+                public void onComplete(@NonNull Task<Location> task) {
+                    Location location = (Location) task.getResult();
+                    if (location != null) {
+                        Geocoder gcd = new Geocoder(getContext(), Locale.getDefault());
+                        try {
+                            List<Address> addresses = gcd.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+                            if (addresses.size() > 0) {
+
+                                latAndLong = String.valueOf(location.getLatitude()) + "," + String.valueOf(location.getLongitude());
+                                latAndLong="31.879926029240508, 34.73570520900597";
+                                int index= Utils.MinDistance(listFromJSON,latAndLong);
+                                Uri gmmIntentUri = Uri.parse("geo:"+listFromJSON[index]);
+                                String labelLocation = "Closet Store: ";
+                                String address = "http://maps.google.com/maps?q="+listFromJSON[index] +"("+ labelLocation + ")&iwloc=A&hl=es";
+                                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(address));
+                                startActivity(intent);
+                                /*  Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+                                mapIntent.setPackage("com.google.android.apps.maps");
+                                if (mapIntent.resolveActivity(getActivity().getPackageManager()) != null)
+                                 {
+                                    startActivity(mapIntent);
+                                }
+
+                               */
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+
+                }
+            });
+        } else {
+            startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+        }
+
+    }
 }
