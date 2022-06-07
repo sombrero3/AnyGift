@@ -39,9 +39,10 @@
                 android:id="@+id/general_list_line3"
                 style="@style/line"
                 android:layout_width="0dp"
-                android:layout_marginTop="8dp"
-                android:background="#AFACAC"
-                app:layout_constraintTop_toBottomOf="@+id/imageView18" />
+                android:layout_marginTop="48dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/cards_list_rv"
@@ -163,29 +164,29 @@
                 android:id="@+id/feed_verification_btn"
                 android:layout_width="0dp"
                 android:layout_height="30dp"
-                android:layout_marginStart="1dp"
-                android:layout_marginTop="1dp"
-                android:layout_marginEnd="1dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="16dp"
                 android:background="@drawable/button_border_radious_8dp_purpel_200"
                 android:elevation="5dp"
                 android:text="  Complete Verification  "
-                android:textColor="@color/purple_3"
+                android:textColor="@color/green_saving"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/general_list_line3" />
 
             <Switch
                 android:id="@+id/feed_filter_switch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:text="Filter"
                 android:textColor="@color/purple_dark"
                 android:textColorHighlight="@color/pink"
                 android:textColorLink="@color/red_1"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView7" />
+                app:layout_constraintTop_toBottomOf="@+id/feed_verification_btn" />
 
             <Spinner
                 android:id="@+id/feed_card_category_spinner"
@@ -213,56 +214,49 @@
                 app:layout_constraintStart_toStartOf="@+id/feed_card_category_spinner" />
 
             <ImageView
-                android:id="@+id/imageView7"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                app:layout_constraintBottom_toBottomOf="@+id/imageView18"
-                app:layout_constraintEnd_toStartOf="@+id/imageView11"
+                android:id="@+id/feed_wallet_iv"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginBottom="2dp"
+                app:layout_constraintBottom_toTopOf="@+id/general_list_line3"
+                app:layout_constraintEnd_toStartOf="@+id/feed_shop_iv"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:srcCompat="@drawable/wallet_icon_1_1" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/wallet_icon_2" />
 
             <ImageView
-                android:id="@+id/imageView9"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                app:layout_constraintBottom_toBottomOf="@+id/imageView17"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/imageView17"
-                app:srcCompat="@drawable/coin_in_hand_icon" />
-
-            <ImageView
-                android:id="@+id/imageView11"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginBottom="-2dp"
-                app:layout_constraintBottom_toBottomOf="@+id/imageView18"
+                android:id="@+id/feed_shop_iv"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                app:layout_constraintBottom_toTopOf="@+id/general_list_line3"
                 app:layout_constraintEnd_toStartOf="@+id/imageView18"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/imageView7"
-                app:srcCompat="@drawable/store_icon_1_1" />
+                app:layout_constraintStart_toEndOf="@+id/feed_wallet_iv"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/shop_icon_1" />
 
             <ImageView
-                android:id="@+id/imageView17"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:layout_marginBottom="-2dp"
-                app:layout_constraintBottom_toBottomOf="@+id/imageView18"
-                app:layout_constraintEnd_toStartOf="@+id/imageView9"
+                android:id="@+id/feed_transactions_iv"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                app:layout_constraintBottom_toTopOf="@+id/general_list_line3"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/imageView18"
-                app:srcCompat="@drawable/trans_icon_1" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/transactions2" />
 
             <ImageView
                 android:id="@+id/imageView18"
-                android:layout_width="46dp"
-                android:layout_height="46dp"
-                android:layout_marginTop="4dp"
-                app:layout_constraintEnd_toStartOf="@+id/imageView17"
+                android:layout_width="33dp"
+                android:layout_height="33dp"
+                android:layout_marginBottom="6dp"
+                app:layout_constraintBottom_toTopOf="@+id/general_list_line3"
+                app:layout_constraintEnd_toStartOf="@+id/feed_transactions_iv"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/imageView11"
-                app:layout_constraintTop_toBottomOf="@+id/feed_verification_btn"
+                app:layout_constraintStart_toEndOf="@+id/feed_shop_iv"
+                app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/location_icon_1" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -275,7 +269,7 @@
         android:layout_gravity="end|bottom"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        android:backgroundTint="@color/purple_dark"
+        android:backgroundTint="@color/purple_primary"
         android:clickable="true"
         android:focusable="true"
         android:tint="@color/white"

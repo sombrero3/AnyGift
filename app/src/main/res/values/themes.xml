@@ -2,8 +2,8 @@
 <!-- Base application theme. -->
     <style name="Theme.Anygift" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/dark_grey</item>
-        <item name="colorPrimaryVariant">@color/black</item>
+        <item name="colorPrimary">@color/purple_primary</item>
+        <item name="colorPrimaryVariant">@color/purple_primary</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/y</item>
@@ -15,6 +15,16 @@
     </style>
     <style name="line">
         <item name="android:background">@color/black</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_height">1dp</item>
+    </style>
+    <style name="line_pink">
+        <item name="android:background">@color/pink</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_height">1dp</item>
+    </style>
+    <style name="line_blue">
+        <item name="android:background">@color/blue_dark</item>
         <item name="android:layout_marginTop">10dp</item>
         <item name="android:layout_height">1dp</item>
     </style>

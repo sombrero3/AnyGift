@@ -35,6 +35,7 @@
     <color name="y">#8dca7f</color>
     <color name="purplediff">#311042</color>
     <color name="dark_grey">#131313</color>
+    <color name="purple_primary">#170719</color>
     <color name="grey_edit_text">#E8EBEC</color>
 
 </resources>
