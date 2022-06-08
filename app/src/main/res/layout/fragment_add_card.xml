@@ -13,6 +13,19 @@
 
 
     <TextView
+        android:id="@+id/add_card_publisher_background"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/box_background_blue_dark_light"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="-16dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/add_card_categories_tv"
+        app:layout_constraintEnd_toEndOf="@+id/option"
+        app:layout_constraintStart_toStartOf="@+id/option"
+        app:layout_constraintTop_toBottomOf="@+id/option" />
+
+    <TextView
         android:id="@+id/textView8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -47,28 +60,27 @@
         app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
 
-
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginTop="24dp"
-        android:textColorHint="@color/black"
         android:background="@drawable/edit_text_background_1"
+        android:textColorHint="@color/black"
         app:layout_constraintEnd_toEndOf="@+id/option"
         app:layout_constraintStart_toStartOf="@+id/option"
-        app:layout_constraintTop_toBottomOf="@+id/option">
+        app:layout_constraintTop_toBottomOf="@+id/add_card_publisher_background">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/add_card_number"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginLeft="13dp"
+            android:layout_marginRight="13dp"
             android:height="50dp"
             android:fontFamily="sans-serif-medium"
             android:hint="Card Number:"
             android:inputType="number"
-            android:layout_marginLeft="13dp"
-            android:layout_marginRight="13dp"
             android:textColor="@color/black"
             android:textColorHint="@color/black"
             tools:ignore="TouchTargetSizeCheck" />
@@ -109,7 +121,7 @@
         android:layout_marginTop="32dp"
         android:adjustViewBounds="true"
         android:scaleType="fitCenter"
-        android:src="@drawable/amazon_giftcard"
+        android:src="@drawable/gift_card_logo_card"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView7"
@@ -159,6 +171,38 @@
         app:layout_constraintHorizontal_bias="0.448"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView9" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/add_card_publisher_name_container_textinputlayout"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="32dp"
+        android:visibility="gone"
+        android:background="@drawable/edit_text_background_1"
+        android:textColorHint="@color/black"
+        app:layout_constraintEnd_toEndOf="@+id/option"
+        app:layout_constraintStart_toStartOf="@+id/option"
+        app:layout_constraintTop_toBottomOf="@+id/option">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/add_card_publisher_name"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="13dp"
+            android:layout_marginRight="13dp"
+            android:height="50dp"
+            android:visibility="gone"
+            android:fontFamily="sans-serif-medium"
+            android:hint="Card Publisher Name"
+            android:inputType="text"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
+            tools:ignore="TouchTargetSizeCheck" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout5"
@@ -222,6 +266,30 @@
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="@+id/textInputLayout5"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout5" />
+
+    <Button
+        android:id="@+id/add_card_categories_btn"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/button_border_radious_25_blue"
+        android:text="Click To Choose Categories"
+        android:textColor="@color/pink"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@+id/add_card_publisher_name_container_textinputlayout"
+        app:layout_constraintStart_toStartOf="@+id/add_card_publisher_name_container_textinputlayout"
+        app:layout_constraintTop_toBottomOf="@+id/add_card_publisher_name_container_textinputlayout" />
+
+    <TextView
+        android:id="@+id/add_card_categories_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:visibility="gone"
+        android:text="Please Choose Categories"
+        app:layout_constraintEnd_toEndOf="@+id/add_card_categories_btn"
+        app:layout_constraintStart_toStartOf="@+id/add_card_categories_btn"
+        app:layout_constraintTop_toBottomOf="@+id/add_card_categories_btn" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
