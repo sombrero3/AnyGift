@@ -13,7 +13,7 @@
         <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/drawable/edit_text_background_1.xml" value="0.159" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/drawable/spinner_background_style_1.xml" value="0.159" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/layout/activity_login.xml" value="0.12158054711246201" />
-        <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/layout/activity_splash.xml" value="0.2" />
+        <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/layout/activity_splash.xml" value="0.264" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/layout/buy_card_popup.xml" value="0.176" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/layout/cards_list_row.xml" value="0.25" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/layout/dropdown_item.xml" value="0.12409420289855072" />
@@ -22,10 +22,10 @@
         <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/layout/fragment_edit_card_details.xml" value="0.2" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/layout/fragment_edit_profile.xml" value="0.2" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/layout/fragment_feed.xml" value="0.176" />
-        <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/layout/fragment_login.xml" value="0.176" />
+        <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/layout/fragment_login.xml" value="0.2" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/layout/fragment_my_cards.xml" value="0.4" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/layout/fragment_search_gift_card.xml" value="0.264" />
-        <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/layout/fragment_sign_up.xml" value="0.176" />
+        <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/layout/fragment_sign_up.xml" value="0.2" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/layout/fragment_transaction_details.xml" value="0.2" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/layout/fragment_transactions_list_rv.xml" value="0.12158054711246201" />
         <entry key="..\:/Users/Owner/AndroidStudioProjects/AnyGift/app/src/main/res/layout/fragment_user_details.xml" value="0.12158054711246201" />
