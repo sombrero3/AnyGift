@@ -80,7 +80,6 @@
                     android:elevation="10dp"
                     app:layout_constraintBottom_toBottomOf="@+id/my_cards_num_like_tv"
                     app:layout_constraintEnd_toStartOf="@+id/my_cards_num_un_like_tv"
-                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/my_cards_num_like_tv"
                     app:srcCompat="@drawable/like_icon_green" />
 

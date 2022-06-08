@@ -213,7 +213,7 @@
             android:textColor="@color/purplediff"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/details_giftpic_iv" />
+            app:layout_constraintTop_toBottomOf="@+id/btnCloseStore" />
 
         <TextView
             android:id="@+id/textView43"
@@ -450,13 +450,17 @@
 
         <Button
             android:id="@+id/btnCloseStore"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="33dp"
-            android:layout_marginEnd="31dp"
-            android:text="Check Closet Store"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="32dp"
+            android:background="@drawable/box_background_blue_dark_light"
+            android:text="  Check Closet Store  "
+            android:textColor="@color/pink"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/card_details_exp_tv" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/details_giftpic_iv" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
