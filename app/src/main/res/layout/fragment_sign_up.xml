@@ -56,7 +56,7 @@
             android:fontFamily="sans-serif-medium"
             android:text="Sign Up"
             android:textAlignment="center"
-            android:textSize="24sp"
+            android:textSize="20sp"
             app:layout_constraintStart_toStartOf="@+id/sign_up_line"
             app:layout_constraintTop_toBottomOf="@+id/textView38"
             tools:ignore="MissingConstraints" />
@@ -76,7 +76,7 @@
             style="@style/line"
             android:layout_width="0dp"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="1dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="32dp"
             android:background="@color/grey_1"
             app:layout_constraintEnd_toEndOf="parent"
@@ -86,7 +86,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/SignUp_textInput_Finame"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_marginStart="32dp"
             android:layout_marginTop="48dp"
             android:layout_marginEnd="32dp"
@@ -102,6 +102,8 @@
                 android:id="@+id/SignUp_firstName_input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
                 android:fontFamily="sans-serif-medium"
                 android:inputType="text"
                 android:maxLines="1"
@@ -112,7 +114,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/SignUp_textInputnput_Email"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_marginTop="24dp"
             android:background="@drawable/edit_text_background_1"
             android:hint="@string/Email"
@@ -129,6 +131,8 @@
                 android:fontFamily="sans-serif-medium"
                 android:inputType="textEmailAddress"
                 android:maxLines="1"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
                 android:paddingLeft="13dp" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -166,6 +170,7 @@
             android:id="@+id/SignUp_signIn_btn"
             android:layout_width="81dp"
             android:layout_height="30dp"
+            android:layout_marginTop="6dp"
             android:background="?attr/selectableItemBackground"
             android:fontFamily="sans-serif-medium"
             android:text="Sign In"
@@ -177,7 +182,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/SignUp_textInput_Password"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_marginTop="24dp"
             android:background="@drawable/edit_text_background_1"
             android:hint="@string/Password"
@@ -194,13 +199,15 @@
                 android:fontFamily="sans-serif-medium"
                 android:inputType="textPassword"
                 android:maxLines="1"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
                 android:paddingLeft="13dp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/SignUp_textInput_address"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_marginTop="24dp"
             android:background="@drawable/edit_text_background_1"
             android:hint="@string/Address"
@@ -216,6 +223,8 @@
                 android:fontFamily="sans-serif-medium"
                 android:inputType="text"
                 android:maxLines="1"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
                 android:paddingLeft="13dp" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -223,7 +232,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/SignUp_textInput_Phone"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_marginTop="24dp"
             android:background="@drawable/edit_text_background_1"
             android:hint="@string/Phone"
@@ -240,6 +249,8 @@
                 android:fontFamily="sans-serif-medium"
                 android:inputType="phone"
                 android:maxLines="1"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
                 android:paddingLeft="13dp"
                 tools:ignore="TouchTargetSizeCheck" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -247,7 +258,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/SIgnUp_textInput_Lname"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_marginTop="24dp"
             android:background="@drawable/edit_text_background_1"
             android:hint="@string/Last_Name"
@@ -263,6 +274,8 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-medium"
                 android:inputType="text"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
                 android:maxLines="1"
                 android:paddingLeft="13dp" />
         </com.google.android.material.textfield.TextInputLayout>
