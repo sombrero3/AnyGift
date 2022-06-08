@@ -45,6 +45,7 @@ import com.example.anygift.model.Utils;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
@@ -54,7 +55,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class AddCardFragment extends Fragment {
-    TextInputEditText cardValue, cardAskingValue, cardNumber;
+    TextInputEditText cardValue, cardAskingValue, cardNumber,publisherNameEt ;
     Button addCardButton;
     ImageView giftCardImage;
     View view;
@@ -67,6 +68,13 @@ public class AddCardFragment extends Fragment {
     DatePickerDialog.OnDateSetListener dateListener;
     List<String> cardTypes;
     int year, month, day;
+    TextView categoriesTv,categoriesBackgroundTv;
+    Button addCategoriesBtn;
+    TextInputLayout nameContainerTIl;
+    boolean otherFlag,itemsFlags[];
+    CharSequence []  items;
+    List<String> AllCategories;
+    ArrayList<Integer> categoriesPositions;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -90,6 +98,30 @@ public class AddCardFragment extends Fragment {
         setDateSelector();
 
 
+        //--categories addition-----//
+        categoriesTv = view.findViewById(R.id.add_card_categories_tv);
+        categoriesBackgroundTv = view.findViewById(R.id.add_card_publisher_background);
+        publisherNameEt = view.findViewById(R.id.add_card_publisher_name);
+        addCategoriesBtn = view.findViewById(R.id.add_card_categories_btn);
+        nameContainerTIl = view.findViewById(R.id.add_card_publisher_name_container_textinputlayout);
+        categoriesPositions = new ArrayList<>();
+        AllCategories = new ArrayList<>();
+        AllCategories.add("1");
+        AllCategories.add("2");
+        AllCategories.add("3");
+        AllCategories.add("4");
+        AllCategories.add("5");
+        items = AllCategories.toArray(new CharSequence[AllCategories.size()]);
+        itemsFlags = new boolean[5];
+        for(boolean b:itemsFlags){
+            b=false;
+        }
+
+        addCategoriesBtn.setOnClickListener(v->{
+            startCategoriesDialog();
+        });
+
+        ///-------------------------//
 //        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
         addCardButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,6 +131,70 @@ public class AddCardFragment extends Fragment {
         });
 
         return view;
+    }
+
+    private void startCategoriesDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("Please Choose Categories");
+        builder.setMultiChoiceItems(items, itemsFlags, new DialogInterface.OnMultiChoiceClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int pos, boolean isChecked) {
+                  if(isChecked){
+                      if(!categoriesPositions.contains(pos)){
+                          categoriesPositions.add(pos);
+                      }else{
+                          categoriesPositions.remove(pos);
+                      }
+                  }
+                  itemsFlags[pos] = isChecked;
+            }
+        });
+        builder.setCancelable(false);
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int pos) {
+                String result = "";
+
+                boolean psik = false;
+                for(int i=0;i<AllCategories.size();i++){
+                    if(itemsFlags[i]) {
+                        if (!psik) {
+                            result += AllCategories.get(i);
+                            psik = true;
+                        } else {
+                            result += ", " + AllCategories.get(i);;
+                        }
+                    }
+                }
+
+                if(result.isEmpty()) {
+                    result = "Please choose categories";
+                }
+                categoriesTv.setText(result);
+            }
+        });
+
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+
+        builder.setNeutralButton("Clear All", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                for(boolean b :itemsFlags){
+                    b=false;
+                }
+                categoriesPositions.clear();
+                categoriesTv.setText("Please choose categories");
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
     }
 
     private void setDateSelector() {
@@ -132,16 +228,27 @@ public class AddCardFragment extends Fragment {
         for (CardType ct : cts) {
             cardTypes.add(ct.getName());
         }
-
+        cardTypes.add("Other");
         spinnerCardType = (Spinner) view.findViewById(R.id.option);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, cardTypes);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerCardType.setAdapter(adapter);
+        otherFlag =false;
         spinnerCardType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                giftCardImage.setImageBitmap(cts.get(i).getPicture());
-                cardType = cts.get(i).getId();
+                if(i<cts.size()) {
+                    if(otherFlag){
+                        CategoryMenuGone();
+                        otherFlag = false;
+                    }
+                    giftCardImage.setImageBitmap(cts.get(i).getPicture());
+                    cardType = cts.get(i).getId();
+                }else{
+                    giftCardImage.setImageResource(R.drawable.gift_card_logo_card);
+                    otherFlag = true;
+                    CategoryMenuVisible();
+                }
             }
 
             @Override
@@ -152,7 +259,20 @@ public class AddCardFragment extends Fragment {
         pb.setVisibility(View.INVISIBLE);
     }
 
-
+    private void CategoryMenuVisible(){
+         categoriesTv.setVisibility(View.VISIBLE);
+         addCategoriesBtn.setVisibility(View.VISIBLE);
+         nameContainerTIl.setVisibility(View.VISIBLE);
+        publisherNameEt.setVisibility(View.VISIBLE);
+        categoriesBackgroundTv.setVisibility(View.VISIBLE);
+    }
+    private void CategoryMenuGone(){
+        categoriesTv.setVisibility(View.GONE);
+        addCategoriesBtn.setVisibility(View.GONE);
+        nameContainerTIl.setVisibility(View.GONE);
+        publisherNameEt.setVisibility(View.GONE);
+        categoriesBackgroundTv.setVisibility(View.GONE);
+    }
     void popMsg(String Msg) {
         Snackbar mySnackbar = Snackbar.make(view, Msg, BaseTransientBottomBar.LENGTH_LONG);
         mySnackbar.show();
