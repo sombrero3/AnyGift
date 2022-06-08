@@ -44,6 +44,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -63,6 +64,7 @@ public class LoginFragment extends Fragment {
     Button signIn_btn, signUp_btn, forgotP_btn;
     LoginButton facebook_btn;
     TextInputEditText email, password;
+    TextInputLayout emailLayout,passwordLayout;
     String email_user, password_user;
     CallbackManager callbackManager;
     ProfileTracker profileTracker;
@@ -78,12 +80,14 @@ public class LoginFragment extends Fragment {
         forgotP_btn = view.findViewById(R.id.Login_btn_forgotp);
         email = view.findViewById(R.id.Login_email_input);
         password = view.findViewById(R.id.Login_password_input);
+        emailLayout = view.findViewById(R.id.textInputLayout2);
+        passwordLayout = view.findViewById(R.id.textInputLayout3);
         pb = view.findViewById(R.id.login_prob);
         pb.setVisibility(View.INVISIBLE);
 
         rightAnim = AnimationUtils.loadAnimation(getActivity(),R.anim.right_anim);
-        email.setAnimation(rightAnim);
-        password.setAnimation(rightAnim);
+        emailLayout.setAnimation(rightAnim);
+        passwordLayout.setAnimation(rightAnim);
         signUp_btn.setAnimation(rightAnim);
         forgotP_btn.setAnimation(rightAnim);
 

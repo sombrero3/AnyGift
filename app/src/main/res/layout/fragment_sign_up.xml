@@ -8,8 +8,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:ignore="MissingClass"
-        tools:context=".login.SignUpFragment" >
+        tools:context=".login.SignUpFragment"
+        tools:ignore="MissingClass">
 
 
         <TextView
@@ -66,9 +66,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-medium"
+            android:textSize="14sp"
             android:text="Please enter your details:"
-            app:layout_constraintStart_toStartOf="@+id/SignUp_text_view"
-            app:layout_constraintTop_toBottomOf="@+id/sign_up_line" />
+            app:layout_constraintBaseline_toBaselineOf="@+id/SignUp_signIn_btn"
+            app:layout_constraintStart_toStartOf="@+id/SignUp_text_view" />
 
         <View
             android:id="@+id/sign_up_line"
@@ -86,9 +87,9 @@
             android:id="@+id/SignUp_textInput_Finame"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="32dp"
             android:layout_marginTop="48dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginEnd="32dp"
             android:background="@drawable/edit_text_background_1"
             android:hint="@string/First_Name"
             android:textColorHint="@color/grey_1"
@@ -144,31 +145,33 @@
 
         <Button
             android:id="@+id/SignUp_continue_btn"
-            android:layout_width="200dp"
+            android:layout_width="0dp"
             android:layout_height="30dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="48dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="24dp"
             android:background="@drawable/button_border_radious_25_blue"
             android:text="Create Account"
             android:textColor="@color/pink"
-            app:layout_constraintEnd_toEndOf="@+id/SignUp_textInput_Password"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/signup_facebook_btn"
             app:layout_constraintTop_toBottomOf="@+id/SignUp_check_box"
+            app:layout_constraintVertical_bias="0.0"
             tools:ignore="MissingConstraints" />
 
         <Button
             android:id="@+id/SignUp_signIn_btn"
             android:layout_width="81dp"
             android:layout_height="30dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginBottom="32dp"
-            android:background="@drawable/button_border_8sp_pink"
+            android:background="?attr/selectableItemBackground"
+            android:fontFamily="sans-serif-medium"
             android:text="Sign In"
-            android:textColor="@color/blue_dark"
             android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/SignUp_check_box"
-            app:layout_constraintTop_toBottomOf="@+id/SignUp_continue_btn"
+            app:layout_constraintEnd_toEndOf="@+id/sign_up_line"
+            app:layout_constraintTop_toBottomOf="@+id/sign_up_line"
             tools:ignore="MissingConstraints" />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -280,12 +283,14 @@
             android:id="@+id/signup_facebook_btn"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
-            android:layout_marginEnd="32dp"
+            android:layout_marginStart="16dp"
             android:background="@drawable/button_radious_8dp_blue"
             android:text="  Sign Up with facebook  "
             android:textColor="@color/white"
-            app:layout_constraintEnd_toEndOf="@+id/SignUp_textInput_Password"
-            app:layout_constraintTop_toTopOf="@+id/SignUp_signIn_btn" />
+            app:layout_constraintEnd_toStartOf="@+id/SignUp_continue_btn"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/SignUp_continue_btn" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
