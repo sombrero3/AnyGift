@@ -10,22 +10,22 @@
         android:id="@+id/verification_pic_iv"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="64dp"
         android:src="@drawable/avatar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView63" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView63"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="32dp"
         android:fontFamily="sans-serif-medium"
         android:text="Upload picture of your personal ID to verificate your account"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/verification_camera_iv" />
 
     <ImageView
         android:id="@+id/verification_camera_iv"
@@ -40,13 +40,13 @@
     <Button
         android:id="@+id/verification_complete_btn"
         android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="58dp"
-        android:background="@drawable/button_border_radious_25dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="48dp"
+        android:background="@drawable/button_border_8sp_blue_dark"
         android:fontFamily="sans-serif-medium"
         android:text="Complete"
-        android:textColor="@color/y"
+        android:textColor="@color/pink"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/verification_camera_iv" />
+        app:layout_constraintTop_toBottomOf="@+id/textView63" />
 </androidx.constraintlayout.widget.ConstraintLayout>

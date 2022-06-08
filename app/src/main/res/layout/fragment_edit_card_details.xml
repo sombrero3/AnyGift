@@ -16,18 +16,22 @@
             android:id="@+id/textInputLayout0"
             android:layout_width="0dp"
             android:layout_height="50dp"
-            android:layout_marginTop="2dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/edit_text_background_1"
+            android:textColorHint="@color/black"
             app:layout_constraintEnd_toEndOf="@+id/edit_card_type_spinner"
-            app:layout_constraintStart_toStartOf="@+id/textView150"
-            app:layout_constraintTop_toBottomOf="@+id/textView150">
+            app:layout_constraintStart_toStartOf="@+id/edit_card_type_spinner"
+            app:layout_constraintTop_toBottomOf="@+id/edit_card_type_spinner">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edit_card_card_number"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:height="50dp"
-                android:hint="Card Number:"
+                android:paddingLeft="13dp"
                 android:fontFamily="sans-serif-medium"
+                android:hint="Card Number:"
+                android:inputType="number"
                 tools:ignore="TouchTargetSizeCheck" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -35,10 +39,12 @@
             android:id="@+id/textInputLayout40"
             android:layout_width="0dp"
             android:layout_height="56dp"
-            android:layout_marginTop="2dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/edit_text_background_1"
+            android:textColorHint="@color/black"
             app:layout_constraintEnd_toEndOf="@+id/textInputLayout0"
-            app:layout_constraintStart_toStartOf="@+id/textView170"
-            app:layout_constraintTop_toBottomOf="@+id/textView170">
+            app:layout_constraintStart_toStartOf="@+id/edit_card_exp_date_tv"
+            app:layout_constraintTop_toBottomOf="@+id/edit_card_exp_date_tv">
 
 
             <com.google.android.material.textfield.TextInputEditText
@@ -48,6 +54,7 @@
                 android:height="50dp"
                 android:fontFamily="sans-serif-medium"
                 android:hint="Card Value:"
+                android:paddingLeft="13dp"
                 android:inputType="numberDecimal"
                 tools:ignore="TouchTargetSizeCheck" />
 
@@ -57,95 +64,53 @@
             android:id="@+id/edit_card_giftCardImage"
             android:layout_width="wrap_content"
             android:layout_height="140dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="32dp"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"
             android:src="@drawable/amazon_giftcard"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView80"
+            app:layout_constraintTop_toBottomOf="@+id/textView708"
             app:shapeAppearanceOverlay="@style/roundedCornersImageView" />
 
         <Button
             android:id="@+id/edit_card_upload_bt"
             android:layout_width="200dp"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
             android:layout_marginTop="32dp"
             android:layout_marginBottom="24dp"
-            android:background="@drawable/button_radious_25dp_long"
+            android:background="@drawable/button_border_8sp_blue_dark"
             android:fontFamily="sans-serif-medium"
             android:text="Save Changes"
-            android:textColor="@color/white"
+            android:textColor="@color/pink"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/edit_card_for_sale_cb" />
 
         <TextView
-            android:id="@+id/textView70"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:fontFamily="sans-serif-medium"
-            android:text="Exp details :"
-            android:textColor="@color/purplediff"
-            app:layout_constraintStart_toStartOf="@+id/textInputLayout0"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout0" />
-
-        <TextView
             android:id="@+id/textView90"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="32dp"
             android:fontFamily="sans-serif-medium"
             android:text="Choose Card Type:"
             android:textColor="@color/purplediff"
-            app:layout_constraintStart_toStartOf="@+id/textView80"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/edit_card_giftCardImage" />
-
-        <TextView
-            android:id="@+id/textView150"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:fontFamily="sans-serif-medium"
-            android:text="Enter Card Number:"
-            android:textColor="@color/purplediff"
-            app:layout_constraintStart_toStartOf="@+id/edit_card_type_spinner"
-            app:layout_constraintTop_toBottomOf="@+id/edit_card_type_spinner" />
-
-        <TextView
-            android:id="@+id/textView170"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:fontFamily="sans-serif-medium"
-            android:text="Enter Card Value:"
-            android:textColor="@color/purplediff"
-            app:layout_constraintStart_toStartOf="@+id/textView70"
-            app:layout_constraintTop_toBottomOf="@+id/textView70" />
-
-        <TextView
-            android:id="@+id/textView180"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:fontFamily="sans-serif-medium"
-            android:text="Enter your selling price:"
-            android:textColor="@color/purplediff"
-            app:layout_constraintStart_toStartOf="@+id/textView70"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout40" />
 
         <Spinner
             android:id="@+id/edit_card_type_spinner"
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_marginTop="8dp"
-            android:background="@drawable/spinner_background"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/spinner_background_style_1"
             android:contentDescription="Select option:"
             android:overlapAnchor="false"
             android:spinnerMode="dropdown"
-            app:layout_constraintEnd_toEndOf="@+id/textView80"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.448"
             app:layout_constraintStart_toStartOf="@+id/textView90"
             app:layout_constraintTop_toBottomOf="@+id/textView90" />
@@ -153,34 +118,54 @@
 
         <TextView
             android:id="@+id/textView80"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="32dp"
+            android:layout_marginTop="8dp"
             android:fontFamily="sans-serif-medium"
-            android:text="Edit Card Details:"
-            android:textColor="@color/y"
-            android:textSize="24sp"
+            android:text="Edit your gift card "
+            android:textColor="@color/coins"
+            android:textSize="18sp"
             android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/card_details_line"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/card_details_line"
+            style="@style/line"
+            android:layout_width="0dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginEnd="32dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/textView80" />
+
+        <TextView
+            android:id="@+id/textView708"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Please enter card details"
+            app:layout_constraintStart_toStartOf="@+id/textView80"
+            app:layout_constraintTop_toBottomOf="@+id/card_details_line" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout50"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/edit_text_background_1"
+            android:textColorHint="@color/black"
             app:layout_constraintEnd_toEndOf="@+id/textInputLayout40"
-            app:layout_constraintStart_toStartOf="@+id/textView180"
-            app:layout_constraintTop_toBottomOf="@+id/textView180">
+            app:layout_constraintStart_toStartOf="@+id/textInputLayout40"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout40">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edit_card_card_asking_price"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:height="50dp"
+                android:paddingLeft="13dp"
                 android:fontFamily="sans-serif-medium"
                 android:hint="Your Asking Price"
                 android:inputType="numberDecimal"
@@ -201,15 +186,19 @@
 
         <TextView
             android:id="@+id/edit_card_exp_date_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/edit_text_background_1"
             android:fontFamily="sans-serif-medium"
-            android:text="Select Date"
+            android:gravity="left|center"
+            android:paddingLeft="13dp"
+            android:text="Exp Date"
+            android:textColor="@color/black"
             android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintBaseline_toBaselineOf="@+id/textView70"
-            app:layout_constraintStart_toEndOf="@+id/textView70" />
+            app:layout_constraintEnd_toEndOf="@+id/textInputLayout0"
+            app:layout_constraintStart_toStartOf="@+id/textInputLayout0"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout0" />
 
         <CheckBox
             android:id="@+id/edit_card_for_sale_cb"

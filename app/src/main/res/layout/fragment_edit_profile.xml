@@ -6,13 +6,46 @@
     android:layout_height="match_parent"
     tools:context=".feed.EditProfileFragment">
 
+    <TextView
+        android:id="@+id/textView800"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="Edit your profile"
+        android:textColor="@color/coins"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/card_details_line"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/card_details_line"
+        style="@style/line"
+        android:layout_width="0dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView800" />
+
+    <TextView
+        android:id="@+id/textView708"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Please enter your new details"
+        app:layout_constraintStart_toStartOf="@+id/textView800"
+        app:layout_constraintTop_toBottomOf="@+id/card_details_line" />
+
 
     <Button
         android:id="@+id/editProfile_cancel_btn"
         android:layout_width="100dp"
         android:layout_height="35dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="48dp"
         android:layout_marginEnd="-16dp"
         android:background="@drawable/button_border_8sp_blue_dark"
         android:fontFamily="sans-serif-medium"
@@ -43,12 +76,12 @@
         android:id="@+id/editProfileF_image"
         android:layout_width="120dp"
         android:layout_height="106dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="48dp"
         android:src="@drawable/avatar"
         app:layout_constraintDimensionRatio="w,1:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/textView708" />
 
 
     <ImageButton
@@ -65,12 +98,11 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="32dp"
         android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="@+id/text_edit"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/text_edit"
-        app:layout_constraintTop_toBottomOf="@+id/editProfile_line">
+        app:layout_constraintEnd_toEndOf="@+id/card_details_line"
+        app:layout_constraintStart_toStartOf="@+id/card_details_line"
+        app:layout_constraintTop_toBottomOf="@+id/editProfile_email_tv">
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
@@ -145,28 +177,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editProfileF_image" />
-
-    <TextView
-        android:id="@+id/text_edit"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="42dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="42dp"
-        android:fontFamily="sans-serif-medium"
-        android:text="Please enter your new details :"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editProfile_email_tv" />
-
-    <View
-        android:id="@+id/editProfile_line"
-        style="@style/line"
-        android:layout_width="0dp"
-        app:layout_constraintEnd_toEndOf="@+id/text_edit"
-        app:layout_constraintStart_toStartOf="@+id/text_edit"
-        app:layout_constraintTop_toBottomOf="@+id/text_edit" />
 
     <ProgressBar
         android:id="@+id/editProfile_progress_bar"

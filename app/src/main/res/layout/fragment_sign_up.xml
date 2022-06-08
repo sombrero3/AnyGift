@@ -51,16 +51,13 @@
             android:id="@+id/SignUp_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="40dp"
-            android:layout_marginBottom="30dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
             android:fontFamily="sans-serif-medium"
             android:text="Sign Up"
             android:textAlignment="center"
-            android:textColor="@color/y"
             android:textSize="24sp"
-            app:layout_constraintBottom_toTopOf="@+id/SignUp_textInput_Finame"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/sign_up_line"
             app:layout_constraintTop_toBottomOf="@+id/textView38"
             tools:ignore="MissingConstraints" />
 
@@ -68,41 +65,46 @@
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
             android:fontFamily="sans-serif-medium"
             android:text="Please enter your details:"
             app:layout_constraintStart_toStartOf="@+id/SignUp_text_view"
-            app:layout_constraintTop_toBottomOf="@+id/SignUp_text_view" />
+            app:layout_constraintTop_toBottomOf="@+id/sign_up_line" />
 
         <View
             android:id="@+id/sign_up_line"
             style="@style/line"
             android:layout_width="0dp"
-            android:layout_marginEnd="-32dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginEnd="32dp"
             android:background="@color/grey_1"
-            app:layout_constraintEnd_toEndOf="@+id/textView2"
-            app:layout_constraintStart_toStartOf="@+id/textView2"
-            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/SignUp_text_view" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/SignUp_textInput_Finame"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="88dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="48dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/edit_text_background_1"
             android:hint="@string/First_Name"
             android:textColorHint="@color/grey_1"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/SignUp_text_view"
+            app:layout_constraintTop_toBottomOf="@+id/textView2"
             tools:ignore="MissingConstraints">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/SignUp_firstName_input"
-                android:layout_width="161dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-medium"
                 android:inputType="text"
-                android:maxLines="1" />
+                android:maxLines="1"
+                android:paddingLeft="13dp" />
         </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -110,6 +112,8 @@
             android:id="@+id/SignUp_textInputnput_Email"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/edit_text_background_1"
             android:hint="@string/Email"
             android:textColorHint="@color/grey_1"
             app:layout_constraintEnd_toEndOf="@+id/SignUp_textInput_Phone"
@@ -123,7 +127,8 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-medium"
                 android:inputType="textEmailAddress"
-                android:maxLines="1" />
+                android:maxLines="1"
+                android:paddingLeft="13dp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <CheckBox
@@ -170,6 +175,8 @@
             android:id="@+id/SignUp_textInput_Password"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/edit_text_background_1"
             android:hint="@string/Password"
             android:textColorHint="@color/grey_1"
             app:layout_constraintEnd_toEndOf="@+id/SignUp_textInputnput_Email"
@@ -183,13 +190,16 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-medium"
                 android:inputType="textPassword"
-                android:maxLines="1" />
+                android:maxLines="1"
+                android:paddingLeft="13dp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/SignUp_textInput_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/edit_text_background_1"
             android:hint="@string/Address"
             android:textColorHint="@color/grey_1"
             app:layout_constraintStart_toStartOf="@+id/SignUp_textInputnput_Email"
@@ -202,7 +212,8 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-medium"
                 android:inputType="text"
-                android:maxLines="1" />
+                android:maxLines="1"
+                android:paddingLeft="13dp" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -210,11 +221,13 @@
             android:id="@+id/SignUp_textInput_Phone"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/edit_text_background_1"
             android:hint="@string/Phone"
             android:textColorHint="@color/grey_1"
             app:layout_constraintEnd_toEndOf="@+id/SIgnUp_textInput_Lname"
             app:layout_constraintStart_toStartOf="@+id/SignUp_textInput_Finame"
-            app:layout_constraintTop_toBottomOf="@+id/SignUp_textInput_Finame"
+            app:layout_constraintTop_toBottomOf="@+id/SIgnUp_textInput_Lname"
             tools:ignore="MissingConstraints">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -224,29 +237,31 @@
                 android:fontFamily="sans-serif-medium"
                 android:inputType="phone"
                 android:maxLines="1"
+                android:paddingLeft="13dp"
                 tools:ignore="TouchTargetSizeCheck" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/SIgnUp_textInput_Lname"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="4dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/edit_text_background_1"
             android:hint="@string/Last_Name"
             android:textColorHint="@color/grey_1"
-            app:layout_constraintBottom_toBottomOf="@+id/SignUp_textInput_Finame"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/SignUp_textInput_Finame"
-            app:layout_constraintTop_toTopOf="@+id/SignUp_textInput_Finame"
+            app:layout_constraintEnd_toEndOf="@+id/SignUp_textInput_Finame"
+            app:layout_constraintStart_toStartOf="@+id/SignUp_textInput_Finame"
+            app:layout_constraintTop_toBottomOf="@+id/SignUp_textInput_Finame"
             tools:ignore="MissingConstraints,NotSibling">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/SignUp_lastName_input"
-                android:layout_width="161dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-medium"
                 android:inputType="text"
-                android:maxLines="1" />
+                android:maxLines="1"
+                android:paddingLeft="13dp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button

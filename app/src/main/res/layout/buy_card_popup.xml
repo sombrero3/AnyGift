@@ -8,20 +8,6 @@ android:background="@drawable/bottom_popup_background"
 android:id="@+id/buy_now_popup">
 
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="2dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="2dp"
-        android:layout_marginBottom="2dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView61"
-        app:srcCompat="@drawable/whitebg3" />
-
     <TextView
     android:id="@+id/buy_card_popup_card_type_tv"
     android:layout_width="wrap_content"
@@ -39,7 +25,7 @@ android:id="@+id/buy_now_popup">
         android:layout_width="0dp"
         android:layout_height="30dp"
         android:layout_marginStart="4dp"
-        android:layout_marginTop="260dp"
+        android:layout_marginTop="200dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="4dp"
         android:background="@drawable/button_border_8sp_blue_dark"
