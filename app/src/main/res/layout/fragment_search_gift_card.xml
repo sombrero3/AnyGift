@@ -117,7 +117,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-medium"
         android:textColor="@color/black"
-        android:text="Choose Categroy :"
+        android:text="Choose Category :"
         app:layout_constraintBottom_toTopOf="@+id/search_category_spinner"
         app:layout_constraintEnd_toEndOf="@+id/search_category_spinner"
         app:layout_constraintStart_toStartOf="@+id/search_category_spinner" />
