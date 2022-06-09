@@ -63,7 +63,7 @@ public class EditCardDetailsFragment extends Fragment {
     TextInputLayout nameContainerTIl;
     boolean otherFlag,itemsFlags[],itemsFlagsLastCondition[];
     CharSequence []  items;
-    List<String> AllCategories;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -129,19 +129,14 @@ public class EditCardDetailsFragment extends Fragment {
         publisherNameEt = view.findViewById(R.id.edit_card_publisher_name);
         addCategoriesBtn = view.findViewById(R.id.edit_card_categories_btn);
         nameContainerTIl = view.findViewById(R.id.edit_card_publisher_name_container_textinputlayout);
-        AllCategories = new ArrayList<>();
-//        AllCategories.add("1");
-//        AllCategories.add("2");
-//        AllCategories.add("3");
-//        AllCategories.add("4");
-//        AllCategories.add("5");
+        List<String> AllCategories = new ArrayList<>();
 
         for(Category c : categories){
             AllCategories.add(c.getName());
         }
         items = AllCategories.toArray(new CharSequence[AllCategories.size()]);
-        itemsFlags = new boolean[5];
-        itemsFlagsLastCondition = new boolean[5];
+        itemsFlags = new boolean[categories.size()];
+        itemsFlagsLastCondition = new boolean[categories.size()];
         addCategoriesBtn.setOnClickListener(v->startCategoriesDialog());
     }
 
@@ -163,14 +158,14 @@ public class EditCardDetailsFragment extends Fragment {
                 String result = "";
 
                 boolean psik = false;
-                for(int i=0;i<AllCategories.size();i++){
+                for(int i=0;i<categories.size();i++){
                     itemsFlagsLastCondition[i] = itemsFlags[i];
                     if(itemsFlags[i]) {
                         if (!psik) {
-                            result += AllCategories.get(i);
+                            result += categories.get(i).getName();
                             psik = true;
                         } else {
-                            result += ", " + AllCategories.get(i);;
+                            result += ", " + categories.get(i).getName();;
                         }
                     }
                 }
