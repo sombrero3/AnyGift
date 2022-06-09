@@ -13,6 +13,8 @@ import androidx.navigation.Navigation;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -29,6 +31,8 @@ import com.example.anygift.Retrofit.Card;
 import com.example.anygift.Retrofit.CardType;
 import com.example.anygift.model.Model;
 import com.example.anygift.model.Utils;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -36,11 +40,11 @@ import java.util.List;
 
 
 public class EditCardDetailsFragment extends Fragment {
-    View view;
+    View view,titleLine;
     EditText numberEt,priceEt;
     Spinner typeSp;
-    String cardType;
-    TextView  valueTv, dateTv;
+    String cardType, giftCardId;
+    TextView  valueTv, dateTv, titleTop,titleBottom;
     Button save, mapBtn, deleteBtn;
     ImageView giftCardImage;
     Card giftCard = null;
@@ -49,13 +53,22 @@ public class EditCardDetailsFragment extends Fragment {
     int year, month, day;
     ProgressBar pb;
     CheckBox forSaleCb;
+    Animation rightAnim;
+
+    TextInputEditText publisherNameEt;
+    TextView categoriesTv,categoriesBackgroundTv;
+    Button addCategoriesBtn;
+    TextInputLayout nameContainerTIl;
+    boolean otherFlag,itemsFlags[],itemsFlagsLastCondition[];
+    CharSequence []  items;
+    List<String> AllCategories;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_edit_card_details, container, false);
         //getActivity().setTitle("AnyGift - EditCardDetails");
-        String giftCardId = EditCardDetailsFragmentArgs.fromBundle(getArguments()).getGiftCardId();
+        giftCardId = EditCardDetailsFragmentArgs.fromBundle(getArguments()).getGiftCardId();
         pb = view.findViewById(R.id.edit_card_pb);
         pb.setVisibility(View.VISIBLE);
         typeSp = view.findViewById(R.id.edit_card_type_spinner);
@@ -66,8 +79,23 @@ public class EditCardDetailsFragment extends Fragment {
         save = view.findViewById(R.id.edit_card_upload_bt);
         forSaleCb = view.findViewById(R.id.edit_card_for_sale_cb);
         giftCardImage = view.findViewById(R.id.edit_card_giftCardImage);
+        titleLine = view.findViewById(R.id.edit_card_title_line);
+        titleTop = view.findViewById(R.id.edit_card_title_top);
+        titleBottom = view.findViewById(R.id.edit_card_title_bottom);
 
 
+
+        rightAnim = AnimationUtils.loadAnimation(getActivity(),R.anim.right_anim);
+        titleLine.setAnimation(rightAnim);
+        titleTop.setAnimation(rightAnim);
+        titleBottom.setAnimation(rightAnim);
+
+        setCardView();
+        save.setOnClickListener(view -> saveChanges());
+        return view;
+    }
+
+    private void setCardView() {
         Model.instance.getCardRetrofit(giftCardId, new Model.cardReturnListener() {
             @Override
             public void onComplete(Card card, String message) {
@@ -87,16 +115,104 @@ public class EditCardDetailsFragment extends Fragment {
                 valueTv.setText(card.getValue().toString());
                 setCardTypesSpinner();
                 forSaleCb.setSelected(card.getIsForSale());
+                setCategoriesDialog();
+            }
+        });
+    }
+
+    private void setCategoriesDialog() {
+        categoriesTv = view.findViewById(R.id.edit_card_categories_tv);
+        categoriesBackgroundTv = view.findViewById(R.id.edit_card_publisher_background);
+        publisherNameEt = view.findViewById(R.id.edit_card_publisher_name);
+        addCategoriesBtn = view.findViewById(R.id.edit_card_categories_btn);
+        nameContainerTIl = view.findViewById(R.id.edit_card_publisher_name_container_textinputlayout);
+        AllCategories = new ArrayList<>();
+        AllCategories.add("1");
+        AllCategories.add("2");
+        AllCategories.add("3");
+        AllCategories.add("4");
+        AllCategories.add("5");
+        items = AllCategories.toArray(new CharSequence[AllCategories.size()]);
+        itemsFlags = new boolean[5];
+        itemsFlagsLastCondition = new boolean[5];
+        addCategoriesBtn.setOnClickListener(v->startCategoriesDialog());
+    }
+
+    private void startCategoriesDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setCancelable(false);
+        builder.setIcon(R.drawable.categories_dialog_icon_1);
+        builder.setTitle("Please Choose Categories");
+        builder.setMultiChoiceItems(items, itemsFlags, new DialogInterface.OnMultiChoiceClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int pos, boolean isChecked) {
+                //  itemsFlags[pos] = isChecked;
             }
         });
 
-        save.setOnClickListener(new View.OnClickListener() {
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                saveChanges();
+            public void onClick(DialogInterface dialogInterface, int pos) {
+                String result = "";
+
+                boolean psik = false;
+                for(int i=0;i<AllCategories.size();i++){
+                    itemsFlagsLastCondition[i] = itemsFlags[i];
+                    if(itemsFlags[i]) {
+                        if (!psik) {
+                            result += AllCategories.get(i);
+                            psik = true;
+                        } else {
+                            result += ", " + AllCategories.get(i);;
+                        }
+                    }
+                }
+
+                if(result.isEmpty()) {
+                    result = "Please choose categories";
+                }
+                categoriesTv.setText(result);
             }
         });
-        return view;
+
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int pos) {
+                for(int i=0;i<itemsFlags.length;i++){
+                    itemsFlags[i] = itemsFlagsLastCondition[i];
+                }
+                dialogInterface.dismiss();
+            }
+        });
+
+        builder.setNeutralButton("Clear All", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int pos) {
+                for(int i=0;i<itemsFlags.length;i++){
+                    itemsFlagsLastCondition[i] = false;
+                    itemsFlags[i] = false;
+                }
+                categoriesTv.setText("Please choose categories");
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+    }
+    private void CategoryMenuVisible(){
+        categoriesTv.setVisibility(View.VISIBLE);
+        addCategoriesBtn.setVisibility(View.VISIBLE);
+        nameContainerTIl.setVisibility(View.VISIBLE);
+        publisherNameEt.setVisibility(View.VISIBLE);
+        categoriesBackgroundTv.setVisibility(View.VISIBLE);
+    }
+    private void CategoryMenuGone(){
+        categoriesTv.setVisibility(View.GONE);
+        addCategoriesBtn.setVisibility(View.GONE);
+        nameContainerTIl.setVisibility(View.GONE);
+        publisherNameEt.setVisibility(View.GONE);
+        categoriesBackgroundTv.setVisibility(View.GONE);
     }
     private void setCardTypesSpinner() {
         List<CardType> cts = Model.instance.cardTypes;
@@ -106,19 +222,30 @@ public class EditCardDetailsFragment extends Fragment {
             cardTypes.add(cts.get(i).getName());
             if(cts.get(i).getId().equals(giftCard.getCardType())){
                 pos=i;
-                break;
             }
-
         }
+        cardTypes.add("Other");
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, cardTypes);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         typeSp.setAdapter(adapter);
         int finalPos = pos;
+        otherFlag =false;
         typeSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                giftCardImage.setImageBitmap(cts.get(i).getPicture());
-                cardType = cts.get(i).getId();
+
+                if(i<cts.size()) {
+                    if(otherFlag){
+                        CategoryMenuGone();
+                        otherFlag = false;
+                    }
+                    giftCardImage.setImageBitmap(cts.get(i).getPicture());
+                    cardType = cts.get(i).getId();
+                }else{
+                    giftCardImage.setImageResource(R.drawable.gift_card_logo_card);
+                    otherFlag = true;
+                    CategoryMenuVisible();
+                }
 
             }
 

@@ -1,37 +1,26 @@
 package com.example.anygift.feed;
 
-import static android.app.Activity.RESULT_CANCELED;
-import static android.app.Activity.RESULT_OK;
-
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
-import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
@@ -55,32 +44,35 @@ import java.util.HashMap;
 import java.util.List;
 
 public class AddCardFragment extends Fragment {
-    TextInputEditText cardValue, cardAskingValue, cardNumber,publisherNameEt ;
+    TextInputEditText cardValue, cardAskingValue, cardNumber ;
     Button addCardButton;
     ImageView giftCardImage;
-    View view;
+    View view,titleLine;
     ProgressBar pb;
     String latAndLong, cardType;
 //    UserViewModel userViewModel;
     Spinner spinnerCardType;
-    TextView dateTv;
+    TextView dateTv,titleTop,titleBottom;
     CheckBox forSaleCb;
     DatePickerDialog.OnDateSetListener dateListener;
     List<String> cardTypes;
     int year, month, day;
+    Animation rightAnim;
+
+    TextInputEditText publisherNameEt;
     TextView categoriesTv,categoriesBackgroundTv;
     Button addCategoriesBtn;
     TextInputLayout nameContainerTIl;
-    boolean otherFlag,itemsFlags[];
+    boolean otherFlag,itemsFlags[],itemsFlagsLastCondition[];
     CharSequence []  items;
     List<String> AllCategories;
-    ArrayList<Integer> categoriesPositions;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         //getActivity().setTitle("AnyGift - AddCard");
+        //userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
         view = inflater.inflate(R.layout.fragment_add_card, container, false);
         cardNumber = view.findViewById(R.id.add_card_number);
         cardValue = view.findViewById(R.id.add_card_value);
@@ -89,6 +81,9 @@ public class AddCardFragment extends Fragment {
         giftCardImage = view.findViewById(R.id.add_giftCardImage);
         dateTv = view.findViewById(R.id.add_card_date_tv);
         forSaleCb = view.findViewById(R.id.add_card_for_sale_cb);
+        titleLine = view.findViewById(R.id.add_card_title_line);
+        titleTop = view.findViewById(R.id.add_card_title_top);
+        titleBottom = view.findViewById(R.id.add_card_title_bottom);
         pb = view.findViewById(R.id.add_pb);
 
         pb.setVisibility(View.VISIBLE);
@@ -96,15 +91,24 @@ public class AddCardFragment extends Fragment {
 
         setCardtypesSpinner();
         setDateSelector();
+        setCategoriesDialog();
 
+        addCardButton.setOnClickListener(v -> upload());
 
-        //--categories addition-----//
+        rightAnim = AnimationUtils.loadAnimation(getActivity(),R.anim.right_anim);
+        titleLine.setAnimation(rightAnim);
+        titleTop.setAnimation(rightAnim);
+        titleBottom.setAnimation(rightAnim);
+
+        pb.setVisibility(View.INVISIBLE);
+        return view;
+    }
+    private void setCategoriesDialog() {
         categoriesTv = view.findViewById(R.id.add_card_categories_tv);
         categoriesBackgroundTv = view.findViewById(R.id.add_card_publisher_background);
         publisherNameEt = view.findViewById(R.id.add_card_publisher_name);
         addCategoriesBtn = view.findViewById(R.id.add_card_categories_btn);
         nameContainerTIl = view.findViewById(R.id.add_card_publisher_name_container_textinputlayout);
-        categoriesPositions = new ArrayList<>();
         AllCategories = new ArrayList<>();
         AllCategories.add("1");
         AllCategories.add("2");
@@ -113,43 +117,22 @@ public class AddCardFragment extends Fragment {
         AllCategories.add("5");
         items = AllCategories.toArray(new CharSequence[AllCategories.size()]);
         itemsFlags = new boolean[5];
-        for(boolean b:itemsFlags){
-            b=false;
-        }
-
-        addCategoriesBtn.setOnClickListener(v->{
-            startCategoriesDialog();
-        });
-
-        ///-------------------------//
-//        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
-        addCardButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                upload();
-            }
-        });
-
-        return view;
+        itemsFlagsLastCondition = new boolean[5];
+        addCategoriesBtn.setOnClickListener(v->startCategoriesDialog());
     }
 
     private void startCategoriesDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setCancelable(false);
+        builder.setIcon(R.drawable.categories_dialog_icon_1);
         builder.setTitle("Please Choose Categories");
         builder.setMultiChoiceItems(items, itemsFlags, new DialogInterface.OnMultiChoiceClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int pos, boolean isChecked) {
-                  if(isChecked){
-                      if(!categoriesPositions.contains(pos)){
-                          categoriesPositions.add(pos);
-                      }else{
-                          categoriesPositions.remove(pos);
-                      }
-                  }
-                  itemsFlags[pos] = isChecked;
+                //  itemsFlags[pos] = isChecked;
             }
         });
-        builder.setCancelable(false);
+
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int pos) {
@@ -157,6 +140,7 @@ public class AddCardFragment extends Fragment {
 
                 boolean psik = false;
                 for(int i=0;i<AllCategories.size();i++){
+                    itemsFlagsLastCondition[i] = itemsFlags[i];
                     if(itemsFlags[i]) {
                         if (!psik) {
                             result += AllCategories.get(i);
@@ -176,18 +160,21 @@ public class AddCardFragment extends Fragment {
 
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
+            public void onClick(DialogInterface dialogInterface, int pos) {
+                for(int i=0;i<itemsFlags.length;i++){
+                    itemsFlags[i] = itemsFlagsLastCondition[i];
+                }
                 dialogInterface.dismiss();
             }
         });
 
         builder.setNeutralButton("Clear All", new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                for(boolean b :itemsFlags){
-                    b=false;
+            public void onClick(DialogInterface dialogInterface, int pos) {
+                for(int i=0;i<itemsFlags.length;i++){
+                    itemsFlagsLastCondition[i] = false;
+                    itemsFlags[i] = false;
                 }
-                categoriesPositions.clear();
                 categoriesTv.setText("Please choose categories");
             }
         });
@@ -253,10 +240,11 @@ public class AddCardFragment extends Fragment {
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
+                giftCardImage.setImageBitmap(cts.get(0).getPicture());
                 cardType = cts.get(0).getId();
             }
         });
-        pb.setVisibility(View.INVISIBLE);
+
     }
 
     private void CategoryMenuVisible(){

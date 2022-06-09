@@ -11,22 +11,8 @@
     android:outlineProvider="paddedBounds"
     tools:context=".feed.AddCardFragment">
 
-
     <TextView
-        android:id="@+id/add_card_publisher_background"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@drawable/box_background_blue_dark_light"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="-16dp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/add_card_categories_tv"
-        app:layout_constraintEnd_toEndOf="@+id/option"
-        app:layout_constraintStart_toStartOf="@+id/option"
-        app:layout_constraintTop_toBottomOf="@+id/option" />
-
-    <TextView
-        android:id="@+id/textView8"
+        android:id="@+id/add_card_title_top"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -36,11 +22,11 @@
         android:textColor="@color/coins"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/editProfile_line"
+        app:layout_constraintStart_toStartOf="@+id/add_card_title_line"
         app:layout_constraintTop_toTopOf="parent" />
 
     <View
-        android:id="@+id/editProfile_line"
+        android:id="@+id/add_card_title_line"
         style="@style/line"
         android:layout_width="0dp"
         android:layout_marginStart="32dp"
@@ -48,25 +34,25 @@
         android:layout_marginEnd="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+        app:layout_constraintTop_toBottomOf="@+id/add_card_title_top" />
 
     <TextView
-        android:id="@+id/textView7"
+        android:id="@+id/add_card_title_bottom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:text="Please enter card details"
-        app:layout_constraintStart_toStartOf="@+id/textView8"
-        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+        app:layout_constraintStart_toStartOf="@+id/add_card_title_top"
+        app:layout_constraintTop_toBottomOf="@+id/add_card_title_top" />
 
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout"
         android:layout_width="0dp"
-        android:layout_height="50dp"
+        android:layout_height="55dp"
         android:layout_marginTop="24dp"
         android:background="@drawable/edit_text_background_1"
-        android:textColorHint="@color/black"
+        android:textColorHint="@color/grey_31"
         app:layout_constraintEnd_toEndOf="@+id/option"
         app:layout_constraintStart_toStartOf="@+id/option"
         app:layout_constraintTop_toBottomOf="@+id/add_card_publisher_background">
@@ -81,7 +67,7 @@
             android:fontFamily="sans-serif-medium"
             android:hint="Card Number:"
             android:inputType="number"
-            android:textColor="@color/black"
+            android:textColor="@color/grey_31"
             android:textColorHint="@color/black"
             tools:ignore="TouchTargetSizeCheck" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -89,10 +75,10 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout4"
         android:layout_width="0dp"
-        android:layout_height="56dp"
+        android:layout_height="55dp"
         android:layout_marginTop="24dp"
         android:background="@drawable/edit_text_background_1"
-        android:textColorHint="@color/black"
+        android:textColorHint="@color/grey_31"
         app:layout_constraintEnd_toEndOf="@+id/textInputLayout"
         app:layout_constraintStart_toStartOf="@+id/add_card_date_tv"
         app:layout_constraintTop_toBottomOf="@+id/add_card_date_tv">
@@ -108,7 +94,7 @@
             android:fontFamily="sans-serif-medium"
             android:hint="Card Value:"
             android:inputType="numberDecimal"
-            android:textColor="@color/black"
+            android:textColor="@color/grey_31"
             tools:ignore="TouchTargetSizeCheck" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -124,7 +110,7 @@
         android:src="@drawable/gift_card_logo_card"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView7"
+        app:layout_constraintTop_toBottomOf="@+id/add_card_title_bottom"
         app:shapeAppearanceOverlay="@style/roundedCornersImageView" />
 
 
@@ -158,19 +144,33 @@
     <Spinner
         android:id="@+id/option"
         android:layout_width="0dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="16dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:paddingLeft="13dp"
+        android:layout_marginEnd="32dp"
         android:background="@drawable/spinner_background_style_1"
         android:contentDescription="Select option:"
         android:overlapAnchor="false"
+        android:paddingLeft="13dp"
         android:spinnerMode="dropdown"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.448"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView9" />
+
+    <TextView
+        android:id="@+id/add_card_publisher_background"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/box_background_blue_dark_light"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="-16dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/add_card_categories_tv"
+        app:layout_constraintEnd_toEndOf="@+id/option"
+        app:layout_constraintStart_toStartOf="@+id/option"
+        app:layout_constraintTop_toBottomOf="@+id/option" />
+
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/add_card_publisher_name_container_textinputlayout"
@@ -202,71 +202,6 @@
             tools:ignore="TouchTargetSizeCheck" />
     </com.google.android.material.textfield.TextInputLayout>
 
-
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout5"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/edit_text_background_1"
-        android:textColorHint="@color/black"
-        app:layout_constraintEnd_toEndOf="@+id/textInputLayout4"
-        app:layout_constraintStart_toStartOf="@+id/textInputLayout4"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout4">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/add_card_asking_price"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:height="50dp"
-            android:fontFamily="sans-serif-medium"
-            android:hint="Your Asking Price"
-            android:layout_marginLeft="13dp"
-            android:layout_marginRight="13dp"
-            android:inputType="numberDecimal"
-            android:textColor="#311042"
-            tools:ignore="TouchTargetSizeCheck" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <ProgressBar
-        android:id="@+id/add_pb"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/add_card_date_tv"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="24dp"
-        android:background="@drawable/edit_text_background_1"
-        android:fontFamily="sans-serif-medium"
-        android:gravity="left|center"
-        android:text="Exp Date"
-        android:paddingLeft="15dp"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/textInputLayout"
-        app:layout_constraintStart_toStartOf="@+id/textInputLayout"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
-
-    <CheckBox
-        android:id="@+id/add_card_for_sale_cb"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:fontFamily="sans-serif-medium"
-        android:text="Publish card for sale"
-        android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="@+id/textInputLayout5"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout5" />
-
     <Button
         android:id="@+id/add_card_categories_btn"
         android:layout_width="0dp"
@@ -291,6 +226,70 @@
         app:layout_constraintStart_toStartOf="@+id/add_card_categories_btn"
         app:layout_constraintTop_toBottomOf="@+id/add_card_categories_btn" />
 
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout5"
+        android:layout_width="0dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/edit_text_background_1"
+        android:textColorHint="@color/grey_31"
+        app:layout_constraintEnd_toEndOf="@+id/textInputLayout4"
+        app:layout_constraintStart_toStartOf="@+id/textInputLayout4"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout4">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/add_card_asking_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="13dp"
+            android:layout_marginRight="13dp"
+            android:height="50dp"
+            android:fontFamily="sans-serif-medium"
+            android:hint="Your Asking Price"
+            android:inputType="numberDecimal"
+            android:textColor="@color/grey_31"
+            tools:ignore="TouchTargetSizeCheck" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <ProgressBar
+        android:id="@+id/add_pb"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/add_card_date_tv"
+        android:layout_width="0dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/edit_text_background_1"
+        android:fontFamily="sans-serif-medium"
+        android:gravity="left|bottom"
+        android:paddingLeft="18dp"
+        android:paddingBottom="12dp"
+        android:text="Exp Date"
+        android:textColor="@color/grey_31"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/textInputLayout"
+        app:layout_constraintStart_toStartOf="@+id/textInputLayout"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
+
+    <CheckBox
+        android:id="@+id/add_card_for_sale_cb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="Publish card for sale"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="@+id/textInputLayout5"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout5" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
