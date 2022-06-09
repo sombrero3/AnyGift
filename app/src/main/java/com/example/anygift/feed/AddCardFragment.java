@@ -260,6 +260,7 @@ public class AddCardFragment extends Fragment {
         publisherNameEt.setVisibility(View.VISIBLE);
         categoriesBackgroundTv.setVisibility(View.VISIBLE);
     }
+
     private void CategoryMenuGone(){
         categoriesTv.setVisibility(View.GONE);
         addCategoriesBtn.setVisibility(View.GONE);
@@ -267,6 +268,7 @@ public class AddCardFragment extends Fragment {
         publisherNameEt.setVisibility(View.GONE);
         categoriesBackgroundTv.setVisibility(View.GONE);
     }
+
     void popMsg(String Msg) {
         Snackbar mySnackbar = Snackbar.make(view, Msg, BaseTransientBottomBar.LENGTH_LONG);
         mySnackbar.show();
@@ -286,7 +288,6 @@ public class AddCardFragment extends Fragment {
         sdf.setLenient(false);
         return sdf.parse(s, new ParsePosition(0)) != null;
     }
-
 
     void logging(String CardValue, String CardAskingValue, String CardNumber) {
         Log.d("TAG", CardValue);
@@ -313,8 +314,6 @@ public class AddCardFragment extends Fragment {
                 Double.parseDouble(cardValue.getText().toString()), cardNumber.getText().toString(), cardType,
                 Model.instance.modelRetrofit.getUserId(), forSaleCb.isChecked(),
                 Utils.convertDateToLong(Integer.toString(day), Integer.toString(month), Integer.toString(year)));
-
-        //"62532859427c06ccbf55d31e" <--> this is card type id
 
         Model.instance.addCardRetrofit(map, new Model.cardReturnListener() {
 

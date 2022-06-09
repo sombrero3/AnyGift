@@ -244,12 +244,14 @@ public void addReview(String card_trans_id, Boolean satisfied,String buyerCommen
         modelRetrofit.getAllCards(new cardsReturnListener() {
             @Override
             public void onComplete(List<Card> cards, String message) {
-                String user_id = modelRetrofit.getUserId();
-                List<Card> cs = cards.stream().filter(c -> c.getIsForSale() &&
-                        !c.getOwner().equals(user_id) &&
-                                System.currentTimeMillis() / 1000 < c.getExpirationDate()
-                        ).collect(Collectors.toList());
-                listener.onComplete(cs, "Cards filtered");
+                if(cards!=null) {
+                    String user_id = modelRetrofit.getUserId();
+                    List<Card> cs = cards.stream().filter(c -> c.getIsForSale() &&
+                            !c.getOwner().equals(user_id) &&
+                            System.currentTimeMillis() / 1000 < c.getExpirationDate()
+                    ).collect(Collectors.toList());
+                    listener.onComplete(cs, "Cards filtered");
+                }
             }
         });
     }
