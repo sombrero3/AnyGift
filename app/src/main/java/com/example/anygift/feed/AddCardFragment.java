@@ -60,7 +60,7 @@ public class AddCardFragment extends Fragment {
     TextView categoriesTv,categoriesBackgroundTv;
     Button addCategoriesBtn;
     TextInputLayout nameContainerTIl;
-    boolean otherFlag,itemsFlags[];
+    boolean otherFlag,itemsFlags[],itemsFlagsLastCondition[];
     CharSequence []  items;
     List<String> AllCategories;
 
@@ -69,6 +69,7 @@ public class AddCardFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         //getActivity().setTitle("AnyGift - AddCard");
+        //userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
         view = inflater.inflate(R.layout.fragment_add_card, container, false);
         cardNumber = view.findViewById(R.id.add_card_number);
         cardValue = view.findViewById(R.id.add_card_value);
@@ -84,16 +85,14 @@ public class AddCardFragment extends Fragment {
 
         setCardtypesSpinner();
         setDateSelector();
+        setCategoriesDialog();
 
-        addCardButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                upload();
-            }
-        });
+        addCardButton.setOnClickListener(v -> upload());
 
-
-        //--categories addition-----//
+        pb.setVisibility(View.INVISIBLE);
+        return view;
+    }
+    private void setCategoriesDialog() {
         categoriesTv = view.findViewById(R.id.add_card_categories_tv);
         categoriesBackgroundTv = view.findViewById(R.id.add_card_publisher_background);
         publisherNameEt = view.findViewById(R.id.add_card_publisher_name);
@@ -107,15 +106,8 @@ public class AddCardFragment extends Fragment {
         AllCategories.add("5");
         items = AllCategories.toArray(new CharSequence[AllCategories.size()]);
         itemsFlags = new boolean[5];
-
-
+        itemsFlagsLastCondition = new boolean[5];
         addCategoriesBtn.setOnClickListener(v->startCategoriesDialog());
-
-        ///-------------------------//
-//        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
-
-
-        return view;
     }
 
     private void startCategoriesDialog() {
@@ -126,7 +118,7 @@ public class AddCardFragment extends Fragment {
         builder.setMultiChoiceItems(items, itemsFlags, new DialogInterface.OnMultiChoiceClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int pos, boolean isChecked) {
-                  itemsFlags[pos] = isChecked;
+                //  itemsFlags[pos] = isChecked;
             }
         });
 
@@ -137,6 +129,7 @@ public class AddCardFragment extends Fragment {
 
                 boolean psik = false;
                 for(int i=0;i<AllCategories.size();i++){
+                    itemsFlagsLastCondition[i] = itemsFlags[i];
                     if(itemsFlags[i]) {
                         if (!psik) {
                             result += AllCategories.get(i);
@@ -157,6 +150,9 @@ public class AddCardFragment extends Fragment {
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int pos) {
+                for(int i=0;i<itemsFlags.length;i++){
+                    itemsFlags[i] = itemsFlagsLastCondition[i];
+                }
                 dialogInterface.dismiss();
             }
         });
@@ -165,6 +161,7 @@ public class AddCardFragment extends Fragment {
             @Override
             public void onClick(DialogInterface dialogInterface, int pos) {
                 for(int i=0;i<itemsFlags.length;i++){
+                    itemsFlagsLastCondition[i] = false;
                     itemsFlags[i] = false;
                 }
                 categoriesTv.setText("Please choose categories");
@@ -235,7 +232,7 @@ public class AddCardFragment extends Fragment {
                 cardType = cts.get(0).getId();
             }
         });
-        pb.setVisibility(View.INVISIBLE);
+
     }
 
     private void CategoryMenuVisible(){
