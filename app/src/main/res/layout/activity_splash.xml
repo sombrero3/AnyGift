@@ -52,6 +52,7 @@
         android:id="@+id/splash_title_4_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
         android:text="Gift Cards Market"
         android:textColor="@color/grey_1"
         android:textSize="18sp"
