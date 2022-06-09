@@ -12,6 +12,89 @@
         tools:context=".feed.EditCardDetailsFragment">
 
 
+        <Spinner
+            android:id="@+id/edit_card_type_spinner"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/spinner_background_style_1"
+            android:contentDescription="Select option:"
+            android:overlapAnchor="false"
+            android:spinnerMode="dropdown"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.448"
+            app:layout_constraintStart_toStartOf="@+id/textView90"
+            app:layout_constraintTop_toBottomOf="@+id/textView90" />
+
+        <TextView
+            android:id="@+id/edit_card_publisher_background"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/box_background_blue_dark_light"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="-16dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/edit_card_categories_tv"
+            app:layout_constraintEnd_toEndOf="@+id/edit_card_type_spinner"
+            app:layout_constraintStart_toStartOf="@+id/edit_card_type_spinner"
+            app:layout_constraintTop_toBottomOf="@+id/edit_card_type_spinner" />
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/edit_card_publisher_name_container_textinputlayout"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="32dp"
+            android:visibility="gone"
+            android:background="@drawable/edit_text_background_1"
+            android:textColorHint="@color/black"
+            app:layout_constraintEnd_toEndOf="@+id/edit_card_type_spinner"
+            app:layout_constraintStart_toStartOf="@+id/edit_card_type_spinner"
+            app:layout_constraintTop_toBottomOf="@+id/edit_card_type_spinner">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_card_publisher_name"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="13dp"
+                android:layout_marginRight="13dp"
+                android:height="50dp"
+                android:visibility="visible"
+                android:fontFamily="sans-serif-medium"
+                android:hint="Card Publisher Name"
+                android:inputType="text"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black"
+                tools:ignore="TouchTargetSizeCheck" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/edit_card_categories_btn"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/button_border_radious_25_blue"
+            android:text="Click To Choose Categories"
+            android:textColor="@color/pink"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="@+id/edit_card_publisher_name_container_textinputlayout"
+            app:layout_constraintStart_toStartOf="@+id/edit_card_publisher_name_container_textinputlayout"
+            app:layout_constraintTop_toBottomOf="@+id/edit_card_publisher_name_container_textinputlayout" />
+
+        <TextView
+            android:id="@+id/edit_card_categories_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:visibility="gone"
+            android:text="Please Choose Categories"
+            app:layout_constraintEnd_toEndOf="@+id/edit_card_categories_btn"
+            app:layout_constraintStart_toStartOf="@+id/edit_card_categories_btn"
+            app:layout_constraintTop_toBottomOf="@+id/edit_card_categories_btn" />
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout0"
             android:layout_width="0dp"
@@ -21,19 +104,19 @@
             android:textColorHint="@color/black"
             app:layout_constraintEnd_toEndOf="@+id/edit_card_type_spinner"
             app:layout_constraintStart_toStartOf="@+id/edit_card_type_spinner"
-            app:layout_constraintTop_toBottomOf="@+id/edit_card_type_spinner">
+            app:layout_constraintTop_toBottomOf="@+id/edit_card_publisher_background">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edit_card_card_number"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:height="50dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
-                android:paddingLeft="13dp"
+                android:height="50dp"
                 android:fontFamily="sans-serif-medium"
                 android:hint="Card Number:"
                 android:inputType="number"
+                android:paddingLeft="13dp"
                 tools:ignore="TouchTargetSizeCheck" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -103,21 +186,6 @@
             android:textColor="@color/purplediff"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/edit_card_giftCardImage" />
-
-        <Spinner
-            android:id="@+id/edit_card_type_spinner"
-            android:layout_width="0dp"
-            android:layout_height="48dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:background="@drawable/spinner_background_style_1"
-            android:contentDescription="Select option:"
-            android:overlapAnchor="false"
-            android:spinnerMode="dropdown"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.448"
-            app:layout_constraintStart_toStartOf="@+id/textView90"
-            app:layout_constraintTop_toBottomOf="@+id/textView90" />
 
 
         <TextView
