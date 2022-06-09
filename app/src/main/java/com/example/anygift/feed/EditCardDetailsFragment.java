@@ -29,6 +29,7 @@ import android.widget.TextView;
 import com.example.anygift.R;
 import com.example.anygift.Retrofit.Card;
 import com.example.anygift.Retrofit.CardType;
+import com.example.anygift.Retrofit.Category;
 import com.example.anygift.model.Model;
 import com.example.anygift.model.Utils;
 import com.google.android.material.textfield.TextInputEditText;
@@ -54,6 +55,7 @@ public class EditCardDetailsFragment extends Fragment {
     ProgressBar pb;
     CheckBox forSaleCb;
     Animation rightAnim;
+    List<Category> categories;
 
     TextInputEditText publisherNameEt;
     TextView categoriesTv,categoriesBackgroundTv;
@@ -83,7 +85,8 @@ public class EditCardDetailsFragment extends Fragment {
         titleTop = view.findViewById(R.id.edit_card_title_top);
         titleBottom = view.findViewById(R.id.edit_card_title_bottom);
 
-
+        categories = new ArrayList<>();
+        categories.addAll(Model.instance.categories);
 
         rightAnim = AnimationUtils.loadAnimation(getActivity(),R.anim.right_anim);
         titleLine.setAnimation(rightAnim);
@@ -127,11 +130,15 @@ public class EditCardDetailsFragment extends Fragment {
         addCategoriesBtn = view.findViewById(R.id.edit_card_categories_btn);
         nameContainerTIl = view.findViewById(R.id.edit_card_publisher_name_container_textinputlayout);
         AllCategories = new ArrayList<>();
-        AllCategories.add("1");
-        AllCategories.add("2");
-        AllCategories.add("3");
-        AllCategories.add("4");
-        AllCategories.add("5");
+//        AllCategories.add("1");
+//        AllCategories.add("2");
+//        AllCategories.add("3");
+//        AllCategories.add("4");
+//        AllCategories.add("5");
+
+        for(Category c : categories){
+            AllCategories.add(c.getName());
+        }
         items = AllCategories.toArray(new CharSequence[AllCategories.size()]);
         itemsFlags = new boolean[5];
         itemsFlagsLastCondition = new boolean[5];
