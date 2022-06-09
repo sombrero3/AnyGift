@@ -12,13 +12,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="200dp"
         android:text="Any"
         android:textColor="@color/grey_1"
         android:textSize="34sp"
         android:textStyle="italic"
-        app:layout_constraintStart_toStartOf="@+id/splash_title_4_tv"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toTopOf="@+id/splash_title_4_tv"
+        app:layout_constraintStart_toStartOf="@+id/splash_title_4_tv" />
 
     <TextView
         android:id="@+id/splash_title_2_tv"
@@ -26,6 +25,11 @@
         android:layout_height="wrap_content"
         android:text="G"
         android:textColor="@color/pink"
+        android:shadowColor="@color/black"
+        android:shadowDx="1.5"
+        android:shadowDy="1.3"
+        android:shadowRadius="1.6"
+        android:textAllCaps="true"
         android:textSize="34sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/splash_title_1_tv"
@@ -51,9 +55,10 @@
         android:text="Gift Cards Market"
         android:textColor="@color/grey_1"
         android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/splash_footer_1_tv"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/splash_title_1_tv" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/splash_footer_1_tv"

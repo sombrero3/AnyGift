@@ -61,7 +61,7 @@ import java.util.Locale;
 
 public class CardsDetailsFragment extends Fragment {
     View view;
-    private TextView name, value, expTv, buyAt, typeTv, popUpTypeTv, popUpExpTv, popupValueTv, popUpPriceTv, emailTv, savingTv, askedPriceTv, storesTv,numLikeTv,numUnlikeTv,coinsTv;
+    private TextView name, value, expTv, buyAt, typeTv, popUpTypeTv, popUpExpTv, popupValueTv, popUpPriceTv, emailTv, savingTv, askedPriceTv, storesTv,numLikeTv,numUnlikeTv,coinsTv,popUpSavingTv;
     private Button mapBtn, editBtn, deleteBtn, buyBtn, popUpSaveBtn, popUpCancel, popUpStoreBtn;
     NavigationView navigationView;
     private ImageView userImage, giftCardImage, popUpCcardImage,verifiedIv;
@@ -257,6 +257,7 @@ public class CardsDetailsFragment extends Fragment {
         popUpCcardImage = tryDialog.findViewById(R.id.buy_card_popup_icon_iv);
         popUpPriceTv = tryDialog.findViewById(R.id.buy_card_popup_price_tv);
         popUpSaveBtn = tryDialog.findViewById(R.id.buy_card_popup_buy_btn);
+        popUpSavingTv = tryDialog.findViewById(R.id.buy_card_popup_saving_tv);
         popUpCancel = tryDialog.findViewById(R.id.buy_card_popup_cancel_btn);
         popupValueTv = tryDialog.findViewById(R.id.buy_card_popup_value_tv);
         popUpExpTv = tryDialog.findViewById(R.id.buy_card_popup_exp_tv);
@@ -266,6 +267,7 @@ public class CardsDetailsFragment extends Fragment {
         setCardImage(popUpCcardImage);
         popUpPriceTv.setText(Double.toString(card.getCalculatedPrice()));
         popupValueTv.setText(Double.toString(card.getValue()));
+        popUpSavingTv.setText(card.getPrecentageSaved());
         popUpExpTv.setText(Utils.ConvertLongToDate(card.getExpirationDate()));
 
         for (CardType ct : Model.instance.cardTypes) {
