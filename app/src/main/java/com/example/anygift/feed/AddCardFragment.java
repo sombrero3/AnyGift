@@ -29,6 +29,7 @@ import android.widget.TextView;
 import com.example.anygift.R;
 import com.example.anygift.Retrofit.Card;
 import com.example.anygift.Retrofit.CardType;
+import com.example.anygift.Retrofit.Category;
 import com.example.anygift.model.Model;
 import com.example.anygift.model.Utils;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
@@ -58,6 +59,7 @@ public class AddCardFragment extends Fragment {
     List<String> cardTypes;
     int year, month, day;
     Animation rightAnim;
+    List<Category> categories;
 
     TextInputEditText publisherNameEt;
     TextView categoriesTv,categoriesBackgroundTv;
@@ -89,8 +91,13 @@ public class AddCardFragment extends Fragment {
         pb.setVisibility(View.VISIBLE);
         giftCardImage.setTag("");
 
+
+
         setCardtypesSpinner();
         setDateSelector();
+
+        categories = new ArrayList<>();
+        categories.addAll(Model.instance.categories);
         setCategoriesDialog();
 
         addCardButton.setOnClickListener(v -> upload());
@@ -110,11 +117,15 @@ public class AddCardFragment extends Fragment {
         addCategoriesBtn = view.findViewById(R.id.add_card_categories_btn);
         nameContainerTIl = view.findViewById(R.id.add_card_publisher_name_container_textinputlayout);
         AllCategories = new ArrayList<>();
-        AllCategories.add("1");
-        AllCategories.add("2");
-        AllCategories.add("3");
-        AllCategories.add("4");
-        AllCategories.add("5");
+//        AllCategories.add("1");
+//        AllCategories.add("2");
+//        AllCategories.add("3");
+//        AllCategories.add("4");
+//        AllCategories.add("5");
+//
+        for(Category c : categories){
+            AllCategories.add(c.getName());
+        }
         items = AllCategories.toArray(new CharSequence[AllCategories.size()]);
         itemsFlags = new boolean[5];
         itemsFlagsLastCondition = new boolean[5];
