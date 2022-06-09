@@ -15,16 +15,17 @@
         <Spinner
             android:id="@+id/edit_card_type_spinner"
             android:layout_width="0dp"
-            android:layout_height="48dp"
+            android:layout_height="55dp"
+            android:layout_marginStart="32dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginEnd="32dp"
             android:background="@drawable/spinner_background_style_1"
             android:contentDescription="Select option:"
             android:overlapAnchor="false"
             android:spinnerMode="dropdown"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.448"
-            app:layout_constraintStart_toStartOf="@+id/textView90"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView90" />
 
         <TextView
@@ -98,10 +99,10 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout0"
             android:layout_width="0dp"
-            android:layout_height="50dp"
+            android:layout_height="55dp"
             android:layout_marginTop="24dp"
             android:background="@drawable/edit_text_background_1"
-            android:textColorHint="@color/black"
+            android:textColorHint="@color/grey_31"
             app:layout_constraintEnd_toEndOf="@+id/edit_card_type_spinner"
             app:layout_constraintStart_toStartOf="@+id/edit_card_type_spinner"
             app:layout_constraintTop_toBottomOf="@+id/edit_card_publisher_background">
@@ -117,16 +118,17 @@
                 android:hint="Card Number:"
                 android:inputType="number"
                 android:paddingLeft="13dp"
+                android:textColor="@color/grey_31"
                 tools:ignore="TouchTargetSizeCheck" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout40"
             android:layout_width="0dp"
-            android:layout_height="56dp"
+            android:layout_height="55dp"
             android:layout_marginTop="24dp"
             android:background="@drawable/edit_text_background_1"
-            android:textColorHint="@color/black"
+            android:textColorHint="@color/grey_31"
             app:layout_constraintEnd_toEndOf="@+id/textInputLayout0"
             app:layout_constraintStart_toStartOf="@+id/edit_card_exp_date_tv"
             app:layout_constraintTop_toBottomOf="@+id/edit_card_exp_date_tv">
@@ -136,13 +138,13 @@
                 android:id="@+id/edit_card_card_value"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:height="50dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
+                android:height="50dp"
                 android:fontFamily="sans-serif-medium"
                 android:hint="Card Value:"
-                android:paddingLeft="13dp"
                 android:inputType="numberDecimal"
+                android:paddingLeft="13dp"
                 tools:ignore="TouchTargetSizeCheck" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -157,7 +159,7 @@
             android:src="@drawable/amazon_giftcard"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView708"
+            app:layout_constraintTop_toBottomOf="@+id/edit_card_title_bottom"
             app:shapeAppearanceOverlay="@style/roundedCornersImageView" />
 
         <Button
@@ -179,17 +181,17 @@
             android:id="@+id/textView90"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="32dp"
             android:fontFamily="sans-serif-medium"
             android:text="Choose Card Type:"
             android:textColor="@color/purplediff"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/edit_card_type_spinner"
             app:layout_constraintTop_toBottomOf="@+id/edit_card_giftCardImage" />
 
 
         <TextView
-            android:id="@+id/textView80"
+            android:id="@+id/edit_card_title_top"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
@@ -199,11 +201,11 @@
             android:textColor="@color/coins"
             android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/card_details_line"
+            app:layout_constraintStart_toStartOf="@+id/edit_card_title_line"
             app:layout_constraintTop_toTopOf="parent" />
 
         <View
-            android:id="@+id/card_details_line"
+            android:id="@+id/edit_card_title_line"
             style="@style/line"
             android:layout_width="0dp"
             android:layout_marginStart="32dp"
@@ -211,23 +213,23 @@
             android:layout_marginEnd="32dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView80" />
+            app:layout_constraintTop_toBottomOf="@+id/edit_card_title_top" />
 
         <TextView
-            android:id="@+id/textView708"
+            android:id="@+id/edit_card_title_bottom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Please enter card details"
-            app:layout_constraintStart_toStartOf="@+id/textView80"
-            app:layout_constraintTop_toBottomOf="@+id/card_details_line" />
+            app:layout_constraintStart_toStartOf="@+id/edit_card_title_top"
+            app:layout_constraintTop_toBottomOf="@+id/edit_card_title_line" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout50"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="55dp"
             android:layout_marginTop="24dp"
             android:background="@drawable/edit_text_background_1"
-            android:textColorHint="@color/black"
+            android:textColorHint="@color/grey_31"
             app:layout_constraintEnd_toEndOf="@+id/textInputLayout40"
             app:layout_constraintStart_toStartOf="@+id/textInputLayout40"
             app:layout_constraintTop_toBottomOf="@+id/textInputLayout40">
@@ -236,14 +238,14 @@
                 android:id="@+id/edit_card_card_asking_price"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:height="50dp"
-                android:paddingLeft="13dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
+                android:height="50dp"
                 android:fontFamily="sans-serif-medium"
                 android:hint="Your Asking Price"
                 android:inputType="numberDecimal"
-                android:textColor="@color/black"
+                android:paddingLeft="13dp"
+                android:textColor="@color/grey_31"
                 tools:ignore="TouchTargetSizeCheck" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -261,14 +263,14 @@
         <TextView
             android:id="@+id/edit_card_exp_date_tv"
             android:layout_width="0dp"
-            android:layout_height="50dp"
+            android:layout_height="55dp"
             android:layout_marginTop="24dp"
             android:background="@drawable/edit_text_background_1"
             android:fontFamily="sans-serif-medium"
             android:gravity="left|center"
             android:paddingLeft="13dp"
             android:text="Exp Date"
-            android:textColor="@color/black"
+            android:textColor="@color/grey_31"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="@+id/textInputLayout0"
             app:layout_constraintStart_toStartOf="@+id/textInputLayout0"

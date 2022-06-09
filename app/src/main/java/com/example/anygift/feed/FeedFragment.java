@@ -168,8 +168,8 @@ public class FeedFragment extends Fragment {
 
         //animations
         rightAnim = AnimationUtils.loadAnimation(getActivity(),R.anim.right_anim);
-        bottomAnim = AnimationUtils.loadAnimation(getActivity(),R.anim.bottom_anim);
         filterSw.setAnimation(rightAnim);
+        bottomAnim = AnimationUtils.loadAnimation(getActivity(),R.anim.bottom_anim);
         mostRecTv.setAnimation(bottomAnim);
 
         if(Model.instance.getSignedUser().getVerified()){

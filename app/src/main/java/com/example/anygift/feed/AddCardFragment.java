@@ -14,6 +14,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -45,16 +47,17 @@ public class AddCardFragment extends Fragment {
     TextInputEditText cardValue, cardAskingValue, cardNumber ;
     Button addCardButton;
     ImageView giftCardImage;
-    View view;
+    View view,titleLine;
     ProgressBar pb;
     String latAndLong, cardType;
 //    UserViewModel userViewModel;
     Spinner spinnerCardType;
-    TextView dateTv;
+    TextView dateTv,titleTop,titleBottom;
     CheckBox forSaleCb;
     DatePickerDialog.OnDateSetListener dateListener;
     List<String> cardTypes;
     int year, month, day;
+    Animation rightAnim;
 
     TextInputEditText publisherNameEt;
     TextView categoriesTv,categoriesBackgroundTv;
@@ -78,6 +81,9 @@ public class AddCardFragment extends Fragment {
         giftCardImage = view.findViewById(R.id.add_giftCardImage);
         dateTv = view.findViewById(R.id.add_card_date_tv);
         forSaleCb = view.findViewById(R.id.add_card_for_sale_cb);
+        titleLine = view.findViewById(R.id.add_card_title_line);
+        titleTop = view.findViewById(R.id.add_card_title_top);
+        titleBottom = view.findViewById(R.id.add_card_title_bottom);
         pb = view.findViewById(R.id.add_pb);
 
         pb.setVisibility(View.VISIBLE);
@@ -88,6 +94,11 @@ public class AddCardFragment extends Fragment {
         setCategoriesDialog();
 
         addCardButton.setOnClickListener(v -> upload());
+
+        rightAnim = AnimationUtils.loadAnimation(getActivity(),R.anim.right_anim);
+        titleLine.setAnimation(rightAnim);
+        titleTop.setAnimation(rightAnim);
+        titleBottom.setAnimation(rightAnim);
 
         pb.setVisibility(View.INVISIBLE);
         return view;
@@ -229,6 +240,7 @@ public class AddCardFragment extends Fragment {
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
+                giftCardImage.setImageBitmap(cts.get(0).getPicture());
                 cardType = cts.get(0).getId();
             }
         });

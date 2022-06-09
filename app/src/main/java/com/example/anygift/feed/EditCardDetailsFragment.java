@@ -13,6 +13,8 @@ import androidx.navigation.Navigation;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -38,11 +40,11 @@ import java.util.List;
 
 
 public class EditCardDetailsFragment extends Fragment {
-    View view;
+    View view,titleLine;
     EditText numberEt,priceEt;
     Spinner typeSp;
     String cardType, giftCardId;
-    TextView  valueTv, dateTv;
+    TextView  valueTv, dateTv, titleTop,titleBottom;
     Button save, mapBtn, deleteBtn;
     ImageView giftCardImage;
     Card giftCard = null;
@@ -51,6 +53,7 @@ public class EditCardDetailsFragment extends Fragment {
     int year, month, day;
     ProgressBar pb;
     CheckBox forSaleCb;
+    Animation rightAnim;
 
     TextInputEditText publisherNameEt;
     TextView categoriesTv,categoriesBackgroundTv;
@@ -76,6 +79,16 @@ public class EditCardDetailsFragment extends Fragment {
         save = view.findViewById(R.id.edit_card_upload_bt);
         forSaleCb = view.findViewById(R.id.edit_card_for_sale_cb);
         giftCardImage = view.findViewById(R.id.edit_card_giftCardImage);
+        titleLine = view.findViewById(R.id.edit_card_title_line);
+        titleTop = view.findViewById(R.id.edit_card_title_top);
+        titleBottom = view.findViewById(R.id.edit_card_title_bottom);
+
+
+
+        rightAnim = AnimationUtils.loadAnimation(getActivity(),R.anim.right_anim);
+        titleLine.setAnimation(rightAnim);
+        titleTop.setAnimation(rightAnim);
+        titleBottom.setAnimation(rightAnim);
 
         setCardView();
         save.setOnClickListener(view -> saveChanges());
