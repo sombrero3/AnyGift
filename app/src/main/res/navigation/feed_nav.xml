@@ -11,10 +11,18 @@
         tools:layout="@layout/fragment_my_cards">
         <action
             android:id="@+id/action_myCardsFragment_to_cardsDetailsFragment"
-            app:destination="@id/cardsDetailsFragment" />
+            app:destination="@id/cardsDetailsFragment"
+            app:enterAnim="@anim/fragment_enter_right_to_left"
+            app:exitAnim="@anim/fragment_exit_right_to_left"
+            app:popEnterAnim="@anim/fragment_enter_left_to_right"
+            app:popExitAnim="@anim/fragment_exit_left_to_right" />
         <action
             android:id="@+id/action_myCardsFragment_to_editProfileFragment"
-            app:destination="@id/editProfileFragment" />
+            app:destination="@id/editProfileFragment"
+            app:enterAnim="@anim/fragment_enter_right_to_left"
+            app:exitAnim="@anim/fragment_exit_right_to_left"
+            app:popEnterAnim="@anim/fragment_enter_left_to_right"
+            app:popExitAnim="@anim/fragment_exit_left_to_right" />
     </fragment>
     <fragment
         android:id="@+id/addCardFragment"
@@ -26,7 +34,11 @@
         tools:layout="@layout/fragment_feed">
         <action
             android:id="@+id/action_feedFragment_to_cardsDetailsFragment"
-            app:destination="@id/cardsDetailsFragment" />
+            app:destination="@id/cardsDetailsFragment"
+            app:enterAnim="@anim/fragment_enter_right_to_left"
+            app:exitAnim="@anim/fragment_exit_right_to_left"
+            app:popEnterAnim="@anim/fragment_enter_left_to_right"
+            app:popExitAnim="@anim/fragment_exit_left_to_right" />
     </fragment>
     <fragment
         android:id="@+id/cardsDetailsFragment"
@@ -37,7 +49,11 @@
             app:argType="string" />
         <action
             android:id="@+id/action_cardsDetailsFragment_to_editCardsDetailsFragment"
-            app:destination="@id/editCardDetailsFragment" />
+            app:destination="@id/editCardDetailsFragment"
+            app:enterAnim="@anim/fragment_enter_right_to_left"
+            app:exitAnim="@anim/fragment_exit_right_to_left"
+            app:popEnterAnim="@anim/fragment_enter_left_to_right"
+            app:popExitAnim="@anim/fragment_exit_left_to_right" />
     </fragment>
     <fragment
         android:id="@+id/editCardDetailsFragment"
@@ -48,22 +64,38 @@
             android:name="giftCardId"
             app:argType="string" />
     </fragment>
-    <action android:id="@+id/action_global_cardsDetailsFragment" app:destination="@id/cardsDetailsFragment"/>
+    <action
+        android:id="@+id/action_global_cardsDetailsFragment"
+        app:destination="@id/cardsDetailsFragment"
+        app:enterAnim="@anim/fragment_enter_right_to_left"
+        app:exitAnim="@anim/fragment_exit_right_to_left"
+        app:popEnterAnim="@anim/fragment_enter_left_to_right"
+        app:popExitAnim="@anim/fragment_exit_left_to_right" />
     <fragment
         android:id="@+id/editProfileFragment"
         android:name="com.example.anygift.feed.EditProfileFragment"
         tools:layout="@layout/fragment_edit_profile"/>
-    <action android:id="@+id/action_global_addCardFragment" app:destination="@id/addCardFragment"/>
+    <action
+        android:id="@+id/action_global_addCardFragment"
+        app:destination="@id/addCardFragment"
+        app:enterAnim="@anim/fragment_enter_right_to_left"
+        app:exitAnim="@anim/fragment_exit_right_to_left"
+        app:popEnterAnim="@anim/fragment_enter_left_to_right"
+        app:popExitAnim="@anim/fragment_exit_left_to_right" />
     <action
         android:id="@+id/action_global_feedFragment"
         app:destination="@id/feedFragment"
-        app:enterAnim="@android:anim/fade_in"
-        app:exitAnim="@android:anim/fade_out" />
+        app:enterAnim="@anim/fragment_enter_left_to_right"
+        app:exitAnim="@anim/fragment_exit_left_to_right"
+        app:popEnterAnim="@anim/fragment_enter_left_to_right"
+        app:popExitAnim="@anim/fragment_exit_left_to_right" />
     <action
         android:id="@+id/action_global_myCardsFragment"
         app:destination="@id/myCardsFragment"
-        app:enterAnim="@android:anim/fade_in"
-        app:exitAnim="@android:anim/fade_out" />
+        app:enterAnim="@anim/fragment_enter_right_to_left"
+        app:exitAnim="@anim/fragment_exit_right_to_left"
+        app:popEnterAnim="@anim/fragment_enter_left_to_right"
+        app:popExitAnim="@anim/fragment_exit_left_to_right" />
     <fragment
         android:id="@+id/shopFragment"
         android:name="com.example.anygift.feed.ShopFragment" >
@@ -71,12 +103,25 @@
             android:name="cardId"
             app:argType="string" />
     </fragment>
-    <action android:id="@+id/action_global_shopFragment" app:destination="@id/shopFragment" />
+    <action
+        android:id="@+id/action_global_shopFragment"
+        app:destination="@id/shopFragment"
+        app:enterAnim="@anim/fragment_enter_right_to_left"
+        app:exitAnim="@anim/fragment_exit_right_to_left"
+        app:popEnterAnim="@anim/fragment_enter_left_to_right"
+        app:popExitAnim="@anim/fragment_exit_left_to_right" />
     <fragment
         android:id="@+id/searchGiftCardFragment"
         android:name="com.example.anygift.feed.SearchGiftCardFragment"
         android:label="fragment_search_gift_card"
-        tools:layout="@layout/fragment_search_gift_card" /><action android:id="@+id/action_global_searchGiftCardFragment" app:destination="@id/searchGiftCardFragment"/>
+        tools:layout="@layout/fragment_search_gift_card" />
+    <action
+        android:id="@+id/action_global_searchGiftCardFragment"
+        app:destination="@id/searchGiftCardFragment"
+        app:enterAnim="@anim/fragment_enter_right_to_left"
+        app:exitAnim="@anim/fragment_exit_right_to_left"
+        app:popEnterAnim="@anim/fragment_enter_left_to_right"
+        app:popExitAnim="@anim/fragment_exit_left_to_right" />
     <fragment
         android:id="@+id/transactionsFragment"
         android:name="com.example.anygift.feed.TransactionsListRVFragment"
@@ -84,9 +129,19 @@
         tools:layout="@layout/fragment_transactions_list_rv" >
         <action
             android:id="@+id/action_transactionsFragment_to_transactionDetailsFragment"
-            app:destination="@id/transactionDetailsFragment" />
+            app:destination="@id/transactionDetailsFragment"
+            app:enterAnim="@anim/fragment_enter_right_to_left"
+            app:exitAnim="@anim/fragment_exit_right_to_left"
+            app:popEnterAnim="@anim/fragment_enter_left_to_right"
+            app:popExitAnim="@anim/fragment_exit_left_to_right" />
     </fragment>
-    <action android:id="@+id/action_global_transactionsFragment" app:destination="@id/transactionsFragment" />
+    <action
+        android:id="@+id/action_global_transactionsFragment"
+        app:destination="@id/transactionsFragment"
+        app:enterAnim="@anim/fragment_enter_right_to_left"
+        app:exitAnim="@anim/fragment_exit_right_to_left"
+        app:popEnterAnim="@anim/fragment_enter_left_to_right"
+        app:popExitAnim="@anim/fragment_exit_left_to_right" />
     <fragment
         android:id="@+id/transactionDetailsFragment"
         android:name="com.example.anygift.feed.TransactionDetailsFragment"
@@ -101,5 +156,11 @@
         android:name="com.example.anygift.feed.VerificationFragment"
         android:label="fragment_verification"
         tools:layout="@layout/fragment_verification" />
-    <action android:id="@+id/action_global_verificationFragment" app:destination="@id/verificationFragment" />
+    <action
+        android:id="@+id/action_global_verificationFragment"
+        app:destination="@id/verificationFragment"
+        app:enterAnim="@anim/fragment_enter_right_to_left"
+        app:exitAnim="@anim/fragment_exit_right_to_left"
+        app:popEnterAnim="@anim/fragment_enter_left_to_right"
+        app:popExitAnim="@anim/fragment_exit_left_to_right" />
 </navigation>

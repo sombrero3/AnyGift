@@ -37,9 +37,11 @@ public class MyWalletViewModel extends ViewModel {
         Model.instance.getAllUserCards(new Model.cardsReturnListener() {
             @Override
             public void onComplete(List<Card> cards, String message) {
-                gfList.clear();
-                gfList.addAll(cards);
-                listener.onComplete(cards);
+                if(cards!=null) {
+                    gfList.clear();
+                    gfList.addAll(cards);
+                    listener.onComplete(cards);
+                }
             }
         });
     }
