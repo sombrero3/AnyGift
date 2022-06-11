@@ -165,10 +165,6 @@ public class Model {
         void onComplete(CardType ct);
     }
 
-    public interface cardTypeReturnListener {
-        void onComplete(CardType ct);
-    }
-
     public interface categoriesReturnListener {
         void onComplete(List<Category> cat);
     }
