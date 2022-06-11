@@ -73,7 +73,7 @@ public class CardsDetailsFragment extends Fragment {
     FusedLocationProviderClient client;
     String latAndLong;
     Button btnCloseStore;
-    String[] listFromJSON= new String[]{"32.08136662421683, 34.770394074372796","31.887,34.738", "31.821,34.661", "31.762,35.176"};
+    String[] listFromJSON=null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -110,6 +110,17 @@ public class CardsDetailsFragment extends Fragment {
             public void onComplete(Card c, String message) {
                 card = new Card();
                 card = c;
+                for(CardType ct:Model.instance.cardTypes){
+                    if(c.getCardType().equals(ct.getId())){
+                        List<String> tempList=new ArrayList<>();
+                        for(int i=0;i<ct.getStores().size();i++){
+                            tempList.addAll(ct.getStores().get(i).getLocations());
+                        }
+                        listFromJSON = new String[tempList.size()];
+                        listFromJSON = tempList.toArray(listFromJSON);
+                    }
+                }
+
                 Model.instance.getUserRetrofit(card.getOwner(), new Model.userReturnListener() {
                     @Override
                     public void onComplete(User user, String message) {
