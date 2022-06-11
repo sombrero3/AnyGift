@@ -176,17 +176,21 @@ public class CardsDetailsFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 //find closet store
-                if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                    getCurrentLocation();
+                if(listFromJSON.length==0){
+                    Toast.makeText(getContext(), "There Is No Avilable Stores...", Toast.LENGTH_SHORT).show();
+                }
+               else {
+                    if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                        getCurrentLocation();
 
 
+                    } else {
+                        requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
+                                Manifest.permission.ACCESS_COARSE_LOCATION}, 100);
 
-                } else {
-                    requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
-                            Manifest.permission.ACCESS_COARSE_LOCATION}, 100);
+                    }
 
                 }
-
             }
 
 
