@@ -62,7 +62,7 @@ import java.util.Locale;
 public class CardsDetailsFragment extends Fragment {
     View view;
     private TextView name, value, expTv, buyAt, typeTv, popUpTypeTv, popUpExpTv, popupValueTv, popUpPriceTv, emailTv, savingTv, askedPriceTv, storesTv,numLikeTv,numUnlikeTv,coinsTv,popUpSavingTv;
-    private Button mapBtn, editBtn, deleteBtn, buyBtn, popUpSaveBtn, popUpCancel, popUpStoreBtn;
+    private Button btnCloseStore, editBtn, deleteBtn, buyBtn, popUpSaveBtn, popUpCancel, popUpStoreBtn;
     NavigationView navigationView;
     private ImageView userImage, giftCardImage, popUpCcardImage,verifiedIv;
     Card card;
@@ -72,6 +72,7 @@ public class CardsDetailsFragment extends Fragment {
     //gps
     FusedLocationProviderClient client;
     String latAndLong;
+    String[] listFromJSON= new String[]{"32.08136662421683, 34.770394074372796","31.887,34.738", "31.821,34.661", "31.762,35.176"};
     Button btnCloseStore;
     String[] listFromJSON=null;
 
@@ -90,7 +91,6 @@ public class CardsDetailsFragment extends Fragment {
         userImage = view.findViewById(R.id.card_details_user_pic_iv);
         name = view.findViewById(R.id.card_details_username_tv);
         value = view.findViewById(R.id.details_giftvalue_tv);
-        mapBtn = view.findViewById(R.id.cardDetails_mapBtn);
         buyAt = view.findViewById(R.id.details_buyatval_tv);
         storesTv = view.findViewById(R.id.card_details_stores_tv);
         deleteBtn = view.findViewById(R.id.details_delete_btn);

@@ -60,7 +60,7 @@ public class SignUpFragment extends Fragment {
     TextInputEditText address;
 
     Button signIn_btn;
-    Button continue_btn, find_btn;
+    Button continue_btn;
     CheckBox terms;
 
     String Fname;
@@ -86,7 +86,6 @@ public class SignUpFragment extends Fragment {
         signIn_btn = view.findViewById(R.id.SignUp_signIn_btn);
         continue_btn = view.findViewById(R.id.SignUp_continue_btn);
         address = view.findViewById(R.id.SignUp_address_input);
-        find_btn = view.findViewById(R.id.SignUp_btn_find_addres);
 
         terms = view.findViewById(R.id.SignUp_check_box);
         signIn_btn.setTypeface(Typeface.SANS_SERIF);
@@ -95,20 +94,6 @@ public class SignUpFragment extends Fragment {
             save();
         });
         client = LocationServices.getFusedLocationProviderClient(getActivity());
-        find_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                    getCurrentLocation();
-                } else {
-                    requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
-                            Manifest.permission.ACCESS_COARSE_LOCATION}, 100);
-
-                }
-
-            }
-        });
-
         signIn_btn.setOnClickListener(v -> {
             Navigation.findNavController(v).navigate(SignUpFragmentDirections.actionSignUpFragmentToLoginFragment());
         });
@@ -119,54 +104,6 @@ public class SignUpFragment extends Fragment {
         }
         return view;
     }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == 100 && (grantResults.length > 0) && (grantResults[0] + grantResults[1] == PackageManager.PERMISSION_GRANTED)
-        ) {
-            getCurrentLocation();
-        } else {
-            Toast.makeText(getActivity(), "Permission denied", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    @SuppressLint("MissingPermission")
-    private void getCurrentLocation() {
-        LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
-                locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-            client.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
-                @Override
-                public void onComplete(@NonNull Task<Location> task) {
-                    Location location = (Location) task.getResult();
-                    if (location != null) {
-                        String cityName = null;
-                        Geocoder gcd = new Geocoder(getContext(), Locale.getDefault());
-                        try {
-                            List<Address> addresses = gcd.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
-                            if (addresses.size() > 0) {
-                                System.out.println(addresses.get(0).getLocality());
-                                cityName = addresses.get(0).getCountryName() + ", " +
-                                        addresses.get(0).getAdminArea() + ", " +
-                                        addresses.get(0).getPostalCode() + ".";
-                                latAndLong = String.valueOf(location.getLatitude()) + "," + String.valueOf(location.getLongitude());
-                            }
-                            address.setText(cityName);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-
-                    }
-
-                }
-            });
-        } else {
-            startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-        }
-
-    }
-
 
     public void save() {
         continue_btn.setEnabled(false);

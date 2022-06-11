@@ -400,7 +400,7 @@
         android:adjustViewBounds="true"
         android:background="@drawable/button_border_8sp_blue_dark"
         android:scaleType="fitCenter"
-        android:src="@drawable/amazon_giftcard"
+        android:src="@drawable/gift_card_logo_card"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textView42"
