@@ -161,9 +161,6 @@ public class Model {
     public interface cardTypesReturnListener {
         void onComplete(List<CardType> cts);
     }
-    public interface cardTypeReturnListener {
-        void onComplete(CardType ct);
-    }
 
     public interface cardTypeReturnListener {
         void onComplete(CardType ct);
