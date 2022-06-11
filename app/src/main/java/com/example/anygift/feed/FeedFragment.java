@@ -66,7 +66,7 @@ public class FeedFragment extends Fragment {
     Switch filterSw;
     String cardTypeId="Any",categoryId ="Any";
     ProgressBar pb;
-    Animation topAnim,bottomAnim,rightAnim;
+    Animation bottomAnim,rightAnim;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -98,12 +98,13 @@ public class FeedFragment extends Fragment {
         shopIv = view.findViewById(R.id.feed_shop_iv);
         walletIv = view.findViewById(R.id.feed_wallet_iv);
 
+        //animations
+        rightAnim = AnimationUtils.loadAnimation(getActivity(),R.anim.right_anim);
+        filterSw.setAnimation(rightAnim);
+        bottomAnim = AnimationUtils.loadAnimation(getActivity(),R.anim.bottom_anim);
+        mostRecTv.setAnimation(bottomAnim);
 
         mosetRecCl = new ArrayList<>();
-
-        setCardTypeSpinner();
-        setCategoriesSpinner();
-
         mostRecList.setHasFixedSize(true);
         mostRecList.setLayoutManager(new LinearLayoutManager(getContext()));
         mostRecAdapter = new CardsListAdapter(mosetRecCl);
@@ -119,14 +120,14 @@ public class FeedFragment extends Fragment {
             }
         });
 
+        setCardTypeSpinner();
+        setCategoriesSpinner();
         setMostRecRv();
         setHasOptionsMenu(true);
-
 
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                //refreshMostRecRv();
                 search();
             }
         });
@@ -143,34 +144,9 @@ public class FeedFragment extends Fragment {
 //        });
 
         searchBtn.setOnClickListener(v -> search());
-
         addFab.setOnClickListener(v-> Navigation.findNavController(v).navigate(R.id.action_global_addCardFragment));
 
-        Calendar calendar = Calendar.getInstance();
-        year=0;
-        month=0;
-        day=0;
-        dateTv.setOnClickListener(view1 -> {
-            year = calendar.get(Calendar.YEAR);
-            month = calendar.get(Calendar.MONTH);
-            day = calendar.get(Calendar.DAY_OF_MONTH);
-            DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), android.R.style.Theme_Holo_Light_Dialog_MinWidth, dateListener, year, month, day);
-            datePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-            datePickerDialog.show();
-        });
-        dateListener = (datePicker, y, m, d) -> {
-            m = m+1;
-            year = y;
-            month = m;
-            day = d;
-            dateTv.setText(day+"/"+month+"/"+year);
-        };
-
-        //animations
-        rightAnim = AnimationUtils.loadAnimation(getActivity(),R.anim.right_anim);
-        filterSw.setAnimation(rightAnim);
-        bottomAnim = AnimationUtils.loadAnimation(getActivity(),R.anim.bottom_anim);
-        mostRecTv.setAnimation(bottomAnim);
+        setDateTv();
 
         if(Model.instance.getSignedUser().getVerified()){
             verificationBtn.setVisibility(View.GONE);
@@ -198,6 +174,28 @@ public class FeedFragment extends Fragment {
 
         return view;
 
+    }
+
+    private void setDateTv() {
+        Calendar calendar = Calendar.getInstance();
+        year=0;
+        month=0;
+        day=0;
+        dateTv.setOnClickListener(view1 -> {
+            year = calendar.get(Calendar.YEAR);
+            month = calendar.get(Calendar.MONTH);
+            day = calendar.get(Calendar.DAY_OF_MONTH);
+            DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(), android.R.style.Theme_Holo_Light_Dialog_MinWidth, dateListener, year, month, day);
+            datePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            datePickerDialog.show();
+        });
+        dateListener = (datePicker, y, m, d) -> {
+            m = m+1;
+            year = y;
+            month = m;
+            day = d;
+            dateTv.setText(day+"/"+month+"/"+year);
+        };
     }
 
     private void hideSearch(){
@@ -322,51 +320,6 @@ public class FeedFragment extends Fragment {
             }
         });
     }
-
-    private void setDynamicRvs() {
-        //viewModel.refreshMap(new Model.VoidListener() {
-        //    @Override
-        //    public void onComplete() {
-//                setMostRecRv();
-//                //--dreamCard RV--//
-//
-//                dreamCardList.setHasFixedSize(true);
-//                RecyclerView.LayoutManager dreamCardLayout = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
-//                dreamCardList.setLayoutManager(dreamCardLayout);
-//                dreamCardAdapter = new CardsListAdapter(viewModel.getDreamCardsList());
-//                dreamCardList.setAdapter(dreamCardAdapter);
-//
-//                dreamCardAdapter.setOnItemClickListener(new com.example.anygift.OnItemClickListener() {
-//                    @Override
-//                    public void onItemClick(View v, int position) {
-//                        double val = viewModel.getDreamCardsList().get(position).getValue();
-//                        String id = viewModel.getDreamCardsList().get(position).getId();
-//                        Log.d("TAG", "Gift card in value of: " + val);
-//                        Navigation.findNavController(v).navigate(FeedFragmentDirections.actionFeedFragmentToCardsDetailsFragment(id));
-//                    }
-//                });
-//
-//                //---Shufersal RV---//
-//
-//                shufersalList.setHasFixedSize(true);
-//                RecyclerView.LayoutManager shufersalLayout = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
-//                shufersalList.setLayoutManager(shufersalLayout);
-//                shufersalAdapter = new CardsListAdapter(viewModel.getShufersalList());
-//                shufersalList.setAdapter(shufersalAdapter);
-//
-//                shufersalAdapter.setOnItemClickListener(new com.example.anygift.OnItemClickListener() {
-//                    @Override
-//                    public void onItemClick(View v, int position) {
-//                        double val = viewModel.getShufersalList().get(position).getValue();
-//                        String id = viewModel.getShufersalList().get(position).getId();
-//                        Log.d("TAG", "Gift card in value of: " + val);
-//                        Navigation.findNavController(v).navigate(FeedFragmentDirections.actionFeedFragmentToCardsDetailsFragment(id));
-//                    }
-//                });
-        //    }
-        //
-    }
-
     private void refresh() {
         mostRecAdapter.notifyDataSetChanged();
     }
