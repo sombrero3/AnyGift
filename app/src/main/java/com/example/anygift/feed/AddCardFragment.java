@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,6 +41,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -296,22 +298,33 @@ public class AddCardFragment extends Fragment {
     }
 
     private void upload() {
-        pb.setVisibility(View.VISIBLE);
-        boolean error = false;
-        String errorMsg = "";
-        disableButtons();
-
-        if (error) {
-            popMsg(errorMsg);
-            enableButtons();
-            return;
+        String name = publisherNameEt.getText().toString();
+        List<String> ids = new ArrayList<>();
+        System.out.println(categoriesTv.getText().toString().split(","));
+        List<String> names  = Arrays.asList(categoriesTv.getText().toString().split(","));
+        for (String n: names){
+            for(Category category : categories){
+                if (n.trim().equals(category.getName()))
+                    ids.add(category.getId());
+            }
         }
+        System.out.println(ids);
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("name", name);
+        map.put("categories", ids);
+        Model.instance.modelRetrofit.addCardType(map, new Model.cardTypeReturnListener() {
+            @Override
+            public void onComplete(CardType ct) {
+                addCard(ct.getId());
+            }
+        });
 
-        Log.d("TAG", "date = " + day + "/" + month + "/" + year);
-        Log.d("TAG", "card type id = " + cardType);
+        //
+    }
 
+    private void addCard(String ct){
         HashMap<String, Object> map = Card.mapToAddCard(Double.parseDouble(cardAskingValue.getText().toString()),
-                Double.parseDouble(cardValue.getText().toString()), cardNumber.getText().toString(), cardType,
+                Double.parseDouble(cardValue.getText().toString()), cardNumber.getText().toString(), ct,
                 Model.instance.modelRetrofit.getUserId(), forSaleCb.isChecked(),
                 Utils.convertDateToLong(Integer.toString(day), Integer.toString(month), Integer.toString(year)));
 
@@ -329,6 +342,6 @@ public class AddCardFragment extends Fragment {
                 pb.setVisibility(View.INVISIBLE);
             }
         });
-
     }
+
 }

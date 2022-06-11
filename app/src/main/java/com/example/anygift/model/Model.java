@@ -138,6 +138,10 @@ public class Model {
         void onComplete(List<CardType> cts);
     }
 
+    public interface cardTypeReturnListener {
+        void onComplete(CardType ct);
+    }
+
     public interface categoriesReturnListener {
         void onComplete(List<Category> cat);
     }
@@ -194,6 +198,11 @@ public class Model {
     public void getAllCardTypes(cardTypesReturnListener l) {
         modelRetrofit.getAllCardTypes(l);
     }
+
+    public void addCardType(HashMap<String, Object> map,cardTypeReturnListener l) {
+        modelRetrofit.addCardType(map,l);
+    }
+
 
     public void getUserIncome(incomeListener listener) {
         modelRetrofit.getUserIncome(listener);

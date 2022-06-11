@@ -171,6 +171,36 @@ public class ModelRetrofit {
         });
     }
 
+    public void addCardType(HashMap<String, Object> map, Model.cardTypeReturnListener listener) { // done
+        String token = getAccessToken();
+        Call<CardType> call = retrofitInterface.addCardType(map, token);
+        call.enqueue(new Callback<CardType>() {
+            @Override
+            public void onResponse(Call<CardType> call, Response<CardType> response) {
+
+                if (response.code() == 201) {
+                    if (response.body() != null) {
+                        CardType ct = new CardType(response.body().getName(),
+                                response.body().getCategories(),
+                                response.body().getStores(),
+                                response.body().getId());
+                        listener.onComplete(ct);
+                    }
+
+                } else if (response.code() == 400) {
+                    listener.onComplete(null);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CardType> call, Throwable t) {
+                listener.onComplete(null);
+                System.out.println("Very BAD");
+            }
+        });
+
+    }
+
     public void getAllCardTypes(Model.cardTypesReturnListener listener) { // done
         String token = getAccessToken();
         Call<List<CardType>> call = retrofitInterface.getAllCardTypes(token);

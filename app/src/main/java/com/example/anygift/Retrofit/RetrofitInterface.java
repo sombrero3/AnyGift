@@ -66,6 +66,9 @@ public interface RetrofitInterface {
     @GET("cardTypes")
     Call<List<CardType>> getAllCardTypes(@Header("Authorization") String token);
 
+    @POST("cardTypes")
+    Call<CardType> addCardType(@Body HashMap<String,Object> map, @Header("Authorization") String token);
+
     @GET("cardTransactions/income/{id}") // WORKS!
     Call<Income> getUserIncome(@Path("id") String user_id, @Header("Authorization") String token);
     @GET("cardTransactions/outcome/{id}") // WORKS!
