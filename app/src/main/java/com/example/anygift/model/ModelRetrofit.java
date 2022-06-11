@@ -390,8 +390,31 @@ public class ModelRetrofit {
 
                 if (response.code() == 200) {
                     if (response.body() != null) {
+                        List<CardType> cardTypes = Model.instance.cardTypes;
                         list.addAll(response.body());
-                        listener.onComplete(list, "All Good");
+                        boolean isTypeExist = false;
+                        for(Card c:list){
+                            for(CardType ct:cardTypes){
+                                if(c.getCardType().equals(ct.getId())){
+                                    isTypeExist = true;
+                                    break;
+                                }
+                            }
+                            if(isTypeExist){
+                                break;
+                            }
+                        }
+                        if(!isTypeExist){
+                            Model.instance.setCardTypes(new Model.VoidListener() {
+                                @Override
+                                public void onComplete() {
+                                    listener.onComplete(list, "All Good");
+                                }
+                            });
+                        }else{
+                            listener.onComplete(list, "All Good");
+                        }
+
                     }
 
                 } else if (response.code() == 400) {

@@ -45,6 +45,30 @@ public class Model {
         signedUser = new com.example.anygift.Retrofit.User();
         ListLoadingState.setValue(GiftListLoadingState.loaded);
     }
+
+    public void getCardTypeById(String id,cardTypeReturnListener listener){
+        boolean flag=false;
+        for(CardType c :cardTypes){
+            if(c.getId().equals(id)){
+                flag = true;
+                listener.onComplete(c);
+            }
+        }
+        if(!flag) {
+            setCardTypes(new VoidListener() {
+                @Override
+                public void onComplete() {
+                    for(CardType c :cardTypes){
+                        if(c.getId().equals(id)){
+                            listener.onComplete(c);
+                            break;
+                        }
+                    }
+                }
+            });
+        }
+    }
+
     public void setCategories(VoidListener listener) {
         getAllCategories(new categoriesReturnListener() {
             @Override
@@ -136,6 +160,9 @@ public class Model {
 
     public interface cardTypesReturnListener {
         void onComplete(List<CardType> cts);
+    }
+    public interface cardTypeReturnListener {
+        void onComplete(CardType ct);
     }
 
     public interface categoriesReturnListener {
