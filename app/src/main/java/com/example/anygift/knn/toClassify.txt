@@ -1,0 +1,10 @@
+@relation toClassify
+
+@attribute cardType numeric
+@attribute numOfBuy numeric
+@attribute viewType {A,B,C,G}
+
+
+@data
+0,0,A
+2,10,C
