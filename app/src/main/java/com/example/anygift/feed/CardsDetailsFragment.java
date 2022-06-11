@@ -72,8 +72,6 @@ public class CardsDetailsFragment extends Fragment {
     //gps
     FusedLocationProviderClient client;
     String latAndLong;
-    String[] listFromJSON= new String[]{"32.08136662421683, 34.770394074372796","31.887,34.738", "31.821,34.661", "31.762,35.176"};
-    Button btnCloseStore;
     String[] listFromJSON=null;
 
     @Override
