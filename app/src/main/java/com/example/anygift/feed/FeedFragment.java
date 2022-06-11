@@ -266,6 +266,7 @@ public class FeedFragment extends Fragment {
 
         for (CardType ct : cts) {
             cardTypes.add(ct.getName());
+            System.out.println(ct.getName());
         }
         cardTypes.add("Any");
 
@@ -278,6 +279,7 @@ public class FeedFragment extends Fragment {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if(i<cts.size()) {
                     cardTypeId = cts.get(i).getId();
+
                 }else{
                     cardTypeId = "Any";
                 }

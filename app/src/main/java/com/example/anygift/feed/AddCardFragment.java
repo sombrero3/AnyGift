@@ -246,10 +246,12 @@ public class AddCardFragment extends Fragment {
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-                giftCardImage.setImageBitmap(cts.get(0).getPicture());
-                cardType = cts.get(0).getId();
+                giftCardImage.setImageResource(R.drawable.gift_card_logo_card);
+
+
             }
         });
+        spinnerCardType.setSelection(cts.size());
 
     }
 
@@ -316,7 +318,6 @@ public class AddCardFragment extends Fragment {
                 Utils.convertDateToLong(Integer.toString(day), Integer.toString(month), Integer.toString(year)));
 
         Model.instance.addCardRetrofit(map, new Model.cardReturnListener() {
-
             @Override
             public void onComplete(Card card, String message) {
                 if (card != null) {

@@ -47,7 +47,7 @@ public class CardsListViewHolder extends RecyclerView.ViewHolder{
         valueTv.setText(card.getValue().toString());
         calculatedPriceTv.setText(card.getCalculatedPrice().toString());
         savingTv.setText(card.getPrecentageSaved());
-        picIv.setImageResource(R.drawable.amazon_giftcard);
+        picIv.setImageResource(R.drawable.gift_card_logo_card);
 
         if(card.getPrice().equals(card.getCalculatedPrice())){
                     firstPriceTextTv.setVisibility(View.INVISIBLE);
@@ -60,7 +60,9 @@ public class CardsListViewHolder extends RecyclerView.ViewHolder{
         for(CardType ct: Model.instance.cardTypes) {
             if (card.getCardType().equals(ct.getId())) {
                 typeNameTv.setText(ct.getName());
-                picIv.setImageBitmap(ct.getPicture());
+                if(ct.getPicture()!=null) {
+                    picIv.setImageBitmap(ct.getPicture());
+                }
             }
         }
         Calendar calendar = Calendar.getInstance();

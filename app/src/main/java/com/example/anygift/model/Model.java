@@ -248,7 +248,41 @@ public class Model {
     }
 
     public void getAllCards(cardsReturnListener listener) {
-        modelRetrofit.getAllCards(listener);
+        List<Card> list = new ArrayList<>();
+        modelRetrofit.getAllCards(new cardsReturnListener() {
+            @Override
+            public void onComplete(List<Card> cards, String message) {
+                if(cards!=null) {
+                    list.addAll(cards);
+
+                    boolean cardTypesUpdateRequire = false;
+                    for(Card c:list){
+                        boolean isTypeExist = false;
+                        for(CardType ct:cardTypes){
+                            if(c.getCardType().equals(ct.getId())){
+                                isTypeExist = true;
+                                break;
+                            }
+                        }
+                        if(!isTypeExist){
+                            cardTypesUpdateRequire = true;
+                            break;
+                        }
+
+                    }
+                    if(cardTypesUpdateRequire) {
+                        setCardTypes(new VoidListener() {
+                            @Override
+                            public void onComplete() {
+                                listener.onComplete(list, "CardTypes Updated");
+                            }
+                        });
+                    }
+                    }else{
+                        listener.onComplete(list, "All Good");
+                    }
+            }
+        });
     }
 
     public void getAllUserCards(cardsReturnListener listener) {
@@ -260,24 +294,50 @@ public class Model {
         modelRetrofit.getSellerRatings(user_id, listener);
     }
 
-public void addReview(String card_trans_id, Boolean satisfied,String buyerComment,cardTransactionReturnListener l){
+
+    public void addReview(String card_trans_id, Boolean satisfied,String buyerComment,cardTransactionReturnListener l){
         HashMap<String,Object> map = new HashMap<>();
         map.put("buyerComment",buyerComment);
         map.put("satisfied",satisfied);
         modelRetrofit.addCardTransSatis(card_trans_id,map, l);
-}
+    }
 
     public void getAllFeedCardsForSale(cardsReturnListener listener) {
         modelRetrofit.getAllCards(new cardsReturnListener() {
             @Override
             public void onComplete(List<Card> cards, String message) {
-                if(cards!=null) {
+                if (cards != null) {
                     String user_id = modelRetrofit.getUserId();
                     List<Card> cs = cards.stream().filter(c -> c.getIsForSale() &&
                             !c.getOwner().equals(user_id) &&
                             System.currentTimeMillis() / 1000 < c.getExpirationDate()
                     ).collect(Collectors.toList());
-                    listener.onComplete(cs, "Cards filtered");
+
+                    boolean cardTypesUpdateRequire = false;
+                    for (Card c : cs) {
+                        boolean isTypeExist = false;
+                        for (CardType ct : cardTypes) {
+                            if (c.getCardType().equals(ct.getId())) {
+                                isTypeExist = true;
+                                break;
+                            }
+                        }
+                        if (!isTypeExist) {
+                            cardTypesUpdateRequire = true;
+                            break;
+                        }
+                    }
+
+                    if (cardTypesUpdateRequire) {
+                        setCardTypes(new VoidListener() {
+                            @Override
+                            public void onComplete() {
+                                listener.onComplete(cs, "CardTypes Updated Cards filtered");
+                            }
+                        });
+                    } else {
+                        listener.onComplete(cs, "All Good Cards filtered");
+                    }
                 }
             }
         });
@@ -329,7 +389,28 @@ public void addReview(String card_trans_id, Boolean satisfied,String buyerCommen
     }
 
     public void getCardRetrofit(String card_id, cardReturnListener listener) {
-        modelRetrofit.getCard(card_id, listener);
+        modelRetrofit.getCard(card_id, new cardReturnListener() {
+            @Override
+            public void onComplete(Card card, String message) {
+                boolean isTypeExist = false;
+                for(CardType ct:cardTypes){
+                    if(ct.getId().equals(card.getCardType())){
+                        isTypeExist = true;
+                        break;
+                    }
+                }
+                if(!isTypeExist) {
+                    setCardTypes(new VoidListener() {
+                        @Override
+                        public void onComplete() {
+                            listener.onComplete(card,"CardTypes Updated");
+                        }
+                    });
+                }else{
+                    listener.onComplete(card,"All Good");
+                }
+            }
+        });
     }
 
 
@@ -429,12 +510,15 @@ public void addReview(String card_trans_id, Boolean satisfied,String buyerCommen
                 Log.d("TAG", "maxPrice: "+price);
                 Log.d("TAG", "onDateSet: "+day+"/"+month+"/"+year);
 
+
                 boolean isFiltered = false;
 
-                System.out.println("cards : ");
+                System.out.println("cards Before Search: ");
                 for(Card c :cards){
                     System.out.println("Type : "+c.getCardType()+" Price : "+c.getPrice());
                 }
+                System.out.println("Search Inputs: ");
+                System.out.println("Exp : "+day+"/"+month+"/"+year+"    typeId : "+cardTypeId+"     categoryId : "+categoryId+ "      Price : "+price);
 
                 if(!cardTypeId.equals("Any")){
                     isFiltered = true;
@@ -487,6 +571,10 @@ public void addReview(String card_trans_id, Boolean satisfied,String buyerCommen
                     }
                 }
 
+                System.out.println("Search result: ");
+                for(Card c :result){
+                    System.out.println("Type : "+c.getCardType()+" Price : "+c.getPrice());
+                }
                 listener.onComplete(result);
 
 
