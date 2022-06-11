@@ -21,9 +21,11 @@
 
     <Spinner
         android:id="@+id/search_card_type_spinner"
-        android:layout_width="140dp"
+        android:layout_width="0dp"
         android:layout_height="35dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="4dp"
+        android:layout_marginEnd="8dp"
         android:background="@drawable/spinner_background_style_1"
         android:contentDescription="Select Type:"
         android:elevation="5dp"
@@ -73,8 +75,10 @@
 
     <TextView
         android:id="@+id/search_card_date_tv"
-        android:layout_width="140dp"
+        android:layout_width="0dp"
         android:layout_height="35dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="16dp"
         android:background="@drawable/edit_text_background_1"
         android:elevation="5dp"
         android:fontFamily="sans-serif-medium"
@@ -100,9 +104,11 @@
 
     <Spinner
         android:id="@+id/search_category_spinner"
-        android:layout_width="140dp"
+        android:layout_width="0dp"
         android:layout_height="35dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
         android:background="@drawable/spinner_background_style_1"
         android:elevation="5dp"
         app:layout_constraintEnd_toStartOf="@+id/search_max_price_et"
@@ -124,8 +130,10 @@
 
     <EditText
         android:id="@+id/search_max_price_et"
-        android:layout_width="140dp"
+        android:layout_width="0dp"
         android:layout_height="35dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="16dp"
         android:background="@drawable/edit_text_background_1"
         android:elevation="5dp"
         android:ems="10"

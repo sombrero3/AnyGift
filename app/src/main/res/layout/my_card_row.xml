@@ -31,7 +31,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/amazon_giftcard" />
+            app:srcCompat="@drawable/gift_card_logo_card" />
 
         <ImageView
             android:id="@+id/imageView31"
