@@ -105,6 +105,12 @@ public class CardsDetailsFragment extends Fragment {
         verifiedIv = view.findViewById(R.id.details_verified_iv);
         btnCloseStore=view.findViewById(R.id.btnCloseStore);
         client = LocationServices.getFusedLocationProviderClient(getActivity());
+
+        getData();
+        return view;
+    }
+
+    private void getData() {
         Model.instance.getCardRetrofit(cardId, new Model.cardReturnListener() {
             @Override
             public void onComplete(Card c, String message) {
@@ -201,9 +207,6 @@ public class CardsDetailsFragment extends Fragment {
                 });
             }
         });
-
-
-        return view;
     }
 
     private void setUI() {
@@ -245,16 +248,6 @@ public class CardsDetailsFragment extends Fragment {
                 }
             });
         }
-//        mapBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                String[] cordinate = card.getLatAndLong().split(",");
-//                String uri = "http://maps.google.com/maps?q=loc:" + cordinate[0] + "," + cordinate[1];
-//                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
-//                intent.setPackage("com.google.android.apps.maps");
-//                startActivity(intent);
-//            }
-//        });
 
         setCardImage(giftCardImage);
         pb.setVisibility(View.GONE);

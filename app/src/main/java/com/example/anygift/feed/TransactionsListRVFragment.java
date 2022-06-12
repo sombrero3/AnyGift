@@ -61,6 +61,7 @@ public class TransactionsListRVFragment extends Fragment {
             }
         });
 
+        setHasOptionsMenu(true);
         swipeRefresh.setOnRefreshListener(() -> setTranRv());
         return view;
     }

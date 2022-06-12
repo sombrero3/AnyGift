@@ -45,7 +45,6 @@ public class MyWalletFragment extends Fragment {
     SwipeRefreshLayout swipeRefresh;
     TextView userName, userEmail, userPhone, userAddress, numOfSold, numOfBought, soldInCoins, boughtInCoins,numLikeTv,numUnlikeTv;
     ImageView userImage,  addCardIv,verifiedIv;
-    FloatingActionButton addFab;
     Button editBtn,transactionsBtn;
 
     @Override
@@ -99,7 +98,6 @@ public class MyWalletFragment extends Fragment {
         boughtInCoins = view.findViewById(R.id.my_cards_bought_in_coins_tv);
         editBtn = view.findViewById(R.id.my_cards_edit_btn);
         addCardIv = view.findViewById(R.id.my_cards_add_card_iv);
-        addFab = view.findViewById(R.id.my_cards_add_fab);
         numLikeTv = view.findViewById(R.id.my_cards_num_like_tv);
         numUnlikeTv = view.findViewById(R.id.my_cards_num_un_like_tv);
         verifiedIv = view.findViewById(R.id.my_cards_verified_iv);
@@ -116,8 +114,6 @@ public class MyWalletFragment extends Fragment {
 
         setUserUI();
         setHasOptionsMenu(true);
-
-        addFab.setOnClickListener((v)-> Navigation.findNavController(v).navigate(R.id.action_global_addCardFragment));
 
 //        swipeRefresh.setRefreshing(Model.instance.getListLoadingState().getValue() == Model.GiftListLoadingState.loading);
 //        Model.instance.getListLoadingState().observe(getViewLifecycleOwner(), ListLoadingState -> {
