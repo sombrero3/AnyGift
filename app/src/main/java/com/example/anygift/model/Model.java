@@ -3,6 +3,7 @@ package com.example.anygift.model;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.media.Image;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
@@ -12,6 +13,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.anygift.MyApplication;
+import com.example.anygift.R;
 import com.example.anygift.Retrofit.Card;
 import com.example.anygift.Retrofit.CardTransaction;
 import com.example.anygift.Retrofit.CardType;
@@ -90,28 +92,27 @@ public class Model {
         });
     }
     public void setCardTypes(VoidListener listener) {
-        getAllCardTypes(new cardTypesReturnListener() {
-            @Override
-            public void onComplete(List<CardType> cts) {
-                cardTypes.clear();
-                for (CardType ct : cts) {
-                    Model.instance.executor.execute(new Runnable() {
-                        @Override
-                        public void run() {
-                            downloadImage(ct.getId() + ".jpeg", new byteArrayReturnListener() {
-                                @Override
-                                public void onComplete(Bitmap bitmap) {
+        getAllCardTypes(cts -> {
+            cardTypes.clear();
+            for (CardType ct : cts) {
+                Model.instance.executor.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        downloadImage(ct.getId() + ".jpeg", new byteArrayReturnListener() {
+                            @Override
+                            public void onComplete(Bitmap bitmap) {
+                                if(bitmap!=null) {
                                     ct.setPicture(bitmap);
-                                    cardTypes.add(ct);
-                                    if(ct.getId().equals(cts.get(cts.size()-1).getId())) {
-                                        listener.onComplete();
-                                    }
                                 }
-                            });
-                        }
-                    });
+                                cardTypes.add(ct);
+                                if(ct.getId().equals(cts.get(cts.size()-1).getId())) {
+                                    listener.onComplete();
+                                }
+                            }
+                        });
+                    }
+                });
 
-                }
             }
         });
     }
@@ -254,15 +255,12 @@ public class Model {
     }
 
     public void getAllCards(cardsReturnListener listener) {
-        List<Card> list = new ArrayList<>();
         modelRetrofit.getAllCards(new cardsReturnListener() {
             @Override
             public void onComplete(List<Card> cards, String message) {
                 if(cards!=null) {
-                    list.addAll(cards);
-
                     boolean cardTypesUpdateRequire = false;
-                    for(Card c:list){
+                    for(Card c:cards){
                         boolean isTypeExist = false;
                         for(CardType ct:cardTypes){
                             if(c.getCardType().equals(ct.getId())){
@@ -280,12 +278,12 @@ public class Model {
                         setCardTypes(new VoidListener() {
                             @Override
                             public void onComplete() {
-                                listener.onComplete(list, "CardTypes Updated");
+                                listener.onComplete(cards, "CardTypes Updated");
                             }
                         });
                     }
                     }else{
-                        listener.onComplete(list, "All Good");
+                        listener.onComplete(cards, "All Good");
                     }
             }
         });
@@ -293,6 +291,38 @@ public class Model {
 
     public void getAllUserCards(cardsReturnListener listener) {
         modelRetrofit.getAllUserCards(listener);
+//        modelRetrofit.getAllUserCards(new cardsReturnListener() {
+//            @Override
+//            public void onComplete(List<Card> cards, String message) {
+//                if(cards!=null) {
+//                    boolean cardTypesUpdateRequire = false;
+//                    for(Card c:cards){
+//                        boolean isTypeExist = false;
+//                        for(CardType ct:cardTypes){
+//                            if(c.getCardType().equals(ct.getId())){
+//                                isTypeExist = true;
+//                                break;
+//                            }
+//                        }
+//                        if(!isTypeExist){
+//                            cardTypesUpdateRequire = true;
+//                            break;
+//                        }
+//
+//                    }
+//                    if(cardTypesUpdateRequire) {
+//                        setCardTypes(new VoidListener() {
+//                            @Override
+//                            public void onComplete() {
+//                                listener.onComplete(cards, "CardTypes Updated");
+//                            }
+//                        });
+//                    }
+//                }else{
+//                listener.onComplete(cards, "All Good");
+////            }
+//            }
+//        });
     }
 
 
@@ -399,10 +429,12 @@ public class Model {
             @Override
             public void onComplete(Card card, String message) {
                 boolean isTypeExist = false;
-                for(CardType ct:cardTypes){
-                    if(ct.getId().equals(card.getCardType())){
-                        isTypeExist = true;
-                        break;
+                if(card.getCardType() !=null){
+                    for(CardType ct:cardTypes){
+                        if(ct.getId().equals(card.getCardType())){
+                            isTypeExist = true;
+                            break;
+                        }
                     }
                 }
                 if(!isTypeExist) {

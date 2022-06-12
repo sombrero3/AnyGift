@@ -119,15 +119,22 @@ public class MyWalletFragment extends Fragment {
 
         addFab.setOnClickListener((v)-> Navigation.findNavController(v).navigate(R.id.action_global_addCardFragment));
 
-        swipeRefresh.setRefreshing(Model.instance.getListLoadingState().getValue() == Model.GiftListLoadingState.loading);
-        Model.instance.getListLoadingState().observe(getViewLifecycleOwner(), ListLoadingState -> {
-            if (ListLoadingState == Model.GiftListLoadingState.loading) {
-                swipeRefresh.setRefreshing(true);
-            } else {
+//        swipeRefresh.setRefreshing(Model.instance.getListLoadingState().getValue() == Model.GiftListLoadingState.loading);
+//        Model.instance.getListLoadingState().observe(getViewLifecycleOwner(), ListLoadingState -> {
+//            if (ListLoadingState == Model.GiftListLoadingState.loading) {
+//                swipeRefresh.setRefreshing(true);
+//            } else {
+//                swipeRefresh.setRefreshing(false);
+//            }
+//
+//        });
+        swipeRefresh.setOnRefreshListener(() -> {
+            viewModel.setList(() -> {
+                adapter.notifyDataSetChanged();
                 swipeRefresh.setRefreshing(false);
-            }
-
+            });
         });
+
         transactionsBtn.setOnClickListener(view -> Navigation.findNavController(view).navigate(R.id.action_global_transactionsFragment));
         return view;
 

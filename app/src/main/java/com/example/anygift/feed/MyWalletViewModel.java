@@ -23,12 +23,13 @@ public class MyWalletViewModel extends ViewModel {
 
     }
 
-    private void setList() {
+    public void setList(Model.VoidListener listener) {
         Model.instance.getAllUserCards(new Model.cardsReturnListener() {
             @Override
             public void onComplete(List<Card> cards, String message) {
                 gfList.clear();
                 gfList.addAll(cards);
+                listener.onComplete();
             }
         });
     }
@@ -40,6 +41,10 @@ public class MyWalletViewModel extends ViewModel {
                 if(cards!=null) {
                     gfList.clear();
                     gfList.addAll(cards);
+                    listener.onComplete(cards);
+                }else{
+                    cards=new ArrayList<>();
+                    gfList.clear();
                     listener.onComplete(cards);
                 }
             }

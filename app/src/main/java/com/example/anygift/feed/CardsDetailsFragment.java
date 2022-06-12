@@ -103,6 +103,8 @@ public class CardsDetailsFragment extends Fragment {
         numLikeTv = view.findViewById(R.id.details_num_like_tv);
         numUnlikeTv = view.findViewById(R.id.details_num_unlike_tv);
         verifiedIv = view.findViewById(R.id.details_verified_iv);
+        btnCloseStore=view.findViewById(R.id.btnCloseStore);
+        client = LocationServices.getFusedLocationProviderClient(getActivity());
         Model.instance.getCardRetrofit(cardId, new Model.cardReturnListener() {
             @Override
             public void onComplete(Card c, String message) {
@@ -111,6 +113,31 @@ public class CardsDetailsFragment extends Fragment {
                 for(CardType ct:Model.instance.cardTypes){
                     if(c.getCardType().equals(ct.getId())){
                         List<String> tempList=new ArrayList<>();
+                        if(ct.getStores().size()==0){
+                            btnCloseStore.setVisibility(View.GONE);
+                        }else{
+                            btnCloseStore.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    //find closet store
+                                    if(listFromJSON.length==0){
+                                        Toast.makeText(getContext(), "There Is No Avilable Stores...", Toast.LENGTH_SHORT).show();
+                                    }
+                                    else {
+                                        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                                            getCurrentLocation();
+
+
+                                        } else {
+                                            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
+                                                    Manifest.permission.ACCESS_COARSE_LOCATION}, 100);
+
+                                        }
+
+                                    }
+                                }
+                            });
+                        }
                         for(int i=0;i<ct.getStores().size();i++){
                             tempList.addAll(ct.getStores().get(i).getLocations());
                         }
@@ -118,6 +145,10 @@ public class CardsDetailsFragment extends Fragment {
                         listFromJSON = tempList.toArray(listFromJSON);
                     }
                 }
+
+
+
+
 
                 Model.instance.getUserRetrofit(card.getOwner(), new Model.userReturnListener() {
                     @Override
@@ -170,33 +201,8 @@ public class CardsDetailsFragment extends Fragment {
                 });
             }
         });
-        client = LocationServices.getFusedLocationProviderClient(getActivity());
-        btnCloseStore=view.findViewById(R.id.btnCloseStore);
-        btnCloseStore.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //find closet store
-                if(listFromJSON.length==0){
-                    Toast.makeText(getContext(), "There Is No Avilable Stores...", Toast.LENGTH_SHORT).show();
-                }
-               else {
-                    if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                        getCurrentLocation();
 
 
-                    } else {
-                        requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
-                                Manifest.permission.ACCESS_COARSE_LOCATION}, 100);
-
-                    }
-
-                }
-            }
-
-
-
-
-        });
         return view;
     }
 
@@ -255,9 +261,12 @@ public class CardsDetailsFragment extends Fragment {
     }
 
     private void setCardImage(ImageView image) {
+
         for (CardType ct : Model.instance.cardTypes) {
             if (ct.getId().equals(card.getCardType())) {
-                image.setImageBitmap(ct.getPicture());
+                if(ct.getPicture()!=null) {
+                    image.setImageBitmap(ct.getPicture());
+                }
             }
         }
     }
