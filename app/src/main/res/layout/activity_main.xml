@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:id="@+id/my_drawer_layout"
     tools:context=".feed.MainActivity"
-    android:background="@drawable/pink_dark_bg"
+    android:background="@color/purple_dark"
     tools:ignore="HardcodedText">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/main_activity_constraint"

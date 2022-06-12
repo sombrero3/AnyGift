@@ -2,7 +2,6 @@ package com.example.anygift.feed;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -24,7 +23,6 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import android.provider.Settings;
-import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,7 +36,6 @@ import android.widget.Toast;
 
 import com.example.anygift.R;
 import com.example.anygift.Retrofit.Card;
-import com.example.anygift.Retrofit.CardTransaction;
 import com.example.anygift.Retrofit.CardType;
 import com.example.anygift.Retrofit.SellerRatings;
 import com.example.anygift.Retrofit.Store;
@@ -61,8 +58,8 @@ import java.util.Locale;
 
 public class CardsDetailsFragment extends Fragment {
     View view;
-    private TextView name, value, expTv, buyAt, typeTv, popUpTypeTv, popUpExpTv, popupValueTv, popUpPriceTv, emailTv, savingTv, askedPriceTv, storesTv,numLikeTv,numUnlikeTv,coinsTv,popUpSavingTv;
-    private Button btnCloseStore, editBtn, deleteBtn, buyBtn, popUpSaveBtn, popUpCancel, popUpStoreBtn;
+    private TextView closeStoreTv,name, value, expTv, buyAt, typeTv, popUpTypeTv, popUpExpTv, popupValueTv, popUpPriceTv, emailTv, savingTv, askedPriceTv, storesTv,numLikeTv,numUnlikeTv,coinsTv,popUpSavingTv;
+    private Button  editBtn, deleteBtn, buyBtn, popUpSaveBtn, popUpCancel, popUpStoreBtn;
     NavigationView navigationView;
     private ImageView userImage, giftCardImage, popUpCcardImage,verifiedIv;
     Card card;
@@ -103,7 +100,7 @@ public class CardsDetailsFragment extends Fragment {
         numLikeTv = view.findViewById(R.id.details_num_like_tv);
         numUnlikeTv = view.findViewById(R.id.details_num_unlike_tv);
         verifiedIv = view.findViewById(R.id.details_verified_iv);
-        btnCloseStore=view.findViewById(R.id.btnCloseStore);
+        closeStoreTv =view.findViewById(R.id.btnCloseStore);
         client = LocationServices.getFusedLocationProviderClient(getActivity());
 
         getData();
@@ -120,9 +117,9 @@ public class CardsDetailsFragment extends Fragment {
                     if(c.getCardType().equals(ct.getId())){
                         List<String> tempList=new ArrayList<>();
                         if(ct.getStores().size()==0){
-                            btnCloseStore.setVisibility(View.GONE);
+                            closeStoreTv.setVisibility(View.GONE);
                         }else{
-                            btnCloseStore.setOnClickListener(new View.OnClickListener() {
+                            closeStoreTv.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
                                     //find closet store
@@ -151,10 +148,6 @@ public class CardsDetailsFragment extends Fragment {
                         listFromJSON = tempList.toArray(listFromJSON);
                     }
                 }
-
-
-
-
 
                 Model.instance.getUserRetrofit(card.getOwner(), new Model.userReturnListener() {
                     @Override
