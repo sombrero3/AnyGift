@@ -13,16 +13,62 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/purple_primary"
     tools:context=".feed.TransactionsListRVFragment">
+
+    <TextView
+        android:id="@+id/transuctions_rv_title_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="Transactions History"
+        android:textColor="@color/coins"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/transuctions_rv_line"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/transuctions_rv_line"
+        style="@style/line"
+        android:layout_width="0dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="32dp"
+        android:background="@color/blue_dark"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/transuctions_rv_title_top" />
+
+    <TextView
+        android:id="@+id/transuctions_rv_title_bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Make Sure To Add feedbacks "
+        android:textColor="@color/blue_dark"
+        app:layout_constraintStart_toStartOf="@+id/transuctions_rv_title_top"
+        app:layout_constraintTop_toBottomOf="@+id/transuctions_rv_line" />
+
+    <View
+        android:id="@+id/transuctions_rv_line2"
+        style="@style/line"
+        android:layout_width="0dp"
+        android:layout_marginTop="24dp"
+        android:background="@color/purple_dark"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/transuctions_rv_title_bottom" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/transactions_rv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/transuctions_rv_line2" />
 
     <ProgressBar
         android:id="@+id/tran_list_pb"
