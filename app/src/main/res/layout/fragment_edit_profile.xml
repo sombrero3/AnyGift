@@ -27,6 +27,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="1dp"
         android:layout_marginEnd="32dp"
+        android:background="@color/blue_dark"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView800" />
@@ -35,6 +36,7 @@
         android:id="@+id/edit_card_title_bottom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/blue_dark"
         android:text="Please enter your new details"
         app:layout_constraintStart_toStartOf="@+id/textView800"
         app:layout_constraintTop_toBottomOf="@+id/card_details_line" />
@@ -173,6 +175,7 @@
         android:layout_marginTop="16dp"
         android:fontFamily="sans-serif-medium"
         android:text="user Email"
+        android:textColor="@color/blue_dark"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
