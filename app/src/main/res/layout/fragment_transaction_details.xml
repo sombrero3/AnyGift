@@ -10,15 +10,6 @@
         android:layout_height="match_parent"
         android:layout_marginBottom="24dp"
         tools:context=".feed.TransactionDetailsFragment">
-        <!--
-    seller='" + seller + '\'' +
-                ", buyer='" + buyer + '\'' +
-                ", card='" + card + '\'' +
-                ", boughtFor=" + boughtFor +
-                ", date='" + date + '\'' +
-                ", satisfied=" + satisfied +
-                ", buyerComment='" + buyerComment +
-                -->
 
         <TextView
             android:id="@+id/tran_details_buyer_title_tv"
@@ -179,12 +170,13 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:layout_marginEnd="16dp"
             android:gravity="end"
             android:text="TextView"
             android:textColor="@color/blue_dark"
             android:textSize="16sp"
             app:layout_constraintBaseline_toBaselineOf="@+id/textView74"
-            app:layout_constraintEnd_toEndOf="@+id/trans_details_buyer_tv"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/textView74" />
 
         <TextView
@@ -354,6 +346,7 @@
             android:layout_marginTop="2dp"
             android:layout_marginEnd="32dp"
             android:visibility="gone"
+            android:textColorHint="@color/blue_dark"
             app:hintTextColor="@color/blue_dark"
             app:layout_constraintBottom_toBottomOf="@+id/tran_details_review_title_tv"
             app:layout_constraintEnd_toEndOf="parent"
@@ -386,7 +379,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:shapeAppearanceOverlay="@style/roundedCornersSmallImageView" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

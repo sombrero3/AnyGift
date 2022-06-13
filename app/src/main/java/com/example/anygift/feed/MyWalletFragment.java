@@ -43,7 +43,7 @@ public class MyWalletFragment extends Fragment {
     MyWalletViewModel viewModel;
     CardsListAdapter adapter;
     SwipeRefreshLayout swipeRefresh;
-    TextView userName, userEmail, userPhone, userAddress, numOfSold, numOfBought, soldInCoins, boughtInCoins,numLikeTv,numUnlikeTv;
+    TextView userName, userEmail, userPhone, userAddress, numOfSold, numOfBought, soldInCoins, boughtInCoins,numLikeTv,numUnlikeTv,coinsTv;
     ImageView userImage,  addCardIv,verifiedIv;
     Button editBtn,transactionsBtn;
 
@@ -102,6 +102,8 @@ public class MyWalletFragment extends Fragment {
         numUnlikeTv = view.findViewById(R.id.my_cards_num_un_like_tv);
         verifiedIv = view.findViewById(R.id.my_cards_verified_iv);
         transactionsBtn = view.findViewById(R.id.my_cards_transactions_btn);
+        coinsTv = view.findViewById(R.id.my_cards_coins_tv);
+
 //        Model.instance.getAllCategories(new Model.categoriesReturnListener() {
 //            @Override
 //            public void onComplete(List<Category> cat) {
@@ -178,6 +180,7 @@ public class MyWalletFragment extends Fragment {
                 numOfBought.setText(""+numOfBoughtCards);
                 soldInCoins.setText(""+coinsFromSales);
                 boughtInCoins.setText(""+coinsSpent);
+                coinsTv.setText(Model.instance.getSignedUser().getCoins().toString());
 
                 if (user.getProfilePicture() != null && !user.getProfilePicture().isEmpty()) {
                     Model.instance.downloadImage(user.getProfilePicture().replace("/image/", ""),

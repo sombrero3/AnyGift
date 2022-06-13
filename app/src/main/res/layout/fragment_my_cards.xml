@@ -31,16 +31,16 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <de.hdodenhof.circleimageview.CircleImageView
-                            android:id="@+id/my_cards_avater_iv"
-                            android:layout_width="100dp"
-                            android:layout_height="100dp"
-                            android:layout_marginStart="16dp"
-                            android:layout_marginTop="24dp"
-                            android:elevation="10dp"
-                            android:src="@drawable/avatar"
-                            app:layout_constraintDimensionRatio="w,1:1"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                    android:id="@+id/my_cards_avater_iv"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="28dp"
+                    android:elevation="10dp"
+                    android:src="@drawable/avatar"
+                    app:layout_constraintDimensionRatio="w,1:1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                         <ImageView
                             android:id="@+id/imageView14"
@@ -52,14 +52,16 @@
                             app:layout_constraintTop_toBottomOf="@+id/my_cards_avater_iv"
                             app:srcCompat="@drawable/unlike_icon_red" />
 
-                        <TextView
-                            android:id="@+id/my_cards_num_un_like_tv"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:elevation="10dp"
-                            android:text="0"
-                            app:layout_constraintEnd_toStartOf="@+id/imageView14"
-                            app:layout_constraintTop_toTopOf="@+id/my_cards_num_like_tv" />
+                <TextView
+                    android:id="@+id/my_cards_num_un_like_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="1dp"
+                    android:elevation="10dp"
+                    android:text="0"
+                    android:textColor="@color/coins"
+                    app:layout_constraintEnd_toStartOf="@+id/imageView14"
+                    app:layout_constraintTop_toTopOf="@+id/my_cards_num_like_tv" />
 
                         <ImageView
                             android:id="@+id/imageView12"
@@ -83,13 +85,15 @@
                             app:srcCompat="@drawable/head_vi_icon" />
 
                 <TextView
-                            android:id="@+id/my_cards_num_like_tv"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:elevation="10dp"
-                            android:text="0"
-                            app:layout_constraintEnd_toStartOf="@+id/imageView12"
-                            app:layout_constraintTop_toBottomOf="@+id/my_cards_avater_iv" />
+                    android:id="@+id/my_cards_num_like_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:elevation="10dp"
+                    android:text="0"
+                    android:textColor="@color/coins"
+                    app:layout_constraintEnd_toStartOf="@+id/imageView12"
+                    app:layout_constraintTop_toBottomOf="@+id/my_cards_avater_iv" />
+
 
                 <TextView
                     android:id="@+id/my_cards_user_name_tv"
@@ -149,23 +153,18 @@
                             app:layout_constraintStart_toStartOf="@+id/my_cards_phone_tv"
                             app:layout_constraintTop_toBottomOf="@+id/my_cards_phone_tv" />
 
-                        <Button
-                            android:id="@+id/my_cards_edit_btn"
-                            android:layout_width="0dp"
-                            android:layout_height="30dp"
-                            android:layout_marginTop="8dp"
-                            android:layout_marginBottom="16dp"
-                            android:background="@drawable/button_border_radious_25_blue"
-                            android:elevation="10dp"
-                            android:text="Edit"
-                            android:textColor="@color/blue_dark"
-                            app:layout_constraintEnd_toEndOf="@+id/my_cards_email_tv"
-                            app:layout_constraintStart_toStartOf="@+id/my_cards_address_tv"
-                            app:layout_constraintTop_toBottomOf="@+id/my_cards_address_tv" />
-
-<!--                    </androidx.constraintlayout.widget.ConstraintLayout>-->
-
-<!--                </com.google.android.material.card.MaterialCardView>-->
+                <Button
+                    android:id="@+id/my_cards_edit_btn"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/button_border_radious_25_blue"
+                    android:elevation="10dp"
+                    android:text="Edit"
+                    android:textColor="@color/blue_dark"
+                    app:layout_constraintEnd_toEndOf="@+id/my_cards_email_tv"
+                    app:layout_constraintStart_toStartOf="@+id/my_cards_avater_iv"
+                    app:layout_constraintTop_toBottomOf="@+id/my_cards_address_tv" />
 
                 <TextView
                     android:id="@+id/textView44499"
@@ -393,25 +392,28 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/coin_794" />
+
+                <TextView
+                    android:id="@+id/my_cards_coins_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:text="TextView"
+                    android:textColor="@color/coins"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView"
+                    app:layout_constraintEnd_toStartOf="@+id/imageView"
+                    app:layout_constraintTop_toTopOf="@+id/imageView" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
-    <!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--        android:id="@+id/my_cards_add_fab"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginEnd="16dp"-->
-<!--        android:layout_marginBottom="16dp"-->
-<!--        android:backgroundTint="@color/purple_dark"-->
-<!--        android:clickable="true"-->
-<!--        android:focusable="true"-->
-<!--        android:layout_gravity="end|bottom"-->
-<!--        android:tint="@color/white"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:srcCompat="@drawable/add_black_icon"-->
-<!--        tools:ignore="SpeakableTextPresentCheck" />-->
-
 </FrameLayout>

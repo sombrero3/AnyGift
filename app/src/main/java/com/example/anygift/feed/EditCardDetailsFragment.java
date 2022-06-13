@@ -241,7 +241,11 @@ public class EditCardDetailsFragment extends Fragment {
                         CategoryMenuGone();
                         otherFlag = false;
                     }
-                    giftCardImage.setImageBitmap(cts.get(i).getPicture());
+                    if(cts.get(i).getPicture()!=null) {
+                        giftCardImage.setImageBitmap(cts.get(i).getPicture());
+                    }else{
+                        giftCardImage.setImageResource(R.drawable.gift_card_logo_card);
+                    }
                     cardType = cts.get(i).getId();
                 }else{
                     giftCardImage.setImageResource(R.drawable.gift_card_logo_card);
