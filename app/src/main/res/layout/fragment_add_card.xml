@@ -30,6 +30,7 @@
         style="@style/line"
         android:layout_width="0dp"
         android:layout_marginStart="32dp"
+        android:background="@color/blue_dark"
         android:layout_marginTop="1dp"
         android:layout_marginEnd="32dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -41,6 +42,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
+        android:textColor="@color/blue_dark"
         android:text="Please enter card details"
         app:layout_constraintStart_toStartOf="@+id/add_card_title_top"
         app:layout_constraintTop_toBottomOf="@+id/add_card_title_top" />
@@ -137,7 +139,7 @@
         android:layout_marginTop="32dp"
         android:fontFamily="sans-serif-medium"
         android:text="Choose Card Type:"
-        android:textColor="@color/black"
+        android:textColor="@color/blue_dark"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/add_giftCardImage" />
 
@@ -287,7 +289,7 @@
         android:layout_marginTop="24dp"
         android:fontFamily="sans-serif-medium"
         android:text="Publish card for sale"
-        android:textColor="@color/black"
+        android:textColor="@color/blue_dark"
         app:layout_constraintStart_toStartOf="@+id/textInputLayout5"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout5" />
 

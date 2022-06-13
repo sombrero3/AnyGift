@@ -115,7 +115,7 @@
                 android:layout_marginTop="8dp"
                 android:backgroundTint="@color/white"
                 android:text="Card Type :"
-                android:textColor="@color/black"
+                android:textColor="@color/blue_dark"
                 android:visibility="gone"
                 app:layout_constraintStart_toStartOf="@+id/feed_card_type_spinner"
                 app:layout_constraintTop_toBottomOf="@+id/feed_filter_switch" />
@@ -230,7 +230,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginBottom="1dp"
                 android:text="Category :"
-                android:textColor="@color/black"
+                android:textColor="@color/blue_dark"
                 android:visibility="gone"
                 app:layout_constraintBottom_toTopOf="@+id/feed_card_category_spinner"
                 app:layout_constraintStart_toStartOf="@+id/feed_card_category_spinner" />

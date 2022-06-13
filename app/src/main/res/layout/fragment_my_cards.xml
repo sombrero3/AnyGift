@@ -19,29 +19,18 @@
                 android:layout_height="match_parent"
                 tools:context=".feed.MyWalletFragment">
 
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/materialCardView111"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="6dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="6dp"
-                    android:clickable="true"
-                    app:cardCornerRadius="20dp"
-                    app:cardElevation="4dp"
-                    app:cardPreventCornerOverlap="true"
+                <TextView
+                    android:id="@+id/textView7"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginBottom="-24dp"
+                    android:background="@color/purple_primary"
+                    app:layout_constraintBottom_toBottomOf="@+id/my_cards_edit_btn"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    app:layout_constraintTop_toTopOf="parent" />
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_margin="0dp"
-                        android:background="@drawable/box_background_blue_dark_dark"
-                        android:padding="0dp">
-
-                        <de.hdodenhof.circleimageview.CircleImageView
+                <de.hdodenhof.circleimageview.CircleImageView
                             android:id="@+id/my_cards_avater_iv"
                             android:layout_width="100dp"
                             android:layout_height="100dp"
@@ -93,7 +82,7 @@
                             app:layout_constraintTop_toBottomOf="@+id/my_cards_avater_iv"
                             app:srcCompat="@drawable/head_vi_icon" />
 
-                        <TextView
+                <TextView
                             android:id="@+id/my_cards_num_like_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -102,21 +91,21 @@
                             app:layout_constraintEnd_toStartOf="@+id/imageView12"
                             app:layout_constraintTop_toBottomOf="@+id/my_cards_avater_iv" />
 
-                        <TextView
-                            android:id="@+id/my_cards_user_name_tv"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="32dp"
-                            android:layout_marginEnd="16dp"
-                            android:elevation="10dp"
-                            android:fontFamily="sans-serif-medium"
-                            android:gravity="left"
-                            android:text="Use Name"
-                            android:textColor="@color/black"
-                            android:textSize="18sp"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toEndOf="@+id/my_cards_avater_iv"
-                            app:layout_constraintTop_toTopOf="@+id/my_cards_avater_iv" />
+                <TextView
+                    android:id="@+id/my_cards_user_name_tv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginEnd="16dp"
+                    android:elevation="10dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:gravity="left"
+                    android:text="Use Name"
+                    android:textColor="@color/coins"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/my_cards_avater_iv"
+                    app:layout_constraintTop_toTopOf="@+id/my_cards_avater_iv" />
 
                         <TextView
                             android:id="@+id/my_cards_email_tv"
@@ -126,6 +115,7 @@
                             android:elevation="10dp"
                             android:fontFamily="sans-serif-medium"
                             android:text="TextView"
+                            android:textColor="@color/blue_dark"
                             android:textSize="16sp"
                             app:layout_constraintEnd_toEndOf="@+id/my_cards_user_name_tv"
                             app:layout_constraintStart_toStartOf="@+id/my_cards_user_name_tv"
@@ -139,6 +129,7 @@
                             android:elevation="10dp"
                             android:fontFamily="sans-serif-medium"
                             android:text="0507788523"
+                            android:textColor="@color/blue_dark"
                             android:textSize="16sp"
                             app:layout_constraintStart_toStartOf="@+id/my_cards_email_tv"
                             app:layout_constraintTop_toBottomOf="@+id/my_cards_email_tv" />
@@ -152,6 +143,7 @@
                             android:elevation="10dp"
                             android:fontFamily="sans-serif-medium"
                             android:text="TextView"
+                            android:textColor="@color/blue_dark"
                             android:textSize="16sp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="@+id/my_cards_phone_tv"
@@ -166,29 +158,28 @@
                             android:background="@drawable/button_border_radious_25_blue"
                             android:elevation="10dp"
                             android:text="Edit"
-                            android:textColor="@color/pink"
-                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:textColor="@color/blue_dark"
                             app:layout_constraintEnd_toEndOf="@+id/my_cards_email_tv"
                             app:layout_constraintStart_toStartOf="@+id/my_cards_address_tv"
                             app:layout_constraintTop_toBottomOf="@+id/my_cards_address_tv" />
 
-                    </androidx.constraintlayout.widget.ConstraintLayout>
+<!--                    </androidx.constraintlayout.widget.ConstraintLayout>-->
 
-                </com.google.android.material.card.MaterialCardView>
+<!--                </com.google.android.material.card.MaterialCardView>-->
 
                 <TextView
                     android:id="@+id/textView44499"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_marginStart="6dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="16dp"
                     android:layout_marginEnd="6dp"
                     android:layout_marginBottom="-32dp"
-                    android:background="@drawable/button_border_radius_25dp_purple"
+                    android:background="@drawable/button_border_radious_25_blue"
                     app:layout_constraintBottom_toBottomOf="@+id/MyCards_list_rv"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/materialCardView111" />
+                    app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
                 <TextView
                     android:id="@+id/textView36"
@@ -199,9 +190,10 @@
                     android:elevation="10dp"
                     android:fontFamily="sans-serif-medium"
                     android:text="Cards in Wallet :"
+                    android:textColor="@color/blue_dark"
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/materialCardView111" />
+                    app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
                 <ImageView
                     android:id="@+id/my_cards_add_card_iv"

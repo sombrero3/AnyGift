@@ -29,7 +29,7 @@
     </style>
     <style name="roundedCornersImageView" parent="">
         <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">20dp</item>
+        <item name="cornerSize">14dp</item>
     </style>
     <style name="roundedCornersSmallImageView" parent="">
         <item name="cornerFamily">rounded</item>

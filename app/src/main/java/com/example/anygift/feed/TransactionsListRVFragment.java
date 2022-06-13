@@ -48,7 +48,9 @@ public class TransactionsListRVFragment extends Fragment {
             @Override
             public void onComplete(List<CardTransaction> cardTransaction, String message) {
                 tranList = new ArrayList<>();
-                tranList.addAll(cardTransaction);
+                if(cardTransaction.size()>0) {
+                    tranList.addAll(cardTransaction);
+                }
                 adapter = new TransactionsAdapter(tranList);
                 rv.setAdapter(adapter);
                 adapter.setOnItemClickListener(new OnItemClickListener() {

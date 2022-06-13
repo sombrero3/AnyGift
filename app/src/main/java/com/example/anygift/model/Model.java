@@ -91,6 +91,7 @@ public class Model {
             }
         });
     }
+
     public void setCardTypes(VoidListener listener) {
         getAllCardTypes(cts -> {
             cardTypes.clear();
@@ -290,39 +291,41 @@ public class Model {
     }
 
     public void getAllUserCards(cardsReturnListener listener) {
-        modelRetrofit.getAllUserCards(listener);
-//        modelRetrofit.getAllUserCards(new cardsReturnListener() {
-//            @Override
-//            public void onComplete(List<Card> cards, String message) {
-//                if(cards!=null) {
-//                    boolean cardTypesUpdateRequire = false;
-//                    for(Card c:cards){
-//                        boolean isTypeExist = false;
-//                        for(CardType ct:cardTypes){
-//                            if(c.getCardType().equals(ct.getId())){
-//                                isTypeExist = true;
-//                                break;
-//                            }
-//                        }
-//                        if(!isTypeExist){
-//                            cardTypesUpdateRequire = true;
-//                            break;
-//                        }
-//
-//                    }
-//                    if(cardTypesUpdateRequire) {
-//                        setCardTypes(new VoidListener() {
-//                            @Override
-//                            public void onComplete() {
-//                                listener.onComplete(cards, "CardTypes Updated");
-//                            }
-//                        });
-//                    }
-//                }else{
-//                listener.onComplete(cards, "All Good");
-////            }
-//            }
-//        });
+//        modelRetrofit.getAllUserCards(listener);
+        modelRetrofit.getAllUserCards(new cardsReturnListener() {
+            @Override
+            public void onComplete(List<Card> cards, String message) {
+                if(cards!=null) {
+                    boolean cardTypesUpdateRequire = false;
+                    for(Card c:cards){
+                        boolean isTypeExist = false;
+                        for(CardType ct:cardTypes){
+                            if(c.getCardType().equals(ct.getId())){
+                                isTypeExist = true;
+                                break;
+                            }
+                        }
+                        if(!isTypeExist){
+                            cardTypesUpdateRequire = true;
+                            break;
+                        }
+                    }
+
+                    if(cardTypesUpdateRequire) {
+                        setCardTypes(new VoidListener() {
+                            @Override
+                            public void onComplete() {
+                                listener.onComplete(cards, "CardTypes Updated");
+                            }
+                        });
+                    }else{
+                        listener.onComplete(cards, "All Good");
+                    }
+                }else{
+                    listener.onComplete(new ArrayList<>(), "All Good");
+                }
+            }
+        });
     }
 
 
