@@ -10,15 +10,6 @@
         android:layout_height="match_parent"
         android:layout_marginBottom="24dp"
         tools:context=".feed.TransactionDetailsFragment">
-        <!--
-    seller='" + seller + '\'' +
-                ", buyer='" + buyer + '\'' +
-                ", card='" + card + '\'' +
-                ", boughtFor=" + boughtFor +
-                ", date='" + date + '\'' +
-                ", satisfied=" + satisfied +
-                ", buyerComment='" + buyerComment +
-                -->
 
         <TextView
             android:id="@+id/tran_details_buyer_title_tv"
@@ -254,7 +245,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Sutisfied : "
+            android:text="Satisfied : "
             android:textColor="@color/blue_dark"
             app:layout_constraintStart_toStartOf="@+id/textView85"
             app:layout_constraintTop_toBottomOf="@+id/trans_details_nofeedback_tv" />
@@ -388,7 +379,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:shapeAppearanceOverlay="@style/roundedCornersSmallImageView" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

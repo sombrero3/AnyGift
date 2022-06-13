@@ -58,7 +58,7 @@ import java.util.Locale;
 
 public class CardsDetailsFragment extends Fragment {
     View view;
-    private TextView closeStoreTv,name, value, expTv, buyAt, typeTv, popUpTypeTv, popUpExpTv, popupValueTv, popUpPriceTv, emailTv, savingTv, askedPriceTv, storesTv,numLikeTv,numUnlikeTv, coinsTv,popUpSavingTv;
+    private TextView closeStoreTv,name, value, expTv, buyAt, typeTv, popUpTypeTv, popUpExpTv, popupValueTv, popUpPriceTv, emailTv, savingTv, askedPriceTv, storesTv,numLikeTv,numUnlikeTv,coinsTv,popUpSavingTv;
     private Button  editBtn, deleteBtn, buyBtn, popUpSaveBtn, popUpCancel, popUpStoreBtn;
     NavigationView navigationView;
     private ImageView userImage, giftCardImage, popUpCcardImage,verifiedIv;
@@ -339,6 +339,7 @@ public class CardsDetailsFragment extends Fragment {
                              String cardID, String cardTypeId, Double cardPrice, Double cardValue) {
         HashMap<String, Object> map = new HashMap<>();
         map.put("owner", toID);
+        map.put("isForSale", false);
         HashMap<String, Object> updateMap = Card.mapToUpdateCard(cardID, map); //update card owner.
         Model.instance.updateCardRetrofit(cardID, updateMap, new Model.cardReturnListener() {
             @Override

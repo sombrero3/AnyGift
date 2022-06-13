@@ -94,6 +94,7 @@
                     app:layout_constraintEnd_toStartOf="@+id/imageView12"
                     app:layout_constraintTop_toBottomOf="@+id/my_cards_avater_iv" />
 
+
                 <TextView
                     android:id="@+id/my_cards_user_name_tv"
                     android:layout_width="0dp"
@@ -164,10 +165,6 @@
                     app:layout_constraintEnd_toEndOf="@+id/my_cards_email_tv"
                     app:layout_constraintStart_toStartOf="@+id/my_cards_avater_iv"
                     app:layout_constraintTop_toBottomOf="@+id/my_cards_address_tv" />
-
-<!--                    </androidx.constraintlayout.widget.ConstraintLayout>-->
-
-<!--                </com.google.android.material.card.MaterialCardView>-->
 
                 <TextView
                     android:id="@+id/textView44499"
@@ -419,22 +416,4 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
-    <!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--        android:id="@+id/my_cards_add_fab"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginEnd="16dp"-->
-<!--        android:layout_marginBottom="16dp"-->
-<!--        android:backgroundTint="@color/purple_dark"-->
-<!--        android:clickable="true"-->
-<!--        android:focusable="true"-->
-<!--        android:layout_gravity="end|bottom"-->
-<!--        android:tint="@color/white"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:srcCompat="@drawable/add_black_icon"-->
-<!--        tools:ignore="SpeakableTextPresentCheck" />-->
-
 </FrameLayout>

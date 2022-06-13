@@ -48,15 +48,15 @@ import java.util.HashMap;
 import java.util.List;
 
 public class AddCardFragment extends Fragment {
-    TextInputEditText cardValue, cardAskingValue, cardNumber ;
+    TextInputEditText cardValue, cardAskingValue, cardNumber;
     Button addCardButton;
     ImageView giftCardImage;
-    View view,titleLine;
+    View view, titleLine;
     ProgressBar pb;
     String latAndLong, cardType;
-//    UserViewModel userViewModel;
+    //    UserViewModel userViewModel;
     Spinner spinnerCardType;
-    TextView dateTv,titleTop,titleBottom;
+    TextView dateTv, titleTop, titleBottom;
     CheckBox forSaleCb;
     DatePickerDialog.OnDateSetListener dateListener;
     List<String> cardTypes;
@@ -65,11 +65,11 @@ public class AddCardFragment extends Fragment {
     List<Category> categories;
 
     TextInputEditText publisherNameEt;
-    TextView categoriesTv,categoriesBackgroundTv;
+    TextView categoriesTv, categoriesBackgroundTv;
     Button addCategoriesBtn;
     TextInputLayout nameContainerTIl;
-    boolean otherFlag,itemsFlags[],itemsFlagsLastCondition[];
-    CharSequence []  items;
+    boolean otherFlag, itemsFlags[], itemsFlagsLastCondition[];
+    CharSequence[] items;
 
 
     @Override
@@ -95,7 +95,6 @@ public class AddCardFragment extends Fragment {
         giftCardImage.setTag("");
 
 
-
         setCardtypesSpinner();
         setDateSelector();
 
@@ -105,7 +104,7 @@ public class AddCardFragment extends Fragment {
 
         addCardButton.setOnClickListener(v -> upload());
 
-        rightAnim = AnimationUtils.loadAnimation(getActivity(),R.anim.right_anim);
+        rightAnim = AnimationUtils.loadAnimation(getActivity(), R.anim.right_anim);
         titleLine.setAnimation(rightAnim);
         titleTop.setAnimation(rightAnim);
         titleBottom.setAnimation(rightAnim);
@@ -113,6 +112,7 @@ public class AddCardFragment extends Fragment {
         pb.setVisibility(View.INVISIBLE);
         return view;
     }
+
     private void setCategoriesDialog() {
         categoriesTv = view.findViewById(R.id.add_card_categories_tv);
         categoriesBackgroundTv = view.findViewById(R.id.add_card_publisher_background);
@@ -121,13 +121,13 @@ public class AddCardFragment extends Fragment {
         nameContainerTIl = view.findViewById(R.id.add_card_publisher_name_container_textinputlayout);
         List<String> AllCategories = new ArrayList<>();
 
-        for(Category c : categories){
+        for (Category c : categories) {
             AllCategories.add(c.getName());
         }
         items = AllCategories.toArray(new CharSequence[AllCategories.size()]);
         itemsFlags = new boolean[categories.size()];
         itemsFlagsLastCondition = new boolean[categories.size()];
-        addCategoriesBtn.setOnClickListener(v->startCategoriesDialog());
+        addCategoriesBtn.setOnClickListener(v -> startCategoriesDialog());
     }
 
     private void startCategoriesDialog() {
@@ -148,9 +148,9 @@ public class AddCardFragment extends Fragment {
                 String result = "";
 
                 boolean psik = false;
-                for(int i=0;i<categories.size();i++){
+                for (int i = 0; i < categories.size(); i++) {
                     itemsFlagsLastCondition[i] = itemsFlags[i];
-                    if(itemsFlags[i]) {
+                    if (itemsFlags[i]) {
                         if (!psik) {
                             result += categories.get(i).getName();
                             psik = true;
@@ -160,7 +160,7 @@ public class AddCardFragment extends Fragment {
                     }
                 }
 
-                if(result.isEmpty()) {
+                if (result.isEmpty()) {
                     result = "Please choose categories";
                 }
                 categoriesTv.setText(result);
@@ -170,7 +170,7 @@ public class AddCardFragment extends Fragment {
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int pos) {
-                for(int i=0;i<itemsFlags.length;i++){
+                for (int i = 0; i < itemsFlags.length; i++) {
                     itemsFlags[i] = itemsFlagsLastCondition[i];
                 }
                 dialogInterface.dismiss();
@@ -180,7 +180,7 @@ public class AddCardFragment extends Fragment {
         builder.setNeutralButton("Clear All", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int pos) {
-                for(int i=0;i<itemsFlags.length;i++){
+                for (int i = 0; i < itemsFlags.length; i++) {
                     itemsFlagsLastCondition[i] = false;
                     itemsFlags[i] = false;
                 }
@@ -229,12 +229,12 @@ public class AddCardFragment extends Fragment {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, cardTypes);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerCardType.setAdapter(adapter);
-        otherFlag =false;
+        otherFlag = false;
         spinnerCardType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if(i<cts.size()) {
-                    if(otherFlag){
+                if (i < cts.size()) {
+                    if (otherFlag) {
                         CategoryMenuGone();
                         otherFlag = false;
                     }
@@ -244,7 +244,7 @@ public class AddCardFragment extends Fragment {
                         giftCardImage.setImageResource(R.drawable.gift_card_logo_card);
                     }
                     cardType = cts.get(i).getId();
-                }else{
+                } else {
                     giftCardImage.setImageResource(R.drawable.gift_card_logo_card);
                     otherFlag = true;
                     CategoryMenuVisible();
@@ -262,15 +262,15 @@ public class AddCardFragment extends Fragment {
 
     }
 
-    private void CategoryMenuVisible(){
-         categoriesTv.setVisibility(View.VISIBLE);
-         addCategoriesBtn.setVisibility(View.VISIBLE);
-         nameContainerTIl.setVisibility(View.VISIBLE);
+    private void CategoryMenuVisible() {
+        categoriesTv.setVisibility(View.VISIBLE);
+        addCategoriesBtn.setVisibility(View.VISIBLE);
+        nameContainerTIl.setVisibility(View.VISIBLE);
         publisherNameEt.setVisibility(View.VISIBLE);
         categoriesBackgroundTv.setVisibility(View.VISIBLE);
     }
 
-    private void CategoryMenuGone(){
+    private void CategoryMenuGone() {
         categoriesTv.setVisibility(View.GONE);
         addCategoriesBtn.setVisibility(View.GONE);
         nameContainerTIl.setVisibility(View.GONE);
@@ -305,34 +305,40 @@ public class AddCardFragment extends Fragment {
     }
 
     private void upload() {
+        String num=cardNumber.getText().toString();
+        if (num.length()!=16)
+            Toast.makeText(getContext(), "You need to input valid card number!", Toast.LENGTH_SHORT).show();
         String name = publisherNameEt.getText().toString();
-        if(name.equals("")){
-            Toast.makeText(getContext(), "You need to add publisher name!", Toast.LENGTH_SHORT).show();
-        }else {
-            List<String> ids = new ArrayList<>();
-            System.out.println(categoriesTv.getText().toString().split(","));
-            List<String> names = Arrays.asList(categoriesTv.getText().toString().split(","));
-            for (String n : names) {
-                for (Category category : categories) {
-                    if (n.trim().equals(category.getName()))
-                        ids.add(category.getId());
+        if (spinnerCardType.getSelectedItemPosition() == cardTypes.size())
+            if (name.equals("")) {
+                Toast.makeText(getContext(), "You need to add publisher name!", Toast.LENGTH_SHORT).show();
+            } else {
+                List<String> ids = new ArrayList<>();
+                List<String> names = Arrays.asList(categoriesTv.getText().toString().split(","));
+                for (String n : names) {
+                    for (Category category : categories) {
+                        if (n.trim().equals(category.getName()))
+                            ids.add(category.getId());
+                    }
                 }
+                System.out.println(ids);
+                HashMap<String, Object> map = new HashMap<>();
+                map.put("name", name);
+                map.put("categories", ids);
+                Model.instance.modelRetrofit.addCardType(map, new Model.cardTypeReturnListener() {
+                    @Override
+                    public void onComplete(CardType ct) {
+                        addCard(ct.getId());
+                    }
+                });
             }
-            System.out.println(ids);
-            HashMap<String, Object> map = new HashMap<>();
-            map.put("name", name);
-            map.put("categories", ids);
-            Model.instance.modelRetrofit.addCardType(map, new Model.cardTypeReturnListener() {
-                @Override
-                public void onComplete(CardType ct) {
-                    addCard(ct.getId());
-                }
-            });
+            //
+        else {
+            addCard(cardType);
         }
-        //
     }
 
-    private void addCard(String ct){
+    private void addCard(String ct) {
         HashMap<String, Object> map = Card.mapToAddCard(Double.parseDouble(cardAskingValue.getText().toString()),
                 Double.parseDouble(cardValue.getText().toString()), cardNumber.getText().toString(), ct,
                 Model.instance.modelRetrofit.getUserId(), forSaleCb.isChecked(),

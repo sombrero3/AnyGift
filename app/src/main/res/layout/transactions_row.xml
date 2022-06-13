@@ -125,7 +125,7 @@
                 android:visibility="invisible"
                 app:layout_constraintStart_toStartOf="@+id/textView65"
                 app:layout_constraintTop_toBottomOf="@+id/textView65"
-                app:srcCompat="@drawable/like_icon" />
+                app:srcCompat="@drawable/like_icon_green" />
 
             <ImageView
                 android:id="@+id/tran_row_unlike_iv"
@@ -136,7 +136,7 @@
                 android:visibility="invisible"
                 app:layout_constraintStart_toStartOf="@+id/textView65"
                 app:layout_constraintTop_toBottomOf="@+id/textView65"
-                app:srcCompat="@drawable/unlike_icon" />
+                app:srcCompat="@drawable/unlike_icon_red" />
 
             <TextView
                 android:id="@+id/tran_row_nofeedback_tv"
