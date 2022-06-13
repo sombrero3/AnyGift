@@ -41,11 +41,11 @@ public class MyWalletViewModel extends ViewModel {
                 if(cards!=null) {
                     gfList.clear();
                     gfList.addAll(cards);
-                    listener.onComplete(cards);
+                    listener.onComplete(gfList);
                 }else{
                     cards=new ArrayList<>();
                     gfList.clear();
-                    listener.onComplete(cards);
+                    listener.onComplete(gfList);
                 }
             }
         });
