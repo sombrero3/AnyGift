@@ -339,6 +339,7 @@ public class CardsDetailsFragment extends Fragment {
                              String cardID, String cardTypeId, Double cardPrice, Double cardValue) {
         HashMap<String, Object> map = new HashMap<>();
         map.put("owner", toID);
+        map.put("isForSale", false);
         HashMap<String, Object> updateMap = Card.mapToUpdateCard(cardID, map); //update card owner.
         Model.instance.updateCardRetrofit(cardID, updateMap, new Model.cardReturnListener() {
             @Override
