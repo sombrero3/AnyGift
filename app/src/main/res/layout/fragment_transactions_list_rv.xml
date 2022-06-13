@@ -46,7 +46,7 @@
         android:id="@+id/transuctions_rv_title_bottom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Make Sure To Add feedbacks "
+        android:text="Make Sure To Add Feedbacks "
         android:textColor="@color/blue_dark"
         app:layout_constraintStart_toStartOf="@+id/transuctions_rv_title_top"
         app:layout_constraintTop_toBottomOf="@+id/transuctions_rv_line" />

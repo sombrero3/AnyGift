@@ -8,7 +8,18 @@
 
 
     <TextView
-        android:id="@+id/feed_spinner_title_tv"
+        android:id="@+id/search_background_top_tv"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="16dp"
+        android:background="@color/purple_primary"
+        app:layout_constraintBottom_toTopOf="@+id/textView57"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/search_spinner_type_title_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -17,7 +28,7 @@
         android:textColor="@color/blue_dark"
         app:layout_constraintEnd_toEndOf="@+id/search_card_type_spinner"
         app:layout_constraintStart_toStartOf="@+id/search_card_type_spinner"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/search_switch" />
 
     <Spinner
         android:id="@+id/search_card_type_spinner"
@@ -34,7 +45,7 @@
         app:layout_constraintEnd_toStartOf="@+id/search_card_date_tv"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/feed_spinner_title_tv"
+        app:layout_constraintTop_toBottomOf="@+id/search_spinner_type_title_tv"
         tools:ignore="TouchTargetSizeCheck" />
 
     <TextView
@@ -44,10 +55,21 @@
         android:layout_marginTop="32dp"
         android:fontFamily="sans-serif-medium"
         android:text="Search results :"
-        android:textColor="@color/purplediff"
+        android:textColor="@color/blue_dark"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/search_card_search_btn" />
+
+    <View
+        android:id="@+id/general_list_line"
+        style="@style/line"
+        android:layout_width="0dp"
+        android:layout_marginEnd="2dp"
+        android:background="@color/blue_dark"
+        app:layout_constraintEnd_toEndOf="@+id/textView57"
+        app:layout_constraintStart_toStartOf="@+id/textView57"
+        app:layout_constraintTop_toBottomOf="@+id/textView57" />
+
 
     <Button
         android:id="@+id/search_card_search_btn"
@@ -56,7 +78,7 @@
         android:layout_marginTop="24dp"
         android:background="@drawable/button_border_radious_25_blue"
         android:text="Search"
-        android:textColor="@color/pink"
+        android:textColor="@color/blue_dark"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/search_category_spinner"
@@ -71,7 +93,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView57" />
+        app:layout_constraintTop_toBottomOf="@+id/general_list_line" />
 
     <TextView
         android:id="@+id/search_card_date_tv"
@@ -115,10 +137,10 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/search_card_type_spinner"
-        tools:ignore="SpeakableTextPresentCheck" />
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/search_spinner_category_title_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-medium"
@@ -148,5 +170,30 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/search_category_spinner"
-        app:layout_constraintTop_toTopOf="@+id/search_category_spinner" />
+        app:layout_constraintTop_toTopOf="@+id/search_category_spinner"
+        tools:ignore="TouchTargetSizeCheck" />
+
+
+    <Switch
+        android:id="@+id/search_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:backgroundTint="@color/pink"
+        android:text="Hide Filter"
+        android:thumbTint="@color/coins"
+        android:trackTint="@color/pink"
+        android:thumbTextPadding="20dp"
+
+        android:textColor="@color/coins"
+        android:shadowColor="@color/pink"
+        android:shadowDx="3"
+        android:shadowDy="3"
+        android:shadowRadius="1.6"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="TouchTargetSizeCheck" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,8 +2,10 @@ package com.example.anygift.feed;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -40,7 +42,6 @@ import com.example.anygift.adapters.CardsListAdapter;
 import com.example.anygift.model.Model;
 import com.example.anygift.model.Utils;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -53,7 +54,7 @@ public class FeedFragment extends Fragment {
     SwipeRefreshLayout swipeRefresh;
     TextView dateTv, spinnerTypeTitleTv,mostRecTv,spinnerCategoryTitleTv;
     EditText maxPriceEt;
-    ImageView walletIv,transIv,shopIv;
+    ImageView walletIv,transIv,shopIv,addCardIv;
     FloatingActionButton addFab;
     RecyclerView mostRecList;
     int year,month,day;
@@ -89,7 +90,7 @@ public class FeedFragment extends Fragment {
         searchBtn = view.findViewById(R.id.feed_search_btn);
         verificationBtn = view.findViewById(R.id.feed_verification_btn);
         filterSw = view.findViewById(R.id.feed_filter_switch);
-        spinnerTypeTitleTv = view.findViewById(R.id.feed_spinner_title_tv);
+        spinnerTypeTitleTv = view.findViewById(R.id.feed_spinner_type_title_tv);
         addFab = view.findViewById(R.id.feed_search_fab);
         mostRecTv = view.findViewById(R.id.feed_most_rec_tv);
         spinnerCategoryTitleTv = view.findViewById(R.id.feed_card_category_title_tv);
@@ -97,6 +98,7 @@ public class FeedFragment extends Fragment {
         transIv = view.findViewById(R.id.feed_transactions_iv);
         shopIv = view.findViewById(R.id.feed_shop_iv);
         walletIv = view.findViewById(R.id.feed_wallet_iv);
+        addCardIv = view.findViewById(R.id.feed_add_card_iv);
 
         //animations
         rightAnim = AnimationUtils.loadAnimation(getActivity(),R.anim.right_anim);
@@ -144,7 +146,7 @@ public class FeedFragment extends Fragment {
 //        });
 
         searchBtn.setOnClickListener(v -> search());
-        addFab.setOnClickListener(v-> Navigation.findNavController(v).navigate(R.id.action_global_addCardFragment));
+        addFab.setOnClickListener(v-> Navigation.findNavController(v).navigate(R.id.action_global_searchGiftCardFragment));
 
         setDateTv();
 
@@ -159,8 +161,22 @@ public class FeedFragment extends Fragment {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if (b) {
+                    filterSw.setThumbTintList(ColorStateList.valueOf(getResources().getColor(R.color.pink)));
+                    filterSw.setTrackTintList(ColorStateList.valueOf(getResources().getColor(R.color.coins)));
+                    filterSw.setTextColor(getResources().getColor(R.color.pink));
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                        filterSw.setOutlineAmbientShadowColor(getResources().getColor(R.color.coins));
+                    }
+                    filterSw.setText("Hide Filter");
                     showSearch();
                 } else {
+                    filterSw.setThumbTintList(ColorStateList.valueOf(getResources().getColor(R.color.coins)));
+                    filterSw.setTrackTintList(ColorStateList.valueOf(getResources().getColor(R.color.pink)));
+                    filterSw.setTextColor(getResources().getColor(R.color.coins));
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                        filterSw.setOutlineAmbientShadowColor(getResources().getColor(R.color.pink));
+                    }
+                    filterSw.setText("Show Filter");
                     hideSearch();
                 }
             }
@@ -171,6 +187,7 @@ public class FeedFragment extends Fragment {
         walletIv.setOnClickListener(v->Navigation.findNavController(v).navigate(R.id.action_global_myCardsFragment));
         shopIv.setOnClickListener(v->Navigation.findNavController(v).navigate(R.id.action_global_shopFragment,args));
         transIv.setOnClickListener(v->Navigation.findNavController(v).navigate(R.id.action_global_transactionsFragment));
+        addCardIv.setOnClickListener(v->Navigation.findNavController(v).navigate(R.id.action_global_addCardFragment));
 
         return view;
 

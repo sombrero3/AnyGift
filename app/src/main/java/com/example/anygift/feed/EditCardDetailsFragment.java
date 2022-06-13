@@ -84,7 +84,6 @@ public class EditCardDetailsFragment extends Fragment {
         titleLine = view.findViewById(R.id.edit_card_title_line);
         titleTop = view.findViewById(R.id.edit_card_title_top);
         titleBottom = view.findViewById(R.id.edit_card_title_bottom);
-
         categories = new ArrayList<>();
         categories.addAll(Model.instance.categories);
 
@@ -252,7 +251,6 @@ public class EditCardDetailsFragment extends Fragment {
                     otherFlag = true;
                     CategoryMenuVisible();
                 }
-
             }
 
             @Override
