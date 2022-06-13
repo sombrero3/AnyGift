@@ -24,6 +24,7 @@
         android:fontFamily="sans-serif-medium"
         android:text="Upload picture of your personal ID to verificate your account"
         android:textColor="@color/blue_dark"
+        android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/verification_camera_iv" />
@@ -43,10 +44,10 @@
         android:layout_width="100dp"
         android:layout_height="35dp"
         android:layout_marginTop="48dp"
-        android:background="@drawable/button_border_8sp_blue_dark"
+        android:background="@drawable/button_full_1"
         android:fontFamily="sans-serif-medium"
-        android:text="Complete"
-        android:textColor="@color/pink"
+        android:text="  Complete  "
+        android:textColor="@color/coins"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView63" />

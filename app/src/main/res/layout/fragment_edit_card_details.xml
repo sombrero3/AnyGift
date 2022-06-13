@@ -168,10 +168,10 @@
             android:layout_height="35dp"
             android:layout_marginTop="32dp"
             android:layout_marginBottom="24dp"
-            android:background="@drawable/button_border_8sp_blue_dark"
+            android:background="@drawable/button_full_1"
             android:fontFamily="sans-serif-medium"
             android:text="Save Changes"
-            android:textColor="@color/pink"
+            android:textColor="@color/coins"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -185,7 +185,7 @@
             android:layout_marginTop="32dp"
             android:fontFamily="sans-serif-medium"
             android:text="Choose Card Type:"
-            android:textColor="@color/blue_dark"
+            android:textColor="@color/coins"
             app:layout_constraintStart_toStartOf="@+id/edit_card_type_spinner"
             app:layout_constraintTop_toBottomOf="@+id/edit_card_giftCardImage" />
 
@@ -285,7 +285,7 @@
             android:layout_marginTop="24dp"
             android:fontFamily="sans-serif-medium"
             android:text="Publish card for sale"
-            android:textColor="@color/blue_dark"
+            android:textColor="@color/white"
             app:layout_constraintStart_toStartOf="@+id/textInputLayout50"
             app:layout_constraintTop_toBottomOf="@+id/textInputLayout50" />
 

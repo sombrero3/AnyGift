@@ -58,7 +58,7 @@ import java.util.Locale;
 
 public class CardsDetailsFragment extends Fragment {
     View view;
-    private TextView closeStoreTv,name, value, expTv, buyAt, typeTv, popUpTypeTv, popUpExpTv, popupValueTv, popUpPriceTv, emailTv, savingTv, askedPriceTv, storesTv,numLikeTv,numUnlikeTv,coinsTv,popUpSavingTv;
+    private TextView closeStoreTv,name, value, expTv, buyAt, typeTv, popUpTypeTv, popUpExpTv, popupValueTv, popUpPriceTv, emailTv, savingTv, askedPriceTv, storesTv,numLikeTv,numUnlikeTv,coinsTv,popUpSavingTv,storeTitleTv;
     private Button  editBtn, deleteBtn, buyBtn, popUpSaveBtn, popUpCancel, popUpStoreBtn;
     NavigationView navigationView;
     private ImageView userImage, giftCardImage, popUpCcardImage,verifiedIv;
@@ -101,6 +101,7 @@ public class CardsDetailsFragment extends Fragment {
         numUnlikeTv = view.findViewById(R.id.details_num_unlike_tv);
         verifiedIv = view.findViewById(R.id.details_verified_iv);
         closeStoreTv =view.findViewById(R.id.btnCloseStore);
+        storeTitleTv = view.findViewById(R.id.my_cards_store_title_tv);
         client = LocationServices.getFusedLocationProviderClient(getActivity());
 
         getData();
@@ -163,12 +164,17 @@ public class CardsDetailsFragment extends Fragment {
                         for (CardType ct : Model.instance.cardTypes) {
                             if (ct.getId().equals(card.getCardType())) {
                                 typeTv.setText(ct.getName());
-                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                                    List<String> ls = new ArrayList<>();
-                                    for(Store st: ct.getStores()){
-                                        ls.add(st.getName());
+                                if(!ct.getStores().isEmpty()) {
+                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                        List<String> ls = new ArrayList<>();
+                                        for (Store st : ct.getStores()) {
+                                            ls.add(st.getName());
+                                        }
+                                        storesTv.setText(String.join(", ", ls));
                                     }
-                                    storesTv.setText(String.join(", ",ls));
+                                }else{
+                                    storesTv.setVisibility(View.GONE);
+                                    storeTitleTv.setVisibility(View.GONE);
                                 }
                             }
                         }

@@ -162,7 +162,7 @@
             android:layout_marginStart="32dp"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="16dp"
-            android:background="@drawable/button_border_8sp_blue_dark"
+            android:background="@drawable/button_full_4"
             android:text="Delete"
             android:textColor="@color/blue_dark"
             android:textSize="14sp"
@@ -178,9 +178,9 @@
             android:layout_height="40dp"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="32dp"
-            android:background="@drawable/button_border_8sp_blue_dark"
+            android:background="@drawable/button_full_1"
             android:text="Edit"
-            android:textColor="@color/pink"
+            android:textColor="@color/coins"
             android:textSize="14sp"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/details_delete_btn"
@@ -195,14 +195,14 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="100dp"
             android:fontFamily="sans-serif-medium"
-            android:text="Belongs to:"
+            android:text="Owner"
             android:textColor="@color/coins"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="@+id/card_details_user_pic_iv"
             app:layout_constraintTop_toBottomOf="@+id/btnCloseStore" />
 
         <TextView
-            android:id="@+id/textView43"
+            android:id="@+id/my_cards_store_title_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -241,8 +241,8 @@
             android:textColor="@color/blue_dark"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="@+id/details_giftvalue_tv"
-            app:layout_constraintStart_toEndOf="@+id/textView43"
-            app:layout_constraintTop_toTopOf="@+id/textView43" />
+            app:layout_constraintStart_toEndOf="@+id/my_cards_store_title_tv"
+            app:layout_constraintTop_toTopOf="@+id/my_cards_store_title_tv" />
 
         <View
             android:id="@+id/login_line"
@@ -312,9 +312,9 @@
             android:background="@drawable/button_full_1"
             android:text="Buy "
             android:textColor="@color/coins"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="@+id/btnCloseStore"
-            app:layout_constraintStart_toStartOf="@+id/textView43"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="@+id/details_saving_tv"
+            app:layout_constraintStart_toStartOf="@+id/details_buyat_tv2"
             app:layout_constraintTop_toBottomOf="@+id/btnCloseStore" />
 
         <TextView
