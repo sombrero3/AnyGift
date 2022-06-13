@@ -23,6 +23,8 @@ import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -50,7 +52,7 @@ import java.util.HashMap;
 public class EditProfileFragment extends Fragment {
 
 
-    TextView emailTv,headerEmailTv,headerNameTv,headerCoinsTv;
+    TextView emailTv,headerEmailTv,headerNameTv,headerCoinsTv,titleTopTv,titleButtomTv;
     View view;
     NavigationView navigationView;
 //    UserViewModel userViewModel;
@@ -59,6 +61,8 @@ public class EditProfileFragment extends Fragment {
     com.example.anygift.Retrofit.User temp;
     ImageButton cameraBtn;
     ImageView profileImage,headerImageIv;
+    View titleLineView;
+    Animation rightAnim;
     ProgressBar pb;
 
     @Override
@@ -76,6 +80,14 @@ public class EditProfileFragment extends Fragment {
         profileImage = view.findViewById(R.id.editProfileF_image);
         profileImage.setTag("");
         emailTv = view.findViewById(R.id.editProfile_email_tv);
+
+        titleLineView = view.findViewById(R.id.editProfileF_title_line_view);
+        titleTopTv = view.findViewById(R.id.editProfileF_title_top_tv);
+        titleButtomTv = view.findViewById(R.id.editProfileF_title_bottom_tv);
+        rightAnim = AnimationUtils.loadAnimation(getActivity(), R.anim.right_anim);
+        titleLineView.setAnimation(rightAnim);
+        titleTopTv.setAnimation(rightAnim);
+        titleButtomTv.setAnimation(rightAnim);
 //        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
 
         temp = Model.instance.getSignedUser();

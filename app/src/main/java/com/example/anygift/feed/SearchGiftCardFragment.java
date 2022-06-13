@@ -1,8 +1,10 @@
 package com.example.anygift.feed;
 
 import android.app.DatePickerDialog;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -17,10 +19,12 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.example.anygift.OnItemClickListener;
@@ -38,7 +42,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class SearchGiftCardFragment extends Fragment {
-    TextView dateTv;
+    TextView dateTv,spinnerTypeTitleTv,spinnerCategoryTitleTv;
+
     DatePickerDialog.OnDateSetListener dateListener;
     EditText maxPriceEt;
     Button searchBtn;
@@ -49,6 +54,7 @@ public class SearchGiftCardFragment extends Fragment {
     List<String> cardTypes,categories;
     String cardTypeId="Any",categoryId="Any";
     ProgressBar pb;
+    Switch filterSw;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -60,6 +66,9 @@ public class SearchGiftCardFragment extends Fragment {
         pb.setVisibility(View.VISIBLE);
         spinnerCardType = (Spinner) view.findViewById(R.id.search_card_type_spinner);
         spinnerCategories = view.findViewById(R.id.search_category_spinner);
+        spinnerTypeTitleTv = view.findViewById(R.id.search_spinner_type_title_tv);
+        spinnerCategoryTitleTv = view.findViewById(R.id.search_spinner_category_title_tv);
+        filterSw = view.findViewById(R.id.search_switch);
 
         RecyclerView cardsList = view.findViewById(R.id.search_result_rv);
         cardsList.setHasFixedSize(true);
@@ -128,7 +137,50 @@ public class SearchGiftCardFragment extends Fragment {
             }
         };
 
+        filterSw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (!b) {
+                    filterSw.setThumbTintList(ColorStateList.valueOf(getResources().getColor(R.color.coins)));
+                    filterSw.setTrackTintList(ColorStateList.valueOf(getResources().getColor(R.color.pink)));
+                    filterSw.setTextColor(getResources().getColor(R.color.coins));
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                        filterSw.setOutlineAmbientShadowColor(getResources().getColor(R.color.pink));
+                    }
+
+                    filterSw.setText("Hide Filter");
+                    showSearch();
+                } else {
+                    filterSw.setThumbTintList(ColorStateList.valueOf(getResources().getColor(R.color.pink)));
+                    filterSw.setTrackTintList(ColorStateList.valueOf(getResources().getColor(R.color.coins)));
+                    filterSw.setTextColor(getResources().getColor(R.color.pink));
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                        filterSw.setOutlineAmbientShadowColor(getResources().getColor(R.color.coins));
+                    }
+                    filterSw.setText("Show Filter");
+                    hideSearch();
+                }
+            }
+        });
         return view;
+    }
+    private void hideSearch(){
+        spinnerCardType.setVisibility(View.GONE);
+        dateTv.setVisibility(View.GONE);
+        searchBtn.setVisibility(View.GONE);
+        maxPriceEt.setVisibility(View.GONE);
+        spinnerTypeTitleTv.setVisibility(View.GONE);
+        spinnerCategories.setVisibility(View.GONE);
+        spinnerCategoryTitleTv.setVisibility(View.GONE);
+    }
+    private void showSearch(){
+        spinnerCardType.setVisibility(View.VISIBLE);
+        dateTv.setVisibility(View.VISIBLE);
+        maxPriceEt.setVisibility(View.VISIBLE);
+        searchBtn.setVisibility(View.VISIBLE);
+        spinnerTypeTitleTv.setVisibility(View.VISIBLE);
+        spinnerCategories.setVisibility(View.VISIBLE);
+        spinnerCategoryTitleTv.setVisibility(View.VISIBLE);
     }
 
 

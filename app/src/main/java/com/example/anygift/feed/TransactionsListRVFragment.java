@@ -12,7 +12,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.example.anygift.OnItemClickListener;
 import com.example.anygift.R;
@@ -30,6 +33,9 @@ public class TransactionsListRVFragment extends Fragment {
     TransactionsAdapter adapter;
     List<CardTransaction> tranList;
     ProgressBar pb;
+    View titleLineView;
+    TextView titleTopTv,titleButtomTv;
+    Animation rightAnim;
     SwipeRefreshLayout swipeRefresh;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -38,6 +44,16 @@ public class TransactionsListRVFragment extends Fragment {
         View view =  inflater.inflate(R.layout.fragment_transactions_list_rv, container, false);
         pb = view.findViewById(R.id.tran_list_pb);
         pb.setVisibility(View.VISIBLE);
+
+        titleLineView = view.findViewById(R.id.transuctions_rv_line);
+        titleTopTv = view.findViewById(R.id.transuctions_rv_title_top);
+        titleButtomTv = view.findViewById(R.id.transuctions_rv_title_bottom);
+        rightAnim = AnimationUtils.loadAnimation(getActivity(), R.anim.right_anim);
+        titleLineView.setAnimation(rightAnim);
+        titleTopTv.setAnimation(rightAnim);
+        titleButtomTv.setAnimation(rightAnim);
+
+
         swipeRefresh = view.findViewById(R.id.tran_rv_swiperefresh);
         rv = view.findViewById(R.id.transactions_rv);
         rv.setHasFixedSize(true);

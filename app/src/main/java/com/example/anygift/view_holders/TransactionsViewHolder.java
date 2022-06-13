@@ -53,7 +53,11 @@ public class TransactionsViewHolder extends RecyclerView.ViewHolder{
         for(CardType ct: Model.instance.cardTypes){
             if(ct.getId().equals(tran.getCardType())){
                 typeNameTv.setText(ct.getName());
-                typeIv.setImageBitmap(ct.getPicture());
+                if(ct.getPicture()!=null) {
+                    typeIv.setImageBitmap(ct.getPicture());
+                }else{
+                    typeIv.setImageResource(R.drawable.gift_card_logo_card);
+                }
             }
         }
 

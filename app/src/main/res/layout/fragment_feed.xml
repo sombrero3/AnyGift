@@ -108,7 +108,7 @@
                 app:layout_constraintTop_toTopOf="@+id/feed_card_category_spinner" />
 
             <TextView
-                android:id="@+id/feed_spinner_title_tv"
+                android:id="@+id/feed_spinner_type_title_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -136,7 +136,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/feed_date_tv"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/feed_spinner_title_tv" />
+                app:layout_constraintTop_toBottomOf="@+id/feed_spinner_type_title_tv" />
 
             <Button
                 android:id="@+id/feed_search_btn"
@@ -170,7 +170,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/feed_card_type_spinner"
-                app:layout_constraintTop_toBottomOf="@+id/feed_spinner_title_tv" />
+                app:layout_constraintTop_toBottomOf="@+id/feed_spinner_type_title_tv" />
 
             <ProgressBar
                 android:id="@+id/feed_progressBar"
@@ -203,10 +203,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:text="Filter"
-                android:textColor="@color/purple_dark"
-                android:textColorHighlight="@color/pink"
-                android:textColorLink="@color/red_1"
+                android:text="Show Filter"
+                android:textColor="@color/coins"
+                android:shadowColor="@color/pink"
+                android:shadowDx="3"
+                android:shadowDy="3"
+                android:shadowRadius="1.6"
+                android:thumbTint="@color/coins"
+                android:trackTint="@color/pink"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/feed_verification_btn" />
 
@@ -252,7 +256,7 @@
                 android:layout_height="30dp"
                 android:layout_marginTop="4dp"
                 app:layout_constraintBottom_toBottomOf="@+id/textView4"
-                app:layout_constraintEnd_toStartOf="@+id/imageView18"
+                app:layout_constraintEnd_toStartOf="@+id/feed_add_card_iv"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/feed_wallet_iv"
                 app:layout_constraintTop_toTopOf="parent"
@@ -266,12 +270,12 @@
                 app:layout_constraintBottom_toBottomOf="@+id/textView4"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/imageView18"
+                app:layout_constraintStart_toEndOf="@+id/feed_add_card_iv"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/transactions2" />
 
             <ImageView
-                android:id="@+id/imageView18"
+                android:id="@+id/feed_add_card_iv"
                 android:layout_width="33dp"
                 android:layout_height="33dp"
                 android:layout_marginTop="6dp"
@@ -298,7 +302,7 @@
         android:tint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/add_black_icon"
+        app:srcCompat="@drawable/search_icon_blue"
         tools:ignore="SpeakableTextPresentCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
