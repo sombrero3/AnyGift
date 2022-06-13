@@ -4,47 +4,55 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SplashActivity"
-    android:background="@drawable/pink_dark_bg">
+    android:background="@drawable/pink_dark_bg"
+    tools:context=".SplashActivity">
 
     <TextView
         android:id="@+id/splash_title_1_tv"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="24dp"
+        android:gravity="right"
         android:text="Any"
         android:textColor="@color/grey_1"
         android:textSize="34sp"
         android:textStyle="italic"
         app:layout_constraintBottom_toTopOf="@+id/splash_title_4_tv"
-        app:layout_constraintStart_toStartOf="@+id/splash_title_4_tv" />
+        app:layout_constraintEnd_toStartOf="@+id/splash_title_2_tv"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/splash_title_2_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="G"
-        android:textColor="@color/pink"
         android:shadowColor="@color/black"
         android:shadowDx="1.5"
         android:shadowDy="1.3"
         android:shadowRadius="1.6"
+        android:text="G"
         android:textAllCaps="true"
+        android:textColor="@color/pink"
         android:textSize="34sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/splash_title_1_tv"
+        app:layout_constraintEnd_toStartOf="@+id/splash_title_3_tv"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/splash_title_1_tv"
         app:layout_constraintTop_toTopOf="@+id/splash_title_1_tv" />
 
     <TextView
         android:id="@+id/splash_title_3_tv"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:gravity="left"
         android:text="ift"
         android:textColor="@color/grey_1"
         android:textSize="34sp"
         android:textStyle="italic"
         app:layout_constraintBottom_toBottomOf="@+id/splash_title_2_tv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/splash_title_2_tv"
         app:layout_constraintTop_toTopOf="@+id/splash_title_2_tv" />
 

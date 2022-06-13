@@ -22,7 +22,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
-        android:fontFamily="sans-serif-medium"
         android:text="Transactions History"
         android:textColor="@color/coins"
         android:textSize="18sp"
