@@ -358,7 +358,6 @@
                 android:layout_height="wrap_content"
                 android:height="30dp"
                 android:textColor="@color/blue_dark"
-                android:fontFamily="sans-serif-medium"
                 android:hint="Enter your feedback here"
                 tools:ignore="TouchTargetSizeCheck" />
         </com.google.android.material.textfield.TextInputLayout>
