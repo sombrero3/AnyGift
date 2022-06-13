@@ -122,8 +122,8 @@
         android:layout_height="30dp"
         android:layout_marginTop="38dp"
         android:layout_marginBottom="32dp"
-        android:textColor="@color/pink"
-        android:background="@drawable/button_border_radious_25_blue"      
+        android:textColor="@color/coins"
+        android:background="@drawable/button_full_1"
         android:fontFamily="sans-serif-medium"
         android:text="Confirm"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -139,7 +139,7 @@
         android:layout_marginTop="32dp"
         android:fontFamily="sans-serif-medium"
         android:text="Choose Card Type:"
-        android:textColor="@color/blue_dark"
+        android:textColor="@color/coins"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/add_giftCardImage" />
 
@@ -164,7 +164,7 @@
         android:id="@+id/add_card_publisher_background"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@drawable/box_background_blue_dark_light"
+        android:background="@drawable/button_full_1"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="-16dp"
         android:visibility="gone"
@@ -223,6 +223,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:visibility="gone"
+        android:textColor="@color/white"
         android:text="Please Choose Categories"
         app:layout_constraintEnd_toEndOf="@+id/add_card_categories_btn"
         app:layout_constraintStart_toStartOf="@+id/add_card_categories_btn"
@@ -289,7 +290,7 @@
         android:layout_marginTop="24dp"
         android:fontFamily="sans-serif-medium"
         android:text="Publish card for sale"
-        android:textColor="@color/blue_dark"
+        android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="@+id/textInputLayout5"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout5" />
 

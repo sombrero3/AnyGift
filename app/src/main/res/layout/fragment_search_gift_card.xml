@@ -25,7 +25,7 @@
         android:layout_marginTop="16dp"
         android:fontFamily="sans-serif-medium"
         android:text="Choose card type :"
-        android:textColor="@color/blue_dark"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="@+id/search_card_type_spinner"
         app:layout_constraintStart_toStartOf="@+id/search_card_type_spinner"
         app:layout_constraintTop_toBottomOf="@+id/search_switch" />
@@ -76,9 +76,9 @@
         android:layout_width="wrap_content"
         android:layout_height="30dp"
         android:layout_marginTop="24dp"
-        android:background="@drawable/button_border_radious_25_blue"
+        android:background="@drawable/button_full_2"
         android:text="Search"
-        android:textColor="@color/blue_dark"
+        android:textColor="@color/coins"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/search_category_spinner"
@@ -145,7 +145,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-medium"
         android:text="Choose Category :"
-        android:textColor="@color/blue_dark"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/search_category_spinner"
         app:layout_constraintEnd_toEndOf="@+id/search_category_spinner"
         app:layout_constraintStart_toStartOf="@+id/search_category_spinner" />
@@ -188,8 +188,8 @@
 
         android:textColor="@color/coins"
         android:shadowColor="@color/pink"
-        android:shadowDx="3"
-        android:shadowDy="3"
+        android:shadowDx="2"
+        android:shadowDy="2"
         android:shadowRadius="1.6"
 
         app:layout_constraintEnd_toEndOf="parent"
