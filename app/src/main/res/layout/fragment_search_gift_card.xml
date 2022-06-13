@@ -175,7 +175,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
-        android:backgroundTint="@color/pink"
         android:text="Hide Filter"
         android:thumbTint="@color/coins"
         android:trackTint="@color/pink"

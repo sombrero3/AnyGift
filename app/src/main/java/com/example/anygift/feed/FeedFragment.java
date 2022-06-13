@@ -67,7 +67,7 @@ public class FeedFragment extends Fragment {
     Switch filterSw;
     String cardTypeId="Any",categoryId ="Any";
     ProgressBar pb;
-    Animation bottomAnim,rightAnim;
+    Animation bottomAnim,rightAnim,topAnim;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -101,9 +101,10 @@ public class FeedFragment extends Fragment {
         addCardIv = view.findViewById(R.id.feed_add_card_iv);
 
         //animations
+        topAnim = AnimationUtils.loadAnimation(getActivity(),R.anim.top_anim);
         rightAnim = AnimationUtils.loadAnimation(getActivity(),R.anim.right_anim);
-        filterSw.setAnimation(rightAnim);
         bottomAnim = AnimationUtils.loadAnimation(getActivity(),R.anim.bottom_anim);
+        filterSw.setAnimation(rightAnim);
         mostRecTv.setAnimation(bottomAnim);
 
         mosetRecCl = new ArrayList<>();
@@ -153,7 +154,7 @@ public class FeedFragment extends Fragment {
         if(Model.instance.getSignedUser().getVerified()){
             verificationBtn.setVisibility(View.GONE);
         }else{
-            verificationBtn.setAnimation(bottomAnim);
+            verificationBtn.setAnimation(topAnim);
             verificationBtn.setOnClickListener(v -> Navigation.findNavController(v).navigate(R.id.action_global_verificationFragment));
         }
 
@@ -161,11 +162,11 @@ public class FeedFragment extends Fragment {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if (b) {
-                    filterSw.setThumbTintList(ColorStateList.valueOf(getResources().getColor(R.color.pink)));
-                    filterSw.setTrackTintList(ColorStateList.valueOf(getResources().getColor(R.color.coins)));
-                    filterSw.setTextColor(getResources().getColor(R.color.pink));
+                    filterSw.setThumbTintList(ColorStateList.valueOf(getResources().getColor(R.color.blue_dark)));
+                    filterSw.setTrackTintList(ColorStateList.valueOf(getResources().getColor(R.color.blue_dark)));
+                    filterSw.setTextColor(getResources().getColor(R.color.blue_dark));
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                        filterSw.setOutlineAmbientShadowColor(getResources().getColor(R.color.coins));
+                        filterSw.setOutlineAmbientShadowColor(getResources().getColor(R.color.pink));
                     }
                     filterSw.setText("Hide Filter");
                     showSearch();
@@ -174,7 +175,7 @@ public class FeedFragment extends Fragment {
                     filterSw.setTrackTintList(ColorStateList.valueOf(getResources().getColor(R.color.pink)));
                     filterSw.setTextColor(getResources().getColor(R.color.coins));
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                        filterSw.setOutlineAmbientShadowColor(getResources().getColor(R.color.pink));
+                        filterSw.setOutlineAmbientShadowColor(getResources().getColor(R.color.black));
                     }
                     filterSw.setText("Show Filter");
                     hideSearch();

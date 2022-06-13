@@ -57,7 +57,7 @@ public class EditProfileFragment extends Fragment {
     NavigationView navigationView;
 //    UserViewModel userViewModel;
     EditText firstNameEt, lastNameEt, phoneEt;
-    Button saveBtn;
+    Button saveBtn,cancelBtn;
     com.example.anygift.Retrofit.User temp;
     ImageButton cameraBtn;
     ImageView profileImage,headerImageIv;
@@ -80,6 +80,8 @@ public class EditProfileFragment extends Fragment {
         profileImage = view.findViewById(R.id.editProfileF_image);
         profileImage.setTag("");
         emailTv = view.findViewById(R.id.editProfile_email_tv);
+        cancelBtn = view.findViewById(R.id.editProfile_cancel_btn);
+        cameraBtn = view.findViewById(R.id.editProfile_imageButton);
 
         titleLineView = view.findViewById(R.id.editProfileF_title_line_view);
         titleTopTv = view.findViewById(R.id.editProfileF_title_top_tv);
@@ -100,14 +102,8 @@ public class EditProfileFragment extends Fragment {
             showProfilePic();
         }
 
-
-        cameraBtn = view.findViewById(R.id.editProfile_imageButton);
-        cameraBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                editImage();
-            }
-        });
+        cancelBtn.setOnClickListener(v -> Navigation.findNavController(v).navigateUp());
+        cameraBtn.setOnClickListener(v -> editImage());
 
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
