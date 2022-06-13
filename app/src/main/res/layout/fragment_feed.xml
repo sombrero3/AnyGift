@@ -37,7 +37,7 @@
                 android:layout_width="0dp"
                 android:layout_marginTop="2dp"
                 android:layout_marginEnd="2dp"
-                android:background="#AFACAC"
+                android:background="@color/grey_2"
                 app:layout_constraintEnd_toEndOf="@+id/feed_most_rec_tv"
                 app:layout_constraintStart_toStartOf="@+id/feed_most_rec_tv"
                 app:layout_constraintTop_toBottomOf="@+id/feed_most_rec_tv" />
@@ -68,8 +68,9 @@
                 android:id="@+id/feed_most_rec_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Most recommended :"
-                android:textColor="@color/blue_dark"
+                android:layout_marginTop="12dp"
+                android:text="most recommended :"
+                android:textColor="@color/grey_2"
                 android:textSize="12sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -129,15 +130,20 @@
 
             <Button
                 android:id="@+id/feed_search_btn"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="30dp"
                 android:layout_marginTop="32dp"
-                android:background="@drawable/button_border_radious_25_blue"
+                android:background="@drawable/button_full_4"
                 android:elevation="5dp"
+                android:shadowColor="@color/black"
+                android:shadowDx="2"
+                android:shadowDy="2"
+                android:shadowRadius="1.6"
                 android:text="search"
-                android:textColor="@color/pink_dark"
+                android:textColor="@color/blue_dark"
                 android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="@+id/feed_max_price_et"
+                app:layout_constraintEnd_toEndOf="@+id/feed_most_rec_tv"
+                app:layout_constraintStart_toStartOf="@+id/feed_most_rec_tv"
                 app:layout_constraintTop_toBottomOf="@+id/feed_max_price_et" />
 
 
@@ -175,13 +181,10 @@
                 android:id="@+id/feed_verification_btn"
                 android:layout_width="0dp"
                 android:layout_height="30dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="16dp"
-                android:background="@drawable/button_border_8sp_blue_dark"
+                android:background="#1B1A1A"
                 android:elevation="5dp"
                 android:text="  Complete Verification  "
-                android:textColor="@color/green_saving"
+                android:textColor="#0ACC12"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView4" />
@@ -194,7 +197,6 @@
                 android:layout_marginEnd="16dp"
                 android:text="Show Filter"
                 android:textColor="@color/coins"
-                android:shadowColor="@color/pink"
                 android:shadowDx="2"
                 android:shadowDy="2"
                 android:shadowRadius="1.6"
@@ -232,6 +234,7 @@
                 android:id="@+id/feed_wallet_iv"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
+                android:layout_marginBottom="4dp"
                 app:layout_constraintBottom_toBottomOf="@+id/textView4"
                 app:layout_constraintEnd_toStartOf="@+id/feed_shop_iv"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -241,39 +244,37 @@
 
             <ImageView
                 android:id="@+id/feed_shop_iv"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginTop="4dp"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
                 app:layout_constraintBottom_toBottomOf="@+id/textView4"
                 app:layout_constraintEnd_toStartOf="@+id/feed_add_card_iv"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/feed_wallet_iv"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/shop_icon_1" />
+                app:srcCompat="@drawable/store_icon_white" />
 
             <ImageView
                 android:id="@+id/feed_transactions_iv"
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:layout_marginTop="2dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginTop="1dp"
                 app:layout_constraintBottom_toBottomOf="@+id/textView4"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/feed_add_card_iv"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/transactions2" />
+                app:srcCompat="@drawable/transuction_icon_white" />
 
             <ImageView
                 android:id="@+id/feed_add_card_iv"
-                android:layout_width="33dp"
-                android:layout_height="33dp"
-                android:layout_marginTop="6dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 app:layout_constraintBottom_toBottomOf="@+id/textView4"
                 app:layout_constraintEnd_toStartOf="@+id/feed_transactions_iv"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/feed_shop_iv"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/add_card_icon" />
+                app:srcCompat="@drawable/_add_card_icon_white" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

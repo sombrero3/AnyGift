@@ -151,11 +151,11 @@ public class SearchGiftCardFragment extends Fragment {
                     filterSw.setText("Hide Filter");
                     showSearch();
                 } else {
-                    filterSw.setThumbTintList(ColorStateList.valueOf(getResources().getColor(R.color.pink)));
-                    filterSw.setTrackTintList(ColorStateList.valueOf(getResources().getColor(R.color.coins)));
-                    filterSw.setTextColor(getResources().getColor(R.color.pink));
+                    filterSw.setThumbTintList(ColorStateList.valueOf(getResources().getColor(R.color.blue_dark)));
+                    filterSw.setTrackTintList(ColorStateList.valueOf(getResources().getColor(R.color.blue_dark)));
+                    filterSw.setTextColor(getResources().getColor(R.color.blue_dark));
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                        filterSw.setOutlineAmbientShadowColor(getResources().getColor(R.color.coins));
+                        filterSw.setOutlineAmbientShadowColor(getResources().getColor(R.color.pink));
                     }
                     filterSw.setText("Show Filter");
                     hideSearch();

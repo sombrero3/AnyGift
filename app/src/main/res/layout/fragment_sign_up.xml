@@ -18,7 +18,6 @@
             android:layout_height="wrap_content"
             android:text="Any"
             android:textSize="34dp"
-            android:textStyle="italic"
             app:layout_constraintBottom_toBottomOf="@+id/textView38"
             app:layout_constraintEnd_toStartOf="@+id/textView38"
             app:layout_constraintTop_toTopOf="@+id/textView38" />
@@ -42,7 +41,6 @@
             android:layout_height="wrap_content"
             android:text="ift"
             android:textSize="34dp"
-            android:textStyle="italic"
             app:layout_constraintBottom_toBottomOf="@+id/textView38"
             app:layout_constraintStart_toEndOf="@+id/textView38"
             app:layout_constraintTop_toTopOf="@+id/textView38" />
@@ -144,10 +142,10 @@
 
         <Button
             android:id="@+id/SignUp_continue_btn"
-            android:layout_width="133dp"
-            android:layout_height="30dp"
-            android:layout_marginTop="48dp"
-            android:layout_marginBottom="32dp"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="40dp"
             android:background="@drawable/button_border_radious_25_blue"
             android:text="  Create Account  "
             android:textColor="@color/pink"

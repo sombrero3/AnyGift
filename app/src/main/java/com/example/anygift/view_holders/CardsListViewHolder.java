@@ -50,9 +50,9 @@ public class CardsListViewHolder extends RecyclerView.ViewHolder{
         picIv.setImageResource(R.drawable.gift_card_logo_card);
 
         if(card.getPrice().equals(card.getCalculatedPrice())){
-                    firstPriceTextTv.setVisibility(View.INVISIBLE);
-                    firstPriceTv.setVisibility(View.INVISIBLE);
-                    line.setVisibility(View.INVISIBLE);
+                    firstPriceTextTv.setVisibility(View.GONE);
+                    firstPriceTv.setVisibility(View.GONE);
+                    line.setVisibility(View.GONE);
         }else{
             firstPriceTv.setText(card.getPrice().toString());
         }

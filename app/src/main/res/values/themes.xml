@@ -12,7 +12,7 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
-        <item name="android:fontFamily">@font/environment_regular</item>
+        <item name="android:fontFamily">@font/bai_jamjuree_regular</item>
     </style>
     <style name="line">
         <item name="android:background">@color/black</item>
