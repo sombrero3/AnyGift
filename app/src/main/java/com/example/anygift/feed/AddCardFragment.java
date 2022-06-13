@@ -301,6 +301,9 @@ public class AddCardFragment extends Fragment {
     }
 
     private void upload() {
+        String num=cardNumber.getText().toString();
+        if (num.length()!=16)
+            Toast.makeText(getContext(), "You need to input valid card number!", Toast.LENGTH_SHORT).show();
         String name = publisherNameEt.getText().toString();
         if(name.equals("")){
             Toast.makeText(getContext(), "You need to add publisher name!", Toast.LENGTH_SHORT).show();
