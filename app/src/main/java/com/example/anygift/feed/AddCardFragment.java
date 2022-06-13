@@ -26,6 +26,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.anygift.R;
 import com.example.anygift.Retrofit.Card;
@@ -301,26 +302,29 @@ public class AddCardFragment extends Fragment {
 
     private void upload() {
         String name = publisherNameEt.getText().toString();
-        List<String> ids = new ArrayList<>();
-        System.out.println(categoriesTv.getText().toString().split(","));
-        List<String> names  = Arrays.asList(categoriesTv.getText().toString().split(","));
-        for (String n: names){
-            for(Category category : categories){
-                if (n.trim().equals(category.getName()))
-                    ids.add(category.getId());
+        if(name.equals("")){
+            Toast.makeText(getContext(), "You need to add publisher name!", Toast.LENGTH_SHORT).show();
+        }else {
+            List<String> ids = new ArrayList<>();
+            System.out.println(categoriesTv.getText().toString().split(","));
+            List<String> names = Arrays.asList(categoriesTv.getText().toString().split(","));
+            for (String n : names) {
+                for (Category category : categories) {
+                    if (n.trim().equals(category.getName()))
+                        ids.add(category.getId());
+                }
             }
+            System.out.println(ids);
+            HashMap<String, Object> map = new HashMap<>();
+            map.put("name", name);
+            map.put("categories", ids);
+            Model.instance.modelRetrofit.addCardType(map, new Model.cardTypeReturnListener() {
+                @Override
+                public void onComplete(CardType ct) {
+                    addCard(ct.getId());
+                }
+            });
         }
-        System.out.println(ids);
-        HashMap<String, Object> map = new HashMap<>();
-        map.put("name", name);
-        map.put("categories", ids);
-        Model.instance.modelRetrofit.addCardType(map, new Model.cardTypeReturnListener() {
-            @Override
-            public void onComplete(CardType ct) {
-                addCard(ct.getId());
-            }
-        });
-
         //
     }
 
