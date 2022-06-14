@@ -98,7 +98,7 @@
             android:layout_height="40dp"
             android:layout_marginTop="32dp"
             android:background="@drawable/button_border_radious_25_blue"
-            android:text="Sign In"
+            android:text="  Sign In  "
             android:textColor="@color/pink_dark"
             app:layout_constraintEnd_toEndOf="@+id/textInputLayout3"
             app:layout_constraintStart_toStartOf="@+id/textInputLayout3"
@@ -138,6 +138,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="166dp"
             android:layout_marginEnd="197dp"
+            android:indeterminateDrawable="@drawable/progress_bar_design"
+            android:indeterminate="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -151,7 +153,6 @@
             android:layout_marginTop="56dp"
             android:text="Any"
             android:textSize="34dp"
-            android:textStyle="italic"
             app:layout_constraintEnd_toStartOf="@+id/textView34"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -174,7 +175,6 @@
             android:layout_height="wrap_content"
             android:text="ift"
             android:textSize="34dp"
-            android:textStyle="italic"
             app:layout_constraintBottom_toBottomOf="@+id/textView34"
             app:layout_constraintStart_toEndOf="@+id/textView34"
             app:layout_constraintTop_toTopOf="@+id/textView34" />
