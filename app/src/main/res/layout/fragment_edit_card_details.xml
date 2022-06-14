@@ -250,6 +250,8 @@
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:visibility="invisible"
+            android:indeterminateDrawable="@drawable/progress_bar_design"
+            android:indeterminate="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
